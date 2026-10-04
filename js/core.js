@@ -1,8 +1,9 @@
 import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from './data.js';
 import { CONTEXTS,worldContext,contextLabels } from './context.js';
 import { availablePool,priorityPlan,themeMask,bitCount,MAJOR_FIELDS } from './priority.js';
+import {COHERENCE,COHESION_WEIGHTS,focusTopics,knownTopics,cohesionMultiplier} from './cohesion.js';
 export const clone = value => JSON.parse(JSON.stringify(value));
-export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,contextMatch:1.5,recent:0.25,characterDuplicate:0.35});
+export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,contextMatch:1.5,recent:0.25,characterDuplicate:0.35,...COHESION_WEIGHTS});
 export const OPTIONAL = [
  ['protagonist.role','主人公の立場・役割'],['protagonist.goal','主人公の目的'],['protagonist.secret','主人公の秘密'],
  ['counterpart.role','相手役の立場・役割'],['counterpart.goal','相手役の目的'],['counterpart.secret','相手役の秘密'],
@@ -11,7 +12,7 @@ export const OPTIONAL = [
 export const FIELDS = [...BASIC,...OPTIONAL];
 export const QUESTION_CATEGORIES = [['world','世界観'],['character','人物・関係性'],['plot','物語を動かす'],['consistency','設定を確かめる']];
 export function emptyState() {
- return {schemaVersion:2,loadedWorkId:null,settings:{stage:'all',tone:3,purpose:PURPOSES[1],themes:[]},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
+ return {schemaVersion:2,loadedWorkId:null,settings:{stage:'all',tone:3,purpose:PURPOSES[1],themes:[],coherence:'cohesive'},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
 }
 export function weightedPick(list, weightFn, rng=Math.random) {
  if(!list.length)return null;
@@ -20,7 +21,7 @@ export function weightedPick(list, weightFn, rng=Math.random) {
  for(let i=0;i<list.length;i++){cursor-=weights[i];if(cursor<0)return list[i];}
  return list.at(-1);
 }
-export function weightFor(item, state, key, recent=[]) {
+export function weightFor(item, state, key, recent=[],axes) {
  const world=state.items.world;
  const tags=world?.source==='custom' ? (state.settings.stage==='all'?[]:[state.settings.stage]) : (world?.stageTags||[]);
  let weight=key==='world'?1:!item.stageTags.length?WEIGHTS.generic:item.stageTags.some(t=>tags.includes(t))?WEIGHTS.stageMatch:WEIGHTS.stageMismatch;
@@ -28,14 +29,17 @@ export function weightFor(item, state, key, recent=[]) {
  if((item.contextTags||[]).some(t=>worldContext(state).includes(t)))weight*=WEIGHTS.contextMatch;
  if(/\.(goal|secret)$/.test(key)){const other=key.startsWith('protagonist.')?key.replace('protagonist.','counterpart.'):key.replace('counterpart.','protagonist.');if(state.items[other]?.text===item.text)weight*=WEIGHTS.characterDuplicate;}
  if(recent.includes(item.id))weight*=WEIGHTS.recent;
+ if(key==='relation'&&state.settings.purpose==='AIキャラプロットの種'&&item.relationShape==='pair')weight*=WEIGHTS.pairPreference;
+ if(key!=='world')weight*=cohesionMultiplier(item,state,key,axes);
  return weight;
 }
 export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,recent={},data=DATA}={}) {
  const notices=[],themes=state.settings.themes,allBasic=BASIC.every(([k])=>keys.includes(k));let changed=0;
+ let axes=[];
  const related=item=>Boolean(themeMask(item,themes));
  function pick(key,pool){
-  const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[]),rng);
-  const {id,origin,primaryPack,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
+  const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[],axes),rng);
+  const {id,origin,primaryPack,storyGroup,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
   recent[key]=[...(recent[key]||[]),picked.id].slice(-10);changed++;
  }
  function shortage(key,info){
@@ -61,7 +65,10 @@ export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,rec
    pick('world',pool);
   }
  }
- const otherKeys=keys.filter(k=>k!=='world'),context=worldContext(state),pools={},infos={};
+ axes=state.settings.coherence==='cohesive'?focusTopics(state,rng):[];
+ const ordering=['relation','incident','conflict','gimmick','twist','genre'];
+ const otherKeys=keys.filter(k=>k!=='world');if(state.settings.coherence==='cohesive')otherKeys.sort((a,b)=>(ordering.indexOf(a)<0?20:ordering.indexOf(a))-(ordering.indexOf(b)<0?20:ordering.indexOf(b)));
+ const context=worldContext(state),pools={},infos={};
  for(const key of otherKeys)if(!state.locks[key]){infos[key]=availablePool(state,key,data,context);pools[key]=infos[key].pool;}
  const baseKeys=keys.filter(k=>k==='world'||state.locks[k]||!pools[k]?.length);
  const baseMask=baseKeys.reduce((mask,k)=>mask|themeMask(state.items[k],themes),0),baseCount=baseKeys.filter(k=>related(state.items[k])).length,baseMajor=baseKeys.filter(k=>MAJOR_FIELDS.includes(k)&&related(state.items[k])).length;
@@ -71,6 +78,9 @@ export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,rec
   if(state.locks[key])continue;let pool=pools[key];if(!pool.length){shortage(key,infos[key]);continue;}
   if(plan[key])pool=pool.filter(item=>themeMask(item,themes)===plan[key]);
   pick(key,pool);
+  if(state.settings.coherence==='cohesive'&&['relation','incident'].includes(key)){
+   const incoming=knownTopics(state.items[key]);if(!axes.length)axes=incoming.slice(0,2);else if(axes.length<2&&incoming.some(t=>axes.includes(t)))axes=[...new Set([...axes,...incoming])].slice(0,2);
+  }
  }
  const relatedCount=keys.filter(k=>related(state.items[k])).length,mask=keys.reduce((m,k)=>m|themeMask(state.items[k],themes),0),unavailableThemes=[];
  if(themes.length){
@@ -88,7 +98,8 @@ export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,rec
   }
  }
  if(!changed&&!notices.length)notices.push('対象の項目はすべて固定中です。固定を解除すると引き直せます。');
- return {changed,notices,relatedCount,unavailableThemes};
+ if(changed&&allBasic&&state.settings.coherence==='cohesive'&&themes.length>1&&axes.length&&MAJOR_FIELDS.filter(k=>knownTopics(state.items[k]).length&&!knownTopics(state.items[k]).some(t=>axes.includes(t))).length>=3)notices.push('この組み合わせは、つなぎ方を考える余地があります。');
+ return {changed,notices,relatedCount,unavailableThemes,focusTopics:axes};
 }
 export function editField(state,key,text,titleWord='',contextTags=[]) {
  if(!FIELDS.some(([k])=>k===key))throw new Error('不明な項目です。');
@@ -98,11 +109,12 @@ export function editField(state,key,text,titleWord='',contextTags=[]) {
  if(!Array.isArray(contextTags)||contextTags.length>8||new Set(contextTags).size!==contextTags.length||contextTags.some(t=>!CONTEXTS.some(([id])=>id===t)))throw new Error('世界の背景要素が不正です。');
  const old=state.items[key],sameBackground=key!=='world'||JSON.stringify(old?.contextTags||[])===JSON.stringify(contextTags)||(old?.source!=='custom'&&!contextTags.length);
  if(old?.text===text&&old?.titleWord===titleWord&&sameBackground)return false;
- state.items[key]={candidateId:null,text,titleWord,source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:key==='world'?[...contextTags]:[],requiresContext:[],...(key==='relation'?{relationShape:'neutral'}:{})};
+ state.items[key]={candidateId:null,text,titleWord,source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:key==='world'?[...contextTags]:[],requiresContext:[],topicTags:[],plotLinks:[],...(key==='relation'?{relationShape:'neutral'}:{})};
  state.locks[key]=true; return true;
 }
 export function updateSettings(state, patch) {
  const next={...state.settings,...patch};
+ if(!COHERENCE.some(([id])=>id===next.coherence))throw new Error('抽選方針が不正です。');
  if(!STAGES.some(([k])=>k===next.stage)||!Number.isInteger(next.tone)||next.tone<1||next.tone>5||!PURPOSES.includes(next.purpose))throw new Error('設定が不正です。');
  if(!Array.isArray(next.themes)||next.themes.length>3||new Set(next.themes).size!==next.themes.length||next.themes.some(x=>!THEMES.some(([k])=>k===x)))throw new Error('テーマは3つまで選べます。');
  state.settings=next;
@@ -172,6 +184,7 @@ export function refreshTexts(state,{rng=Math.random,randomize=true,titlesOnly=fa
 }
 export function markdown(state) {
  const lines=[`# ${state.metadata.name||state.texts.titles[0]||'無題のタネ'}`,'',`舞台：${STAGES.find(([k])=>k===state.settings.stage)?.[1]} / トーン：${TONES[state.settings.tone-1]} / 用途：${state.settings.purpose}`,`抽選テーマ：${state.settings.themes.map(k=>THEMES.find(([t])=>t===k)?.[1]).join('、')||'お任せ'}`,`整理用タグ：${state.metadata.tags.join('、')||'なし'}`,'','## 要約','',state.texts.summary,'','## 設定と構成メモ','',state.texts.memo,'','## 発想ヒント','',state.texts.hint,'','## タイトル案','',...state.texts.titles.map(t=>`- ${t}`)];
+ lines.splice(4,0,`抽選方針：${COHERENCE.find(([id])=>id===state.settings.coherence)?.[1]||'自由に混ぜる'}`);
  const background=contextLabels(state.items.world?.contextTags||[]);if(background.length)lines.push('','## 世界の背景要素','',background.join('、'));
  for(const [category,label] of QUESTION_CATEGORIES){const slots=state.questions[category];if(!slots.length)continue;lines.push('',`## 質問｜${label}`);for(const slot of slots)lines.push('',`### ${slot.text}`,'',slot.answer||'（未回答）');}
  if(state.metadata.notes)lines.push('','## 自由メモ','',state.metadata.notes);

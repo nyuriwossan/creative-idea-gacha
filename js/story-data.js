@@ -1,0 +1,143 @@
+// 第3回の新規定義。対応ペアは重みの手がかりであり、必須セットではない。
+const split=value=>!value||value==='-'?[]:value.split(',');
+const groups={beastfolk:['beastfolk'],'desert-court':['desert-court'],romantasy:['romantasy'],'cozy-fantasy':['cozy-fantasy'],general:['daily-work','journey'],bonds:['master-servant']};
+function item(key,group,slug,text,titleWord,tones,topics,links=[],requires=[],themes=null,contexts=requires){return {id:`story3-${group}-${key}-${slug}`,text,titleWord,tones:[...tones].map(Number),stageTags:['general','bonds'].includes(group)?[]:['fantasy'],themeTags:themes||groups[group],contextTags:contexts,requiresContext:key==='world'?[]:requires,topicTags:split(topics),plotLinks:links,source:'generated',origin:'story-round3',storyGroup:group,...(key==='relation'?{relationShape:'pair'}:{})};}
+export const STORY_BASIC=Object.fromEntries(['world','genre','relation','incident','conflict','gimmick','twist'].map(key=>[key,[]]));
+export const STORY_PAIRS=[];
+function pairs(group,lines){for(const line of lines.trim().split('\n')){const [slug,topics,tones,req,themes,conflict,cword,twist,tword]=line.split('|');const link=`pair-${group}-${slug}`;const common=[tones,topics,[link],split(req),themes==='-'?null:split(themes)];const c=item('conflict',group,slug,conflict,cword,...common),t=item('twist',group,slug,twist,tword,...common);STORY_BASIC.conflict.push(c);STORY_BASIC.twist.push(t);STORY_PAIRS.push({id:link,group,conflict:c.id,twist:t.id});}}
+pairs('beastfolk',`
+door-standard|interspecies,shared-home|1234|beastfolk|-|共用の入口を広げたいが、小柄な種族が落ち着ける場所も残したい|入口の寸法|種族別の入口だと思われた小扉は、誰でも静かに休める部屋へ続いていた|小扉の先
+festival-turn|interspecies,faith|1234|beastfolk|-|種族ごとの祭りを同じ日に開きたいが、互いの休息時間が重なる|祭りの時刻|祭りを分けた古い暦には、別の種族の休息を守る当番が記されていた|暦の当番
+citizen-oath|interspecies,loyalty|34|beastfolk|-|種族の評議会に従いたいが、人間の隣人を追放する決定には賛成できない|隣人の席|評議会の古い誓約は血筋への忠誠ではなく、その土地に暮らす隣人を守る約束だった|土地の誓約
+tool-owner|interspecies,shop|1234|beastfolk|-|獣人向けの道具を無償で直したいが、使い手が職人として代金を払おうとする|対等な修理|修理代だと思った支払いには、使い手が次の職人を育てるための出資が含まれていた|使い手の出資
+memory-guilt|interspecies,memory|234|beastfolk|-|種族間の争いの記録を残したいが、子どもたちへ憎しみも渡してしまいそうだ|残す記録|敵の記録とされた書物には、両種族が互いの子どもを逃がした名簿が綴じ込まれていた|救出の名簿
+`);
+pairs('desert-court',`
+well-rule|water-rights,caravan|234|desert,oasis|-|共同井戸の規則に従いたいが、その規則が旅人を締め出している|井戸の境界|井戸の規則から失われていた一節には、水を使う旅人も修理に参加できると書かれていた|規則の一節
+heir-ledger|court,memory|345|royal|-|継承権を証明する帳簿を公開したいが、王家に都合の悪い負債も明らかになる|継承の負債|継承帳簿に並ぶ借り手は臣民ではなく、臣民から水路建設費を借りた歴代の王だった|王家の借り手
+caravan-rest|caravan,water-rights|1234|desert,nomadic|-|隊商の納期を守りたいが、休ませなければ旅を続けられない仲間がいる|隊商の休息|隊商の遠回りを指定した契約は、途中の井戸で休息と手当てを受ける権利も保障していた|遠回りの権利
+water-silence|water-rights,court|345|desert,royal|-|宮廷の断水計画を告発したいが、告発だけでは代わりの水源を守れない|告発の水路|断水の理由とされた渇水は、宮廷が修理人を解雇したあとに起きた結果だった|乾いた原因
+tent-court|court,caravan|234|royal,nomadic|-|移動する宮廷で役目を果たしたいが、老いた家族は旅を続けられない|止まる宮廷|宮廷の移動義務は全員に課すものではなく、残る人へ物資を届ける役目の交代制だった|交代する旅
+`);
+pairs('romantasy',`
+release-address|contract,relationship-choice|234|-|-|恋人契約を解消したいが、解消後に会いたいと伝えると相手を引き留めそうだ|解消後の手紙|契約解消時に消えるのは義務だけで、残す連絡先は互いが別々に選べると分かった|選べる宛先
+shield-burden|contract,relationship-choice|234|magic|-|相手の守護魔法を借りて暮らしているため、本心で断る自由があるか分からない|借りた守護|守護魔法は恋人だけでなく町の共済へ移せるもので、契約の担当者がその手続きを省いていた|守護の移し先
+role-letter|loyalty,relationship-choice|1234|-|-|役目で書く親切な手紙と、自分の気持ちを書いた手紙を相手に区別してほしい|役目と便り|役目の手紙を大切にしていた相手は、定型文の間にある小さな書き直しを読み取っていた|書き直した一行
+prophecy-exit|contract,relationship-choice|345|magic|-|魔法の予言通りに結ばれれば国は守られるが、当事者の望みは別の道にある|予言の外|結婚を条件とした予言には、別の協力関係を選んだ場合の未来が意図的に載せられていなかった|載らない未来
+shared-key|contract,shared-home|1234|-|romantasy,cozy-fantasy|同居契約を終えて一人で暮らしたいが、相手との朝食は失いたくない|朝食の約束|返却する家の鍵とは別に、契約の当事者が自由に招待し合う食卓の取り決めを作れた|招き合う食卓
+`);
+pairs('cozy-fantasy',`
+last-recipe|shop,memory|234|magic|-|魔法商店街の食堂を継ぎたいが、先代と同じ献立では店を続けられない|引き継ぐ献立|先代の献立帳には完成した味より、常連に合わせて何度も変えた試みが残っていた|試みの献立帳
+closing-tools|shop,memory|234|magic|-|閉店する魔法工房の道具を手放したいが、一つずつに持ち主との思い出がある|閉店の道具|道具を買い取ろうとした客たちは、別々の店で修理の仕事を受け継ぐ相談をしていた|分かれた工房
+house-farewell|shared-home,relationship-choice|234|-|-|共同住宅を離れる住人を送り出したいが、自分だけ取り残される寂しさを隠せない|空く部屋|空室を埋めるはずの寄付は、残った住人が新しい暮らし方を試す休息費だった|残る人の休息
+spirit-season|shop,memory|34|spirit|-|老いた店主の代わりを務めたいが、店に通う精霊は先代との時間を求めている|先代の時間|同じ姿の精霊が繰り返す注文は、先代を忘れないために新しい店主へ渡す思い出の順番だった|注文の順番
+winter-repair|shop,shared-home|234|-|-|最後の冬に修理技術を教えたいが、弟子は町を出る仕事を選ぼうとしている|最後の冬の授業|修理を学んだ弟子の旅先には、冬のあいだ町で使わない道具を直せる仕事場があった|旅先の仕事場
+`);
+pairs('general',`
+guide-detour|caravan,memory|1234|-|journey|古い旅案内を頼りに歩きたいが、案内通りの道が住民の暮らしを妨げている|古い道案内|案内の余白に残った寄り道は、旅人が生活の道を避けるため住民と決めた順路だった|余白の順路
+archive-name|memory,shop|234|-|mystery,daily-work|記録を正確に公開したいが、名を残したくない協力者の仕事まで消してしまいそうだ|名のない仕事|記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた|成果の署名
+festival-budget|faith,shared-home|1234|-|buddy,daily-work|町の祭りを続けたいが、準備できる人にだけ負担が集まっている|祭りの負担|祭りの予算の不足は浪費ではなく、これまで無償だった準備の時間を初めて数えた結果だった|数えた時間
+return-ticket|caravan,relationship-choice|234|-|journey,reunion|旅先に残りたいが、帰りを待つ人との約束も守りたい|帰りの切符|帰りの切符を用意した人は、戻る日を決める権利を旅人へ渡すため変更可能な便を選んでいた|変えられる帰路
+repair-proof|shop,memory|2345|-|mystery,daily-work|事故の原因を証明したいが、証拠になる道具を壊さずに調べる方法がない|壊せない証拠|道具の傷は事故の原因ではなく、持ち主が被害を食い止めたときについたものだった|傷の順序
+`);
+pairs('bonds',`
+order-release|loyalty,escape|345|-|master-servant,rescue|命令を守るほど主君が望まない未来に近づくが、背けば従者の居場所を失う|最後の命令|忠誠を試す命令だと思っていた書状は、従者の責任を免じて逃がすための手続きだった|免責の書状
+return-choice|escape,relationship-choice|234|-|rescue,romance|逃亡を助けた相手にそばにいてほしいが、恩を理由に引き留めたくない|恩と帰路|相手が用意していた帰路は別れのためではなく、互いが自由に会い直すための安全な道だった|会い直す道
+name-shelter|escape,memory|345|-|rescue,mystery|追跡を避けて名を捨てたいが、名を捨てると助けた人との約束を証明できない|捨てる名の約束|追跡者が狙ったのは本人の名ではなく、名の下に預けられた共同の証言だった|名の下の証言
+care-control|relationship-choice,shared-home|234|-|romance|大切な相手を支えたいが、自分が世話を引き受けるほど相手の選択が減っている|世話の境界|相手が断っていたのは親切ではなく、頼み先を一人に決められる仕組みだった|頼み先の自由
+loyalty-record|loyalty,memory|345|-|master-servant,rivalry|主君を守るため記録を隠したいが、隠せば別の従者が罪を負う|忠誠の記録|記録を消せという命令は主君自身ではなく、その名で利益を得る側近が出していた|命令の差出人
+`);
+function singles(key,group,lines){for(const line of lines.trim().split('\n')){const [slug,text,word,tones,topics,req,themes]=line.split('|');STORY_BASIC[key].push(item(key,group,slug,text,word,tones,topics,[],split(req),!themes||themes==='-'?null:split(themes)));}}
+singles('conflict','beastfolk',`small-voice|獣人の集会で声の小さい種族の意見も届くようにしたいが、議論の速さを止めたくない|小さな声の席|1234|interspecies|beastfolk|-`);
+singles('twist','beastfolk',`scent-archive|獣人の市場で消えたと思われた印は、別の種族が読める香りの記録に移されていた|香りの記録|234|interspecies,memory|beastfolk|-`);
+singles('conflict','desert-court',`well-close|砂漠の井戸を休ませたいが、閉鎖する間の旅人の水を確保できない|井戸の休日|234|water-rights,caravan|desert|-`);
+singles('twist','desert-court',`throne-maintainer|宮廷で空席のままだった水路監督の役目は、名を持たない交代制の職人たちが果たしていた|空席の仕事|2345|court,water-rights|royal|-`);
+singles('conflict','romantasy',`permission-change|昔は喜んで受け入れた恋人の約束を、今は変えたいと伝えられない|変わった望み|234|relationship-choice|-|-`);
+singles('twist','romantasy',`expiry-garden|期限付きの婚約で植えた庭は、契約の成否に関係なく住民へ譲る約束になっていた|庭の行き先|234|contract,relationship-choice|-|-`);
+singles('conflict','cozy-fantasy',`last-customer|閉店日に最後の客をゆっくり迎えたいが、店を片づける家族の時間も守りたい|最後の客の時間|234|shop,shared-home|-|-`);
+singles('twist','cozy-fantasy',`moving-sign|閉じた魔法店の看板は、店主の許可を得て新しい共同工房の案内板に作り替えられていた|看板の次の役目|234|shop,memory|magic|-`);
+singles('conflict','general',`
+route-friend|旅の仲間と別の道を選びたいが、相手の計画を否定するように聞こえそうだ|分かれる道|1234|caravan,relationship-choice|-|journey,buddy
+record-silence|記憶にない出来事を聞きたいが、話したくない相手の沈黙も尊重したい|聞かない勇気|2345|memory,relationship-choice|-|mystery,reunion
+first-pay|好きな仕事を続けたいが、好きだから無償でよいと扱われている|最初の報酬|234|shop|-|daily-work
+`);
+singles('twist','general',`
+late-clock|いつも遅れる町の時計は、遠い集落の子どもも間に合うよう出発を待つ合図だった|待つ時計|1234|caravan,shared-home|-|journey,buddy
+archive-future|古い記録に挟まった空白の頁は、後世の人が自分の結論を書くため残されていた|空白の続き|234|memory|-|mystery
+failed-plan|失敗した計画の備品が、思いがけない避難の場を支えていた|失敗の備え|2345|shop,escape|-|rescue,daily-work
+`);
+singles('conflict','bonds',`
+command-rest|主君の願いを叶えたいが、休むようにという命令だけは聞き入れられない|休息の命令|234|loyalty|-|master-servant
+escape-together|共に逃げる約束をした相手が、途中で別の安全な場所を選ぼうとしている|別々の安全|2345|escape,relationship-choice|-|rescue,romance
+keep-letter|関係を終えた相手の手紙を大切にしたいが、新しい出会いへ踏み出せない|手放さない手紙|2345|memory,relationship-choice|-|romance
+`);
+singles('twist','bonds',`
+borrowed-uniform|追われる従者が借りた制服は、姿を隠すためではなく公に保護を求める資格の印だった|保護の制服|345|escape,loyalty|-|rescue,master-servant
+empty-room|去った相手の部屋を空けていた人は、戻ることを求めず自分のために整理する時間を待っていた|空室の時間|2345|relationship-choice,shared-home|-|romance
+oath-ending|終わらないと思われた忠誠の誓いには、従者が別の役目を選ぶための終了日が書かれていた|誓いの終了日|2345|loyalty,contract|-|master-servant
+`);
+function cozy(key,lines){for(const line of lines.trim().split('\n')){const [slug,text,word,tones,topics,req,shape]=line.split('|');const row=item(key,'cozy-fantasy',slug,text,word,tones,topics,[],split(req));if(key==='relation')row.relationShape=shape||'pair';STORY_BASIC[key].push(row);}}
+cozy('world',`
+last-arcade|取り壊しの日まで魔法の品を返し続ける商店街|最後の商店街|234|shop,memory|magic
+house-seasons|住人が別々の道へ進む季節を迎えた共同住宅|旅立つ住宅|234|shared-home,relationship-choice|-
+repair-winter|修理の技術を次世代へ渡す最後の冬を迎えた魔法工房の町|引継ぎの冬|234|shop,memory|magic
+return-week|閉店までの一週間に常連の預かり物を返す店のある町|返却の一週間|234|shop,memory|-
+old-tools|老いた店主の魔法道具が次の使い手を探す町|道具の次の手|234|shop,relationship-choice|magic
+season-inn|精霊の季節移動に合わせて最後の営業をする宿場|季節の最後の宿|34|shop,caravan|spirit,nomadic
+`);
+cozy('genre',`
+quiet-inheritance|暮らしの技を受け継ぐ物語|継ぐ暮らし|234|shop,memory|-
+gentle-farewell|日々の仕事を通じた別れの物語|仕事の別れ|234|shop,relationship-choice|-
+shared-after|共同生活のその後を描く群像劇|その後の住人|234|shared-home|-
+small-recovery|失った日常を少しずつ作り直す物語|日常の作り直し|234|shared-home,memory|-
+`);
+cozy('relation',`
+final-apprentice|最後の弟子を迎える修理職人と旅立ちを控えた弟子|最後の弟子|234|shop,memory|-|pair
+former-roommates|共同住宅を離れる人と部屋を守り続ける元同居人|別れる部屋|234|shared-home|-|pair
+tool-inheritors|魔法工房の道具を分けて引き継ぐ職人たち|道具を継ぐ手|234|shop,memory|magic|group
+last-regulars|閉店の後も会う方法を相談する常連たち|閉店後の常連|234|shop,relationship-choice|-|group
+parent-new-shop|家族の店を閉じる親と別の仕事を始める子|家族の次の仕事|234|shop,shared-home|-|pair
+spirit-new-owner|亡き店主を待つ精霊の客と店を借りた新しい店主|待つ客と新店主|34|shop,memory|spirit|pair
+`);
+cozy('incident',`
+return-calendar|閉店前の店へ預かり品の持ち主たちが違う日に訪ねてくる|返却の暦|234|shop,memory|-
+empty-shelf|魔法商店の最後の棚を誰に託すか話し合う日が来る|最後の棚|234|shop,relationship-choice|magic
+house-last-meal|共同住宅を出る住人が最後の食事当番を引き受ける|最後の食事当番|234|shared-home|-
+repair-record|引退する職人の失敗を書いた修理記録が見つかる|失敗の修理帳|234|shop,memory|-
+spirit-payment|精霊の常連が先代から預かった代金を新しい店主へ届ける|先代の預かり金|34|shop,memory|spirit
+shop-moving|長く続いた店の看板を共同工房へ運ぶことになる|看板の引越し|234|shop,shared-home|-
+`);
+cozy('gimmick',`
+tool-consent|魔法道具が次の使い手への同意をゆっくり示す受渡し台|道具の同意|234|shop,relationship-choice|magic
+receipt-memory|修理した日の匂いだけを残す魔法の受取証|匂いの受取証|234|shop,memory|magic
+room-register|去った住人も希望する範囲で近況を書ける家の帳面|近況の帳面|234|shared-home,memory|-
+last-fire|受け継いだ者が別の料理を試すまで消えない魔法のかまど|変わるかまど|234|shop,memory|magic
+shared-tools|閉店した店の道具を近隣で貸し合う保管棚|道具の保管棚|234|shop,shared-home|-
+return-bell|預かり品を返すたび音色が一つ減る魔法の店の鐘|返却の鐘|34|shop,memory|magic
+`);
+for(const [slug,text,word,topic] of [
+ ['rupture','取り返せない選択を描く破局劇','選択の破局','relationship-choice'],['loss','喪失のあとに残る責任を描く物語','残る責任','memory'],['defeated','敗者の側から綴る年代記','敗者の年代記','memory'],['failed-flight','行き場を失う逃避行','帰路のない旅','escape'],['loyalty-fall','忠誠の行き着く先を描く悲劇','忠誠の終着','loyalty'],['broken-record','消された記録から辿る滅びの物語','消えた年代','memory']])STORY_BASIC.genre.push(item('genre','general',slug,text,word,'45',topic,[],[],[]));
+export const STORY_PROGRESS={ending:[],cost:[]};
+function progression(key,lines){for(const line of lines.trim().split('\n')){const [slug,text,word,tones,topics,themes]=line.split('|');STORY_PROGRESS[key].push(item(key,'general',slug,text,word,tones,topics,[],[],split(themes)));}}
+progression('ending',`
+shop-elsewhere|店は閉じるが、常連たちは別の場所で互いに会い続ける|閉店のあと|234|shop,relationship-choice|cozy-fantasy,daily-work
+room-letters|同じ家には戻らず、それぞれの暮らしから便りを送り合う|別々の便り|234|shared-home,relationship-choice|cozy-fantasy,reunion
+teacher-change|先代と同じ仕事はできなくても、教わった工夫を新しい仕事へ持っていく|違う仕事の継承|234|shop,memory|cozy-fantasy,daily-work
+scar-recovery|失った習慣は戻らないが、助けを求められる新しい日課ができる|傷のある日課|234|shared-home|cozy-fantasy,buddy
+exile-happiness|故郷では裏切り者と呼ばれるが、逃れた当事者は自分で選んだ生活を築く|追放先の暮らし|345|escape,relationship-choice|rescue,romance
+lost-title|社会的な肩書きを失っても、当事者は役目に縛られない関係を喜ぶ|肩書きのない幸福|2345|loyalty,relationship-choice|master-servant,romance
+quiet-archive|功績は公の記録から消えるが、救われた人々の私的な語りに生き続ける|記録の外の功績|345|memory|mystery,rescue
+closed-path|将来の選択肢は狭まるが、当事者は互いを選んだ今日を後悔しない|狭い道の今日|345|relationship-choice|romance
+duty-divided|一人の役目を皆に分け、かつての主従は別々の仕事へ進む|分けた役目|234|loyalty,shop|master-servant,buddy
+release-reunion|契約を終えて別れ、再会するかどうかは互いの自由に残す|約束しない再会|2345|contract,relationship-choice|romantasy,reunion
+stay-not-wait|相手の帰りを待つためではなく、自分の暮らしのために町へ残る|自分のための町|234|shared-home,relationship-choice|cozy-fantasy,romance
+unfinished-rescue|全員を連れ出せず、逃れた人々が残された人へ道を作り続ける|続く避難路|345|escape,loyalty|rescue
+`);
+progression('cost',`
+home-right|生まれた家へ戻る権利を手放すこと|戻れない家|345|shared-home,escape|rescue
+standing|人前で信用されていた肩書きを返すこと|返す肩書き|2345|loyalty|master-servant
+memory-object|思い出を確かめられる唯一の品を他者の救済に使うこと|託す思い出|2345|memory,escape|rescue
+public-trust|秘密を守る代わりに事情を知らない人の信用を失うこと|説明できない信用|345|relationship-choice|mystery,romance
+inherited-role|代々の役目を継ぐという家族の期待から離れること|継がない役目|234|loyalty,shop|master-servant,daily-work
+future-route|今の関係を選ぶ代わりに遠方での仕事の機会を見送ること|見送る仕事|2345|shop,relationship-choice|romance,journey
+`);

@@ -16,13 +16,14 @@
     <div class="eyebrow"><span class="seed-icon" aria-hidden="true">✦</span> CREATIVE IDEA GACHA</div>
     <h1>創作アイデアガチャ</h1>
     <p class="hero-lead">ひとつの偶然から、あなたの物語へ。</p>
-    <p class="hero-note">方向を選ぶ → タネを引く → 気に入った案を残す</p>
+    <p class="hero-note">方向を選ぶ → 固定していない項目を引く → 編集して保存</p>
   </header>
   <nav class="jump-nav" aria-label="ページ内の移動">
     <a href="#draw">01 抽選</a><a href="#result">02 結果</a><a href="#library">03 保存</a>
   </nav>
   <main class="wrap">
     <div id="storageWarning" class="warning" role="alert" hidden></div>
+    <div id="actionWarning" class="warning" role="alert" hidden></div>
     <section id="draw" class="section">
       <div class="section-head"><div><span class="eyebrow">01 / DRAW A SEED</span><h2>まずは、タネを引く</h2></div><span class="subtle">基本の7項目</span></div>
       <div class="panel settings-panel">
@@ -31,6 +32,7 @@
           <label>トーン<select id="toneSelect"></select></label>
           <label>出力用途<select id="purposeSelect"></select></label>
         </div>
+        <fieldset class="coherence-control"><legend>素材の組み合わせ方</legend><div class="inline-actions"><button data-coherence="cohesive" aria-pressed="true">まとまり重視</button><button data-coherence="mix" aria-pressed="false">自由に混ぜる</button></div><p id="coherenceHelp" class="note">同じ題材や葛藤を持つ素材を優先します。</p></fieldset>
         <p class="note">設定変更は次の抽選から。今の素材は残ります。</p>
         <p id="worldNotice" class="note notice" hidden></p>
         <details id="themeDetails" class="theme-details"><summary>好みで絞る <span id="themeCount" class="subtle">お任せ</span></summary>
@@ -46,13 +48,15 @@
       </div>
       <p id="activeThemes" class="active-themes" aria-live="polite">選んだ方向：お任せ</p>
       <div class="draw-actions">
-        <button id="rollAll" class="primary">✦ 全部ガチャ</button><button id="rollDifferent" class="secondary">違う案を引く</button>
-        <div class="history-actions"><button id="undo" aria-label="一つ前の作業に戻す">↶ 戻す</button><button id="redo" aria-label="戻した作業を進める">↷ 進む</button></div>
+        <button id="rollAll" class="primary">✦ 固定していない項目を引く</button>
+        <div class="history-actions" role="group" aria-label="作業履歴"><span class="subtle">履歴</span><button id="undo" aria-label="一つ前の作業に戻す">↶ 戻す</button><button id="redo" aria-label="戻した作業を進める">↷ 進む</button></div>
       </div>
+      <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
       <p id="drawNotice" class="draw-notice" role="status" hidden></p>
+      <button id="cozyToneAction" class="secondary" hidden>ダーク・シリアスへ変更する</button>
       <div id="basicFields" class="field-grid"></div>
-      <div class="under-actions"><button id="rollLight" class="text-btn">☀ 明るい方向で引く</button><a class="button-link" href="#result">結果を見る ↓</a></div>
-      <p class="note">手入力を反映すると自動で固定します。相性を考慮して引きますが、物語のつながりはあなたが選べます。</p>
+      <div class="under-actions"><button id="rollLight" class="text-btn">☀ ほのぼのにして引く</button><a class="button-link" href="#result">結果を見る ↓</a></div>
+      <details class="usage-help"><summary>抽選・編集の使い方</summary><p class="note">主ボタンは基本7項目が対象です。手入力を反映すると自動で固定します。保存・コピー・現在のJSON出力では、編集中の変更もまとめて確認して反映します。取消したい項目は「キャンセル」を選んでください。物語のつながりはあなたが選べます。</p></details>
     </section>
 
     <section id="result" class="section">
@@ -61,31 +65,32 @@
 
       <div class="optional-stack">
         <details id="charactersDetails" class="panel accordion"><summary><span>人物を足す</span><span class="subtle">任意 / 立場・目的・秘密</span></summary>
-          <p class="note">開くだけでは抽選しません。相手役は、友人・敵・同僚などにも使えます。集団の代表者と決める必要はありません。</p>
+          <p id="groupNotice" class="note" hidden>主人公・相手役は集団の中の人物として設定できます。</p>
+          <details class="usage-help"><summary>人物欄の使い方</summary><p class="note">開くだけでは抽選しません。相手役は友人・敵・同僚などにも使えます。名前の編集も保存・コピー時にまとめて反映します。</p></details>
           <div class="name-grid"><label>主人公の表示名（任意）<input id="protagonistName" type="text" autocomplete="off" placeholder="未入力でも使えます"><span class="input-error" id="protagonistNameError" aria-live="polite"></span></label><label>相手役の表示名（任意）<input id="counterpartName" type="text" autocomplete="off" placeholder="未入力でも使えます"><span class="input-error" id="counterpartNameError" aria-live="polite"></span></label></div>
           <button id="rollCharacters" class="secondary">人物の区画をまとめて引く</button><div id="characterFields" class="field-grid optional-grid"></div>
         </details>
         <details id="progressionDetails" class="panel accordion"><summary><span>物語を動かす</span><span class="subtle">任意 / 期限・障害・代償・結末</span></summary>
-          <p class="note">未設定でも使えます。失うものや結末を、あとから自分で選んでも大丈夫。</p>
+          <details class="usage-help"><summary>進行欄の使い方</summary><p class="note">未設定でも使えます。失うものや結末を、あとから自分で選べます。AIキャラ用途では結末も展開の候補です。</p></details>
           <button id="rollProgression" class="secondary">進行の区画をまとめて引く</button><div id="progressionFields" class="field-grid optional-grid"></div>
         </details>
         <details id="questionsDetails" class="panel accordion"><summary><span>質問で深める</span><span class="subtle">任意 / あなたが考える欄</span></summary>
-          <p class="note">問いを手がかりに、あなた自身の答えを残せます。「設定を確かめる」は、一般的な確認質問です。</p>
+          <details class="usage-help"><summary>質問欄の使い方</summary><p class="note">回答を反映すると固定します。固定を外しても回答のある質問は引き直しで消えません。別区分の編集中の回答も、保存・コピー時にまとめて反映します。「設定を確かめる」は考えるための問いです。</p></details>
           <div class="question-toolbar"><label>質問の区分<select id="questionCategory"></select></label><button id="rollQuestions" class="secondary">質問を3つ出す</button></div>
-          <p class="note">回答を反映すると固定します。固定を外しても、回答がある質問は引き直しで消えません。</p>
           <div id="questionFields"></div>
         </details>
       </div>
       <details class="panel accordion output-details"><summary>設定と用途別の構成メモ</summary><button data-copy="memo" class="small-btn">メモをコピー</button><div id="memoBody" class="result-body"></div></details>
       <details class="panel accordion output-details"><summary>発想ヒント</summary><button data-copy="hint" class="small-btn">ヒントをコピー</button><div id="hintBody" class="result-body"></div></details>
       <details class="panel accordion output-details"><summary>タイトル案</summary><div class="inline-actions"><button id="rollTitles" class="small-btn">タイトルだけ引き直す</button><button data-copy="titles" class="small-btn">タイトルをコピー</button></div><ol id="titleList"></ol></details>
-      <div class="inline-actions export-actions"><button data-copy="markdown" class="secondary">すべてをコピー（Markdown）</button><button id="downloadMarkdown">Markdownを保存</button><button id="exportCurrent">このタネをJSON保存</button></div>
+      <div class="inline-actions export-actions"><button data-copy="markdown" class="secondary">すべてをコピー（Markdown）</button><button id="downloadMarkdown">Markdownを保存</button><button id="exportCurrent">現在のタネをJSON保存</button></div>
     </section>
 
     <section id="library" class="section">
       <div class="section-head"><div><span class="eyebrow">03 / KEEP & REVISIT</span><h2>タネを、また育てるために</h2></div><span id="savedCount" class="subtle"></span></div>
       <div id="saveEditor" class="panel save-editor">
         <h3>今のタネを保存</h3><p id="loadedLabel" class="note">新しいタネ</p>
+        <p class="note">編集中の本文・回答・名前・メモも、一緒に反映して保存します。</p>
         <label>保存名（任意 / 200文字まで）<input id="workName" placeholder="空欄ならタイトル案を使います"><span id="workNameError" class="input-error" aria-live="polite"></span></label>
         <label>整理用タグ（最大10個 / 1個30文字まで）<input id="workTags" placeholder="短編、あとで書く、など。読点・カンマで区切る"><span id="workTagsError" class="input-error" aria-live="polite"></span></label>
         <label>自由メモ（10,000文字まで）<textarea id="workNotes" rows="4" placeholder="思いついた場面や、次に考えたいこと"></textarea><span id="workNotesError" class="input-error" aria-live="polite"></span></label>
@@ -94,7 +99,8 @@
       </div>
       <div class="library-toolbar"><label>保存作品を探す<input id="searchWorks" type="search" placeholder="名前・要約・メモ・タグ"></label><label class="check-label"><input id="favoriteOnly" type="checkbox">お気に入りのみ</label></div>
       <div id="savedList" class="saved-list"></div>
-      <details class="panel accordion backup-panel"><summary>バックアップ・取り込み</summary><p class="note">JSONは作品を追加して取り込みます。既存の作品は上書きしません。最大5MiB・500件。</p><div class="inline-actions"><button id="exportAll">保存作品すべてをJSON保存</button><label class="file-button">JSONを選ぶ<input id="importFile" type="file" accept=".json,application/json"></label><button id="exportRaw" hidden>元データを取り出す</button></div><p id="importPreview" class="note" aria-live="polite"></p><button id="confirmImport" class="secondary" hidden>確認した作品を追加する</button></details>
+      <div class="backup-status"><p id="backupStatus" class="note" aria-live="polite"></p><p id="backupAuxWarning" class="note notice" hidden></p><p id="backupExportNotice" class="note" role="status"></p><div id="backupPrompt" class="backup-prompt" hidden><p>保存作品が増えたり変わったりしています。JSONを書き出して手元にも残せます。</p><button id="backupNow">保存済み作品のJSONを書き出す</button><button id="dismissBackup" class="text-btn">今は閉じる</button></div></div>
+      <details class="panel accordion backup-panel"><summary>バックアップ・取り込み</summary><p class="note">保存済み作品のJSONに、現在の未保存編集は含みません。表示日時は書き出し操作の時刻です。ファイルを実際に保管したかは確認できません。取り込みは既存作品を残して追加します。最大5MiB・500件。</p><div class="inline-actions"><button id="exportAll">保存済み作品すべてをJSON保存</button><label class="file-button">JSONを選ぶ<input id="importFile" type="file" accept=".json,application/json"></label><button id="exportRaw" hidden>元データを取り出す</button></div><p id="importPreview" class="note" aria-live="polite"></p><button id="confirmImport" class="secondary" hidden>確認した作品を追加する</button></details>
     </section>
   </main>
   <footer><p>引くのはきっかけ。物語をつくるのは、あなた。</p><p class="note">ログイン不要・外部AIなし。素材と問いから考える創作の道具です。</p><a href="https://github.com/nyuriwossan/creative-idea-gacha" target="_blank" rel="noreferrer">GitHub</a></footer>

@@ -28,17 +28,18 @@ function validItem(raw,{legacy=false}={}) {
  const definition=source==='generated'?DEFINITION_BY_ID.get(candidateId):null;
  const contextTags=tags(own(row,'contextTags')?row.contextTags:definition?.contextTags??[],'背景タグ',16,40),requiresContext=tags(own(row,'requiresContext')?row.requiresContext:definition?.requiresContext??[],'必要な背景',16,40);
  const themeTags=tags(row.themeTags??[],'テーマタグ',32,80);
+ const topicTags=tags(own(row,'topicTags')?row.topicTags:definition?.topicTags??[],'題材タグ',16,80),plotLinks=tags(own(row,'plotLinks')?row.plotLinks:definition?.plotLinks??[],'物語の対応タグ',16,100);
  const hydratedThemes=tags([...new Set([...themeTags,...(definition?.themeTags||[])])],'テーマタグ',32,80);
- return {candidateId,text,source,stageTags:tags(row.stageTags??row.tags??[],'舞台タグ',20,80),themeTags:hydratedThemes,contextTags,requiresContext,tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
+ return {candidateId,text,source,stageTags:tags(row.stageTags??row.tags??[],'舞台タグ',20,80),themeTags:hydratedThemes,contextTags,requiresContext,topicTags,plotLinks,tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
 }
 function validTexts(raw){const t=object(raw,'生成文');return {summary:string(t.summary??'','要約'),memo:string(t.memo??'','構成メモ'),hint:string(t.hint??'','発想ヒント'),titles:strings(t.titles??[],'タイトル案')};}
 export function validateState(raw,{legacy=false}={}) {
  const src=object(raw,'状態'), state=emptyState();
  if(!legacy&&src.schemaVersion!==2)throw new Error('未対応のデータバージョンです。');
- if(legacy){updateSettings(state,{stage:src.stage??'all',tone:src.tone??3,purpose:src.purpose??state.settings.purpose});}
+ if(legacy){updateSettings(state,{stage:src.stage??'all',tone:src.tone??3,purpose:src.purpose??state.settings.purpose,coherence:'mix'});}
  else{
   const settings=object(src.settings,'設定');
-  updateSettings(state,{stage:settings.stage,tone:settings.tone,purpose:settings.purpose,themes:strings(settings.themes,'テーマ',3)});
+  updateSettings(state,{stage:settings.stage,tone:settings.tone,purpose:settings.purpose,themes:strings(settings.themes,'テーマ',3),coherence:own(settings,'coherence')?settings.coherence:'mix'});
   if(src.loadedWorkId!==null&&typeof src.loadedWorkId!=='string'&&typeof src.loadedWorkId!=='number')throw new Error('読み込み作品IDが不正です。');
   state.loadedWorkId=src.loadedWorkId;
  }

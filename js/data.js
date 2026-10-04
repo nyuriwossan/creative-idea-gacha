@@ -1,10 +1,12 @@
 import { BASE_DATA, BASELINE_COUNTS } from './base-data.js';
+import { PACKS,supplementDefinition } from './context.js';
+import { THEME_PACK_DATA } from './theme-pack-data.js';
 export { BASELINE_COUNTS };
 export const BASIC = [ ['world','世界観'], ['genre','ジャンル'], ['relation','関係性'], ['incident','中心事件'], ['conflict','葛藤'], ['gimmick','ギミック'], ['twist','ひねり'] ];
 export const STAGES = [['all','すべて'],['modern','現代'],['western','西洋風'],['wafu','和風'],['fantasy','ファンタジー'],['isekai','異世界転生'],['scifi','SF'],['research','研究施設'],['underworld','裏社会'],['school','学園']];
 export const TONES = ['ほのぼの','ほんのり不穏','シリアス','ダーク','破滅寄り'];
 export const PURPOSES = ['一言ネタ','ショートストーリー向け','漫画1話向け','連載プロット向け','AIキャラプロットの種','世界観メモ','三題噺向け'];
-export const THEMES = [['master-servant','主従'],['buddy','バディ・協力'],['reunion','幼なじみ・再会'],['rivalry','敵対・因縁'],['status-gap','契約・身分差'],['found-family','疑似家族'],['romance','恋愛・愛憎'],['myth','人外・神話'],['rescue','逃亡・救済'],['mystery','秘密・謎解き'],['daily-work','日常・仕事'],['journey','旅・冒険']];
+export const THEMES = [['master-servant','主従'],['buddy','バディ・協力'],['reunion','幼なじみ・再会'],['rivalry','敵対・因縁'],['status-gap','契約・身分差'],['found-family','疑似家族'],['romance','恋愛・愛憎'],['myth','人外・神話'],['rescue','逃亡・救済'],['mystery','秘密・謎解き'],['daily-work','日常・仕事'],['journey','旅・冒険'],...PACKS.map(([id,label])=>[id,label])];
 // text | titleWord | 舞台ID（空=汎用） | テーマID | 対応トーン | 関係の形
 function rows(key, lines) {
   return lines.trim().split('\n').map(line => {
@@ -213,6 +215,6 @@ const ORIGINAL_TITLE_WORDS={
  '断罪イベントの本当の黒幕が別にいる':'断罪の黒幕',
  '帰りたかった元の世界の方が既に失われていた':'失われた帰路'
 };
-export const DATA = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]]]));
+export const DATA = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]].map(item=>supplementDefinition(item,key)).concat(THEME_PACK_DATA[key])]));
 export const ADDITION_COUNTS = Object.fromEntries(BASIC.map(([key])=>[key,ADDITIONS[key].length]));
 export { rows };

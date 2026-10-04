@@ -1,0 +1,107 @@
+import { define } from './pack-definition.js';
+import { DESERT_PACK } from './theme-pack-desert.js';
+import { ROMANTASY_PACK } from './theme-pack-romantasy.js';
+import { COZY_PACK } from './theme-pack-cozy.js';
+export const PACK_DATA={
+ 'desert-court':DESERT_PACK,
+ romantasy:ROMANTASY_PACK,
+ 'cozy-fantasy':COZY_PACK,
+beastfolk:{
+world:define('beastfolk','world',`
+shared-city|耳や尾に合わせた公共設備を持つ共存都市|共存の街|1234|fantasy,isekai|daily-work,buddy|beastfolk,trade
+grassland|獣人の部族が季節ごとに移動する草原|草原の足跡|1234|fantasy|journey|beastfolk,nomadic
+autonomy|王国の中で独自の法を守る獣人自治区|自治区の法|2345|fantasy,western|status-gap|beastfolk,royal
+succession|種族を問わず獣人の王位を継げる国|継承の国|2345|fantasy|desert-court|beastfolk,royal
+border-market|異なる種族が通訳を交えて取引する国境都市|国境の市場|1234|fantasy|journey,buddy|beastfolk,trade
+moon|満月の夜だけ姿や感覚が変わる獣人の里|満月の里|2345|fantasy|myth|beastfolk,magic
+descendants|獣人が神の末裔として祭祀を受け継ぐ王国|末裔の祭祀|2345|fantasy,wafu|myth|beastfolk,royal,magic
+majority|人間が少数派として暮らす獣人の工業都市|少数派の街|1234|fantasy|daily-work|beastfolk,trade
+oasis-pact|獣人の王族が婚姻の守護契約を交渉するオアシス連合|オアシスの契り|1234|fantasy|desert-court,romantasy,status-gap|beastfolk,desert,oasis,royal,trade,magic
+water-council|乾いた街で種族ごとの水利用を調整する評議会の国|水の評議会|1234|fantasy|desert-court,buddy|beastfolk,desert,oasis,trade
+shared-tools|異種族に合う道具を直す魔法工房の町|異種族の工房|123|fantasy|cozy-fantasy,daily-work|beastfolk,magic,trade
+mixed-hours|夜行性と昼行性の住人が支え合う共同宿|二つの時間の宿|123|fantasy|cozy-fantasy,found-family|beastfolk
+`),
+genre:define('beastfolk','genre',`
+exchange|異種族交流譚|隣人たち|1234|fantasy|buddy|beastfolk|beastfolk
+diplomacy|部族外交劇|部族の会議|2345|fantasy|rivalry,status-gap|beastfolk|beastfolk
+life|獣人の生活譚|耳と尾の日々|123|fantasy|daily-work|beastfolk|beastfolk
+coexistence|共生をめぐる小さな謎の物語|共生の謎|1234|fantasy|mystery|beastfolk|beastfolk
+`),
+relation:define('beastfolk','relation',`
+royal-envoy|獣人の王族と人間の外交官|異種族の使節|2345|fantasy|desert-court,status-gap|beastfolk,royal|beastfolk,royal
+guard-heir|獣人の護衛と人間の跡継ぎ|護衛の耳|1234|fantasy|master-servant|beastfolk,royal|beastfolk,royal
+childhood|違う種族の幼なじみ|隣の幼なじみ|1234|fantasy|reunion|beastfolk|beastfolk
+scholar|人間との交流を避ける獣人と文化を学ぶ学者|知りたい隣人|2345|fantasy|mystery,buddy|beastfolk|beastfolk
+chief-auditor|獣人の族長と王国から来た監査役|族長の報告|2345|fantasy|status-gap|beastfolk,royal|beastfolk,royal
+rival-heirs|対立する獣人部族の跡継ぎ同士|草原の跡継ぎ|2345|fantasy|rivalry|beastfolk|beastfolk
+hidden-customer|正体を隠す獣人と事情を聞かない店主|名乗らない客|1234|fantasy|cozy-fantasy,mystery|beastfolk,trade|beastfolk
+marriage|種族間の婚姻を命じられた婚約者同士|交渉する婚約|2345|fantasy|romantasy,status-gap|beastfolk,royal|beastfolk,royal
+tailor|翼を持つ住人と初めて服を仕立てる職人|翼の仕立て屋|123|fantasy|daily-work,buddy|beastfolk|beastfolk
+caravan-guide|獣人の護衛と砂漠の隊商案内人|砂の相棒|1234|fantasy|desert-court,journey,buddy|beastfolk,desert,trade|beastfolk,desert
+chefs|人間の料理人と獣人の味見係|ふたつの味覚|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+housemates|昼に働く人間と夜に働く獣人の同居人|朝と夜の食卓|123|fantasy|cozy-fantasy,found-family|beastfolk|beastfolk
+sign-language|尾で挨拶する商人と手で挨拶する通訳|ふたつの挨拶|1234|fantasy|buddy,daily-work|beastfolk,trade|beastfolk
+well-keepers|争う部族の間で共同井戸を守る仲間たち|井戸の番人|1234|fantasy|desert-court,buddy|beastfolk,desert,oasis|beastfolk,desert|group
+mutual-vow|獣人の跡継ぎと水路の守護契約を選んだ婚約者|水路の婚約|1234|fantasy|desert-court,romantasy|beastfolk,desert,royal,magic|beastfolk,desert,royal,magic
+schoolmates|異種族の道具を持ち寄る学び舎の仲間たち|持ち寄る道具|123|fantasy,school|buddy|beastfolk|beastfolk|group
+`),
+incident:define('beastfolk','incident',`
+festival|異種族合同の祭りを初めて開く|合同の祭り|123|fantasy|buddy,daily-work|beastfolk|beastfolk
+clothes|耳や尾に合う祝い服の仕立てを頼まれる|祝いの仕立て|123|fantasy|daily-work|beastfolk|beastfolk
+flavors|嗅覚の違いで祭り料理の相談がまとまらない|祭りの香り|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+heir-missing|獣人の継承者が人間の街で姿を消す|継承者の行方|2345|fantasy|mystery,rescue|beastfolk,royal|beastfolk,royal
+holy-beast|停戦の象徴だった聖獣が殺される|失われた象徴|345|fantasy|rivalry,mystery|beastfolk|beastfolk
+changed-royal|人間の王族が獣人の姿で発見される|変わった王族|2345|fantasy|desert-court,mystery|beastfolk,royal,magic|beastfolk,royal,magic
+annul-evidence|種族間の婚姻を破棄できる古い証書が見つかる|婚姻の証書|2345|fantasy|romantasy,mystery|beastfolk|beastfolk
+hidden-record|共存条約の裏に隠された虐殺記録が見つかる|条約の空白|345|fantasy|mystery|beastfolk|beastfolk
+third-species|双方の文化を知る第三の種族の使節が現れる|第三の使節|1234|fantasy|buddy|beastfolk|beastfolk
+workshop|異種族向けの工房が共同注文を受ける|共同注文|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+water-hearing|種族によって違う必要水量を議会で話し合う|水の公聴会|1234|fantasy|desert-court,buddy|beastfolk,desert,oasis|beastfolk,desert
+sound-warning|人間には聞こえない避難の鐘が鳴る|聞こえない鐘|2345|fantasy|rescue,mystery|beastfolk|beastfolk
+`),
+conflict:define('beastfolk','conflict',`
+sleep|一緒に暮らしたいが眠る時間が違う|ふたつの眠り|123|fantasy|cozy-fantasy,found-family|beastfolk|-
+customs|相手の習慣を尊重したいが自分の習慣も守りたい|習慣のすきま|1234|fantasy|buddy|beastfolk|-
+clothes|種族に合う服を作りたいが皆と揃える楽しみも残したい|揃えるかたち|123|fantasy|daily-work|beastfolk|beastfolk
+translation|正確に訳したいが挨拶の温かさを失いたくない|挨拶の温度|1234|fantasy|buddy|beastfolk|-
+promise|獣人の一族を守るには人間との約束を破る必要がある|一族と約束|2345|fantasy|rescue|beastfolk|beastfolk
+pride-love|種族の誇りと個人の愛情が衝突する|誇りと心|2345|fantasy|romantasy|beastfolk|beastfolk
+traitor|共存のための行動が仲間への裏切りと見なされる|共存の一歩|2345|fantasy|buddy,rivalry|beastfolk|beastfolk
+equal|社会で対等に扱われたいが獣人としての自分も守りたい|対等な名|2345|fantasy|status-gap|beastfolk|beastfolk
+human-form|人間の姿で暮らしたいが元の身体への愛着もある|選ぶ姿|2345|fantasy|myth|beastfolk,magic|beastfolk,magic
+revenge|復讐を果たせば種族間の共存を始める機会が消える|復讐と橋|345|fantasy|rivalry|beastfolk|beastfolk
+next-generation|過去の種族間の罪を忘れたくないが次世代へ背負わせたくない|次の世代|2345|fantasy|found-family|beastfolk|beastfolk
+shared-law|身体の違いを配慮した法が別の住民を締め出している|配慮の境界|2345|fantasy|status-gap|beastfolk|beastfolk
+`),
+gimmick:define('beastfolk','gimmick',`
+hearing|種族によって聞こえる音域が違う伝達鐘|音域の鐘|1234|fantasy|buddy|beastfolk|beastfolk
+scent-signature|匂いを署名として保存する公文書|香りの署名|1234|fantasy|mystery|beastfolk|beastfolk
+gestures|耳や尾の動きも意味を持つ外交礼法|尾の挨拶|1234|fantasy|desert-court,buddy|beastfolk,royal|beastfolk
+transformed-pact|変身中は効力が止まる身分契約|変身の条項|2345|fantasy|status-gap|beastfolk,magic|beastfolk,magic
+doors|身体の大きさで入口を変えられる共同宿|ひらく入口|123|fantasy|cozy-fantasy|beastfolk|beastfolk
+recipes|嗅覚ごとの味の感じ方を記した料理帳|種族の料理帳|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+dual-clock|昼行性と夜行性で目盛りを分けた町の時計|二重の時計|123|fantasy|daily-work|beastfolk|beastfolk
+rights|種族ではなく居住年数で発効する自治権|住む者の権利|2345|fantasy|status-gap|beastfolk|beastfolk
+water-vow|異種族の婚約者が毎年同意して更新する水路の守護魔法|同意の水路|1234|fantasy|desert-court,romantasy|beastfolk,desert,magic|beastfolk,desert,magic
+moon-map|獣人の感覚の変化を記した月齢の道案内|月齢の地図|1234|fantasy|journey|beastfolk|beastfolk
+ear-key|異なる種族が同じ音を合わせて開ける倉庫|重なる音|1234|fantasy|buddy|beastfolk|beastfolk
+land-contract|土地との合意によって姿が変わる契約|土地の契り|2345|fantasy|myth|beastfolk,magic|beastfolk,magic
+`),
+twist:define('beastfolk','twist',`
+shared-well|対立する獣人部族が密かに同じ共同井戸を守っていた|井戸の秘密|1234|fantasy|desert-court,buddy|beastfolk,desert,oasis|beastfolk,desert
+tailor-student|異種族の服を直していたのは客自身の見習いだった|仕立ての学び|123|fantasy|daily-work|beastfolk|beastfolk
+silent-kindness|聞こえない合図だと思った音は休息を促す挨拶だった|休む合図|123|fantasy|cozy-fantasy|beastfolk|beastfolk
+recipe-owner|合わない料理を用意した相手も嗅覚の違いに戸惑っていた|戸惑う味覚|123|fantasy|buddy|beastfolk|beastfolk
+law-excludes|獣人を守る法律が別の種族を排除していた|保護の裏側|2345|fantasy|status-gap|beastfolk|beastfolk
+land-not-blood|変身は血筋ではなく土地との契約だった|姿の契約|2345|fantasy|myth|beastfolk,magic|beastfolk,magic
+translator|中立だと思われた通訳が条約の当事者だった|通訳の立場|2345|fantasy|mystery|beastfolk|beastfolk
+missing-message|獣人の継承者は姿を消す前に正式な休暇願を出していた|休暇の便り|1234|fantasy|desert-court,mystery|beastfolk,royal|beastfolk,royal
+gift-tradition|敵意の印だと思った品は別種族の歓迎の贈り物だった|歓迎の品|123|fantasy|buddy|beastfolk|beastfolk
+sleep-hours|隣室の物音は眠れない住人への静かな手助けだった|夜の親切|123|fantasy|cozy-fantasy|beastfolk|-
+false-border|種族の国境は自然の境界ではなく昔の取引で引かれていた|国境の由来|2345|fantasy|mystery,journey|beastfolk|beastfolk
+lost-treaty|破棄されたはずの条約は小さな町で守られ続けていた|町の条約|2345|fantasy|buddy|beastfolk|beastfolk
+`)
+},
+};
+export const THEME_PACK_DATA=Object.fromEntries(['world','genre','relation','incident','conflict','gimmick','twist'].map(key=>[key,Object.values(PACK_DATA).flatMap(pack=>pack[key]||[])]));
+export {define};

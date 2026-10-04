@@ -16,7 +16,7 @@
     <div class="eyebrow"><span class="seed-icon" aria-hidden="true">✦</span> CREATIVE IDEA GACHA</div>
     <h1>創作アイデアガチャ</h1>
     <p class="hero-lead">ひとつの偶然から、あなたの物語へ。</p>
-    <p class="hero-note">タネを引いて、自分の言葉で育てよう。</p>
+    <p class="hero-note">方向を選ぶ → タネを引く → 気に入った案を残す</p>
   </header>
   <nav class="jump-nav" aria-label="ページ内の移動">
     <a href="#draw">01 抽選</a><a href="#result">02 結果</a><a href="#library">03 保存</a>
@@ -31,18 +31,25 @@
           <label>トーン<select id="toneSelect"></select></label>
           <label>出力用途<select id="purposeSelect"></select></label>
         </div>
-        <p class="note">設定は次の抽選に反映します。今の素材は、そのまま残ります。</p>
+        <p class="note">設定変更は次の抽選から。今の素材は残ります。</p>
         <p id="worldNotice" class="note notice" hidden></p>
         <details id="themeDetails" class="theme-details"><summary>好みで絞る <span id="themeCount" class="subtle">お任せ</span></summary>
-          <p class="note">最大3つ。選んだテーマが出やすくなります。すべての項目に出るとは限りません。</p>
-          <div id="themeButtons" class="chips" role="group" aria-label="抽選テーマ"></div>
+          <p class="note">最大3つ。組み合わせても使えます。世界観に合う素材から、選んだ方向を事件や葛藤にも反映します。</p>
+          <div id="themeButtons">
+            <h3 class="theme-heading">世界観を広げる</h3>
+            <div id="packButtons" class="pack-grid" role="group" aria-label="世界観を広げるテーマ"></div>
+            <h3 class="theme-heading">関係・物語の方向</h3>
+            <div id="classicThemeButtons" class="chips" role="group" aria-label="関係・物語のテーマ"></div>
+          </div>
           <button id="clearThemes" class="text-btn">選択を解除して、お任せにする</button>
         </details>
       </div>
+      <p id="activeThemes" class="active-themes" aria-live="polite">選んだ方向：お任せ</p>
       <div class="draw-actions">
         <button id="rollAll" class="primary">✦ 全部ガチャ</button><button id="rollDifferent" class="secondary">違う案を引く</button>
         <div class="history-actions"><button id="undo" aria-label="一つ前の作業に戻す">↶ 戻す</button><button id="redo" aria-label="戻した作業を進める">↷ 進む</button></div>
       </div>
+      <p id="drawNotice" class="draw-notice" role="status" hidden></p>
       <div id="basicFields" class="field-grid"></div>
       <div class="under-actions"><button id="rollLight" class="text-btn">☀ 明るい方向で引く</button><a class="button-link" href="#result">結果を見る ↓</a></div>
       <p class="note">手入力を反映すると自動で固定します。相性を考慮して引きますが、物語のつながりはあなたが選べます。</p>

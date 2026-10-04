@@ -1,4 +1,6 @@
 import { rows,DATA } from './data.js';
+import { supplementDefinition } from './context.js';
+import { SHARED_PACK_CHARACTERS,PACK_PROGRESSION,PACK_QUESTIONS } from './theme-pack-extra.js';
 const roles=rows('role',`
 商店街に来た新人の店員|新人の店員|modern|daily-work|123
 地元の道に詳しい配達員|町の配達員|modern|daily-work,journey|1234
@@ -155,8 +157,8 @@ ending:rows('ending',`
 最後の選択で居場所を失う|居場所の果て||rescue|45
 `)
 };
-export const EXTRA_DATA={...DATA,...progression,...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,pool.map(item=>({...item,id:`${person}-${item.id}`}))])))};
-export const QUESTION_DATA={
+export const EXTRA_DATA={...DATA,...Object.fromEntries(Object.entries(progression).map(([key,pool])=>[key,[...pool.map(item=>supplementDefinition(item,key)),...PACK_PROGRESSION[key]]])),...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,[...pool.map(item=>supplementDefinition(item,key)),...SHARED_PACK_CHARACTERS[key]].map(item=>({...item,id:`${person}-${item.id}`}))])))};
+const ORIGINAL_QUESTIONS={
  world:[
  'この世界で当たり前とされることは、どこから来たのだろう。',
  'この制度で得をする人と、困る人は誰だろう。',
@@ -226,3 +228,5 @@ export const QUESTION_DATA={
  '登場人物ができることと、世界の規則はつながっているだろうか。'
  ]
 };
+// 既存の位置IDはそのまま。追加定義は安定した明示IDを持つ。
+export const QUESTION_DATA=Object.fromEntries(Object.entries(ORIGINAL_QUESTIONS).map(([key,pool])=>[key,[...pool,...PACK_QUESTIONS[key]]]));

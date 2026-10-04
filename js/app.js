@@ -2,22 +2,25 @@ import { BASIC,STAGES,TONES,PURPOSES,THEMES } from './data.js';
 import { EXTRA_DATA } from './extra-data.js';
 import { emptyState,FIELDS,OPTIONAL,QUESTION_CATEGORIES,clone,rollFields,editField,updateSettings,refreshTexts,History,markdown } from './core.js';
 import { Repository,exportJSON,inspectImport,filterWorks,MAX_BYTES,MAX_WORKS } from './storage.js';
-import { drawQuestions,answerQuestion } from './questions.js';
+import { drawQuestions } from './questions.js';
 import { CONTEXTS,PACKS,contextLabels } from './context.js';
+import {prepareDrafts,DraftError} from './drafts.js';
+import {BackupStatus} from './backup.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
 const cards=new Map(),questionCards=new Map(),questionDrafts=new Map(),dirtyInputs=new Set();
-const recent={};let questionCategory='world',pendingImport=null,toastTimer;
+const recent={};let questionCategory='world',pendingImport=null,toastTimer,composing=false;
 let storage;try{storage=window.localStorage;}catch{storage={getItem(){throw new Error('ブラウザが保存領域を利用できません。');},setItem(){throw new Error('保存領域を利用できません。');}};}
 const repository=new Repository(storage),initial=repository.load();
+const backup=new BackupStatus(storage,repository.works);
 let state=initial.current||emptyState();
 if(!initial.current){rollFields(state,undefined,{data:EXTRA_DATA,recent});refreshTexts(state);}
 const history=new History(state);
 function showToast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,6500);}
 function storageWarning(message){$('storageWarning').textContent=message;$('storageWarning').hidden=false;}
 function persist(){try{repository.write(state);if(!repository.blocked)$('storageWarning').hidden=true;}catch(e){storageWarning(e.message);}}
-async function guard(fn){try{await fn();}catch(e){showToast(e.message||'操作を完了できませんでした。');}}
+async function guard(fn){if(composing){$('actionWarning').textContent='日本語の変換を確定してから操作してください。';$('actionWarning').hidden=false;return;}try{$('actionWarning').hidden=true;await fn();}catch(e){const message=e.message||'操作を完了できませんでした。';$('actionWarning').textContent=message;$('actionWarning').hidden=false;showToast(message);}}
 function commit(fn,{output=false,randomize=false,titlesOnly=false,notice=''}={}){
  const draft=clone(state),result=fn(draft);
  if(result?.notices){$('drawNotice').textContent=result.notices.join('\n');$('drawNotice').hidden=!result.notices.length;}
@@ -39,22 +42,25 @@ function makeField(key,label,container,optional){
  const value=node('p','field-value'),actions=node('div','field-actions');
  const roll=button('引き直す',()=>{
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
-  if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「全部ガチャ」を使えます。');
+  if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定していない項目を引く」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
  const contextInputs=[];
  const selectedContexts=()=>contextInputs.filter(c=>c.checked).map(c=>c.value);
- const edit=button('編集',()=>{if(!editor.hidden){text.focus();return;}text.value=state.items[key]?.text||'';short.value=state.items[key]?.titleWord||'';for(const input of contextInputs)input.checked=state.items[key]?.source==='custom'&&(state.items[key].contextTags||[]).includes(input.value);editor.hidden=false;edit.setAttribute('aria-expanded','true');validateEditor();text.focus();});edit.setAttribute('aria-label',`${label}を編集`);edit.setAttribute('aria-expanded','false');edit.setAttribute('aria-controls',editor.id);
+ let baseline=null;
+ const readEditor=()=>({key,text:text.value,titleWord:short.value,contextTags:selectedContexts()});
+ const isDirty=()=>!editor.hidden&&baseline!==JSON.stringify(readEditor());
+ const edit=button('編集',()=>{if(!editor.hidden){text.focus();return;}text.value=state.items[key]?.text||'';short.value=state.items[key]?.titleWord||'';for(const input of contextInputs)input.checked=state.items[key]?.source==='custom'&&(state.items[key].contextTags||[]).includes(input.value);baseline=JSON.stringify(readEditor());editor.hidden=false;edit.setAttribute('aria-expanded','true');validateEditor();text.focus();});edit.setAttribute('aria-label',`${label}を編集`);edit.setAttribute('aria-expanded','false');edit.setAttribute('aria-controls',editor.id);
  const textLabel=node('label','',`${label}の本文 `),count=node('span','input-count');textLabel.append(count);
  const text=node('textarea');text.id=`input-${safeKey}`;text.rows=3;textLabel.htmlFor=text.id;const inputError=node('span','input-error');inputError.id=`error-${safeKey}`;inputError.setAttribute('aria-live','polite');text.setAttribute('aria-describedby',inputError.id);
  const shortLabel=node('label','','タイトル用の短い言葉（任意 / 30文字まで）'),short=node('input');short.type='text';short.id=`short-${safeKey}`;shortLabel.htmlFor=short.id;
  const shortError=node('span','input-error');shortError.id=`short-error-${safeKey}`;short.setAttribute('aria-describedby',shortError.id);shortError.setAttribute('aria-live','polite');
- function validateEditor(){count.textContent=`${text.value.length} / 500文字`;const ok1=errorFor(text,inputError,text.value.length>500?'500文字を超えています。短くしてから反映してください。':'');const ok2=errorFor(short,shortError,short.value.length>30?'30文字までで入力してください。':'');return ok1&&ok2;}
+ function validateEditor(){count.textContent=`${text.value.length} / 500文字`;const ok1=errorFor(text,inputError,!text.value.trim()?'本文を入力してください。':text.value.length>500?'500文字を超えています。短くしてから反映してください。':'');const ok2=errorFor(short,shortError,short.value.length>30?'30文字までで入力してください。':'');return ok1&&ok2;}
  text.addEventListener('input',validateEditor);short.addEventListener('input',validateEditor);
  const editActions=node('div','inline-actions');
  const close=()=>{editor.hidden=true;edit.setAttribute('aria-expanded','false');edit.focus();};
- editActions.append(button('反映',()=>{if(!validateEditor())return;commit(draft=>editField(draft,key,text.value,short.value,selectedContexts()),{output:true,randomize:false});close();}),button('キャンセル',close));
+ editActions.append(button('反映',()=>{if(!isDirty()){close();return;}if(!validateEditor())return;commit(draft=>editField(draft,key,text.value,short.value,selectedContexts()),{output:true,randomize:false});close();}),button('キャンセル',close));
  if(optional)editActions.append(button('未設定に戻す',()=>{commit(draft=>{draft.items[key]=null;draft.locks[key]=false;},{output:true});close();},'text-btn'));
  editor.append(textLabel,text,inputError,shortLabel,short,shortError);
  if(key==='world'){
@@ -66,7 +72,7 @@ function makeField(key,label,container,optional){
  }
  const badges=node('div','material-badges');
  editor.append(editActions);actions.append(roll,lock,edit);card.append(head,value,badges,actions,editor);$(container).append(card);
- cards.set(key,{card,value,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges});
+ cards.set(key,{card,value,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
 }
 function makeQuestions(category){
  const panel=node('div');panel.dataset.category=category;
@@ -76,13 +82,13 @@ function makeQuestions(category){
   const card=node('article','question-slot'),heading=node('h4'),label=node('label','',`質問${index+1}への回答（2,000文字まで）`),input=node('textarea');input.rows=3;input.id=`answer-${category}-${index}`;label.htmlFor=input.id;
   const error=node('span','input-error');error.id=`answer-error-${category}-${index}`;error.setAttribute('aria-live','polite');input.setAttribute('aria-describedby',error.id);
   const draftKey=`${category}:${index}`;
-  input.addEventListener('input',()=>{questionDrafts.set(draftKey,input.value);errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。短くしてから反映してください。':'');});
+  input.addEventListener('input',()=>{const pending=questionDrafts.get(draftKey),slot=pending?.slot||state.questions[category][index];if(input.value===slot.answer)questionDrafts.delete(draftKey);else questionDrafts.set(draftKey,{value:input.value,slot:clone(slot),group:pending?.group||clone(state.questions[category])});errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。短くしてから反映してください。':'');});
   const actions=node('div','inline-actions');
-  const apply=button('回答を反映',()=>{if(!errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。':''))return;commit(draft=>answerQuestion(draft,category,index,input.value));questionDrafts.delete(draftKey);renderQuestions();showToast('回答を反映しました。');});
+  const apply=button('回答を反映',()=>{if(!errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。':''))return;commit(draft=>{const pending=questionDrafts.get(draftKey);const next=prepareDrafts(draft,{answers:[{category,index,value:input.value,...(pending&&draft.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})}]});Object.assign(draft,next);});questionDrafts.delete(draftKey);renderQuestions();showToast('回答を反映しました。');});
   const lock=button('固定',()=>commit(draft=>{draft.questions[category][index].locked=!draft.questions[category][index].locked;}));
   const reroll=button('この質問を引き直す',()=>{if(questionDrafts.has(draftKey)){showToast('編集中の回答は残しました。先に「回答を反映」してください。');return;}commit(draft=>drawQuestions(draft,category,{index}));});
-  const clear=button('回答を消して引き直す',async()=>{const choice=await decide('回答を消して引き直しますか？',state.questions[category][index].text,[['clear','回答を消して引き直す'],['cancel','キャンセル']]);if(choice!=='clear')return;questionDrafts.delete(draftKey);commit(draft=>drawQuestions(draft,category,{index,clearAnswer:true}));},'text-btn');
-  lock.setAttribute('aria-label',`質問${index+1}の固定を切り替える`);actions.append(apply,lock,reroll,clear);card.append(heading,label,input,error,actions);panel.append(card);slots.push({card,heading,input,lock,clear,reroll});
+  const clear=button('回答を消して引き直す',async()=>{const pending=questionDrafts.get(draftKey);const choice=await decide('回答を消して引き直しますか？',(pending?.slot||state.questions[category][index]).text,[['clear','回答を消して引き直す'],['cancel','キャンセル']]);if(choice!=='clear')return;commit(draft=>{if(pending&&draft.questions[category][index]?.id!==pending.slot.id)Object.assign(draft,prepareDrafts(draft,{answers:[{category,index,value:'',slot:pending.slot,group:pending.group}]}));return drawQuestions(draft,category,{index,clearAnswer:true});});questionDrafts.delete(draftKey);renderQuestions();},'text-btn');
+  lock.setAttribute('aria-label',`質問${index+1}の固定を切り替える`);actions.append(apply,lock,reroll,clear);card.append(heading,label,input,error,actions);panel.append(card);slots.push({card,heading,input,lock,clear,reroll,error});
  }
  $('questionFields').append(panel);questionCards.set(category,{panel,empty,slots});
 }
@@ -96,14 +102,29 @@ function parseMeta(id,key,max){
  errorFor(input,$(`${id}Error`),message);if(message)throw new Error(message);
  return parsed;
 }
-function commitMetadata(ids=null){
- const changes=metaBindings.filter(([id])=>dirtyInputs.has(id)&&(!ids||ids.includes(id))).map(([id,key,max])=>[id,key,parseMeta(id,key,max)]);
- if(!changes.length)return;
- commit(draft=>{for(const [,key,value] of changes){if(key==='protagonist'||key==='counterpart')draft.characters[key].name=value;else draft.metadata[key]=value;}},{output:changes.some(([,key])=>key==='protagonist'||key==='counterpart')});
- for(const [id] of changes)dirtyInputs.delete(id);renderMetadata();
+function hasFieldDraft(){return [...cards.values()].some(c=>c.isDirty());}
+function revealInput(input){for(let p=input.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;input.scrollIntoView({block:'center'});input.focus({preventScroll:true});}
+function requireApplied(){
+ const fields=[...cards.values()].filter(c=>c.isDirty()).map(c=>c.readEditor());
+ const answers=[...questionDrafts].map(([key,pending])=>{const [category,index]=key.split(':');return {category,index:Number(index),value:pending.value,...(state.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})};});
+ const metadata=metaBindings.filter(([id])=>dirtyInputs.has(id)).map(([id,key])=>({id,key,value:$(id).value}));
+ let next;
+ try{next=prepareDrafts(state,{fields,answers,metadata});}catch(error){
+  if(error instanceof DraftError){let first;
+   for(const issue of error.errors){const [kind,key,part]=issue.target.split(':');let input,notice;
+    if(kind==='field'){const c=cards.get(key);input=part==='short'?c.short:c.text;notice=part==='short'?c.shortError:c.inputError;}
+    if(kind==='answer'){const c=questionCards.get(key).slots[Number(part)];input=c.input;notice=c.error;if(!first){questionCategory=key;$('questionCategory').value=key;renderQuestions();}}
+    if(kind==='meta'){input=$(key);notice=$(`${key}Error`);}
+    if(input){errorFor(input,notice,issue.message);first??=input;}
+   }if(first)revealInput(first);
+  }throw error;
+ }
+ const changed=JSON.stringify(next)!==JSON.stringify(state);
+ for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}
+ dirtyInputs.clear();questionDrafts.clear();
+ if(changed){state=next;history.record(state);persist();}
+ render();
 }
-function hasFieldDraft(){return [...cards.entries()].some(([key,c])=>!c.editor.hidden&&(c.text.value!==(state.items[key]?.text||'')||c.short.value!==(state.items[key]?.titleWord||'')||(key==='world'&&JSON.stringify(c.selectedContexts().sort())!==JSON.stringify(state.items[key]?.source==='custom'?(state.items[key]?.contextTags||[]).filter(t=>CONTEXTS.some(([id])=>id===t)).sort():[]))));}
-function requireApplied(){commitMetadata();if(hasFieldDraft()||questionDrafts.size)throw new Error('編集中の項目・質問回答を先に「反映」してください。入力した文字は残しています。');}
 function dirtyWork(){
  if(dirtyInputs.size||hasFieldDraft()||questionDrafts.size)return true;
  const original=repository.works.find(w=>w.id===state.loadedWorkId);if(!original)return true;
@@ -117,16 +138,22 @@ function renderMetadata(){
  $('loadedLabel').textContent=loaded?`編集中：${loaded.state.metadata.name}（元の作品は上書き保存するまで変わりません）`:'新しいタネ';
 }
 function renderQuestions(){
- for(const [category,group] of questionCards){group.panel.hidden=category!==questionCategory;group.empty.hidden=state.questions[category].length>0;
-  group.slots.forEach((c,index)=>{const slot=state.questions[category][index];c.card.hidden=!slot;if(!slot)return;c.heading.textContent=`${index+1}. ${slot.text}`;const draftKey=`${category}:${index}`;
-   if(!questionDrafts.has(draftKey))c.input.value=slot.answer;
-   c.lock.textContent=slot.locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(slot.locked));c.reroll.disabled=slot.locked||Boolean(slot.answer);c.clear.hidden=!slot.answer&&!questionDrafts.has(draftKey);
+ for(const [category,group] of questionCards){group.panel.hidden=category!==questionCategory;group.empty.hidden=state.questions[category].length>0||[...questionDrafts.keys()].some(k=>k.startsWith(category+':'));
+  group.slots.forEach((c,index)=>{const draftKey=`${category}:${index}`,pending=questionDrafts.get(draftKey),current=state.questions[category][index],slot=pending&&pending.slot.id!==current?.id?pending.slot:current;c.card.hidden=!slot;if(!slot)return;c.heading.textContent=`${index+1}. ${slot.text}`;
+   c.input.value=pending?pending.value:slot.answer;
+   c.lock.textContent=slot.locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(slot.locked));c.lock.disabled=Boolean(pending&&pending.slot.id!==current?.id);c.reroll.disabled=slot.locked||Boolean(slot.answer);c.clear.hidden=!slot.answer&&!questionDrafts.has(draftKey);
   });
  }
 }
 function render(){
  document.body.dataset.tone=state.settings.tone;
  $('stageSelect').value=state.settings.stage;$('toneSelect').value=state.settings.tone;$('purposeSelect').value=state.settings.purpose;$('purposeLabel').textContent=state.settings.purpose;
+ for(const b of document.querySelectorAll('[data-coherence]'))b.setAttribute('aria-pressed',String(b.dataset.coherence===state.settings.coherence));
+ $('coherenceHelp').textContent=state.settings.coherence==='cohesive'?'同じ題材や葛藤を持つ素材を優先します。':'舞台と背景の条件を守りながら、意外な組み合わせも残します。';
+ $('lockStatus').hidden=!BASIC.every(([key])=>state.locks[key]);
+ $('groupNotice').hidden=state.items.relation?.relationShape!=='group';
+ $('cozyToneAction').hidden=!(state.settings.themes.includes('cozy-fantasy')&&state.settings.tone===5);
+ if(!$('cozyToneAction').hidden){$('drawNotice').hidden=false;$('drawNotice').textContent='日常ファンタジーには破滅寄りの候補がありません。ダーク・シリアスなら、別れや受け継ぐ暮らしの素材を選べます。';}
  const selected=state.settings.themes;for(const el of $('themeButtons').querySelectorAll('[data-theme]'))el.setAttribute('aria-pressed',String(selected.includes(el.dataset.theme)));
  $('themeCount').textContent=selected.length?`${selected.length}つ選択中`:'お任せ';
  $('activeThemes').textContent=`選んだ方向：${selected.map(id=>THEMES.find(([key])=>id===key)?.[1]).join(' ＋ ')||'お任せ'}${selected.length?'（次の抽選で反映）':''}`;
@@ -145,6 +172,7 @@ function render(){
  renderMetadata();renderQuestions();
 }
 function renderSaved(){
+ backup.observe(repository.works);renderBackup();
  const active=document.activeElement,focusId=active?.dataset?.workId,focusAction=active?.dataset?.action;
  const works=filterWorks(repository.works,$('searchWorks').value,$('favoriteOnly').checked),container=$('savedList');
  const elements=works.map(work=>{
@@ -163,6 +191,10 @@ function renderSaved(){
  if(!elements.length)elements.push(node('p','empty-library',repository.works.length?'条件に合う作品がありません。':'まだ保存したタネはありません。気になる案をここに残しておけます。'));
  container.replaceChildren(...elements);$('savedCount').textContent=`${repository.works.length} / ${MAX_WORKS}件`;
  if(focusId)for(const b of container.querySelectorAll('button'))if(b.dataset.workId===focusId&&b.dataset.action===focusAction){b.focus({preventScroll:true});break;}
+}
+function renderBackup(){
+ $('backupStatus').textContent=backup.meta.lastExportAt?`保存済み作品のJSONを書き出した操作：${new Date(backup.meta.lastExportAt).toLocaleString('ja-JP')}。${backup.changed?'書き出し後に変更があります。':'以後の保存作品の変更はありません。'}`:'保存済み作品のJSONは、まだ書き出していません。';
+ $('backupAuxWarning').textContent=backup.warning;$('backupAuxWarning').hidden=!backup.warning;$('backupPrompt').hidden=!backup.shouldPrompt;
 }
 function resetDrafts(){questionDrafts.clear();dirtyInputs.clear();for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}for(const [id] of metaBindings)$(id).setAttribute('aria-invalid','false');}
 function saveCurrent(overwrite=false){requireApplied();state=repository.save(state,{overwrite});history.record(state);render();renderSaved();showToast(overwrite?'上書き保存しました。':'新しい作品として保存しました。');}
@@ -201,13 +233,15 @@ for(const [key,label] of THEMES){
  $(pack?'packButtons':'classicThemeButtons').append(b);
 }
 bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{output:true}));
+for(const b of document.querySelectorAll('[data-coherence]'))b.addEventListener('click',()=>guard(()=>commit(draft=>updateSettings(draft,{coherence:b.dataset.coherence}))));
+bind('cozyToneAction',()=>commit(draft=>updateSettings(draft,{tone:4})));
 for(const [id,key] of [['stageSelect','stage'],['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
-bind('rollAll',()=>roll());bind('rollDifferent',()=>roll());
+bind('rollAll',()=>roll());
 bind('rollLight',()=>commit(draft=>{draft.settings.tone=1;return rollFields(draft,undefined,{data:EXTRA_DATA,recent});},{output:true,randomize:true,notice:'ほのぼののトーンで引きました。固定した項目は残しています。'}));
 bind('rollCharacters',()=>roll(OPTIONAL.slice(0,6).map(([k])=>k)));bind('rollProgression',()=>roll(OPTIONAL.slice(6).map(([k])=>k)));
 bind('undo',()=>{const previous=history.undo();if(previous){state=previous;$('drawNotice').hidden=true;persist();render();showToast('一つ前の作業に戻しました。');}});bind('redo',()=>{const next=history.redo();if(next){state=next;$('drawNotice').hidden=true;persist();render();showToast('作業を進めました。');}});
-bind('rebuild',()=>commit(()=>{},{output:true,randomize:true,notice:'素材を残して、出力文を作り直しました。'}));bind('rollTitles',()=>commit(()=>{},{output:true,titlesOnly:true}));
+bind('rebuild',()=>{requireApplied();commit(()=>{},{output:true,randomize:true,notice:'素材を残して、出力文を作り直しました。'});});bind('rollTitles',()=>{requireApplied();commit(()=>{},{output:true,titlesOnly:true});});
 $('questionCategory').addEventListener('change',()=>{questionCategory=$('questionCategory').value;renderQuestions();});
 bind('rollQuestions',()=>{
  const protectedDrafts=[0,1,2].filter(i=>questionDrafts.has(`${questionCategory}:${i}`));
@@ -216,14 +250,14 @@ bind('rollQuestions',()=>{
 for(const [id,key,max] of metaBindings){
  $(id).setAttribute('aria-describedby',`${id}Error`);
  $(id).addEventListener('input',()=>{dirtyInputs.add(id);try{parseMeta(id,key,max);}catch{}});
- $(id).addEventListener('blur',()=>guard(()=>commitMetadata([id])));
 }
 bind('saveNew',()=>saveCurrent());bind('saveAs',()=>saveCurrent());bind('saveOverwrite',()=>saveCurrent(true));
 $('searchWorks').addEventListener('input',renderSaved);$('favoriteOnly').addEventListener('change',renderSaved);
 for(const b of document.querySelectorAll('[data-copy]'))b.addEventListener('click',()=>guard(()=>{requireApplied();const key=b.dataset.copy;const text=key==='markdown'?markdown(state):key==='titles'?state.texts.titles.join('\n'):state.texts[key];return copy(text);}));
 bind('downloadMarkdown',()=>{requireApplied();download(markdown(state),filename('.md'),'text/markdown;charset=utf-8');});
 bind('exportCurrent',()=>{requireApplied();download(exportJSON(state,null,{sourceWork:repository.works.find(w=>w.id===state.loadedWorkId)}),filename('.json'),'application/json');});
-bind('exportAll',()=>download(exportJSON(state,repository.works),'creative-idea-gacha-backup.json','application/json'));
+function exportSaved(){const text=exportJSON(state,repository.works);const unsaved=dirtyWork();download(text,'creative-idea-gacha-saved-works.json','application/json');backup.exported(repository.works);renderBackup();$('backupExportNotice').textContent=unsaved?'保存済み作品を書き出しました。現在の未保存編集は含みません。現在のタネは個別のJSON保存で持ち出せます。':'保存済み作品のJSONの書き出しを開始しました。';}
+bind('exportAll',exportSaved);bind('backupNow',exportSaved);bind('dismissBackup',()=>{backup.dismiss();renderBackup();});
 bind('exportRaw',()=>download(repository.rawBackup||'{}','creative-idea-gacha-original-data.json','application/json'));
 $('importFile').addEventListener('change',()=>guard(async()=>{
  pendingImport=null;$('confirmImport').hidden=true;const file=$('importFile').files[0];if(!file)return;
@@ -236,6 +270,12 @@ bind('confirmImport',()=>{if(!pendingImport)return;const count=repository.addImp
 bind('closeManualCopy',()=>$('manualCopy').close());
 for(const details of document.querySelectorAll('details')){const summary=details.querySelector('summary');summary.setAttribute('aria-expanded',String(details.open));details.addEventListener('toggle',()=>summary.setAttribute('aria-expanded',String(details.open)));}
 window.addEventListener('beforeunload',event=>{if(dirtyInputs.size||hasFieldDraft()||questionDrafts.size){event.preventDefault();event.returnValue='';}});
+document.addEventListener('compositionstart',()=>{composing=true;});document.addEventListener('compositionend',()=>{composing=false;});
+document.addEventListener('keydown',event=>{if(event.key==='Enter'&&(composing||event.isComposing||event.keyCode===229)){event.stopImmediatePropagation();if(event.target.closest('button'))event.preventDefault();}},true);
+document.addEventListener('focusin',event=>{if(event.target.matches('textarea,input:not([type="checkbox"])'))document.body.classList.add('text-input-active');});
+document.addEventListener('focusout',()=>{setTimeout(()=>{if(!document.activeElement?.matches('textarea,input:not([type="checkbox"])'))document.body.classList.remove('text-input-active');},0);});
+function keepInputVisible(){const input=document.activeElement;if(input?.matches('textarea,input:not([type="checkbox"])'))requestAnimationFrame(()=>input.scrollIntoView({block:'center',behavior:'instant'}));}
+window.addEventListener('resize',keepInputVisible);window.visualViewport?.addEventListener('resize',keepInputVisible);
 render();renderSaved();
 $('exportRaw').hidden=!repository.rawBackup;
 if(initial.warnings.length)storageWarning(initial.warnings.join('\n'));

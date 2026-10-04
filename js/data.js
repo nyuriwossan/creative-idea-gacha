@@ -1,6 +1,8 @@
 import { BASE_DATA, BASELINE_COUNTS } from './base-data.js';
 import { PACKS,supplementDefinition } from './context.js';
 import { THEME_PACK_DATA } from './theme-pack-data.js';
+import {supplementStory} from './story-metadata.js';
+import {STORY_BASIC} from './story-data.js';
 export { BASELINE_COUNTS };
 export const BASIC = [ ['world','世界観'], ['genre','ジャンル'], ['relation','関係性'], ['incident','中心事件'], ['conflict','葛藤'], ['gimmick','ギミック'], ['twist','ひねり'] ];
 export const STAGES = [['all','すべて'],['modern','現代'],['western','西洋風'],['wafu','和風'],['fantasy','ファンタジー'],['isekai','異世界転生'],['scifi','SF'],['research','研究施設'],['underworld','裏社会'],['school','学園']];
@@ -215,6 +217,6 @@ const ORIGINAL_TITLE_WORDS={
  '断罪イベントの本当の黒幕が別にいる':'断罪の黒幕',
  '帰りたかった元の世界の方が既に失われていた':'失われた帰路'
 };
-export const DATA = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]].map(item=>supplementDefinition(item,key)).concat(THEME_PACK_DATA[key])]));
+export const DATA = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]].map(item=>supplementDefinition(item,key)).concat(THEME_PACK_DATA[key]).map(supplementStory).concat(STORY_BASIC[key])]));
 export const ADDITION_COUNTS = Object.fromEntries(BASIC.map(([key])=>[key,ADDITIONS[key].length]));
 export { rows };

@@ -115,6 +115,7 @@ function check(name,fn){return Promise.resolve().then(fn).then(()=>{results.push
  await legacyContext.close();
  await require('./round3-browser.cjs')({browser,base,out,check});
  await require('./round4-browser.cjs')({browser,base,out,check});
+ await require('./stage-fill-browser.cjs')({browser,base,out,check});
  fs.unlinkSync(path.join(out,'future-test.json'));
  fs.writeFileSync(path.join(out,'browser-check-results.json'),JSON.stringify({passed:results.length,checks:results,errors},null,2));
  }finally{await browser.close();}

@@ -12,7 +12,7 @@ import {emptyState,rollFields,clone,SCENE,editField,refreshTexts} from '../js/co
 import {exportJSON,inspectImport,validateState} from '../js/storage.js';
 const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 test('C new definitions meet category, theme, tone, non-romance and pair minimums',()=>{
- assert.equal(Object.values(ROUND4_BASIC).flat().length,144);assert.equal(THEMES.length,20);assert.equal(Object.values(DATA).flat().length,1088);
+ assert.equal(Object.values(ROUND4_BASIC).flat().length,144);assert.equal(THEMES.length,20);assert.ok(Object.values(DATA).flat().length>=1277);
  for(const [theme] of ROUND4_THEMES){for(const [key,count] of Object.entries({world:4,genre:1,relation:5,incident:4,conflict:4,gimmick:3,twist:3}))assert.equal(ROUND4_BASIC[key].filter(r=>r.round4Group===theme).length,count);const rows=Object.values(ROUND4_BASIC).flat().filter(r=>r.round4Group===theme);assert.ok(rows.filter(r=>r.tones.some(t=>t<=2)).length>=8);assert.ok(rows.filter(r=>r.tones.includes(4)).length>=8);}
  for(const group of ['cross-beastfolk','cross-desert','cross-scifi','cross-journey'])for(const key of ['world','relation','incident','conflict','gimmick','twist'])assert.equal(ROUND4_BASIC[key].filter(r=>r.round4Group===group).length,2);
  assert.deepEqual(Object.fromEntries(Object.entries(ROUND4_CHARACTERS).map(([k,v])=>[k,v.length])),{role:12,goal:8,secret:8});assert.deepEqual(Object.fromEntries(Object.entries(ROUND4_PROGRESSION).map(([k,v])=>[k,v.length])),{deadline:8,obstacle:8,cost:6,ending:6});for(const rows of Object.values(ROUND4_QUESTIONS))assert.equal(rows.length,3);

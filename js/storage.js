@@ -1,4 +1,6 @@
 import { emptyState, FIELDS, QUESTION_CATEGORIES, clone, updateSettings } from './core.js';
+import { EXTRA_DATA } from './extra-data.js';
+const DEFINITION_BY_ID=new Map(Object.values(EXTRA_DATA).flat().map(item=>[item.id,item]));
 export const APP_ID='creative-idea-gacha';
 export const STORAGE_KEY='creativeIdeaGacha_v2';
 export const BACKUP_KEY='creativeIdeaGacha_legacyBackup';
@@ -10,6 +12,7 @@ const object=(v,label)=>{if(!v||typeof v!=='object'||Array.isArray(v))throw new 
 const string=(v,label,max=Infinity)=>{if(typeof v!=='string'||v.length>max)throw new Error(`${label}は文字列${Number.isFinite(max)?`（${max}文字まで）`:''}で指定してください。`);return v;};
 const bool=(v,label)=>{if(typeof v!=='boolean')throw new Error(`${label}の型が不正です。`);return v;};
 function strings(v,label,maxCount=Infinity,maxLength=Infinity){if(!Array.isArray(v)||v.length>maxCount)throw new Error(`${label}の件数が不正です。`);return v.map(x=>string(x,label,maxLength));}
+function tags(value,label,maxCount,maxLength){const list=strings(value,label,maxCount,maxLength);if(new Set(list).size!==list.length)throw new Error(`${label}が重複しています。`);return list;}
 function validItem(raw,{legacy=false}={}) {
  if(raw===null)return null;
  const row=object(raw,'候補');
@@ -22,7 +25,11 @@ function validItem(raw,{legacy=false}={}) {
  const candidateId=legacy?null:row.candidateId;
  if(candidateId!==null&&typeof candidateId!=='string')throw new Error('候補IDが不正です。');
  const shape=row.relationShape||'neutral';if(!['pair','group','neutral'].includes(shape))throw new Error('関係性の形が不正です。');
- return {candidateId,text,source,stageTags:strings(row.stageTags??row.tags??[],'舞台タグ'),themeTags:strings(row.themeTags??[],'テーマタグ'),tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
+ const definition=source==='generated'?DEFINITION_BY_ID.get(candidateId):null;
+ const contextTags=tags(own(row,'contextTags')?row.contextTags:definition?.contextTags??[],'背景タグ',16,40),requiresContext=tags(own(row,'requiresContext')?row.requiresContext:definition?.requiresContext??[],'必要な背景',16,40);
+ const themeTags=tags(row.themeTags??[],'テーマタグ',32,80);
+ const hydratedThemes=tags([...new Set([...themeTags,...(definition?.themeTags||[])])],'テーマタグ',32,80);
+ return {candidateId,text,source,stageTags:tags(row.stageTags??row.tags??[],'舞台タグ',20,80),themeTags:hydratedThemes,contextTags,requiresContext,tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
 }
 function validTexts(raw){const t=object(raw,'生成文');return {summary:string(t.summary??'','要約'),memo:string(t.memo??'','構成メモ'),hint:string(t.hint??'','発想ヒント'),titles:strings(t.titles??[],'タイトル案')};}
 export function validateState(raw,{legacy=false}={}) {

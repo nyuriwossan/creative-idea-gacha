@@ -1,0 +1,236 @@
+import {define} from './pack-definition.js';
+export const PACK_EXTRA={
+beastfolk:{
+role:define('beastfolk','role',`
+district-interpreter|獣人自治区の通訳|自治区のことば|1234|fantasy|buddy|beastfolk|beastfolk
+tool-maker|種族ごとの身体に合う道具を作る職人|身体に合う道具|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+caravan-mediator|異種族の隊商を仲介する案内人|隊商の通訳|1234|fantasy|desert-court,journey|beastfolk,desert,trade|beastfolk,desert
+young-chief|別種族との交渉を初めて任された獣人の族長|初めての族会|2345|fantasy|status-gap|beastfolk|beastfolk
+night-host|昼夜で住人の入れ替わる異種族宿の管理人|昼夜の宿守|123|fantasy|cozy-fantasy,found-family|beastfolk|beastfolk
+`),
+goal:define('beastfolk','goal',`
+open-road|種族を問わず利用できる交易路を開きたい|共通の交易路|1234|fantasy|journey,buddy|beastfolk,trade|beastfolk
+adapt-tools|違う身体でも使いやすい共同道具を作りたい|一緒に使う道具|123|fantasy|daily-work|beastfolk|beastfolk
+equal-rights|獣人として対等な利用権を得たい|対等な権利|2345|fantasy|status-gap|beastfolk|beastfolk
+renew-trust|異種族の仲間と壊れた信頼を結び直したい|結び直す信頼|2345|fantasy|buddy,reunion|beastfolk|beastfolk
+festival-menu|嗅覚が違う住民も楽しめる祭り料理を作りたい|共に味わう日|123|fantasy|cozy-fantasy,daily-work|beastfolk|beastfolk
+`),
+secret:define('beastfolk','secret',`
+hide-species|別種族として暮らすため正体を伏せている|伏せた種族|2345|fantasy|mystery|beastfolk|beastfolk
+gift-maker|異種族の相手に合う贈り物を陰で試作している|合う贈り物|123|fantasy|cozy-fantasy,buddy|beastfolk|beastfolk
+old-translator|以前の種族間条約を訳したことがある|条約の訳者|2345|fantasy|mystery|beastfolk|beastfolk
+hidden-hearing|他の住人に聞こえない警報を聞き取れる|秘密の音域|1234|fantasy|rescue|beastfolk|beastfolk
+well-helper|敵対部族の井戸を匿名で修理している|井戸への親切|1234|fantasy|desert-court,buddy|beastfolk,desert|beastfolk,desert
+`),
+deadline:define('beastfolk','deadline',`
+festival|異種族合同の祭りの開幕まで|共に祝う朝|123|fantasy|daily-work|beastfolk|beastfolk
+moon-night|身体の感覚が変わる次の満月まで|満月の期限|2345|fantasy|myth|beastfolk,magic|beastfolk,magic
+treaty-day|種族間条約の更新会議まで|条約の会議|2345|fantasy|status-gap|beastfolk|beastfolk
+migration|獣人部族が季節移動を始めるまで|草原の出発|1234|fantasy|journey|beastfolk,nomadic|beastfolk,nomadic
+`),
+obstacle:define('beastfolk','obstacle',`
+tools|公共の道具が一つの種族の身体にしか合わない|道具の隔たり|1234|fantasy|daily-work|beastfolk|beastfolk
+hours|昼夜の生活時間の違いで会議が開けない|会う時間|123|fantasy|buddy|beastfolk|beastfolk
+rights|種族によって通行の資格が違う|通行の壁|2345|fantasy|status-gap|beastfolk|beastfolk
+misread-greeting|異種族の挨拶が敵意と誤解されている|挨拶の誤解|1234|fantasy|buddy|beastfolk|beastfolk
+`),
+cost:define('beastfolk','cost',`
+custom|一族だけで使ってきた道具の慣習を見直すこと|慣習の見直し|1234|fantasy|daily-work|beastfolk|beastfolk
+name|隠していた種族を公にすること|名乗る種族|2345|fantasy|mystery|beastfolk|beastfolk
+clan-trust|所属部族からの評価を失う可能性|部族のまなざし|2345|fantasy|rivalry|beastfolk|beastfolk
+adjust-hours|自分の休息時間を少し調整すること|譲る時間|123|fantasy|cozy-fantasy,buddy|beastfolk|-
+`),
+ending:define('beastfolk','ending',`
+shared-work|違う身体を前提に仕事を分担できるようになる|分け合う仕事|123|fantasy|daily-work,buddy|beastfolk|beastfolk
+fair-law|種族間の利用権を話し合う場ができる|権利の対話|1234|fantasy|status-gap|beastfolk|beastfolk
+new-clan|一族を離れても別種族の仲間と居場所を作る|新しい居場所|2345|fantasy|found-family|beastfolk|beastfolk
+record-kept|共存の失敗と残った希望を次の世代へ伝える|共存の記録|2345|fantasy|mystery|beastfolk|beastfolk
+`)
+},
+'desert-court':{
+role:define('desert-court','role',`
+water-manager|共同水路の管理人|水路の番人|1234|fantasy|daily-work|desert|desert
+caravan-guide|砂漠の季節の道を知る隊商案内人|季節の道案内|1234|fantasy|journey|desert,trade|desert
+reluctant-heir|即位を避けて水路を学ぶ跡継ぎ|玉座より水路|2345|fantasy|status-gap|desert,royal|desert,royal
+night-cook|宮廷の祝宴を支える夜市の料理人|夜市の料理人|123|fantasy|cozy-fantasy,daily-work|desert,royal,trade|desert,royal
+law-carrier|遊牧民と定住民の法をつなぐ巡回役人|巡回する法|1234|fantasy|buddy|nomadic|nomadic
+`),
+goal:define('desert-court','goal',`
+well-rights|オアシスの井戸を誰も使えるようにしたい|井戸の利用権|1234|fantasy|buddy,status-gap|desert,oasis|desert,oasis
+safe-return|隊商を季節移動の前に故郷へ帰したい|隊商の帰還|1234|fantasy|journey|desert,trade|desert
+avoid-coronation|王位の代わりに水路修理を続けたい|修理を選ぶ王族|2345|fantasy|daily-work|royal|royal
+family-flavors|各地の家族の料理を宮廷へ届けたい|王宮へ届く味|123|fantasy|cozy-fantasy,found-family|royal|royal
+fair-contribution|水路の維持費を納得できる形で分担したい|水路の分担|1234|fantasy|buddy|desert|desert
+`),
+secret:define('desert-court','secret',`
+old-route|公の地図にない季節の隊商路を知っている|季節の裏道|1234|fantasy|journey,mystery|desert,trade|desert
+shared-source|王家の水源が共同財産だった証書を持っている|井戸の証書|2345|fantasy|mystery|desert,royal|desert,royal
+feast-donor|匿名で夜市の祝宴に水を提供している|祝宴の水|123|fantasy|cozy-fantasy,daily-work|desert|desert
+fake-lineage|即位の資格を示す系譜が改ざんされている|系譜の影|2345|fantasy|mystery|royal|royal
+water-message|消えた都市から水路の修理依頼を受けている|水路の便り|2345|fantasy|mystery|desert|desert
+`),
+deadline:define('desert-court','deadline',`
+season-move|隊商が季節の別道へ移るまで|別道の季節|1234|fantasy|journey|desert,trade|desert
+first-flow|共同水路の通水祭まで|水が届く日|123|fantasy|daily-work|desert|desert
+coronation|宮廷の即位式が始まるまで|即位の朝|2345|fantasy|status-gap|royal|royal
+well-reserve|オアシスの予備水が尽きるまで|最後の貯水|2345|fantasy|rescue|desert,oasis|desert,oasis
+`),
+obstacle:define('desert-court','obstacle',`
+lost-map|地下水路図の必要な箇所が読めない|水路図の欠け|1234|fantasy|mystery|desert|desert
+different-law|隣のオアシスでは同じ利用券が使えない|井戸ごとの規則|1234|fantasy|status-gap|desert,oasis|desert,oasis
+sand-season|砂嵐で隊商路の標識が埋まっている|埋もれた道標|1234|fantasy|journey|desert|desert
+court-gate|宮廷への提案には身分の保証が必要だ|提案の門|2345|fantasy|status-gap|royal|royal
+`),
+cost:define('desert-court','cost',`
+family-well|家族だけの井戸の利用権を分けること|分ける井戸|1234|fantasy|found-family|desert,oasis|desert
+detour|最短の隊商路を諦めること|遠回りの帰還|123|fantasy|journey|desert,trade|desert
+royal-favor|王家から与えられた交易の特権|交易の特権|2345|fantasy|status-gap|royal,trade|royal
+reveal-map|秘伝の水路図を公開すること|開く水路図|2345|fantasy|mystery|desert|desert
+`),
+ending:define('desert-court','ending',`
+shared-water|共同水路の維持を各地で分担するようになる|つながる水路|1234|fantasy|buddy|desert|desert
+season-rest|隊商に無理のない季節の宿場が増える|休める隊商路|123|fantasy|journey,daily-work|desert,trade|desert
+throne-choice|王位と水利の管理を別の役目として引き継ぐ|役目を分ける国|2345|fantasy|status-gap|desert,royal|desert,royal
+records-open|水源の独占の歴史を公開し次の交渉が始まる|水の歴史の先|2345|fantasy|mystery|desert|desert
+`)
+},
+romantasy:{
+role:define('romantasy','role',`
+release-clerk|魔法契約の解除手続きを担当する書記|解除の書記|1234|fantasy|daily-work|magic|magic
+negotiating-fiance|婚約の条件を自分で交渉する跡継ぎ|交渉する跡継ぎ|2345|fantasy|status-gap|royal|royal
+gift-enchanter|同意した贈り物に守護魔法を添える職人|贈り物の術師|123|fantasy|cozy-fantasy,daily-work|magic|magic
+border-witness|二国の婚姻魔法を見届ける使節|国境の立会人|2345|fantasy|desert-court|royal,magic|royal,magic
+former-partner|契約後の暮らしを探す元婚約者|契約後の暮らし|1234|fantasy|reunion|royal|-
+`),
+goal:define('romantasy','goal',`
+meet-equal|契約を終えて対等な立場で会いたい|対等に会う日|1234|fantasy|romance,status-gap|magic|-
+protect-freedom|守護魔法を残しながら解除の自由も守りたい|守りと自由|2345|fantasy|rescue|magic|magic
+choose-feeling|予言と関係なく自分の気持ちを確かめたい|心を選ぶ|1234|fantasy|romance,myth|magic|magic
+joint-shop|恋人の役目ではなく仲間として店を続けたい|店の仲間として|123|fantasy|cozy-fantasy,buddy|trade|-
+separate-treaty|婚姻と国の協定を別々に交渉したい|ふたつの交渉|2345|fantasy|desert-court,status-gap|royal|royal
+`),
+secret:define('romantasy','secret',`
+exit-prepared|相手が自由に離れられるよう解除費用を用意している|離れる自由|1234|fantasy|romance|magic|-
+true-feeling|契約上の好意だと思われるのが怖くて本心を伏せている|本心の余白|1234|fantasy|romance|magic|-
+gift-practice|贈り物の魔法を何度も失敗しながら練習している|贈り物の練習|123|fantasy|cozy-fantasy|magic|magic
+forgotten-vow|記憶を失う前に相手の選択を尊重すると約束していた|忘れた合意|2345|fantasy|reunion,mystery|magic|-
+renewal-doubt|共同契約の更新を望んでいるが恋情とは言い切れない|更新の理由|1234|fantasy|buddy,romance|magic|-
+`),
+deadline:define('romantasy','deadline',`
+expiry|恋人契約の満了日まで|契約の満了|1234|fantasy|romance|magic|-
+hearing|婚姻魔法の解除審査まで|解除の審査|2345|fantasy|status-gap|magic|magic
+meal|契約更新の料理交換の日まで|料理を渡す日|123|fantasy|cozy-fantasy|magic|magic
+envoys-leave|婚約を協議する各国使節が帰るまで|使節の帰路|2345|fantasy|desert-court|royal|royal
+`),
+obstacle:define('romantasy','obstacle',`
+old-clause|解除権を制限する古い条項が残っている|古い解除条項|2345|fantasy|status-gap|magic|-
+mistaken-duty|本心を話しても契約上の義務だと受け取られる|義務に見える心|1234|fantasy|romance|magic|-
+fees|魔法契約を終えるための手続き費用が高い|解除の費用|2345|fantasy|daily-work|magic|magic
+cooking-timing|更新の手料理を用意する時間が合わない|台所の予定|123|fantasy|cozy-fantasy|magic|magic
+`),
+cost:define('romantasy','cost',`
+title|婚約に伴っていた肩書きを手放すこと|肩書きの外|2345|fantasy|status-gap|royal|-
+guard-magic|相手の同意に支えられた守護魔法の一部|守りの見直し|2345|fantasy|rescue|magic|magic
+certainty|運命の相手だという確信を問い直すこと|運命の余白|1234|fantasy|myth,romance|magic|magic
+confession|感謝と恋情をまだ分けられないと打ち明けること|心を急がない日|123|fantasy|romance|magic|-
+`),
+ending:define('romantasy','ending',`
+chosen-reunion|契約を終えてから自分たちで再会を選ぶ|自分たちの再会|1234|fantasy|reunion,romance|magic|-
+friends|恋人の契約を終え、協力者として交流を続ける|別の結び目|1234|fantasy|buddy|magic|-
+separate-futures|互いの自由を認め、違う道へ進む|自由な別れ|2345|fantasy|romance|magic|-
+new-terms|対等な解除権を持つ新しい契約を結ぶ|選べる契約|1234|fantasy|status-gap,romance|magic|-
+`)
+},
+'cozy-fantasy':{
+role:define('cozy-fantasy','role',`
+repair-apprentice|話す魔法道具を修理する見習い|道具を聞く人|123|fantasy|daily-work|magic|magic
+shared-host|魔法の共同住宅の世話係|共同住宅の世話係|123|fantasy|found-family|magic|magic
+spirit-server|精霊と献立を相談する食堂の接客係|精霊の献立係|123|fantasy|daily-work|spirit|spirit
+retired-worker|引退後に町の仕事を学ぶ元勇者|勇者の新しい仕事|123|fantasy|daily-work|trade|-
+memory-pawn|預かった記憶の返却を手伝う質屋の店員|記憶を返す人|234|fantasy|mystery|magic|magic
+`),
+goal:define('cozy-fantasy','goal',`
+keep-small-shop|無理をしすぎず小さな店を続けたい|続ける店|123|fantasy|daily-work|trade|-
+new-neighbors|新しい住人も通える祭りにしたい|迎える祭り|123|fantasy|buddy|trade|-
+care-rest|魔法道具を直して持ち主も休ませたい|道具と休息|123|fantasy|daily-work|magic|magic
+shared-rent|共同生活の費用を皆で納得して分けたい|暮らしの分担|1234|fantasy|found-family|trade|-
+quiet-delivery|夢の郵便を相手の休息を妨げず届けたい|静かな配達|123|fantasy|reunion|magic|magic
+`),
+secret:define('cozy-fantasy','secret',`
+anonymous-help|閉店後に隣の店の掃除を手伝っている|名もない掃除|123|fantasy|buddy,daily-work|trade|-
+recipe-keeper|常連が教えた家庭の味をそっと記録している|家庭の味の記録|123|fantasy|found-family|trade|-
+rest-warning|魔法道具が休息を勧める合図を理解できる|道具の休憩合図|123|fantasy|daily-work|magic|magic
+rent-donor|共同住宅の不足分を匿名で少し補っている|足りない分の親切|1234|fantasy|found-family|trade|-
+old-festival|忘れられた祭りで新しい住人を迎えた記憶がある|祭りの記憶|1234|fantasy|reunion|trade|-
+`),
+deadline:define('cozy-fantasy','deadline',`
+opening|小さな魔法店の新装開店まで|店の新しい朝|123|fantasy|daily-work|magic,trade|magic
+festival|住民で作り直す祭りの開幕まで|迎える祭りの日|123|fantasy|buddy|trade|-
+rent|共同住宅の家賃を集める日まで|暮らしの支払い|1234|fantasy|found-family|trade|-
+plant-season|魔法植物の植え替えに適した季節の終わりまで|植え替えの季節|123|fantasy|daily-work|magic|magic
+`),
+obstacle:define('cozy-fantasy','obstacle',`
+shop-expenses|店の維持費が小さな売上を上回っている|続ける費用|1234|fantasy|daily-work|trade|-
+spirit-rest|精霊の休日と店の繁忙日が重なる|精霊の休日|123|fantasy|buddy|spirit|spirit
+tool-voice|魔法道具の困りごとを人が聞き取れない|道具の声の壁|123|fantasy|daily-work|magic|magic
+festival-access|昔の祭りの会場には新しい住人が入りにくい|祭りの入口|123|fantasy|buddy|trade|-
+`),
+cost:define('cozy-fantasy','cost',`
+alone-pride|店を一人で守るという誇りを見直すこと|頼る店主|123|fantasy|buddy|trade|-
+familiar-menu|いつもの献立を一品入れ替えること|献立の新顔|123|fantasy|daily-work|trade|-
+space-share|自分だけの作業場所を共有すること|工房の分け前|123|fantasy|found-family|trade|-
+old-name|親しんだ店名を次の世代へ合う形に変えること|店の名の明日|1234|fantasy|reunion|trade|-
+`),
+ending:define('cozy-fantasy','ending',`
+neighborhood-help|店の困りごとを近所へ相談できるようになる|相談できる町|123|fantasy|buddy,daily-work|trade|-
+shared-habits|住民の違う習慣を尊重する当番ができる|暮らしの当番|123|fantasy|found-family|trade|-
+new-service|修理だけでなく休息も勧める店になる|休める工房|123|fantasy|daily-work|magic|-
+ordinary-magic|小さな協力と生活魔法で次の日も店を開ける|明日も開く店|123|fantasy|buddy|magic,trade|magic
+`)
+}
+};
+export const SHARED_PACK_CHARACTERS=Object.fromEntries(['role','goal','secret'].map(key=>[key,Object.values(PACK_EXTRA).flatMap(pack=>pack[key])]));
+export const PACK_PROGRESSION=Object.fromEntries(['deadline','obstacle','cost','ending'].map(key=>[key,Object.values(PACK_EXTRA).flatMap(pack=>pack[key])]));
+const question=(pack,category,slug,text,requiresContext=[])=>({id:`question-${pack}-${category}-${slug}`,text,themeTags:[pack],requiresContext,primaryPack:pack});
+export const PACK_QUESTIONS={
+world:[
+ question('beastfolk','world','bodies','この世界に種族の違いがあるとしたら、道具や公共設備は身体の違いをどう扱うだろう。'),
+ question('beastfolk','world','coexist','異種族の共存を維持する仕事を、誰が担っているだろう。',['beastfolk']),
+ question('desert-court','world','water','水の所有・配分・維持を、誰が決めているだろう。',['desert']),
+ question('desert-court','world','moving-law','移動する民と定住する民の法律は、どこでつながるだろう。',['nomadic']),
+ question('romantasy','world','exit','この世界に関係を結ぶ契約があるとしたら、解消する自由は誰にあるだろう。'),
+ question('romantasy','world','magic-choice','魔法による縁と、当事者の気持ちは、どのように区別されるだろう。',['magic']),
+ question('cozy-fantasy','world','costs','店や共同生活があるとしたら、維持費や仕事をどう分けるだろう。'),
+ question('cozy-fantasy','world','depend','住民が小さな困りごとを互いに頼れる仕組みは、どんなものだろう。')
+],
+character:[
+ question('beastfolk','character','gestures','同じ仕草が違う種族では別の意味になるなら、誰が間に立てるだろう。',['beastfolk']),
+ question('beastfolk','character','equal','異種族の相手を対等に扱うことは、日常のどんな行動に表れるだろう。',['beastfolk']),
+ question('desert-court','character','heir','王位を望まない人にも、水源を守りたい理由はあるだろうか。',['royal','desert']),
+ question('desert-court','character','guide','砂漠の案内人は、安全と客の希望をどう折り合いづけるだろう。',['desert']),
+ question('romantasy','character','without-pact','契約がなかったとしても、当事者は同じ関係を選ぶだろうか。'),
+ question('romantasy','character','honesty','役目からの親切と、本心からの親切を、どう見分けるだろう。'),
+ question('cozy-fantasy','character','rest','誰かに休んでほしいとき、相手の誇りを傷つけずに頼れるだろうか。'),
+ question('cozy-fantasy','character','place','小さな不便が、誰かの居場所を狭めていないだろうか。')
+],
+plot:[
+ question('beastfolk','plot','meeting','種族ごとの生活時間が違うなら、最初の協力はいつ生まれるだろう。',['beastfolk']),
+ question('beastfolk','plot','law','共存の法を変える最初の一歩は、どんな小さな出来事だろう。',['beastfolk']),
+ question('desert-court','plot','repair','水源の発見と水路の修理では、どちらが先に暮らしを変えるだろう。',['desert']),
+ question('desert-court','plot','season','季節移動が早まったら、誰の計画が変わるだろう。',['nomadic']),
+ question('romantasy','plot','expiry','契約の終わりを、別れ以外の転機にできるだろうか。'),
+ question('romantasy','plot','choose-again','解除の自由が守られたあと、何を改めて選び直せるだろう。'),
+ question('cozy-fantasy','plot','small-help','大きな奇跡を使わずに状況を変える、小さな協力は何だろう。'),
+ question('cozy-fantasy','plot','tomorrow','物語のあとも続けたい店や暮らしの習慣は、何だろう。')
+],
+consistency:[
+ question('beastfolk','consistency','not-all','描いた身体や習慣の特徴を、種族全体へ一律に広げていないだろうか。',['beastfolk']),
+ question('beastfolk','consistency','rights','一つの種族を守る制度が、別の住民を排除していないだろうか。',['beastfolk']),
+ question('desert-court','consistency','throne','王位が水源管理と結びつく根拠は、どこにあるだろう。',['royal','desert']),
+ question('desert-court','consistency','maintenance','水を配る仕組みだけでなく、維持する人や費用も決まっているだろうか。',['desert']),
+ question('romantasy','consistency','consent','魔法や契約を、当事者の同意や恋愛感情と混同していないだろうか。'),
+ question('romantasy','consistency','right-to-leave','契約を断る場合にも、安全や生活を選べる余地があるだろうか。'),
+ question('cozy-fantasy','consistency','roles','共同生活の負担が一人に偏るなら、その理由や変える方法はあるだろうか。'),
+ question('cozy-fantasy','consistency','magic-limit','生活魔法があるとしたら、費用・限界・休む時間はどんなものだろう。')
+]
+};

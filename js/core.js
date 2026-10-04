@@ -1,6 +1,8 @@
 import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from './data.js';
+import { CONTEXTS,worldContext,contextLabels } from './context.js';
+import { availablePool,priorityPlan,themeMask,bitCount,MAJOR_FIELDS } from './priority.js';
 export const clone = value => JSON.parse(JSON.stringify(value));
-export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,recent:0.25});
+export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,contextMatch:1.5,recent:0.25,characterDuplicate:0.35});
 export const OPTIONAL = [
  ['protagonist.role','主人公の立場・役割'],['protagonist.goal','主人公の目的'],['protagonist.secret','主人公の秘密'],
  ['counterpart.role','相手役の立場・役割'],['counterpart.goal','相手役の目的'],['counterpart.secret','相手役の秘密'],
@@ -23,36 +25,80 @@ export function weightFor(item, state, key, recent=[]) {
  const tags=world?.source==='custom' ? (state.settings.stage==='all'?[]:[state.settings.stage]) : (world?.stageTags||[]);
  let weight=key==='world'?1:!item.stageTags.length?WEIGHTS.generic:item.stageTags.some(t=>tags.includes(t))?WEIGHTS.stageMatch:WEIGHTS.stageMismatch;
  if(item.themeTags.some(t=>state.settings.themes.includes(t)))weight*=WEIGHTS.themeMatch;
+ if((item.contextTags||[]).some(t=>worldContext(state).includes(t)))weight*=WEIGHTS.contextMatch;
+ if(/\.(goal|secret)$/.test(key)){const other=key.startsWith('protagonist.')?key.replace('protagonist.','counterpart.'):key.replace('counterpart.','protagonist.');if(state.items[other]?.text===item.text)weight*=WEIGHTS.characterDuplicate;}
  if(recent.includes(item.id))weight*=WEIGHTS.recent;
  return weight;
 }
 export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,recent={},data=DATA}={}) {
- const notices=[]; let changed=0;
- for(const key of keys){
-  if(state.locks[key])continue;
-  let pool=(data[key]||[]).filter(x=>!x.tones.length||x.tones.includes(state.settings.tone));
-  if(key==='world'&&state.settings.stage!=='all')pool=pool.filter(x=>x.stageTags.includes(state.settings.stage));
-  const label=FIELDS.find(([k])=>k===key)?.[1]||key;
-  if(!pool.length){notices.push(`${label}：この舞台・トーンの候補が足りません。元の値を保ちました。`);continue;}
-  const previous=state.items[key];
-  const alternatives=pool.filter(x=>x.id!==previous?.candidateId&&x.text!==previous?.text);
-  if(previous&&!alternatives.length){notices.push(`${label}：この条件では別候補がありません。`);continue;}
-  if(alternatives.length)pool=alternatives;
+ const notices=[],themes=state.settings.themes,allBasic=BASIC.every(([k])=>keys.includes(k));let changed=0;
+ const related=item=>Boolean(themeMask(item,themes));
+ function pick(key,pool){
   const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[]),rng);
-  const {id,origin,...fields}=clone(picked);
-  state.items[key]={...fields,candidateId:id};
-  recent[key]=[...(recent[key]||[]),picked.id].slice(-10); changed++;
+  const {id,origin,primaryPack,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
+  recent[key]=[...(recent[key]||[]),picked.id].slice(-10);changed++;
+ }
+ function shortage(key,info){
+  const label=FIELDS.find(([k])=>k===key)?.[1]||key;
+  notices.push(`${label}：${!info.beforeContext?'舞台・トーンの候補が足りません':!info.beforePrevious?'必要な背景要素が確認できません':'この条件では別候補がありません'}。元の値を保ちました。`);
+ }
+ if(keys.includes('world')&&!state.locks.world){
+  const info=availablePool(state,'world',data,[]);let pool=info.pool;
+  if(!pool.length)shortage('world',info);
+  else{
+   if(themes.length){
+    const relatedWorlds=pool.filter(related);
+    if(relatedWorlds.length){
+     // 他カテゴリで使えるテーマも考慮し、複数選択を支えられる世界を優先する。
+     const potential=world=>{
+      let mask=themeMask(world,themes);
+      for(const key of keys.filter(k=>k!=='world')){if(state.locks[key])mask|=themeMask(state.items[key],themes);else for(const item of availablePool(state,key,data,world.contextTags||[]).pool)mask|=themeMask(item,themes);}
+      return bitCount(mask);
+     };
+     const scores=relatedWorlds.map(potential),max=Math.max(...scores);pool=relatedWorlds.filter((_,i)=>scores[i]===max);
+    }else notices.push('この舞台・トーンでは、選んだテーマに合う別の世界観がありません。舞台・トーンを保って引きます。');
+   }
+   pick('world',pool);
+  }
+ }
+ const otherKeys=keys.filter(k=>k!=='world'),context=worldContext(state),pools={},infos={};
+ for(const key of otherKeys)if(!state.locks[key]){infos[key]=availablePool(state,key,data,context);pools[key]=infos[key].pool;}
+ const baseKeys=keys.filter(k=>k==='world'||state.locks[k]||!pools[k]?.length);
+ const baseMask=baseKeys.reduce((mask,k)=>mask|themeMask(state.items[k],themes),0),baseCount=baseKeys.filter(k=>related(state.items[k])).length,baseMajor=baseKeys.filter(k=>MAJOR_FIELDS.includes(k)&&related(state.items[k])).length;
+ const target=allBasic?3:keys.length>1?2:1,majorTarget=allBasic?Math.min(2,MAJOR_FIELDS.filter(k=>keys.includes(k)&&(state.locks[k]?related(state.items[k]):pools[k]?.some(related))).length):0;
+ const plan=themes.length?priorityPlan(Object.keys(pools),pools,themes,{baseMask,baseCount,baseMajor,target,majorTarget,rng}).plan:{};
+ for(const key of otherKeys){
+  if(state.locks[key])continue;let pool=pools[key];if(!pool.length){shortage(key,infos[key]);continue;}
+  if(plan[key])pool=pool.filter(item=>themeMask(item,themes)===plan[key]);
+  pick(key,pool);
+ }
+ const relatedCount=keys.filter(k=>related(state.items[k])).length,mask=keys.reduce((m,k)=>m|themeMask(state.items[k],themes),0),unavailableThemes=[];
+ if(themes.length){
+  for(let i=0;i<themes.length;i++)if(!(mask&(1<<i))){
+   const theme=themes[i],label=THEMES.find(([k])=>k===theme)?.[1]||theme;
+   const candidates=keys.flatMap(k=>data[k]||[]).filter(item=>item.themeTags.includes(theme)&&(!item.tones.length||item.tones.includes(state.settings.tone)));
+   const missing=[...new Set(candidates.flatMap(item=>item.requiresContext||[]).filter(t=>!context.includes(t)))];
+   const reason=missing.length?`必要な世界の背景（${contextLabels(missing).join('・')||'未確認の要素'}）や固定状態を確認してください。`:'舞台・トーン・固定状態や、直前と異なる候補の不足を確認してください。';
+   unavailableThemes.push({id:theme,reason});notices.push(`${label}を反映できませんでした。${reason}`);
+  }
+  if(relatedCount<target&&!unavailableThemes.length){
+   const missing=[...new Set(otherKeys.flatMap(k=>data[k]||[]).filter(item=>related(item)&&(!item.tones.length||item.tones.includes(state.settings.tone))).flatMap(item=>item.requiresContext||[]).filter(t=>!context.includes(t)))];
+   const labels=contextLabels(missing).slice(0,2);
+   notices.push(labels.length?`今の世界には「${labels.join('・')}」などの背景が確認できず、テーマ素材を一部の項目に反映しました。世界観の編集で背景を指定できます。`:'固定中の項目やトーン・別候補の不足により、テーマ素材を一部の項目にだけ反映しました。');
+  }
  }
  if(!changed&&!notices.length)notices.push('対象の項目はすべて固定中です。固定を解除すると引き直せます。');
- return {changed,notices};
+ return {changed,notices,relatedCount,unavailableThemes};
 }
-export function editField(state,key,text,titleWord='') {
+export function editField(state,key,text,titleWord='',contextTags=[]) {
  if(!FIELDS.some(([k])=>k===key))throw new Error('不明な項目です。');
  if(!text.trim())throw new Error('空欄は反映できません。');
  if(text.length>500)throw new Error('本文は500文字までです。');
  if(titleWord.length>30)throw new Error('タイトル用の言葉は30文字までです。');
- if(state.items[key]?.text===text&&state.items[key]?.titleWord===titleWord)return false;
- state.items[key]={candidateId:null,text,titleWord,source:'custom',stageTags:[],themeTags:[],tones:[],...(key==='relation'?{relationShape:'neutral'}:{})};
+ if(!Array.isArray(contextTags)||contextTags.length>8||new Set(contextTags).size!==contextTags.length||contextTags.some(t=>!CONTEXTS.some(([id])=>id===t)))throw new Error('世界の背景要素が不正です。');
+ const old=state.items[key],sameBackground=key!=='world'||JSON.stringify(old?.contextTags||[])===JSON.stringify(contextTags)||(old?.source!=='custom'&&!contextTags.length);
+ if(old?.text===text&&old?.titleWord===titleWord&&sameBackground)return false;
+ state.items[key]={candidateId:null,text,titleWord,source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:key==='world'?[...contextTags]:[],requiresContext:[],...(key==='relation'?{relationShape:'neutral'}:{})};
  state.locks[key]=true; return true;
 }
 export function updateSettings(state, patch) {
@@ -126,6 +172,7 @@ export function refreshTexts(state,{rng=Math.random,randomize=true,titlesOnly=fa
 }
 export function markdown(state) {
  const lines=[`# ${state.metadata.name||state.texts.titles[0]||'無題のタネ'}`,'',`舞台：${STAGES.find(([k])=>k===state.settings.stage)?.[1]} / トーン：${TONES[state.settings.tone-1]} / 用途：${state.settings.purpose}`,`抽選テーマ：${state.settings.themes.map(k=>THEMES.find(([t])=>t===k)?.[1]).join('、')||'お任せ'}`,`整理用タグ：${state.metadata.tags.join('、')||'なし'}`,'','## 要約','',state.texts.summary,'','## 設定と構成メモ','',state.texts.memo,'','## 発想ヒント','',state.texts.hint,'','## タイトル案','',...state.texts.titles.map(t=>`- ${t}`)];
+ const background=contextLabels(state.items.world?.contextTags||[]);if(background.length)lines.push('','## 世界の背景要素','',background.join('、'));
  for(const [category,label] of QUESTION_CATEGORIES){const slots=state.questions[category];if(!slots.length)continue;lines.push('',`## 質問｜${label}`);for(const slot of slots)lines.push('',`### ${slot.text}`,'',slot.answer||'（未回答）');}
  if(state.metadata.notes)lines.push('','## 自由メモ','',state.metadata.notes);
  return lines.join('\n');

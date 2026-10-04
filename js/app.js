@@ -3,6 +3,7 @@ import { EXTRA_DATA } from './extra-data.js';
 import { emptyState,FIELDS,OPTIONAL,QUESTION_CATEGORIES,clone,rollFields,editField,updateSettings,refreshTexts,History,markdown } from './core.js';
 import { Repository,exportJSON,inspectImport,filterWorks,MAX_BYTES,MAX_WORKS } from './storage.js';
 import { drawQuestions,answerQuestion } from './questions.js';
+import { CONTEXTS,PACKS,contextLabels } from './context.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -19,6 +20,8 @@ function persist(){try{repository.write(state);if(!repository.blocked)$('storage
 async function guard(fn){try{await fn();}catch(e){showToast(e.message||'操作を完了できませんでした。');}}
 function commit(fn,{output=false,randomize=false,titlesOnly=false,notice=''}={}){
  const draft=clone(state),result=fn(draft);
+ if(result?.notices){$('drawNotice').textContent=result.notices.join('\n');$('drawNotice').hidden=!result.notices.length;}
+ else if(JSON.stringify(draft.settings)!==JSON.stringify(state.settings)||JSON.stringify(draft.items.world)!==JSON.stringify(state.items.world))$('drawNotice').hidden=true;
  if(result===false||(result?.changed===0&&JSON.stringify(draft)===JSON.stringify(state))){if(result?.notices?.length)showToast(result.notices.join('\n'));else if(result?.notice)showToast(result.notice);return result;}
  if(output)refreshTexts(draft,{randomize,titlesOnly});
  if(JSON.stringify(draft)!==JSON.stringify(state)){state=draft;history.record(state);persist();render();}
@@ -36,11 +39,13 @@ function makeField(key,label,container,optional){
  const value=node('p','field-value'),actions=node('div','field-actions');
  const roll=button('引き直す',()=>{
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
-  if(key==='world'&&result?.changed)showToast('世界観を引き直しました。他の項目も合わせたいときは「全部ガチャ」を使えます。');
+  if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「全部ガチャ」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
- const edit=button('編集',()=>{if(!editor.hidden){text.focus();return;}text.value=state.items[key]?.text||'';short.value=state.items[key]?.titleWord||'';editor.hidden=false;edit.setAttribute('aria-expanded','true');validateEditor();text.focus();});edit.setAttribute('aria-label',`${label}を編集`);edit.setAttribute('aria-expanded','false');edit.setAttribute('aria-controls',editor.id);
+ const contextInputs=[];
+ const selectedContexts=()=>contextInputs.filter(c=>c.checked).map(c=>c.value);
+ const edit=button('編集',()=>{if(!editor.hidden){text.focus();return;}text.value=state.items[key]?.text||'';short.value=state.items[key]?.titleWord||'';for(const input of contextInputs)input.checked=state.items[key]?.source==='custom'&&(state.items[key].contextTags||[]).includes(input.value);editor.hidden=false;edit.setAttribute('aria-expanded','true');validateEditor();text.focus();});edit.setAttribute('aria-label',`${label}を編集`);edit.setAttribute('aria-expanded','false');edit.setAttribute('aria-controls',editor.id);
  const textLabel=node('label','',`${label}の本文 `),count=node('span','input-count');textLabel.append(count);
  const text=node('textarea');text.id=`input-${safeKey}`;text.rows=3;textLabel.htmlFor=text.id;const inputError=node('span','input-error');inputError.id=`error-${safeKey}`;inputError.setAttribute('aria-live','polite');text.setAttribute('aria-describedby',inputError.id);
  const shortLabel=node('label','','タイトル用の短い言葉（任意 / 30文字まで）'),short=node('input');short.type='text';short.id=`short-${safeKey}`;shortLabel.htmlFor=short.id;
@@ -49,10 +54,19 @@ function makeField(key,label,container,optional){
  text.addEventListener('input',validateEditor);short.addEventListener('input',validateEditor);
  const editActions=node('div','inline-actions');
  const close=()=>{editor.hidden=true;edit.setAttribute('aria-expanded','false');edit.focus();};
- editActions.append(button('反映',()=>{if(!validateEditor())return;commit(draft=>editField(draft,key,text.value,short.value),{output:true,randomize:false});close();}),button('キャンセル',close));
+ editActions.append(button('反映',()=>{if(!validateEditor())return;commit(draft=>editField(draft,key,text.value,short.value,selectedContexts()),{output:true,randomize:false});close();}),button('キャンセル',close));
  if(optional)editActions.append(button('未設定に戻す',()=>{commit(draft=>{draft.items[key]=null;draft.locks[key]=false;},{output:true});close();},'text-btn'));
- editor.append(textLabel,text,inputError,shortLabel,short,shortError,editActions);actions.append(roll,lock,edit);card.append(head,value,actions,editor);$(container).append(card);
- cards.set(key,{card,value,source,roll,lock,edit,editor,text,short});
+ editor.append(textLabel,text,inputError,shortLabel,short,shortError);
+ if(key==='world'){
+  const background=node('fieldset','background-editor'),legend=node('legend','','この世界にある要素（任意）');
+  const hint=node('p','note','文章からは自動判定しません。手入力の世界で、実際にある要素を選んでください。候補の背景は自動で引き継ぎません。');
+  const options=node('div','context-options');
+  for(const [id,name] of CONTEXTS){const label=node('label','context-option'),input=node('input');input.type='checkbox';input.value=id;input.id=`context-${id}`;label.append(input,document.createTextNode(name));options.append(label);contextInputs.push(input);}
+  background.append(legend,hint,options);editor.append(background);
+ }
+ const badges=node('div','material-badges');
+ editor.append(editActions);actions.append(roll,lock,edit);card.append(head,value,badges,actions,editor);$(container).append(card);
+ cards.set(key,{card,value,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges});
 }
 function makeQuestions(category){
  const panel=node('div');panel.dataset.category=category;
@@ -88,7 +102,7 @@ function commitMetadata(ids=null){
  commit(draft=>{for(const [,key,value] of changes){if(key==='protagonist'||key==='counterpart')draft.characters[key].name=value;else draft.metadata[key]=value;}},{output:changes.some(([,key])=>key==='protagonist'||key==='counterpart')});
  for(const [id] of changes)dirtyInputs.delete(id);renderMetadata();
 }
-function hasFieldDraft(){return [...cards.entries()].some(([key,c])=>!c.editor.hidden&&(c.text.value!==(state.items[key]?.text||'')||c.short.value!==(state.items[key]?.titleWord||'')));}
+function hasFieldDraft(){return [...cards.entries()].some(([key,c])=>!c.editor.hidden&&(c.text.value!==(state.items[key]?.text||'')||c.short.value!==(state.items[key]?.titleWord||'')||(key==='world'&&JSON.stringify(c.selectedContexts().sort())!==JSON.stringify(state.items[key]?.source==='custom'?(state.items[key]?.contextTags||[]).filter(t=>CONTEXTS.some(([id])=>id===t)).sort():[]))));}
 function requireApplied(){commitMetadata();if(hasFieldDraft()||questionDrafts.size)throw new Error('編集中の項目・質問回答を先に「反映」してください。入力した文字は残しています。');}
 function dirtyWork(){
  if(dirtyInputs.size||hasFieldDraft()||questionDrafts.size)return true;
@@ -113,12 +127,18 @@ function renderQuestions(){
 function render(){
  document.body.dataset.tone=state.settings.tone;
  $('stageSelect').value=state.settings.stage;$('toneSelect').value=state.settings.tone;$('purposeSelect').value=state.settings.purpose;$('purposeLabel').textContent=state.settings.purpose;
- const selected=state.settings.themes;for(const el of $('themeButtons').children)el.setAttribute('aria-pressed',String(selected.includes(el.dataset.theme)));
+ const selected=state.settings.themes;for(const el of $('themeButtons').querySelectorAll('[data-theme]'))el.setAttribute('aria-pressed',String(selected.includes(el.dataset.theme)));
  $('themeCount').textContent=selected.length?`${selected.length}つ選択中`:'お任せ';
+ $('activeThemes').textContent=`選んだ方向：${selected.map(id=>THEMES.find(([key])=>id===key)?.[1]).join(' ＋ ')||'お任せ'}${selected.length?'（次の抽選で反映）':''}`;
  const world=state.items.world;
  const mismatch=state.locks.world&&state.settings.stage!=='all'&&(world?.source==='custom'||!world?.stageTags.includes(state.settings.stage));
  $('worldNotice').hidden=!mismatch;$('worldNotice').textContent='世界観は固定中。舞台設定は世界観を引き直すと反映します。';
- for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key];c.value.textContent=item?.text||'未設定';c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;}
+ for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key];c.value.textContent=item?.text||'未設定';c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
+  const badges=[];
+  if(item?.source==='generated')for(const [id,label] of PACKS)if(item.themeTags.includes(id))badges.push(node('span','material-tag',label));
+  if(key==='world'&&item)for(const label of contextLabels(item.contextTags||[]))badges.push(node('span','context-tag',label));
+  c.badges.replaceChildren(...badges);c.badges.hidden=!badges.length;
+ }
  $('summaryBody').textContent=state.texts.summary;$('memoBody').textContent=state.texts.memo;$('hintBody').textContent=state.texts.hint;
  $('titleList').replaceChildren(...state.texts.titles.map(t=>node('li','',t)));
  $('undo').disabled=!history.canUndo;$('redo').disabled=!history.canRedo;
@@ -173,14 +193,20 @@ setOptions('stageSelect',STAGES);setOptions('toneSelect',TONES.map((label,i)=>[i
 for(const [key,label] of BASIC)makeField(key,label,'basicFields',false);
 for(const [key,label] of OPTIONAL)makeField(key,label,key.includes('.')?'characterFields':'progressionFields',true);
 for(const [category] of QUESTION_CATEGORIES)makeQuestions(category);
-for(const [key,label] of THEMES){const b=button(label,()=>{const themes=state.settings.themes.includes(key)?state.settings.themes.filter(t=>t!==key):[...state.settings.themes,key];commit(draft=>updateSettings(draft,{themes}),{output:true});},'chip');b.dataset.theme=key;b.setAttribute('aria-pressed','false');$('themeButtons').append(b);}
+for(const [key,label] of THEMES){
+ const pack=PACKS.find(([id])=>id===key);
+ const b=button(label,()=>{const themes=state.settings.themes.includes(key)?state.settings.themes.filter(t=>t!==key):[...state.settings.themes,key];commit(draft=>updateSettings(draft,{themes}),{output:true});},pack?'pack-choice':'chip');
+ b.dataset.theme=key;b.setAttribute('aria-pressed','false');
+ if(pack)b.replaceChildren(node('span','pack-title',label),node('span','pack-description',pack[2]));
+ $(pack?'packButtons':'classicThemeButtons').append(b);
+}
 bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{output:true}));
 for(const [id,key] of [['stageSelect','stage'],['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
 bind('rollAll',()=>roll());bind('rollDifferent',()=>roll());
 bind('rollLight',()=>commit(draft=>{draft.settings.tone=1;return rollFields(draft,undefined,{data:EXTRA_DATA,recent});},{output:true,randomize:true,notice:'ほのぼののトーンで引きました。固定した項目は残しています。'}));
 bind('rollCharacters',()=>roll(OPTIONAL.slice(0,6).map(([k])=>k)));bind('rollProgression',()=>roll(OPTIONAL.slice(6).map(([k])=>k)));
-bind('undo',()=>{const previous=history.undo();if(previous){state=previous;persist();render();showToast('一つ前の作業に戻しました。');}});bind('redo',()=>{const next=history.redo();if(next){state=next;persist();render();showToast('作業を進めました。');}});
+bind('undo',()=>{const previous=history.undo();if(previous){state=previous;$('drawNotice').hidden=true;persist();render();showToast('一つ前の作業に戻しました。');}});bind('redo',()=>{const next=history.redo();if(next){state=next;$('drawNotice').hidden=true;persist();render();showToast('作業を進めました。');}});
 bind('rebuild',()=>commit(()=>{},{output:true,randomize:true,notice:'素材を残して、出力文を作り直しました。'}));bind('rollTitles',()=>commit(()=>{},{output:true,titlesOnly:true}));
 $('questionCategory').addEventListener('change',()=>{questionCategory=$('questionCategory').value;renderQuestions();});
 bind('rollQuestions',()=>{

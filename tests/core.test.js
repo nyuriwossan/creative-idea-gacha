@@ -38,8 +38,8 @@ test('history deep copies generated text, locks and branches; no-op edit adds no
  const limit=new History(emptyState());for(let i=0;i<30;i++)limit.record({...emptyState(),metadata:{name:String(i),tags:[],notes:''}});assert.equal(limit.snapshots.length,20);
 });
 test('all purposes handle sentences, group relations and long custom text without forced particles',()=>{
- const s=emptyState();rollFields(s);editField(s,'relation','秘密結社の仲間たち');editField(s,'incident','神託が下る');editField(s,'world','長い文章'.repeat(30));
- for(const purpose of PURPOSES){s.settings.purpose=purpose;refreshTexts(s,{rng:()=>0});const all=JSON.stringify(s.texts);assert.doesNotMatch(all,/undefined|二人|神託が下る」が起き/);assert.equal(new Set(s.texts.titles).size,3);assert.ok(s.texts.titles.every(x=>!x.includes('長い文章')));}
+ const s=emptyState();rollFields(s,undefined,{rng:()=>0.25});editField(s,'relation','秘密結社の仲間たち');editField(s,'incident','神託が下る');editField(s,'world','長い文章'.repeat(30));editField(s,'conflict','二人の時間を増やしたいが互いの仕事も大切にしたい','時間と仕事');
+ for(const purpose of PURPOSES){s.settings.purpose=purpose;refreshTexts(s,{rng:()=>0});const all=[s.texts.summary,s.texts.memo,s.texts.hint,...s.texts.titles].join('\n');assert.ok(s.texts.memo.includes(s.items.conflict.text));const templateOnly=Object.values(s.items).filter(Boolean).reduce((text,item)=>text.replaceAll(item.text,'〈素材〉'),all);assert.doesNotMatch(templateOnly,/undefined|二人/);assert.doesNotMatch(all,/神託が下る」が起き/);assert.equal(new Set(s.texts.titles).size,3);assert.ok(s.texts.titles.every(x=>!x.includes('長い文章')));}
 });
 test('legacy migration preserves metadata, text, numeric ID, favorites; runs only once',()=>{
  const store=memoryStorage(),legacy={items:{world:{text:'削除済みの候補',tags:['wafu'],tones:[3],titleWord:'旧語'}},locks:{world:true},tone:3,texts:{summary:'旧要約',memo:'旧メモ',hint:'旧ヒント',titles:['旧題']},id:123,date:'2026/07/10 10:00',fav:true};

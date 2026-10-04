@@ -105,8 +105,8 @@ export class Repository {
   this.write(current,[...this.works,...incoming]);return incoming.length;
  }
 }
-export function exportJSON(state,works=null) {
- const records=works??[{id:state.loadedWorkId??uid(),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),fav:false,legacyDate:'',state:clone(state)}];
+export function exportJSON(state,works=null,{sourceWork=null}={}) {
+ const records=works??[{id:state.loadedWorkId??uid(),createdAt:sourceWork?.createdAt??new Date().toISOString(),updatedAt:new Date().toISOString(),fav:sourceWork?.fav??false,legacyDate:sourceWork?.legacyDate??'',state:clone(state)}];
  return JSON.stringify({app:APP_ID,schemaVersion:2,exportedAt:new Date().toISOString(),works:records},null,2);
 }
 export function inspectImport(text) {

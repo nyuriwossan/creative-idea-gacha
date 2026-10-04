@@ -1,6 +1,8 @@
+import {buildAIHandoff,characterCount} from './ai-handoff.js';
+import {HANDOFF_PURPOSES,validateHandoff} from './handoff-options.js';
 import { BASIC,STAGES,TONES,PURPOSES,THEMES } from './data.js';
 import { EXTRA_DATA } from './extra-data.js';
-import { emptyState,FIELDS,OPTIONAL,QUESTION_CATEGORIES,clone,rollFields,editField,updateSettings,refreshTexts,History,markdown } from './core.js';
+import { emptyState,FIELDS,OPTIONAL,CHARACTER_FIELDS,PROGRESSION_FIELDS,SCENE,QUESTION_CATEGORIES,clone,rollFields,editField,updateSettings,refreshTexts,History,markdown } from './core.js';
 import { Repository,exportJSON,inspectImport,filterWorks,MAX_BYTES,MAX_WORKS } from './storage.js';
 import { drawQuestions } from './questions.js';
 import { CONTEXTS,PACKS,contextLabels } from './context.js';
@@ -10,6 +12,7 @@ const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
 const cards=new Map(),questionCards=new Map(),questionDrafts=new Map(),dirtyInputs=new Set();
+let handoffDraft={};
 const recent={};let questionCategory='world',pendingImport=null,toastTimer,composing=false;
 let storage;try{storage=window.localStorage;}catch{storage={getItem(){throw new Error('ブラウザが保存領域を利用できません。');},setItem(){throw new Error('保存領域を利用できません。');}};}
 const repository=new Repository(storage),initial=repository.load();
@@ -59,7 +62,7 @@ function makeField(key,label,container,optional){
  function validateEditor(){count.textContent=`${text.value.length} / 500文字`;const ok1=errorFor(text,inputError,!text.value.trim()?'本文を入力してください。':text.value.length>500?'500文字を超えています。短くしてから反映してください。':'');const ok2=errorFor(short,shortError,short.value.length>30?'30文字までで入力してください。':'');return ok1&&ok2;}
  text.addEventListener('input',validateEditor);short.addEventListener('input',validateEditor);
  const editActions=node('div','inline-actions');
- const close=()=>{editor.hidden=true;edit.setAttribute('aria-expanded','false');edit.focus();};
+ const close=()=>{editor.hidden=true;edit.setAttribute('aria-expanded','false');edit.focus();renderHandoff();};
  editActions.append(button('反映',()=>{if(!isDirty()){close();return;}if(!validateEditor())return;commit(draft=>editField(draft,key,text.value,short.value,selectedContexts()),{output:true,randomize:false});close();}),button('キャンセル',close));
  if(optional)editActions.append(button('未設定に戻す',()=>{commit(draft=>{draft.items[key]=null;draft.locks[key]=false;},{output:true});close();},'text-btn'));
  editor.append(textLabel,text,inputError,shortLabel,short,shortError);
@@ -84,10 +87,10 @@ function makeQuestions(category){
   const draftKey=`${category}:${index}`;
   input.addEventListener('input',()=>{const pending=questionDrafts.get(draftKey),slot=pending?.slot||state.questions[category][index];if(input.value===slot.answer)questionDrafts.delete(draftKey);else questionDrafts.set(draftKey,{value:input.value,slot:clone(slot),group:pending?.group||clone(state.questions[category])});errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。短くしてから反映してください。':'');});
   const actions=node('div','inline-actions');
-  const apply=button('回答を反映',()=>{if(!errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。':''))return;commit(draft=>{const pending=questionDrafts.get(draftKey);const next=prepareDrafts(draft,{answers:[{category,index,value:input.value,...(pending&&draft.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})}]});Object.assign(draft,next);});questionDrafts.delete(draftKey);renderQuestions();showToast('回答を反映しました。');});
+  const apply=button('回答を反映',()=>{if(!errorFor(input,error,input.value.length>2000?'回答は2,000文字までです。':''))return;commit(draft=>{const pending=questionDrafts.get(draftKey);const next=prepareDrafts(draft,{answers:[{category,index,value:input.value,...(pending&&draft.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})}]});Object.assign(draft,next);});questionDrafts.delete(draftKey);renderQuestions();renderHandoff();showToast('回答を反映しました。');});
   const lock=button('固定',()=>commit(draft=>{draft.questions[category][index].locked=!draft.questions[category][index].locked;}));
   const reroll=button('この質問を引き直す',()=>{if(questionDrafts.has(draftKey)){showToast('編集中の回答は残しました。先に「回答を反映」してください。');return;}commit(draft=>drawQuestions(draft,category,{index}));});
-  const clear=button('回答を消して引き直す',async()=>{const pending=questionDrafts.get(draftKey);const choice=await decide('回答を消して引き直しますか？',(pending?.slot||state.questions[category][index]).text,[['clear','回答を消して引き直す'],['cancel','キャンセル']]);if(choice!=='clear')return;commit(draft=>{if(pending&&draft.questions[category][index]?.id!==pending.slot.id)Object.assign(draft,prepareDrafts(draft,{answers:[{category,index,value:'',slot:pending.slot,group:pending.group}]}));return drawQuestions(draft,category,{index,clearAnswer:true});});questionDrafts.delete(draftKey);renderQuestions();},'text-btn');
+  const clear=button('回答を消して引き直す',async()=>{const pending=questionDrafts.get(draftKey);const choice=await decide('回答を消して引き直しますか？',(pending?.slot||state.questions[category][index]).text,[['clear','回答を消して引き直す'],['cancel','キャンセル']]);if(choice!=='clear')return;commit(draft=>{if(pending&&draft.questions[category][index]?.id!==pending.slot.id)Object.assign(draft,prepareDrafts(draft,{answers:[{category,index,value:'',slot:pending.slot,group:pending.group}]}));return drawQuestions(draft,category,{index,clearAnswer:true});});questionDrafts.delete(draftKey);renderQuestions();renderHandoff();},'text-btn');
   lock.setAttribute('aria-label',`質問${index+1}の固定を切り替える`);actions.append(apply,lock,reroll,clear);card.append(heading,label,input,error,actions);panel.append(card);slots.push({card,heading,input,lock,clear,reroll,error});
  }
  $('questionFields').append(panel);questionCards.set(category,{panel,empty,slots});
@@ -109,11 +112,12 @@ function requireApplied(){
  const answers=[...questionDrafts].map(([key,pending])=>{const [category,index]=key.split(':');return {category,index:Number(index),value:pending.value,...(state.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})};});
  const metadata=metaBindings.filter(([id])=>dirtyInputs.has(id)).map(([id,key])=>({id,key,value:$(id).value}));
  let next;
- try{next=prepareDrafts(state,{fields,answers,metadata});}catch(error){
+ try{next=prepareDrafts(state,{fields,answers,metadata,handoff:{...state.handoff,...handoffDraft}});}catch(error){
   if(error instanceof DraftError){let first;
    for(const issue of error.errors){const [kind,key,part]=issue.target.split(':');let input,notice;
     if(kind==='field'){const c=cards.get(key);input=part==='short'?c.short:c.text;notice=part==='short'?c.shortError:c.inputError;}
     if(kind==='answer'){const c=questionCards.get(key).slots[Number(part)];input=c.input;notice=c.error;if(!first){questionCategory=key;$('questionCategory').value=key;renderQuestions();}}
+    if(kind==='handoff'){input=$(key);notice=$('handoffError');$('handoffPanel').open=true;$('chatOptions').hidden=false;$('chatOptions').open=true;}
     if(kind==='meta'){input=$(key);notice=$(`${key}Error`);}
     if(input){errorFor(input,notice,issue.message);first??=input;}
    }if(first)revealInput(first);
@@ -121,12 +125,12 @@ function requireApplied(){
  }
  const changed=JSON.stringify(next)!==JSON.stringify(state);
  for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}
- dirtyInputs.clear();questionDrafts.clear();
+ dirtyInputs.clear();questionDrafts.clear();handoffDraft={};
  if(changed){state=next;history.record(state);persist();}
  render();
 }
 function dirtyWork(){
- if(dirtyInputs.size||hasFieldDraft()||questionDrafts.size)return true;
+ if(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size)return true;
  const original=repository.works.find(w=>w.id===state.loadedWorkId);if(!original)return true;
  const now=clone(state);now.loadedWorkId=null;return JSON.stringify(now)!==JSON.stringify(original.state);
 }
@@ -146,6 +150,7 @@ function renderQuestions(){
  }
 }
 function render(){
+ renderHandoff();
  document.body.dataset.tone=state.settings.tone;
  $('stageSelect').value=state.settings.stage;$('toneSelect').value=state.settings.tone;$('purposeSelect').value=state.settings.purpose;$('purposeLabel').textContent=state.settings.purpose;
  for(const b of document.querySelectorAll('[data-coherence]'))b.setAttribute('aria-pressed',String(b.dataset.coherence===state.settings.coherence));
@@ -196,7 +201,7 @@ function renderBackup(){
  $('backupStatus').textContent=backup.meta.lastExportAt?`保存済み作品のJSONを書き出した操作：${new Date(backup.meta.lastExportAt).toLocaleString('ja-JP')}。${backup.changed?'書き出し後に変更があります。':'以後の保存作品の変更はありません。'}`:'保存済み作品のJSONは、まだ書き出していません。';
  $('backupAuxWarning').textContent=backup.warning;$('backupAuxWarning').hidden=!backup.warning;$('backupPrompt').hidden=!backup.shouldPrompt;
 }
-function resetDrafts(){questionDrafts.clear();dirtyInputs.clear();for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}for(const [id] of metaBindings)$(id).setAttribute('aria-invalid','false');}
+function resetDrafts(){handoffDraft={};questionDrafts.clear();dirtyInputs.clear();for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}for(const [id] of metaBindings)$(id).setAttribute('aria-invalid','false');}
 function saveCurrent(overwrite=false){requireApplied();state=repository.save(state,{overwrite});history.record(state);render();renderSaved();showToast(overwrite?'上書き保存しました。':'新しい作品として保存しました。');}
 async function loadWork(work,{duplicate=false}={}){
  if(dirtyWork()){
@@ -220,10 +225,30 @@ async function copy(text){
  if(!copied){const ta=node('textarea');ta.value=text;ta.style.position='fixed';ta.style.left='-10000px';document.body.append(ta);ta.select();try{copied=document.execCommand('copy');}catch{}ta.remove();}
  if(copied)showToast('コピーしました。');else{$('manualCopyText').value=text;$('manualCopy').showModal();$('manualCopyText').focus();$('manualCopyText').select();}
 }
+const handoffBindings={handoffPurpose:'purpose',handoffLength:'length',preserveAll:'preserveAll',suggestMissing:'suggestMissing',includeNotes:'includeNotes',userRole:'userRole',aiRole:'aiRole',userRoleText:'userRoleText',extraRequest:'extraRequest'};
+function renderHandoff(){
+ const value={...state.handoff,...handoffDraft},purpose=value.purpose||(state.settings.purpose==='AIキャラプロットの種'?'chat':'story');
+ for(const [id,key] of Object.entries(handoffBindings)){if(document.activeElement===$(id))continue;const v=key==='purpose'?purpose:value[key];if($(id).type==='checkbox')$(id).checked=v;else $(id).value=v;}
+ $('chatOptions').hidden=purpose!=='chat';
+ $('handoffPending').hidden=!(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size);
+ try{const text=buildAIHandoff(state);$('handoffPreview').value=text;$('handoffCount').textContent=characterCount(text)+'文字（全文）';if(!Object.keys(handoffDraft).length)$('handoffError').textContent='';}catch(e){$('handoffError').textContent=e.message;}
+}
+function openHandoff(){if(state.handoff.purpose===null)commit(draft=>{draft.handoff.purpose=draft.settings.purpose==='AIキャラプロットの種'?'chat':'story';});$('handoffPanel').open=true;renderHandoff();$('handoffPanel').scrollIntoView({block:'start'});$('handoffPurpose').focus({preventScroll:true});}
+bind('openHandoff',openHandoff);
+$('handoffPanel').addEventListener('toggle',()=>{if($('handoffPanel').open&&state.handoff.purpose===null)commit(draft=>{draft.handoff.purpose=draft.settings.purpose==='AIキャラプロットの種'?'chat':'story';});});
+for(const [id,key] of Object.entries(handoffBindings))$(id).addEventListener(['userRoleText','extraRequest'].includes(id)?'input':'change',()=>{
+ handoffDraft[key]=$(id).type==='checkbox'?$(id).checked:$(id).value;
+ try{validateHandoff({...state.handoff,...handoffDraft});$('handoffError').textContent='';if(!['userRoleText','extraRequest'].includes(id)){const value={...state.handoff,[key]:handoffDraft[key]};validateHandoff(value);delete handoffDraft[key];commit(draft=>{draft.handoff=value;});}}catch(e){$('handoffError').textContent=e.message;}
+ $('chatOptions').hidden=({...state.handoff,...handoffDraft}).purpose!=='chat';$('handoffPending').hidden=!(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size);
+});
+document.addEventListener('input',()=>{$('handoffPending').hidden=!(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size);});
+bind('updateHandoff',()=>{requireApplied();renderHandoff();showToast('依頼文を更新しました。');});
+bind('copyHandoff',()=>{requireApplied();renderHandoff();return copy($('handoffPreview').value);});
 // UIは初回だけ組み立てる。抽選や描画で編集中の入力欄やフォーカスを作り直さない。
+setOptions('handoffPurpose',HANDOFF_PURPOSES);
 setOptions('stageSelect',STAGES);setOptions('toneSelect',TONES.map((label,i)=>[i+1,label]));setOptions('purposeSelect',PURPOSES.map(p=>[p,p]));setOptions('questionCategory',QUESTION_CATEGORIES);
 for(const [key,label] of BASIC)makeField(key,label,'basicFields',false);
-for(const [key,label] of OPTIONAL)makeField(key,label,key.includes('.')?'characterFields':'progressionFields',true);
+for(const [key,label] of OPTIONAL)makeField(key,label,key.startsWith('scene.')?'sceneFields':key.includes('.')?'characterFields':'progressionFields',true);
 for(const [category] of QUESTION_CATEGORIES)makeQuestions(category);
 for(const [key,label] of THEMES){
  const pack=PACKS.find(([id])=>id===key);
@@ -232,14 +257,16 @@ for(const [key,label] of THEMES){
  if(pack)b.replaceChildren(node('span','pack-title',label),node('span','pack-description',pack[2]));
  $(pack?'packButtons':'classicThemeButtons').append(b);
 }
-bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{output:true}));
+bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{notice:'テーマの選択を全解除しました。'}));
+bind('unlockAll',()=>commit(draft=>{for(const key of Object.keys(draft.locks))draft.locks[key]=false;for(const slots of Object.values(draft.questions))for(const slot of slots)slot.locked=false;},{notice:'すべてのロックを外しました。回答や本文は残しています。'}));
 for(const b of document.querySelectorAll('[data-coherence]'))b.addEventListener('click',()=>guard(()=>commit(draft=>updateSettings(draft,{coherence:b.dataset.coherence}))));
 bind('cozyToneAction',()=>commit(draft=>updateSettings(draft,{tone:4})));
 for(const [id,key] of [['stageSelect','stage'],['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
 bind('rollAll',()=>roll());
 bind('rollLight',()=>commit(draft=>{draft.settings.tone=1;return rollFields(draft,undefined,{data:EXTRA_DATA,recent});},{output:true,randomize:true,notice:'ほのぼののトーンで引きました。固定した項目は残しています。'}));
-bind('rollCharacters',()=>roll(OPTIONAL.slice(0,6).map(([k])=>k)));bind('rollProgression',()=>roll(OPTIONAL.slice(6).map(([k])=>k)));
+bind('rollScene',()=>roll(SCENE.map(([k])=>k)));
+bind('rollCharacters',()=>roll(CHARACTER_FIELDS.map(([k])=>k)));bind('rollProgression',()=>roll(PROGRESSION_FIELDS.map(([k])=>k)));
 bind('undo',()=>{const previous=history.undo();if(previous){state=previous;$('drawNotice').hidden=true;persist();render();showToast('一つ前の作業に戻しました。');}});bind('redo',()=>{const next=history.redo();if(next){state=next;$('drawNotice').hidden=true;persist();render();showToast('作業を進めました。');}});
 bind('rebuild',()=>{requireApplied();commit(()=>{},{output:true,randomize:true,notice:'素材を残して、出力文を作り直しました。'});});bind('rollTitles',()=>{requireApplied();commit(()=>{},{output:true,titlesOnly:true});});
 $('questionCategory').addEventListener('change',()=>{questionCategory=$('questionCategory').value;renderQuestions();});
@@ -269,7 +296,7 @@ $('importFile').addEventListener('change',()=>guard(async()=>{
 bind('confirmImport',()=>{if(!pendingImport)return;const count=repository.addImported(pendingImport,state);pendingImport=null;$('confirmImport').hidden=true;$('importFile').value='';$('importPreview').textContent=`${count}件を追加しました。`;renderSaved();showToast(`${count}件の作品を取り込みました。`);});
 bind('closeManualCopy',()=>$('manualCopy').close());
 for(const details of document.querySelectorAll('details')){const summary=details.querySelector('summary');summary.setAttribute('aria-expanded',String(details.open));details.addEventListener('toggle',()=>summary.setAttribute('aria-expanded',String(details.open)));}
-window.addEventListener('beforeunload',event=>{if(dirtyInputs.size||hasFieldDraft()||questionDrafts.size){event.preventDefault();event.returnValue='';}});
+window.addEventListener('beforeunload',event=>{if(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size){event.preventDefault();event.returnValue='';}});
 document.addEventListener('compositionstart',()=>{composing=true;});document.addEventListener('compositionend',()=>{composing=false;});
 document.addEventListener('keydown',event=>{if(event.key==='Enter'&&(composing||event.isComposing||event.keyCode===229)){event.stopImmediatePropagation();if(event.target.closest('button'))event.preventDefault();}},true);
 document.addEventListener('focusin',event=>{if(event.target.matches('textarea,input:not([type="checkbox"])'))document.body.classList.add('text-input-active');});

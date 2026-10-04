@@ -1,18 +1,22 @@
+import {defaultHandoff} from './handoff-options.js';
 import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from './data.js';
 import { CONTEXTS,worldContext,contextLabels } from './context.js';
 import { availablePool,priorityPlan,themeMask,bitCount,MAJOR_FIELDS } from './priority.js';
 import {COHERENCE,COHESION_WEIGHTS,focusTopics,knownTopics,cohesionMultiplier} from './cohesion.js';
 export const clone = value => JSON.parse(JSON.stringify(value));
 export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,contextMatch:1.5,recent:0.25,characterDuplicate:0.35,...COHESION_WEIGHTS});
+export const SCENE = [["scene.goal","今回の共同目標"],["scene.opening","開始状況"],["scene.problem","今回の小さな課題"],["scene.question","次回に残せる問い"]];
 export const OPTIONAL = [
  ['protagonist.role','主人公の立場・役割'],['protagonist.goal','主人公の目的'],['protagonist.secret','主人公の秘密'],
  ['counterpart.role','相手役の立場・役割'],['counterpart.goal','相手役の目的'],['counterpart.secret','相手役の秘密'],
- ['deadline','期限'],['obstacle','最大の障害'],['cost','代償（失うもの）'],['ending','結末の方向性']
+ ['deadline','期限'],['obstacle','最大の障害'],['cost','代償（失うもの）'],['ending','結末の方向性'],...SCENE
 ];
+export const CHARACTER_FIELDS=OPTIONAL.filter(([k])=>/^(protagonist|counterpart)\./.test(k));
+export const PROGRESSION_FIELDS=OPTIONAL.filter(([k])=>!k.includes("."));
 export const FIELDS = [...BASIC,...OPTIONAL];
 export const QUESTION_CATEGORIES = [['world','世界観'],['character','人物・関係性'],['plot','物語を動かす'],['consistency','設定を確かめる']];
 export function emptyState() {
- return {schemaVersion:2,loadedWorkId:null,settings:{stage:'all',tone:3,purpose:PURPOSES[1],themes:[],coherence:'cohesive'},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
+ return {schemaVersion:2,loadedWorkId:null,handoff:defaultHandoff(),settings:{stage:'all',tone:3,purpose:PURPOSES[1],themes:[],coherence:'cohesive'},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
 }
 export function weightedPick(list, weightFn, rng=Math.random) {
  if(!list.length)return null;
@@ -39,7 +43,7 @@ export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,rec
  const related=item=>Boolean(themeMask(item,themes));
  function pick(key,pool){
   const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[],axes),rng);
-  const {id,origin,primaryPack,storyGroup,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
+  const {id,origin,primaryPack,storyGroup,round4Group,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
   recent[key]=[...(recent[key]||[]),picked.id].slice(-10);changed++;
  }
  function shortage(key,info){
@@ -144,20 +148,24 @@ export function buildSummary(state) {
  if(state.settings.purpose==='世界観メモ')return `舞台は${q('world')}。世界づくりの手がかりは${q('gimmick')}。${q('relation')}に関わる人々の暮らしや利害から、この世界を考えてみる。`;
  return `${base}\n物語の発端は${q('incident')}。葛藤の核は${q('conflict')}。\n${directions[state.settings.tone-1]}`;
 }
-export function buildMemo(state) {
+export function buildOutline(state) {
  const q=key=>`「${textOf(state,key)}」`;
  const or=(key,fallback)=>textOf(state,key)?q(key):fallback;
  const purpose=state.settings.purpose;
  let outline;
  switch(purpose){
  case 'ショートストーリー向け': outline=[`発端：${q('world')}を舞台に、${q('incident')}を物語の入口にする。`,`行動と障害：${or('protagonist.goal','主人公の目的を決める')}。${textOf(state,'obstacle')?`障害の候補は${q('obstacle')}`:'目的を妨げる状況を考える'}。`,`選択：${q('conflict')}を踏まえて、何を優先するか。${textOf(state,'cost')?`代償の候補は${q('cost')}`:'手放す可能性のあるものを考える'}。`,`変化・余韻：${or('ending','結末の方向を考える')}。ひねりの候補${q('twist')}をどこまで明かすか決める。`,'提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。'];break;
- case '漫画1話向け':outline=[`つかみ：${q('world')}の印象的な風景や日常を見せる。`,`人物と関係：${q('relation')}が伝わる場面を置く。`,`事件：${q('incident')}を発端として見せる。`,`行動・障害：${or('protagonist.goal','その場で達成したいことを決める')}。${or('obstacle','動きを妨げるものを考える')}。`,`最後の引き：次の行動を気にさせる問いや発見を置く。${q('twist')}は今回明かす必要があるか検討する。`];break;
+ case '漫画1話向け':outline=[`つかみ：${textOf(state,'scene.opening')?q('scene.opening'):q('world')+'の印象的な風景や日常'}を見せる。`,`人物と関係：${q('relation')}が伝わる場面を置く。`,`事件：${q('incident')}を発端として見せる。`,`行動・障害：${or('scene.goal',or('protagonist.goal','その場で達成したいことを決める'))}。${or('scene.problem',or('obstacle','動きを妨げるものを考える'))}。`,`最後の引き：${or('scene.question','次の行動を気にさせる問いや発見を置く')}。続編を必須にはしない。${q('twist')}は今回明かす必要があるか検討する。`];break;
  case '連載プロット向け':outline=[`縦軸：${or('protagonist.goal','主人公が長く追う目的を決める')}。中心となる問いは${q('conflict')}を手がかりに考える。`,`横軸：${q('incident')}を入口に、各話で試せる課題や小さな変化を考える。`,`中盤の変化候補：${q('twist')}によって、それまでの理解がどう変わるか。`,`終盤の選択：${or('cost','最後に手放す可能性のあるものを決める')}。目的と関係のどちらをどう守るか。`,`結末の方向性：${or('ending','望む着地点を決める')}。`];break;
- case 'AIキャラプロットの種':outline=[`世界と関係：${q('world')}／${q('relation')}。`,`キャラ側の事情：${or('counterpart.secret',or('protagonist.secret','表に出せない事情を考える'))}。`,`ユーザーが関われる立場の候補：依頼人、協力者、近所の人、偶然出会った旅人など。性別や行動は相手が選べる余地を残す。`,`開始場面の候補：日常の挨拶、依頼の相談、偶然の遭遇、共同作業。発端${q('incident')}への関わり方は対話で選べるようにする。`,`対話で変化できる要素：信頼、協力の範囲、秘密を伝える時期など。${textOf(state,'ending')?`展開候補：${q('ending')}。`:'結末は対話の展開に応じて考える。'}`];break;
+ case 'AIキャラプロットの種':outline=[`世界と関係：${q('world')}／${q('relation')}。`,`キャラ側の事情：${or('counterpart.secret',or('protagonist.secret','表に出せない事情を考える'))}。`,`ユーザーが関われる立場の候補：依頼人、協力者、近所の人、偶然出会った旅人など。性別や行動は相手が選べる余地を残す。`,`開始場面の候補：${or('scene.opening','日常の挨拶、依頼の相談、偶然の遭遇、共同作業')}。発端${q('incident')}への関わり方は対話で選べるようにする。`,`対話で変化できる要素：信頼、協力の範囲、秘密を伝える時期など。${textOf(state,'ending')?`展開候補：${q('ending')}。`:'結末は対話の展開に応じて考える。'}`];break;
  case '世界観メモ':outline=[`制度：${q('gimmick')}を暮らしや仕組みにどう関わらせるか。`,'例外：規則から外れる人や場所はあるか。','暮らし：食事、移動、仕事、休息はどんな様子か。',`利害：${q('relation')}に関わる人々は、何で得をし、何に困るか。`];break;
  case '三題噺向け':outline=[`選んだ三要素：${q('world')}・${q('gimmick')}・${q('incident')}。`,'つなぎ方：一つを舞台、一つを道具、一つをきっかけとして扱うなど、役割から考える。',`関係：${q('relation')}。どの要素が関係の変化を生むか。`];break;
  default:outline=[`発端：${q('incident')}。`,`膨らませる問い：${q('conflict')}の中で、登場人物は何を選ぶか。`];
  }
+ return outline;
+}
+export function buildMemo(state){
+ const q=key=>`「${textOf(state,key)}」`,purpose=state.settings.purpose,outline=buildOutline(state);
  const details=[...BASIC,...OPTIONAL].filter(([k])=>textOf(state,k)).map(([key,label])=>`${label}：${textOf(state,key)}`);
  const names=Object.entries(state.characters).filter(([,c])=>c.name).map(([key,c])=>`${key==='protagonist'?'主人公':'相手役'}の表示名：${c.name}`);
  const extra=['期限','最大の障害','代償（失うもの）','結末の方向性'];

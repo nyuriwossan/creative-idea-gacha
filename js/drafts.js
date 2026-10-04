@@ -1,3 +1,4 @@
+import {validateHandoff} from './handoff-options.js';
 import {clone,editField,refreshTexts} from './core.js';
 import {answerQuestion} from './questions.js';
 
@@ -5,7 +6,7 @@ export class DraftError extends Error {
  constructor(errors){super('入力を確認してください。ほかの編集もまだ反映していません。');this.errors=errors;}
 }
 // UIから読み取った下書きを、原本に触れず一度に検証する。
-export function prepareDrafts(state,{fields=[],answers=[],metadata=[]}={}){
+export function prepareDrafts(state,{fields=[],answers=[],metadata=[],handoff}={}){
  const next=clone(state),errors=[];
  const attempt=(target,fn)=>{try{fn();}catch(error){errors.push({target,message:error.message});}};
  for(const f of fields){
@@ -32,7 +33,9 @@ export function prepareDrafts(state,{fields=[],answers=[],metadata=[]}={}){
    if(['protagonist','counterpart'].includes(m.key))next.characters[m.key].name=m.value;else next.metadata[m.key]=m.value;
   }
  });
+ if(handoff)attempt(`handoff:${typeof handoff.userRoleText==='string'&&handoff.userRoleText.length>100?'userRoleText':typeof handoff.extraRequest==='string'&&handoff.extraRequest.length>2000?'extraRequest':'userRole'}`,()=>{next.handoff=validateHandoff(handoff);});
  if(errors.length)throw new DraftError(errors);
- if(JSON.stringify(next)!==JSON.stringify(state))refreshTexts(next,{randomize:false});
+ const before={...state,handoff:null},after={...next,handoff:null};
+ if(JSON.stringify(after)!==JSON.stringify(before))refreshTexts(next,{randomize:false});
  return next;
 }

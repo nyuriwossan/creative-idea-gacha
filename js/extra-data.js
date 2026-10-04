@@ -1,3 +1,5 @@
+import {ROUND4_CHARACTERS,ROUND4_PROGRESSION,ROUND4_QUESTIONS} from './round4-extra.js';
+import {SCENE_DATA} from './scene-data.js';
 import { rows,DATA } from './data.js';
 import { supplementDefinition } from './context.js';
 import { SHARED_PACK_CHARACTERS,PACK_PROGRESSION,PACK_QUESTIONS } from './theme-pack-extra.js';
@@ -159,7 +161,7 @@ ending:rows('ending',`
 最後の選択で居場所を失う|居場所の果て||rescue|45
 `)
 };
-export const EXTRA_DATA={...DATA,...Object.fromEntries(Object.entries(progression).map(([key,pool])=>[key,[...pool.map(item=>supplementDefinition(item,key)),...PACK_PROGRESSION[key]].map(supplementStory).concat(STORY_PROGRESS[key]||[])])),...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,[...pool.map(item=>supplementDefinition(item,key)),...SHARED_PACK_CHARACTERS[key]].map(supplementStory).map(item=>({...item,id:`${person}-${item.id}`}))])))};
+export const EXTRA_DATA={...DATA,...SCENE_DATA,...Object.fromEntries(Object.entries(progression).map(([key,pool])=>[key,[...pool.map(item=>supplementDefinition(item,key)),...PACK_PROGRESSION[key]].map(supplementStory).concat(STORY_PROGRESS[key]||[],ROUND4_PROGRESSION[key]||[])])),...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,[...pool.map(item=>supplementDefinition(item,key)),...SHARED_PACK_CHARACTERS[key],...ROUND4_CHARACTERS[key]].map(supplementStory).map(item=>({...item,id:`${person}-${item.id}`}))])))};
 const ORIGINAL_QUESTIONS={
  world:[
  'この世界で当たり前とされることは、どこから来たのだろう。',
@@ -231,4 +233,4 @@ const ORIGINAL_QUESTIONS={
  ]
 };
 // 既存の位置IDはそのまま。追加定義は安定した明示IDを持つ。
-export const QUESTION_DATA=Object.fromEntries(Object.entries(ORIGINAL_QUESTIONS).map(([key,pool])=>[key,[...pool,...PACK_QUESTIONS[key]]]));
+export const QUESTION_DATA=Object.fromEntries(Object.entries(ORIGINAL_QUESTIONS).map(([key,pool])=>[key,[...pool,...PACK_QUESTIONS[key],...ROUND4_QUESTIONS[key]]]));

@@ -1,3 +1,4 @@
+import {validateHandoff} from './handoff-options.js';
 import { emptyState, FIELDS, QUESTION_CATEGORIES, clone, updateSettings } from './core.js';
 import { EXTRA_DATA } from './extra-data.js';
 const DEFINITION_BY_ID=new Map(Object.values(EXTRA_DATA).flat().map(item=>[item.id,item]));
@@ -45,6 +46,7 @@ export function validateState(raw,{legacy=false}={}) {
  }
  const items=object(src.items??{},'項目'), locks=object(src.locks??{},'固定状態');
  for(const [key] of FIELDS){if(own(items,key))state.items[key]=validItem(items[key],{legacy});if(own(locks,key))state.locks[key]=bool(locks[key],'固定状態');}
+ state.handoff=validateHandoff(src.handoff);
  state.texts=validTexts(src.texts??{});
  if(!legacy){
   const chars=object(src.characters,'人物');

@@ -1,5 +1,6 @@
+import {ROUND4_TOPICS} from './round4-data.js';
 // 明示的なID対応表。保存文・手入力の語から分類しない。
-export const TOPICS=[['water-rights','水利'],['court','宮廷・継承'],['caravan','隊商・旅'],['shop','店・仕事'],['shared-home','共同生活'],['contract','契約'],['interspecies','種族間交流'],['faith','祭祀・信仰'],['memory','記憶・記録'],['escape','逃亡・追跡'],['loyalty','主従・役目'],['relationship-choice','関係の選び直し']];
+export const TOPICS=[['water-rights','水利'],['court','宮廷・継承'],['caravan','隊商・旅'],['shop','店・仕事'],['shared-home','共同生活'],['contract','契約'],['interspecies','種族間交流'],['faith','祭祀・信仰'],['memory','記憶・記録'],['escape','逃亡・追跡'],['loyalty','主従・役目'],['relationship-choice','関係の選び直し'],...ROUND4_TOPICS];
 export const STORY_PATCHES={
  "desert-court-world-canals":{"topicTags":["water-rights"],"plotLinks":[]},
  "desert-court-world-caravans":{"topicTags":["caravan"],"plotLinks":[]},

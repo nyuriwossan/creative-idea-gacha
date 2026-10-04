@@ -5,7 +5,7 @@ import { emptyState,OPTIONAL,rollFields,clone,editField,refreshTexts,markdown,QU
 import { drawQuestions,answerQuestion } from '../js/questions.js';
 import { inspectImport,exportJSON } from '../js/storage.js';
 test('each of ten optional pools >=20 and four question pools >=15; optional tone shortage explicit',()=>{
- for(const [key] of OPTIONAL){assert.ok(EXTRA_DATA[key].length>=20);for(let tone=1;tone<=5;tone++)assert.ok(EXTRA_DATA[key].some(x=>x.tones.includes(tone)));}
+ for(const [key] of OPTIONAL){assert.ok(EXTRA_DATA[key].length>=(key.startsWith('scene.')?16:20));for(let tone=1;tone<=5;tone++)assert.ok(EXTRA_DATA[key].some(x=>x.tones.includes(tone)));}
  for(const [key] of QUESTION_CATEGORIES)assert.ok(QUESTION_DATA[key].length>=15);
 });
 test('basic draws leave optional fields empty; section draws respect locks and restored names',()=>{

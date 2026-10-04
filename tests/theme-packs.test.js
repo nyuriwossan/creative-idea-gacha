@@ -10,12 +10,12 @@ import {emptyState,rollFields,editField,clone,refreshTexts,markdown,weightFor,OP
 import {validateState,exportJSON,inspectImport,Repository,STORAGE_KEY} from '../js/storage.js';
 import {drawQuestions,answerQuestion} from '../js/questions.js';
 const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
-const packIds=PACKS.map(([id])=>id),basicKeys=BASIC.map(([key])=>key);
+const packIds=PACKS.slice(0,4).map(([id])=>id),basicKeys=BASIC.map(([key])=>key);
 const row=(id,themes=[],requires=[])=>({id,text:`本文 ${id}`,titleWord:id,source:'generated',stageTags:['fantasy'],themeTags:themes,tones:[1,2,3,4,5],contextTags:[],requiresContext:requires});
 const fixedWorld=contexts=>({candidateId:'fixed',text:'固定した世界',titleWord:'固定世界',source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:contexts,requiresContext:[]});
 test('four packs have 300 unique substantive basic definitions and tone/category minimums',()=>{
  const expected={beastfolk:[12,4,16,12,12,12,12],'desert-court':[12,4,16,12,12,12,12],romantasy:[8,4,16,10,10,12,10],'cozy-fantasy':[12,4,14,12,8,10,10]};
- assert.equal(THEMES.length,16);assert.equal(Object.values(DATA).flat().length,944);
+ assert.equal(THEMES.length,20);assert.equal(Object.values(DATA).flat().length,1088);
  const added=Object.values(PACK_DATA).flatMap(p=>Object.values(p).flat());assert.equal(added.length,300);assert.equal(new Set(added.map(r=>r.id)).size,300);
  for(const pack of packIds)for(const [i,key] of basicKeys.entries()){
   const rows=PACK_DATA[pack][key];assert.equal(rows.length,expected[pack][i]);
@@ -37,8 +37,8 @@ test('characters use 60 shared definitions, progression 64, and questions 32 sta
  for(const pack of packIds){for(const key of ['role','goal','secret'])assert.equal(PACK_EXTRA[pack][key].length,5);for(const key of ['deadline','obstacle','cost','ending'])assert.equal(PACK_EXTRA[pack][key].length,4);assert.equal(Object.values(PACK_QUESTIONS).flat().filter(q=>q.primaryPack===pack).length,8);}
  assert.equal(new Set(Object.values(PACK_EXTRA).flatMap(p=>Object.values(p).flat()).map(r=>r.id)).size,124);
  for(const row of [...Object.values(PACK_DATA),...Object.values(PACK_EXTRA)].flatMap(p=>Object.values(p).flat())){assert.ok(row.titleWord&&row.titleWord.length<=30);assert.ok(row.stageTags.every(t=>STAGES.some(([id])=>id===t)));assert.ok(row.themeTags.every(t=>THEMES.some(([id])=>id===t)));assert.ok(row.tones.length&&row.tones.every(t=>Number.isInteger(t)&&t>=1&&t<=5));}
- for(const [key] of OPTIONAL)assert.equal(EXTRA_DATA[key].length,key.includes('.')?40:key==='ending'?48:key==='cost'?42:36);
- for(const rows of Object.values(QUESTION_DATA)){assert.equal(rows.length,23);assert.ok(rows.slice(0,15).every(q=>typeof q==='string'));assert.ok(rows.slice(15).every(q=>typeof q.id==='string'));}
+ for(const [key] of OPTIONAL)assert.equal(EXTRA_DATA[key].length,key.startsWith('scene.')?16:key.endsWith('.role')?52:key.includes('.')?48:key==='ending'?54:key==='cost'?48:44);
+ for(const rows of Object.values(QUESTION_DATA)){assert.equal(rows.length,26);assert.ok(rows.slice(0,15).every(q=>typeof q==='string'));assert.ok(rows.slice(15).every(q=>typeof q.id==='string'));}
 });
 test('full draws reflect three categories and two major categories across packs and fixed seeds',()=>{
  for(const themes of [...packIds.map(id=>[id]),['beastfolk','desert-court','romantasy'],['beastfolk','cozy-fantasy'],['romantasy','cozy-fantasy']])for(let seed=1;seed<=40;seed++){
@@ -79,7 +79,7 @@ test('strict stage/tone, individual boundaries, recent ten entries and backgroun
 });
 test('optional group draws aim at two theme slots and discourage matching goals and secrets',()=>{
  const s=emptyState();s.settings.themes=['cozy-fantasy'];s.items.world=fixedWorld(['magic','trade','spirit']);
- for(const keys of [OPTIONAL.slice(0,6).map(([k])=>k),OPTIONAL.slice(6).map(([k])=>k)]){rollFields(s,keys,{data:EXTRA_DATA,rng:rngFor(22)});assert.ok(keys.filter(k=>s.items[k].themeTags.includes('cozy-fantasy')).length>=2);}
+ for(const keys of [OPTIONAL.slice(0,6).map(([k])=>k),OPTIONAL.slice(6,10).map(([k])=>k)]){rollFields(s,keys,{data:EXTRA_DATA,rng:rngFor(22)});assert.ok(keys.filter(k=>s.items[k].themeTags.includes('cozy-fantasy')).length>=2);}
  const candidate=EXTRA_DATA['protagonist.goal'][0];s.items['counterpart.goal']={text:candidate.text};const discounted=weightFor(candidate,s,'protagonist.goal');s.items['counterpart.goal']=null;assert.ok(discounted<weightFor(candidate,s,'protagonist.goal'));
  const before=clone(s.items);rollFields(s,['counterpart.secret'],{data:EXTRA_DATA,rng:rngFor(2)});for(const key of Object.keys(before).filter(k=>k!=='counterpart.secret'))assert.deepEqual(s.items[key],before[key]);
 });

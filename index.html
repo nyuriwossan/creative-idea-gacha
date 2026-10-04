@@ -43,7 +43,7 @@
             <h3 class="theme-heading">関係・物語の方向</h3>
             <div id="classicThemeButtons" class="chips" role="group" aria-label="関係・物語のテーマ"></div>
           </div>
-          <button id="clearThemes" class="text-btn">選択を解除して、お任せにする</button>
+
         </details>
       </div>
       <p id="activeThemes" class="active-themes" aria-live="polite">選んだ方向：お任せ</p>
@@ -51,6 +51,8 @@
         <button id="rollAll" class="primary">✦ 固定していない項目を引く</button>
         <div class="history-actions" role="group" aria-label="作業履歴"><span class="subtle">履歴</span><button id="undo" aria-label="一つ前の作業に戻す">↶ 戻す</button><button id="redo" aria-label="戻した作業を進める">↷ 進む</button></div>
       </div>
+      <div class="inline-actions reset-actions"><button id="unlockAll">すべてのロックを外す</button><button id="clearThemes">テーマの選択を全解除</button></div>
+      <p class="note">ロック解除は基本・人物・進行・入口・質問が対象です。内容は消しません。テーマ解除は「お任せ」に戻します。</p>
       <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
       <p id="drawNotice" class="draw-notice" role="status" hidden></p>
       <button id="cozyToneAction" class="secondary" hidden>ダーク・シリアスへ変更する</button>
@@ -61,8 +63,24 @@
 
     <section id="result" class="section">
       <div class="section-head"><div><span class="eyebrow">02 / YOUR STORY SEED</span><h2>ここから、物語が始まる</h2></div><span id="purposeLabel" class="pill"></span></div>
-      <div class="result-card"><div class="card-head"><h3>タネの要約</h3><button data-copy="summary" class="small-btn">要約をコピー</button></div><p id="summaryBody" class="result-body"></p><div class="result-actions"><a class="button-link secondary" href="#saveEditor">このタネを保存する ↓</a><button id="rebuild" class="text-btn">出力文を作り直す</button></div></div>
+      <div class="result-card"><div class="card-head"><h3>タネの要約</h3><button data-copy="summary" class="small-btn">要約をコピー</button></div><p id="summaryBody" class="result-body"></p><div class="result-actions"><button id="openHandoff" class="primary">AIに渡して続きを作る</button><a class="button-link secondary" href="#saveEditor">このタネを保存する ↓</a><button id="rebuild" class="text-btn">出力文を作り直す</button></div></div>
 
+      <details id="handoffPanel" class="panel accordion handoff-panel"><summary>AIに渡す依頼文</summary>
+        <p class="note">基本7項目だけでも使えます。人物・進行・質問は任意です。依頼文をコピーして、使いたいAIに貼ってください。</p>
+        <label>AIへの依頼内容（上の出力用途とは別に選べます）<select id="handoffPurpose"></select></label>
+        <label>依頼文の長さ<select id="handoffLength"><option value="simple">簡易</option><option value="detail">詳細</option></select></label>
+        <div class="handoff-checks"><label class="check-label"><input id="preserveAll" type="checkbox" checked>現在の素材をすべて保持する</label><label class="check-label"><input id="suggestMissing" type="checkbox" checked>不足する設定をAIに提案してもらう</label><label class="check-label"><input id="includeNotes" type="checkbox">自由メモを含める</label></div>
+        <p class="note">この設定はAIへの依頼だけに作用します。「固定」は抽選を止める機能です。</p>
+        <details id="chatOptions" class="usage-help"><summary>チャットの役割・追加条件（任意）</summary>
+          <label>ユーザーが担当する人物<select id="userRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="other">その他</option></select></label>
+          <label>その他の役割（100文字まで）<input id="userRoleText"></label>
+          <label>AIが担当する範囲<select id="aiRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="ensemble">複数人物・語り手</option></select></label>
+          <label>作成先・追加条件（2,000文字まで）<textarea id="extraRequest" rows="3"></textarea></label>
+        </details>
+        <p id="handoffError" class="input-error" role="alert"></p><p id="handoffPending" class="note notice" role="status" hidden>未反映の編集があります。更新・コピー時にまとめて反映します。</p>
+        <div class="inline-actions"><button id="updateHandoff" class="secondary">依頼文を更新</button><button id="copyHandoff" class="primary">依頼文をコピー</button></div>
+        <label>依頼文のプレビュー<textarea id="handoffPreview" readonly rows="12"></textarea></label><p id="handoffCount" class="note" aria-live="polite"></p>
+      </details>
       <div class="optional-stack">
         <details id="charactersDetails" class="panel accordion"><summary><span>人物を足す</span><span class="subtle">任意 / 立場・目的・秘密</span></summary>
           <p id="groupNotice" class="note" hidden>主人公・相手役は集団の中の人物として設定できます。</p>
@@ -74,16 +92,17 @@
           <details class="usage-help"><summary>進行欄の使い方</summary><p class="note">未設定でも使えます。失うものや結末を、あとから自分で選べます。AIキャラ用途では結末も展開の候補です。</p></details>
           <button id="rollProgression" class="secondary">進行の区画をまとめて引く</button><div id="progressionFields" class="field-grid optional-grid"></div>
         </details>
+        <details id="sceneDetails" class="panel accordion"><summary><span>会話・1話の入口</span><span class="subtle">任意 / 小さな目標と開始場面</span></summary><p class="note">基本だけでも使えます。開くだけでは抽選しません。合わない項目は引き直し・編集できます。次回の問いは余韻の候補で、続編や会話の継続を強制しません。</p><button id="rollScene" class="secondary">入口の区画をまとめて引く</button><div id="sceneFields" class="field-grid optional-grid"></div></details>
         <details id="questionsDetails" class="panel accordion"><summary><span>質問で深める</span><span class="subtle">任意 / あなたが考える欄</span></summary>
           <details class="usage-help"><summary>質問欄の使い方</summary><p class="note">回答を反映すると固定します。固定を外しても回答のある質問は引き直しで消えません。別区分の編集中の回答も、保存・コピー時にまとめて反映します。「設定を確かめる」は考えるための問いです。</p></details>
           <div class="question-toolbar"><label>質問の区分<select id="questionCategory"></select></label><button id="rollQuestions" class="secondary">質問を3つ出す</button></div>
           <div id="questionFields"></div>
         </details>
       </div>
-      <details class="panel accordion output-details"><summary>設定と用途別の構成メモ</summary><button data-copy="memo" class="small-btn">メモをコピー</button><div id="memoBody" class="result-body"></div></details>
+      <details class="panel accordion output-details"><summary>自分用の設定・構成メモ</summary><button data-copy="memo" class="small-btn">メモをコピー</button><div id="memoBody" class="result-body"></div></details>
       <details class="panel accordion output-details"><summary>発想ヒント</summary><button data-copy="hint" class="small-btn">ヒントをコピー</button><div id="hintBody" class="result-body"></div></details>
       <details class="panel accordion output-details"><summary>タイトル案</summary><div class="inline-actions"><button id="rollTitles" class="small-btn">タイトルだけ引き直す</button><button data-copy="titles" class="small-btn">タイトルをコピー</button></div><ol id="titleList"></ol></details>
-      <div class="inline-actions export-actions"><button data-copy="markdown" class="secondary">すべてをコピー（Markdown）</button><button id="downloadMarkdown">Markdownを保存</button><button id="exportCurrent">現在のタネをJSON保存</button></div>
+      <div class="inline-actions export-actions"><button data-copy="markdown" class="secondary">自分用メモをコピー（Markdown）</button><button id="downloadMarkdown">Markdownを保存</button><button id="exportCurrent">現在1件をバックアップ（JSON）</button></div>
     </section>
 
     <section id="library" class="section">
@@ -103,7 +122,7 @@
       <details class="panel accordion backup-panel"><summary>バックアップ・取り込み</summary><p class="note">保存済み作品のJSONに、現在の未保存編集は含みません。表示日時は書き出し操作の時刻です。ファイルを実際に保管したかは確認できません。取り込みは既存作品を残して追加します。最大5MiB・500件。</p><div class="inline-actions"><button id="exportAll">保存済み作品すべてをJSON保存</button><label class="file-button">JSONを選ぶ<input id="importFile" type="file" accept=".json,application/json"></label><button id="exportRaw" hidden>元データを取り出す</button></div><p id="importPreview" class="note" aria-live="polite"></p><button id="confirmImport" class="secondary" hidden>確認した作品を追加する</button></details>
     </section>
   </main>
-  <footer><p>引くのはきっかけ。物語をつくるのは、あなた。</p><p class="note">ログイン不要・外部AIなし。素材と問いから考える創作の道具です。</p><a href="https://github.com/nyuriwossan/creative-idea-gacha" target="_blank" rel="noreferrer">GitHub</a></footer>
+  <footer><p>引くのはきっかけ。物語をつくるのは、あなた。</p><p class="note">ログイン不要・外部AIへの自動送信なし。素材と問いから考える創作の道具です。</p><a href="https://github.com/nyuriwossan/creative-idea-gacha" target="_blank" rel="noreferrer">GitHub</a></footer>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
   <dialog id="decisionDialog"><h3 id="decisionTitle"></h3><p id="decisionBody"></p><div id="decisionActions" class="dialog-actions"></div></dialog>
   <dialog id="manualCopy"><h3>手動でコピーしてください</h3><p class="note">コピーを実行できませんでした。下の文字を選択してコピーできます。</p><textarea id="manualCopyText" rows="12" aria-label="コピー用の本文" readonly></textarea><button id="closeManualCopy">閉じる</button></dialog>

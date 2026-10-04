@@ -1,5 +1,6 @@
-export const CONTEXTS=[['beastfolk','獣人・知性ある人外'],['desert','砂漠'],['nomadic','移動・遊牧の暮らし'],['oasis','オアシス'],['royal','王族・宮廷'],['trade','交易'],['magic','魔法'],['spirit','精霊']];
-export const PACKS=[['beastfolk','獣人・人外社会','異種族の暮らし、文化、交流'],['desert-court','砂漠・王国・宮廷','水と交易、隊商と宮廷の利害'],['romantasy','恋愛ファンタジー・契約恋愛','契約と本心、選び直せる関係'],['cozy-fantasy','日常ファンタジー・店と共同生活','魔法の仕事、小さな困りごと']];
+import {ROUND4_THEMES} from './round4-data.js';
+export const CONTEXTS=[['beastfolk','獣人・知性ある人外'],['desert','砂漠'],['nomadic','移動・遊牧の暮らし'],['oasis','オアシス'],['royal','王族・宮廷'],['trade','交易'],['magic','魔法'],['spirit','精霊'],['artificial-intelligence','自律的なAI・人工知能'],['memory-tech','記憶・人格を保存／編集する技術や魔法'],['future-record','未来の記録や予告を参照できる仕組み']];
+export const PACKS=[['beastfolk','獣人・人外社会','異種族の暮らし、文化、交流'],['desert-court','砂漠・王国・宮廷','水と交易、隊商と宮廷の利害'],['romantasy','恋愛ファンタジー・契約恋愛','契約と本心、選び直せる関係'],['cozy-fantasy','日常ファンタジー・店と共同生活','魔法の仕事、小さな困りごと'],...ROUND4_THEMES];
 export const contextLabels=tags=>CONTEXTS.filter(([id])=>tags.includes(id)).map(([,label])=>label);
 export function worldContext(state){return (state.items.world?.contextTags||[]).filter(t=>CONTEXTS.some(([id])=>id===t));}
 export function meetsContext(item,context){return (item.requiresContext||[]).every(t=>CONTEXTS.some(([id])=>id===t)&&context.includes(t));}

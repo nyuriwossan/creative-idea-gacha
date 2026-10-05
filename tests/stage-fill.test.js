@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {DATA,BASIC,THEMES,STAGES} from '../js/data.js';
 import {EXTRA_DATA,QUESTION_DATA} from '../js/extra-data.js';
 import {STAGE_FILL_A,STAGE_FILL_B,STAGE_FILL_BASIC,parseStageFill} from '../js/stage-fill-data.js';
-import {CONTEXTS,meetsContext,worldContext} from '../js/context.js';
+import {CONTEXTS,meetsContext,worldContext,PROFESSIONAL_WORLD_PATCHES} from '../js/context.js';
 import {TOPICS} from '../js/story-metadata.js';
 import {emptyState,rollFields,WEIGHTS,refreshTexts,History,editField,updateSettings} from '../js/core.js';
 import {availablePool} from '../js/priority.js';
@@ -33,9 +33,9 @@ test('stage fill exact A/B allocations and final minimum coverage are separate i
  assert.ok(a.after.worldTones.school[4]>=3);assert.equal(a.themeTaggedA,128);
 });
 test('stage fill old definition values, optional data, questions, themes and all weights stay identical',()=>{
- for(const [key,ids] of Object.entries(baseline.basicIds)){const set=new Set(ids),old=DATA[key].filter(r=>set.has(r.id));assert.equal(old.length,ids.length);assert.equal(hash(old),baseline.basicHashes[key],key);}
+ for(const [key,ids] of Object.entries(baseline.basicIds)){const set=new Set(ids),old=DATA[key].filter(r=>set.has(r.id)).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(old.length,ids.length);assert.equal(hash(old),baseline.basicHashes[key],key);}
  for(const [key,value] of Object.entries(baseline.extraHashes))assert.equal(hash(EXTRA_DATA[key]),value,key);
- assert.equal(hash(QUESTION_DATA),baseline.questionHash);assert.equal(hash(THEMES),baseline.themeHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);assert.equal(STORAGE_KEY,'creativeIdeaGacha_v2');
+ assert.equal(hash(Object.fromEntries(Object.entries(QUESTION_DATA).map(([key,rows])=>[key,rows.slice(0,26)]))),baseline.questionHash);assert.equal(hash(THEMES.slice(0,20)),baseline.themeHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);assert.equal(STORAGE_KEY,'creativeIdeaGacha_v2');
 });
 test('stage fill new metadata has known dictionaries, unique IDs/text, explicit shapes and reachable backgrounds at every tone',()=>{
  const all=Object.values(EXTRA_DATA).flat();const ids=Object.values(STAGE_FILL_BASIC).flat().map(r=>r.id);assert.equal(new Set(ids).size,189);

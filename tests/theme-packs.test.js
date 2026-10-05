@@ -15,7 +15,7 @@ const row=(id,themes=[],requires=[])=>({id,text:`本文 ${id}`,titleWord:id,sour
 const fixedWorld=contexts=>({candidateId:'fixed',text:'固定した世界',titleWord:'固定世界',source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:contexts,requiresContext:[]});
 test('four packs have 300 unique substantive basic definitions and tone/category minimums',()=>{
  const expected={beastfolk:[12,4,16,12,12,12,12],'desert-court':[12,4,16,12,12,12,12],romantasy:[8,4,16,10,10,12,10],'cozy-fantasy':[12,4,14,12,8,10,10]};
- assert.equal(THEMES.length,20);assert.ok(Object.values(DATA).flat().length>=1277);
+ assert.equal(THEMES.length,22);assert.ok(Object.values(DATA).flat().length>=1277);
  const added=Object.values(PACK_DATA).flatMap(p=>Object.values(p).flat());assert.equal(added.length,300);assert.equal(new Set(added.map(r=>r.id)).size,300);
  for(const pack of packIds)for(const [i,key] of basicKeys.entries()){
   const rows=PACK_DATA[pack][key];assert.equal(rows.length,expected[pack][i]);
@@ -38,7 +38,7 @@ test('characters use 60 shared definitions, progression 64, and questions 32 sta
  assert.equal(new Set(Object.values(PACK_EXTRA).flatMap(p=>Object.values(p).flat()).map(r=>r.id)).size,124);
  for(const row of [...Object.values(PACK_DATA),...Object.values(PACK_EXTRA)].flatMap(p=>Object.values(p).flat())){assert.ok(row.titleWord&&row.titleWord.length<=30);assert.ok(row.stageTags.every(t=>STAGES.some(([id])=>id===t)));assert.ok(row.themeTags.every(t=>THEMES.some(([id])=>id===t)));assert.ok(row.tones.length&&row.tones.every(t=>Number.isInteger(t)&&t>=1&&t<=5));}
  for(const [key] of OPTIONAL)assert.equal(EXTRA_DATA[key].length,key.startsWith('scene.')?16:key.endsWith('.role')?52:key.includes('.')?48:key==='ending'?54:key==='cost'?48:44);
- for(const rows of Object.values(QUESTION_DATA)){assert.equal(rows.length,26);assert.ok(rows.slice(0,15).every(q=>typeof q==='string'));assert.ok(rows.slice(15).every(q=>typeof q.id==='string'));}
+ for(const rows of Object.values(QUESTION_DATA)){assert.equal(rows.length,29);assert.ok(rows.slice(0,15).every(q=>typeof q==='string'));assert.ok(rows.slice(15).every(q=>typeof q.id==='string'));}
 });
 test('full draws reflect three categories and two major categories across packs and fixed seeds',()=>{
  for(const themes of [...packIds.map(id=>[id]),['beastfolk','desert-court','romantasy'],['beastfolk','cozy-fantasy'],['romantasy','cozy-fantasy']])for(let seed=1;seed<=40;seed++){

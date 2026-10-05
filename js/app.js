@@ -8,6 +8,7 @@ import { drawQuestions } from './questions.js';
 import { CONTEXTS,PACKS,contextLabels } from './context.js';
 import {prepareDrafts,DraftError} from './drafts.js';
 import {BackupStatus} from './backup.js';
+import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -107,7 +108,7 @@ function parseMeta(id,key,max){
 }
 function hasFieldDraft(){return [...cards.values()].some(c=>c.isDirty());}
 function revealInput(input){for(let p=input.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;input.scrollIntoView({block:'center'});input.focus({preventScroll:true});}
-function requireApplied(){
+function requireApplied({record=true}={}){
  const fields=[...cards.values()].filter(c=>c.isDirty()).map(c=>c.readEditor());
  const answers=[...questionDrafts].map(([key,pending])=>{const [category,index]=key.split(':');return {category,index:Number(index),value:pending.value,...(state.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})};});
  const metadata=metaBindings.filter(([id])=>dirtyInputs.has(id)).map(([id,key])=>({id,key,value:$(id).value}));
@@ -126,8 +127,9 @@ function requireApplied(){
  const changed=JSON.stringify(next)!==JSON.stringify(state);
  for(const c of cards.values()){c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');}
  dirtyInputs.clear();questionDrafts.clear();handoffDraft={};
- if(changed){state=next;history.record(state);persist();}
+ if(changed){state=next;if(record){history.record(state);persist();}}
  render();
+ return changed;
 }
 function dirtyWork(){
  if(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size)return true;
@@ -263,6 +265,18 @@ for(const b of document.querySelectorAll('[data-coherence]'))b.addEventListener(
 bind('cozyToneAction',()=>commit(draft=>updateSettings(draft,{tone:4})));
 for(const [id,key] of [['stageSelect','stage'],['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
+setOptions('presetSelect',MODERN_PRESETS.map(({id,label})=>[id,label]));
+function renderPresetSelection(){$('presetPreview').textContent=presetDescription($('presetSelect').value);$('presetResult').hidden=true;}
+$('presetSelect').addEventListener('change',renderPresetSelection);renderPresetSelection();
+bind('runPreset',()=>{
+ const authored=requireApplied({record:false});let result;
+ try{result=tryModernPreset(state,recent,$('presetSelect').value);}catch(error){if(authored){history.record(state);persist();render();}throw error;}
+ if(!result.ok){if(authored){history.record(state);persist();render();}$('presetResult').textContent=result.reason;$('presetResult').hidden=false;showToast(result.reason);return;}
+ state=result.state;Object.assign(recent,result.recent);refreshTexts(state,{randomize:result.changed>0});history.record(state);persist();render();
+ $('drawNotice').textContent=result.notices.join('\n');$('drawNotice').hidden=!result.notices.length;
+ $('presetResult').textContent='選んだ方向で基本の抽選を実行しました。固定中の素材は残しています。この世界観条件は今回のみで、次の通常ガチャには持ち越しません。';$('presetResult').hidden=false;
+ showToast(result.notices.length?result.notices.join('\n'):'選んだ方向で基本の素材を引きました。');
+});
 bind('rollAll',()=>roll());
 bind('rollLight',()=>commit(draft=>{draft.settings.tone=1;return rollFields(draft,undefined,{data:EXTRA_DATA,recent});},{output:true,randomize:true,notice:'ほのぼののトーンで引きました。固定した項目は残しています。'}));
 bind('rollScene',()=>roll(SCENE.map(([k])=>k)));

@@ -1,6 +1,7 @@
 import {ROUND4_THEMES} from './round4-data.js';
-export const CONTEXTS=[['beastfolk','獣人・知性ある人外'],['desert','砂漠'],['nomadic','移動・遊牧の暮らし'],['oasis','オアシス'],['royal','王族・宮廷'],['trade','交易'],['magic','魔法'],['spirit','精霊'],['artificial-intelligence','自律的なAI・人工知能'],['memory-tech','記憶・人格を保存／編集する技術や魔法'],['future-record','未来の記録や予告を参照できる仕組み']];
-export const PACKS=[['beastfolk','獣人・人外社会','異種族の暮らし、文化、交流'],['desert-court','砂漠・王国・宮廷','水と交易、隊商と宮廷の利害'],['romantasy','恋愛ファンタジー・契約恋愛','契約と本心、選び直せる関係'],['cozy-fantasy','日常ファンタジー・店と共同生活','魔法の仕事、小さな困りごと'],...ROUND4_THEMES];
+import {MODERN_PRO_THEMES,PROFESSIONAL_CONTEXTS} from './modern-pro-data.js';
+export const CONTEXTS=[['beastfolk','獣人・知性ある人外'],['desert','砂漠'],['nomadic','移動・遊牧の暮らし'],['oasis','オアシス'],['royal','王族・宮廷'],['trade','交易'],['magic','魔法'],['spirit','精霊'],['artificial-intelligence','自律的なAI・人工知能'],['memory-tech','記憶・人格を保存／編集する技術や魔法'],['future-record','未来の記録や予告を参照できる仕組み'],...PROFESSIONAL_CONTEXTS];
+export const PACKS=[['beastfolk','獣人・人外社会','異種族の暮らし、文化、交流'],['desert-court','砂漠・王国・宮廷','水と交易、隊商と宮廷の利害'],['romantasy','恋愛ファンタジー・契約恋愛','契約と本心、選び直せる関係'],['cozy-fantasy','日常ファンタジー・店と共同生活','魔法の仕事、小さな困りごと'],...ROUND4_THEMES,...MODERN_PRO_THEMES];
 export const contextLabels=tags=>CONTEXTS.filter(([id])=>tags.includes(id)).map(([,label])=>label);
 export function worldContext(state){return (state.items.world?.contextTags||[]).filter(t=>CONTEXTS.some(([id])=>id===t));}
 export function meetsContext(item,context){return (item.requiresContext||[]).every(t=>CONTEXTS.some(([id])=>id===t)&&context.includes(t));}
@@ -40,6 +41,8 @@ const magicMechanisms=['和歌に宿る力','言霊','式神','血筋の加護',
 for(const text of magicMechanisms)supplements[text]={contextTags:['magic'],requiresContext:['magic']};
 export function supplementDefinition(item,key){
  const patch=supplements[item.text];
- return {...item,stageTags:[...item.stageTags],themeTags:[...new Set([...item.themeTags,...(patch?.themeTags||[])])],contextTags:[...new Set([...(item.contextTags||[]),...(patch?.contextTags||[])])],requiresContext:key==='world'?[]:[...new Set([...(item.requiresContext||[]),...(patch?.requiresContext||[])])]};
+ const professional=key==='world'?PROFESSIONAL_WORLD_PATCHES[item.id]:null;
+ return {...item,stageTags:[...item.stageTags],themeTags:[...new Set([...item.themeTags,...(patch?.themeTags||[])])],contextTags:[...new Set([...(item.contextTags||[]),...(patch?.contextTags||[]),...(professional||[])])],requiresContext:key==='world'?[]:[...new Set([...(item.requiresContext||[]),...(patch?.requiresContext||[])])]};
 }
+export const PROFESSIONAL_WORLD_PATCHES=Object.freeze({'world-original-26tx1z':['company'],'world-original-o07rlu':['medical'],'world-original-12aasa0':['education'],'world-original-1yvablk':['education']});
 export const SUPPLEMENT_TEXTS=Object.keys(supplements);

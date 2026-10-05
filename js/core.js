@@ -43,7 +43,7 @@ export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,rec
  const related=item=>Boolean(themeMask(item,themes));
  function pick(key,pool){
   const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[],axes),rng);
-  const {id,origin,primaryPack,storyGroup,round4Group,primaryStage,stageFillBatch,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
+  const {id,origin,primaryPack,storyGroup,round4Group,primaryStage,stageFillBatch,modernProCategory,modernProBatch,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
   recent[key]=[...(recent[key]||[]),picked.id].slice(-10);changed++;
  }
  function shortage(key,info){

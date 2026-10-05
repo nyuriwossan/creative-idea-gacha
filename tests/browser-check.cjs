@@ -79,7 +79,7 @@ function check(name,fn){return Promise.resolve().then(fn).then(()=>{results.push
  const choose=async(themes,tone='3')=>{if(!await tp.locator('#themeDetails').evaluate(x=>x.open))await tp.locator('#themeDetails summary').click();await tp.click('#clearThemes');await tp.selectOption('#stageSelect','fantasy');await tp.selectOption('#toneSelect',tone);for(const id of themes)await tp.locator(`[data-theme="${id}"]`).click();};
  const related=(s,themes)=>Object.entries(s.items).filter(([k,i])=>!k.includes('.')&&['world','genre','relation','incident','conflict','gimmick','twist'].includes(k)&&i?.themeTags.some(t=>themes.includes(t)));
  await check('eight understandable pack choices, twelve classic choices and next-draw summary',async()=>{
-  assert.equal(await tp.locator('#themeDetails').evaluate(x=>x.open),false);await choose(['beastfolk']);assert.equal(await tp.locator('#packButtons button').count(),8);assert.equal(await tp.locator('#classicThemeButtons button').count(),12);assert.match(await tp.locator('#activeThemes').textContent(),/獣人・人外社会.*次の抽選/);await tp.screenshot({path:path.join(out,'theme-selection-desktop.png')});
+  assert.equal(await tp.locator('#themeDetails').evaluate(x=>x.open),false);await choose(['beastfolk']);assert.equal(await tp.locator('#packButtons button').count(),10);assert.equal(await tp.locator('#classicThemeButtons button').count(),12);assert.match(await tp.locator('#activeThemes').textContent(),/獣人・人外社会.*次の抽選/);await tp.screenshot({path:path.join(out,'theme-selection-desktop.png')});
  });
  const examples={};
  for(const [id,label] of [['beastfolk','beastfolk'],['desert-court','desert-court'],['romantasy','romantasy'],['cozy-fantasy','cozy-fantasy']])await check(`${label} actual UI draw reflects world and at least three categories`,async()=>{
@@ -116,6 +116,7 @@ function check(name,fn){return Promise.resolve().then(fn).then(()=>{results.push
  await require('./round3-browser.cjs')({browser,base,out,check});
  await require('./round4-browser.cjs')({browser,base,out,check});
  await require('./stage-fill-browser.cjs')({browser,base,out,check});
+ await require('./modern-pro-browser.cjs')({browser,base,out,check});
  fs.unlinkSync(path.join(out,'future-test.json'));
  fs.writeFileSync(path.join(out,'browser-check-results.json'),JSON.stringify({passed:results.length,checks:results,errors},null,2));
  }finally{await browser.close();}

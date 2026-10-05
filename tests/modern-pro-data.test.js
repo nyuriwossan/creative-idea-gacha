@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import {DATA,BASIC,THEMES,STAGES} from '../js/data.js';
 import {EXTRA_DATA} from '../js/extra-data.js';
 import {MODERN_PRO_BASIC,MODERN_PRO_A,MODERN_PRO_B,parseModernPro,MODERN_PRO_THEMES,PROFESSIONAL_CONTEXTS} from '../js/modern-pro-data.js';
@@ -12,6 +14,10 @@ import {availablePool} from '../js/priority.js';
 import {validateState,exportJSON,inspectImport} from '../js/storage.js';
 const all=Object.values(MODERN_PRO_BASIC).flat();
 const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+test('modern-pro changes only four old world context definitions; all 1277 old records retain every other value',()=>{
+ const baseline=JSON.parse(fs.readFileSync(new URL('./modern-pro-baseline.json',import.meta.url),'utf8'));
+ for(const [key,ids] of Object.entries(baseline.ids)){const set=new Set(ids);const rows=DATA[key].filter(r=>set.has(r.id)).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(rows.length,ids.length);assert.equal(createHash('sha256').update(JSON.stringify(rows)).digest('hex'),baseline.hashes[key],key);}
+});
 test('modern-pro strict group/eleven-column parser validates all required cells and relation shapes',()=>{
  const good='#group modern-love\nrelation|couple|成人の恋人二人|恋人|123|shared-home||modern|romance||pair';
  assert.deepEqual(parseModernPro('love','A',good).relation[0].themeTags,['modern-love','romance']);

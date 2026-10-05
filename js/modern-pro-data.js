@@ -169,75 +169,75 @@ gimmick|thanks-whiteboard|職員室の白板に、その日の「助かったこ
 
 const B_love=parseModernPro('love','B',`
 #group modern-love
-incident|missing-overlap|夜勤と日中の仕事がずれ、恋人どうしが相談できる時間が一週間なくなる|合わない一週間|1234|relationship-choice,shared-home||modern|romance||
-incident|rent-decision|二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く|更新前の誘い|234|relationship-choice,shared-home||modern|romance||
-conflict|support-tired|相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる|支える側の休息|1234|relationship-choice,shared-home||modern|romance||
-conflict|home-responsibility|同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない|帰る場所の役目|1234|relationship-choice,shared-home||modern|romance||
+incident|missing-overlap|夜勤と日中の仕事がずれ、恋人どうしが相談できる時間が一週間なくなる|合わない一週間|1234|resource-fairness,relationship-choice||modern|romance||
+incident|rent-decision|二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く|更新前の誘い|234|shared-home,return-home||modern|romance||
+conflict|support-tired|相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる|支える側の休息|1234|mutual-aid,resource-fairness||modern|romance||
+conflict|home-responsibility|同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない|帰る場所の役目|1234|return-home,loyalty||modern|romance||
 `);
 
 const B_office=parseModernPro('office','B',`
 #group workplace-pro
-relation|rebuild-leaver|傾いた会社を継いだ経営者と、退職を決めた古参社員|再建と退職|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||pair
-relation|rival-cooperation|競合会社の担当者と、共同案件の調整を任された開発者|競合との共同案件|234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||pair
-relation|new-leader-team|新任上司と、前任者の方針を守りたいチーム|引き継ぐ信頼|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||group
-relation|anonymous-source|社内広報の担当者と、名前を出されたくない情報提供者|広報と匿名の声|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||pair
-relation|handover-reluctant|後任として仕事を受け取る社員と、役割を失うことを恐れる前任者|渡す仕事の相談先|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||pair
-incident|unexplained-data|新商品の資料に、誰も提供元を説明できないデータが混ざる|提供元の空白|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-incident|orphan-project|部署の統合直前に、引き継ぎ先のない案件が一つ残る|引き取り先のない案件|234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-incident|handover-sentence|退職者の引き継ぎ資料に、会社の方針を変える一文が見つかる|方針を変える一文|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation|mp-handover-options|
-incident|support-withdrawn|新しい評価制度で支援枠を失った社員が、以前は集計されなかった引き継ぎ作業の記録を提出する|支援枠の打ち切り|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-incident|closing-letters|閉鎖予定の支店へ、地域の人々から大量の手紙が届く|閉鎖支店への便り|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-conflict|company-or-workers|会社の信用を守りたいが、事実を伏せるほど社員への負担が増える|信用と社員の負担|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-conflict|client-capacity|顧客との約束を守りたいが、今の人数で受ければ社員の休みがなくなる|約束と現場の人数|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-conflict|tradition-excludes|古い成功基準を守りたいが、新入社員が支えた仕事はその基準に載らず、評価の場で発言できない|発言を閉ざす慣習|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation|mp-success-index|
-conflict|win-closes-other|自分の部署を残したいが、成果が認められるほど別の部署が閉鎖に近づく|残る部署の代償|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-conflict|cannot-refuse|好きな仕事を続けたいが、好きだから頼まれた追加作業を断れない|好きな仕事への返事|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation|mp-handover-options|
-twist|old-success-index|この会社の成功基準は部署単独の成果だけを数えている。基準を更新すると、古参の順位も変わるため合意を取り直す必要がある|成功基準の外側|2345|identity-role,negotiation|company|modern|daily-work,limited-cooperation|mp-success-index|
-twist|hidden-thanks|支店への手紙を開くと、抗議に交じって過去に助けられた人々の感謝が現れる|抗議に交じる感謝|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation||
-twist|handover-options|引き継ぎ資料には、追加依頼を断る場合の代替案も残っている。後任はすべてを受ける前提から、仕事の範囲を選ぶ交渉へ進める|後任へ残す選択肢|1234|identity-role,negotiation|company|modern|daily-work,limited-cooperation|mp-handover-options|
+relation|rebuild-leaver|傾いた会社を継いだ経営者と、退職を決めた古参社員|再建と退職|2345|identity-role,loyalty|company|modern|daily-work,limited-cooperation||pair
+relation|rival-cooperation|競合会社の担当者と、共同案件の調整を任された開発者|競合との共同案件|234|negotiation,contract|company|modern|buddy,rivalry,limited-cooperation||pair
+relation|new-leader-team|新任上司と、前任者の方針を守りたいチーム|引き継ぐ信頼|1234|identity-role,memory|company|modern|buddy,daily-work||group
+relation|anonymous-source|社内広報の担当者と、名前を出されたくない情報提供者|広報と匿名の声|2345|asymmetric-info,record-conflict|company|modern|mystery,daily-work||pair
+relation|handover-reluctant|後任として仕事を受け取る社員と、役割を失うことを恐れる前任者|渡す仕事の相談先|1234|identity-role,craft|company|modern|practical-skill,daily-work||pair
+incident|unexplained-data|新商品の資料に、誰も提供元を説明できないデータが混ざる|提供元の空白|2345|record-conflict,asymmetric-info|company|modern|mystery,archive-mystery||
+incident|orphan-project|部署の統合直前に、引き継ぎ先のない案件が一つ残る|引き取り先のない案件|234|identity-role,resource-fairness|company|modern|daily-work,limited-cooperation||
+incident|handover-sentence|退職者の引き継ぎ資料に、会社の方針を変える一文が見つかる|方針を変える一文|1234|craft,negotiation|company|modern|practical-skill,daily-work|mp-handover-options|
+incident|support-withdrawn|新しい評価制度で支援枠を失った社員が、以前は集計されなかった引き継ぎ作業の記録を提出する|支援枠の打ち切り|2345|resource-fairness,record-conflict|company|modern|archive-mystery,daily-work||
+incident|closing-letters|閉鎖予定の支店へ、地域の人々から大量の手紙が届く|閉鎖支店への便り|1234|memory,return-home|company|modern|reunion,daily-work||
+conflict|company-or-workers|会社の信用を守りたいが、事実を伏せるほど社員への負担が増える|信用と社員の負担|2345|record-conflict,loyalty|company|modern|daily-work,limited-cooperation||
+conflict|client-capacity|顧客との約束を守りたいが、今の人数で受ければ社員の休みがなくなる|約束と現場の人数|1234|contract,resource-fairness|company|modern|daily-work,limited-cooperation||
+conflict|tradition-excludes|古い成功基準を守りたいが、新入社員が支えた仕事はその基準に載らず、評価の場で発言できない|発言を閉ざす慣習|1234|resource-fairness,identity-role|company|modern|daily-work,status-gap|mp-success-index|
+conflict|win-closes-other|自分の部署を残したいが、成果が認められるほど別の部署が閉鎖に近づく|残る部署の代償|2345|resource-fairness,loyalty|company|modern|daily-work,rivalry||
+conflict|cannot-refuse|好きな仕事を続けたいが、別部署からの応援依頼が直接届き、担当業務の締切を相談する前に引き受けてしまう|応援依頼と担当の締切|1234|resource-fairness,negotiation|company|modern|daily-work,limited-cooperation|mp-handover-options|
+twist|old-success-index|この会社の成功基準は部署単独の成果だけを数えている。基準を更新すると、古参の順位も変わるため合意を取り直す必要がある|成功基準の外側|2345|resource-fairness,negotiation|company|modern|daily-work,status-gap|mp-success-index|
+twist|hidden-thanks|支店への手紙を開くと、抗議に交じって過去に助けられた人々の感謝が現れる|抗議に交じる感謝|1234|memory,mutual-aid|company|modern|reunion,daily-work||
+twist|handover-options|引き継ぎ資料には、追加依頼を断る場合の代替案も残っている。後任はすべてを受ける前提から、仕事の範囲を選ぶ交渉へ進める|後任へ残す選択肢|1234|craft,negotiation|company|modern|practical-skill,limited-cooperation|mp-handover-options|
 `);
 
 const B_police=parseModernPro('police','B',`
 #group workplace-pro
-relation|field-forensics|現場の聞き取りを重視する刑事と、証拠の記録を守る鑑識担当|聞き取りと証拠の記録|234|record-conflict,loyalty|police|modern|mystery,archive-mystery||pair
-relation|press-spokesperson|元刑事の記者と、情報の公開範囲を調整する警察の広報担当|公開範囲の境界|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||pair
-relation|missing-family|失踪者を探す成人の家族と、捜査を終えられない刑事|家族と終わらない捜査|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||pair
-incident|return-time-gap|証拠品の返却記録だけが、事件当日の時刻と合わない|返却時刻のずれ|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||
-incident|old-consultations|事件として受理されなかった相談を集めたノートが、一冊だけ残っている|相談の残るノート|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||
-incident|apology-before-close|捜査を区切る前日に、差出人の分からない謝罪文が届く|区切り前の謝罪文|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||
-conflict|organization-error|組織の信頼を守りたいが、過ちを伏せれば被害を受けた人へ説明できない|組織の過ちへの説明|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery|mp-organization-explanation|
-conflict|family-recusal|家族の事件を追いたいが、自分が担当すれば判断の公正さを疑われる|家族の事件への距離|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery||
-conflict|repeat-investigation|過去の誤捜査を認めたいが、認めれば現在の証拠も確かめ直す必要がある|確かめ直す事件|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery|mp-reopened|
-twist|apology-officer|謝罪文の差出人は犯人ではなく、当時の対応を見直したい担当者だと分かる|対応を見直す差出人|2345|record-conflict,loyalty|police|modern|mystery,archive-mystery|mp-organization-explanation|
-twist|reopened-questions|過去の捜査をやり直すと、解決したと思われた被害が今も続いている記録に行き着く|続いている被害|345|record-conflict,loyalty|police|modern|mystery,archive-mystery|mp-reopened|
+relation|field-forensics|現場の聞き取りを重視する刑事と、証拠の記録を守る鑑識担当|聞き取りと証拠の記録|234|craft,record-conflict|police|modern|practical-skill,archive-mystery||pair
+relation|press-spokesperson|元刑事の記者と、情報の公開範囲を調整する警察の広報担当|公開範囲の境界|2345|asymmetric-info,negotiation|police|modern|mystery,limited-cooperation||pair
+relation|missing-family|失踪者を探す成人の家族と、捜査を終えられない刑事|家族と終わらない捜査|2345|return-home,loyalty|police|modern|rescue,mystery||pair
+incident|return-time-gap|証拠品の返却記録だけが、事件当日の時刻と合わない|返却時刻のずれ|2345|record-conflict|police|modern|archive-mystery,mystery||
+incident|old-consultations|事件として受理されなかった相談を集めたノートが、一冊だけ残っている|相談の残るノート|2345|memory,record-conflict|police|modern|archive-mystery,mystery||
+incident|apology-before-close|捜査を区切る前日に、差出人の分からない謝罪文が届く|区切り前の謝罪文|2345|record-conflict,asymmetric-info|police|modern|archive-mystery,mystery||
+conflict|organization-error|組織の信頼を守りたいが、過ちを伏せれば被害を受けた人へ説明できない|組織の過ちへの説明|2345|record-conflict,loyalty|police|modern|archive-mystery,mystery|mp-organization-explanation|
+conflict|family-recusal|家族の事件を追いたいが、自分が担当すれば判断の公正さを疑われる|家族の事件への距離|2345|loyalty,identity-role|police|modern|mystery,status-gap||
+conflict|repeat-investigation|過去の誤捜査を認めたいが、認めれば現在の証拠も確かめ直す必要がある|確かめ直す事件|2345|record-conflict,memory|police|modern|mystery,archive-mystery|mp-reopened|
+twist|apology-officer|謝罪文の差出人は犯人ではなく、当時の対応を見直したい担当者だと分かる|対応を見直す差出人|2345|identity-role,loyalty|police|modern|mystery,archive-mystery|mp-organization-explanation|
+twist|reopened-questions|過去の捜査をやり直すと、解決したと思われた被害が今も続いている記録に行き着く|続いている被害|345|memory,record-conflict|police|modern|mystery,rescue|mp-reopened|
 `);
 
 const B_education=parseModernPro('education','B',`
 #group workplace-pro
-relation|teacher-custodian|新人教員と、校舎の古い慣習を知る用務員|新人と校舎の慣習|1234|mutual-aid,identity-role|education|modern|daily-work,buddy||pair
-relation|graduate-colleague|成人して同じ学校の同僚になった元教え子と、以前の教え方を変えたい教員|同僚になった元教え子|1234|mutual-aid,identity-role|education|modern|daily-work,buddy||pair
-relation|waiting-management|生徒の相談を急がせたくない教員と、期限内の対応を求める管理職|相談の時間と期限|2345|mutual-aid,identity-role|education|modern|daily-work,buddy||pair
-incident|changed-path-letter|卒業後に進路を変えた成人の卒業生から、職員室へ手紙が届く|進路を変えた卒業生|1234|mutual-aid,identity-role|education|modern|daily-work,buddy||
-incident|lost-support-history|学校の記録から、一人分の相談履歴だけが見つからなくなる|見つからない相談履歴|2345|mutual-aid,identity-role|education|modern|daily-work,buddy||
-incident|graduate-statistics|卒業生の進路データが、学校評価のため書き換えられていると分かる|評価のための進路表|2345|mutual-aid,identity-role|education|modern|daily-work,buddy||
-conflict|share-burden|相談した生徒を守りたいが、教員一人で抱えれば必要な支援へつなげられない|一人で抱える相談|2345|mutual-aid,identity-role|education|modern|daily-work,buddy|mp-later-consultation|
-conflict|family-time|教師を続けたいが、校務を引き受け続けるほど家族との時間を失う|校務と家族の時間|1234|mutual-aid,identity-role|education|modern|daily-work,buddy||
-conflict|equal-support|同じ対応をしたいが、同じ対応では目の前の生徒に必要な助けが届かない|同じ対応の限界|1234|mutual-aid,identity-role|education|modern|daily-work,buddy||
-twist|later-consultation|欠けた履歴の手がかりは卒業後の新しい相談へつながる。成人した本人が共有する範囲を選び、次の相談担当へ渡す入口になる|卒業後へ続く相談|2345|mutual-aid,identity-role|education|modern|daily-work,buddy|mp-later-consultation|
+relation|teacher-custodian|新人教員と、校舎の古い慣習を知る用務員|新人と校舎の慣習|1234|craft,memory|education|modern|practical-skill,daily-work||pair
+relation|graduate-colleague|成人して同じ学校の同僚になった元教え子と、以前の教え方を変えたい教員|同僚になった元教え子|1234|memory,identity-role|education|modern|reunion,daily-work||pair
+relation|waiting-management|生徒の相談を急がせたくない教員と、期限内の対応を求める管理職|相談の時間と期限|2345|resource-fairness,negotiation|education|modern|daily-work,status-gap||pair
+incident|changed-path-letter|卒業後に進路を変えた成人の卒業生から、職員室へ手紙が届く|進路を変えた卒業生|1234|return-home,identity-role|education|modern|reunion,daily-work||
+incident|lost-support-history|学校の記録から、一人分の相談履歴だけが見つからなくなる|見つからない相談履歴|2345|record-conflict,asymmetric-info|education|modern|archive-mystery,mystery||
+incident|graduate-statistics|卒業生の進路データが、学校評価のため書き換えられていると分かる|評価のための進路表|2345|record-conflict,resource-fairness|education|modern|archive-mystery,mystery||
+conflict|share-burden|相談した生徒を守りたいが、教員一人で抱えれば必要な支援へつなげられない|一人で抱える相談|2345|mutual-aid,resource-fairness|education|modern|daily-work,buddy|mp-later-consultation|
+conflict|family-time|教師を続けたいが、校務を引き受け続けるほど家族との時間を失う|校務と家族の時間|1234|shared-home,resource-fairness|education|modern|daily-work||
+conflict|equal-support|同じ対応をしたいが、同じ対応では目の前の生徒に必要な助けが届かない|同じ対応の限界|1234|mutual-aid,resource-fairness|education|modern|daily-work,rescue||
+twist|later-consultation|欠けた履歴の手がかりは卒業後の新しい相談へつながる。成人した本人が共有する範囲を選び、次の相談担当へ渡す入口になる|卒業後へ続く相談|2345|memory,mutual-aid,record-conflict|education|modern|archive-mystery,rescue|mp-later-consultation|
 `);
 
 const B_medical=parseModernPro('medical','B',`
 #group workplace-pro
-relation|emergency-leaving|救急医と、働き方を変えるため病院を辞めたい看護師|夜勤後の働き方|234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||pair
-relation|record-patient|医療記録を管理する事務員と、記録の食い違いを訴える成人患者|本人と記録の食い違い|2345|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||pair
-relation|ex-socialworker|交際を終えた成人の医師とソーシャルワーカーで、同じ患者への支援を仕事の関係として組み直す二人|元恋人との支援連携|234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue,reunion||pair
-incident|closure-list|病院の閉鎖日が迫るなか、次の受け入れ先が決まらない患者の一覧が残る|閉鎖前の受け入れ先|2345|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-incident|unassigned-shift|夜勤の引き継ぎ記録に、誰が担当したか分からない時間が見つかる|担当者のない時間|2345|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-incident|unnamed-donations|診療所を支える寄付の帳簿に、名乗らない支援者の記録が続く|名乗らない寄付|1234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-conflict|patient-family-choice|本人の希望を尊重したいが、家族の願う生活の形と一致しない|本人が選ぶ生活|234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-conflict|nightshift-limit|医療の仕事を続けたいが、今の夜勤を続ければ自分の生活が立ち行かなくなる|夜勤を続ける限界|1234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-conflict|support-consent|支援を拒む人を助けたいが、助けるために本人の選択を奪いたくない|支援と選択の境界|1234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
-twist|shared-donation-name|匿名の寄付名義をたどると、診療所に助けられた人々の共同名義に行き着く|支え返す共同名義|1234|mutual-aid,resource-fairness|medical|modern|daily-work,rescue||
+relation|emergency-leaving|救急医と、働き方を変えるため病院を辞めたい看護師|夜勤後の働き方|234|resource-fairness,identity-role|medical|modern|buddy,daily-work||pair
+relation|record-patient|医療記録を管理する事務員と、記録の食い違いを訴える成人患者|本人と記録の食い違い|2345|record-conflict,asymmetric-info|medical|modern|mystery,archive-mystery||pair
+relation|ex-socialworker|交際を終えた成人の医師とソーシャルワーカーで、同じ患者への支援を仕事の関係として組み直す二人|元恋人との支援連携|234|memory,mutual-aid|medical|modern|reunion,buddy,daily-work||pair
+incident|closure-list|病院の閉鎖日が迫るなか、次の受け入れ先が決まらない患者の一覧が残る|閉鎖前の受け入れ先|2345|mutual-aid,resource-fairness|medical|modern|rescue,daily-work||
+incident|unassigned-shift|夜勤の引き継ぎ記録に、誰が担当したか分からない時間が見つかる|担当者のない時間|2345|record-conflict,identity-role|medical|modern|archive-mystery,mystery||
+incident|unnamed-donations|診療所を支える寄付の帳簿に、名乗らない支援者の記録が続く|名乗らない寄付|1234|mutual-aid,resource-fairness|medical|modern|found-family,daily-work||
+conflict|patient-family-choice|本人の希望を尊重したいが、家族の願う生活の形と一致しない|本人が選ぶ生活|234|relationship-choice,shared-home|medical|modern|daily-work,rescue||
+conflict|nightshift-limit|医療の仕事を続けたいが、今の夜勤を続ければ自分の生活が立ち行かなくなる|夜勤を続ける限界|1234|shared-home,resource-fairness|medical|modern|daily-work||
+conflict|support-consent|支援を拒む人を助けたいが、助けるために本人の選択を奪いたくない|支援と選択の境界|1234|relationship-choice,mutual-aid|medical|modern|rescue,daily-work||
+twist|shared-donation-name|匿名の寄付名義をたどると、診療所に助けられた人々の共同名義に行き着く|支え返す共同名義|1234|mutual-aid,asymmetric-info|medical|modern|found-family,daily-work||
 `);
 
 export const MODERN_PRO_A=Object.fromEntries(KEYS.map(key=>[key,[...A_love[key],...A_office[key],...A_police[key],...A_medical[key],...A_education[key]]]));

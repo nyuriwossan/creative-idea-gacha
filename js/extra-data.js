@@ -1,4 +1,5 @@
 import {ROUND4_CHARACTERS,ROUND4_PROGRESSION,ROUND4_QUESTIONS} from './round4-extra.js';
+import {MODERN_PRO_QUESTIONS} from './modern-pro-questions.js';
 import {SCENE_DATA} from './scene-data.js';
 import { rows,DATA } from './data.js';
 import { supplementDefinition } from './context.js';
@@ -233,4 +234,4 @@ const ORIGINAL_QUESTIONS={
  ]
 };
 // 既存の位置IDはそのまま。追加定義は安定した明示IDを持つ。
-export const QUESTION_DATA=Object.fromEntries(Object.entries(ORIGINAL_QUESTIONS).map(([key,pool])=>[key,[...pool,...PACK_QUESTIONS[key],...ROUND4_QUESTIONS[key]]]));
+export const QUESTION_DATA=Object.fromEntries(Object.entries(ORIGINAL_QUESTIONS).map(([key,pool])=>[key,[...pool,...PACK_QUESTIONS[key],...ROUND4_QUESTIONS[key],...MODERN_PRO_QUESTIONS[key]]]));

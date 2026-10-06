@@ -222,3 +222,14 @@ node tests/modern-pro-audit.mjs
 BROWSER_CHANNEL=chrome、PLAYWRIGHT_MODULEは実行環境のPlaywright、TEST_OUTPUT_DIRは今回のoutputs/round6。実機iPhone／Safariは未検証。外部AIの応答そのものは検証対象ではなく、依頼文を生成・持ち出すところまで。GitHub CIとPagesは最終コミットを公開後に別途確認します。
 
 [7プリセットの実際の素材とAI依頼文](./docs/round6/PRESET-EXAMPLES.md)。JSON集計・比較・画面は納品フォルダへ記録しました。
+
+## 2026-10-06 世界観32件の本文整理
+
+基準main：ddea24618df1ef0d7450d94ac8a2c29849eada2e。世界観249・基本1,457のID／順序／メタデータを保持し、32件の本文・短語だけ変更。217世界観と他6基本カテゴリ、任意素材、質問、テーマ、背景、重みは変更なし。保存stateの再適用・出力の読込時再生成はありません。
+
+- Node：96件成功（旧88＋新8）。舞台・職業背景の全トーン候補数、810通常抽選、35条件の連続プリセットを前後比較。旧固定32候補と保存5fixture、JSON／履歴／保存一覧／日本語出力を検証。
+- Chrome：72項目成功（旧67＋新5）。旧保存・固定／解除／引き直し、undo/redo、保存・複製・検索・お気に入り・タグ・バックアップ復元、出力と360/390/430pxを確認。実機iPhone／Safariは未検証。
+- 警察T1/T4/T5、教育T5、医療T5の有効world1件による連続適用不足は以前のまま。失敗時にstate・設定・recentを保持。
+- 実行：node --test tests/*.test.js、node tests/browser-check.cjs。npmは実行環境にないため、package.jsonのtestと同一のNodeコマンドを実行（CIも同じコマンド）。
+
+[ID別の前後・分離素材の実在ID・重点6世界観の18例・候補数と限界](./docs/world-restructure-review.md)。GitHub CI／Pagesと公開画面は公開後に納品レポートへ追記します。

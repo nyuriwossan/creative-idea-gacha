@@ -1,3 +1,4 @@
+import {restoreReviewedText} from './world-restructure-support.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -16,7 +17,7 @@ const all=Object.values(MODERN_PRO_BASIC).flat();
 const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 test('modern-pro changes only four old world context definitions; all 1277 old records retain every other value',()=>{
  const baseline=JSON.parse(fs.readFileSync(new URL('./modern-pro-baseline.json',import.meta.url),'utf8'));
- for(const [key,ids] of Object.entries(baseline.ids)){const set=new Set(ids);const rows=DATA[key].filter(r=>set.has(r.id)).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(rows.length,ids.length);assert.equal(createHash('sha256').update(JSON.stringify(rows)).digest('hex'),baseline.hashes[key],key);}
+ for(const [key,ids] of Object.entries(baseline.ids)){const set=new Set(ids);const rows=DATA[key].filter(r=>set.has(r.id)).map(restoreReviewedText).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(rows.length,ids.length);assert.equal(createHash('sha256').update(JSON.stringify(rows)).digest('hex'),baseline.hashes[key],key);}
 });
 test('modern-pro strict group/eleven-column parser validates all required cells and relation shapes',()=>{
  const good='#group modern-love\nrelation|couple|成人の恋人二人|恋人|123|shared-home||modern|romance||pair';
@@ -34,7 +35,7 @@ test('modern-pro A127+B53 match category distributions and preserve 20 original 
 });
 test('modern-pro full DATA IDs/text, dictionary tags, shape, adult interpretation and professional coverage are valid',()=>{
  assert.ok(Object.values(DATA).flat().length>=1457);assert.equal(THEMES.length,22);assert.equal(CONTEXTS.length,15);assert.equal(new Set(Object.values(DATA).flat().map(r=>r.id)).size,Object.values(DATA).flat().length);
- for(const [key,rows] of Object.entries(MODERN_PRO_BASIC))for(const r of rows){assert.equal(DATA[key].filter(x=>x.text===r.text).length,1,r.id);assert.ok(EXTRA_DATA[key].includes(r));assert.deepEqual(r.stageTags,['modern']);assert.ok(r.text.length<=500&&r.titleWord.length<=30);for(const [tags,dict] of [[r.topicTags,TOPICS],[r.themeTags,THEMES],[r.contextTags,CONTEXTS],[r.requiresContext,CONTEXTS]])for(const tag of tags)assert.ok(dict.some(([id])=>id===tag),r.id+' '+tag);if(key==='relation')assert.ok(['pair','group'].includes(r.relationShape));else assert.equal(Object.hasOwn(r,'relationShape'),false);for(const tone of r.tones)assert.ok(DATA.world.some(w=>w.stageTags.includes('modern')&&w.tones.includes(tone)&&meetsContext(r,w.contextTags)),r.id+' tone'+tone);}
+ for(const [key,rows] of Object.entries(MODERN_PRO_BASIC))for(const definition of rows){const r=DATA[key].find(row=>row.id===definition.id);assert.equal(DATA[key].filter(x=>x.text===r.text).length,1,r.id);assert.ok(EXTRA_DATA[key].includes(r));assert.deepEqual(r.stageTags,['modern']);assert.ok(r.text.length<=500&&r.titleWord.length<=30);for(const [tags,dict] of [[r.topicTags,TOPICS],[r.themeTags,THEMES],[r.contextTags,CONTEXTS],[r.requiresContext,CONTEXTS]])for(const tag of tags)assert.ok(dict.some(([id])=>id===tag),r.id+' '+tag);if(key==='relation')assert.ok(['pair','group'].includes(r.relationShape));else assert.equal(Object.hasOwn(r,'relationShape'),false);for(const tone of r.tones)assert.ok(DATA.world.some(w=>w.stageTags.includes('modern')&&w.tones.includes(tone)&&meetsContext(r,w.contextTags)),r.id+' tone'+tone);}
  for(const [tag] of PROFESSIONAL_CONTEXTS){assert.ok(MODERN_PRO_BASIC.world.filter(r=>r.contextTags.includes(tag)).length>=2);for(const [key] of BASIC.slice(1))assert.ok(MODERN_PRO_BASIC[key].some(r=>r.requiresContext.includes(tag)),tag+key);}
  for(const slug of ['fiance-family','doctor-family'])assert.equal(MODERN_PRO_BASIC.relation.find(r=>r.id.endsWith('-'+slug)).relationShape,'group');assert.match(MODERN_PRO_BASIC.relation.find(r=>r.id.endsWith('-app-match')).text,/二人/);assert.match(MODERN_PRO_BASIC.twist.find(r=>r.id.endsWith('-device-drift')).text,/判断への影響/);
 });
@@ -47,7 +48,7 @@ test('modern-pro exhaustive background sets and five tones keep profession gates
  }
 });
 test('modern-pro every definition is directly drawable with themed context, strips classification and roundtrips selected prose',()=>{
- for(const [key,rows] of Object.entries(MODERN_PRO_BASIC))for(const row of rows){const s=emptyState();Object.assign(s.settings,{stage:'modern',tone:row.tones[0],themes:row.themeTags.slice(0,3)});if(key!=='world'){const w=DATA.world.find(w=>w.stageTags.includes('modern')&&w.tones.includes(s.settings.tone)&&meetsContext(row,w.contextTags));rollFields(s,['world'],{data:{world:[w]},rng:()=>0});s.locks.world=true;}
+ for(const [key,rows] of Object.entries(MODERN_PRO_BASIC))for(const definition of rows){const row=DATA[key].find(r=>r.id===definition.id);const s=emptyState();Object.assign(s.settings,{stage:'modern',tone:row.tones[0],themes:row.themeTags.slice(0,3)});if(key!=='world'){const w=DATA.world.find(w=>w.stageTags.includes('modern')&&w.tones.includes(s.settings.tone)&&meetsContext(row,w.contextTags));rollFields(s,['world'],{data:{world:[w]},rng:()=>0});s.locks.world=true;}
   assert.ok(availablePool(s,key,EXTRA_DATA,worldContext(s)).pool.some(r=>r.id===row.id));rollFields(s,[key],{data:{[key]:[row]},rng:()=>0});refreshTexts(s);assert.equal(s.items[key].candidateId,row.id);assert.equal(Object.hasOwn(s.items[key],'modernProCategory'),false);assert.equal(Object.hasOwn(s.items[key],'modernProBatch'),false);assert.deepEqual(validateState(s),s);assert.deepEqual(inspectImport(exportJSON(s))[0].state,s);assert.ok(markdown(s).includes(row.text));for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail']){const text=buildAIHandoff(s,{purpose,length});assert.ok(text.includes(row.text));assert.ok(!text.includes(row.id));}}
 });
 test('modern-pro old world patches are ID-limited and preserve explicit empty contexts/custom/legacy with missing-only generated hydration',()=>{

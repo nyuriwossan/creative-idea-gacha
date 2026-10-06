@@ -75,7 +75,7 @@ function makeField(key,label,container,optional){
   background.append(legend,hint,options);editor.append(background);
  }
  const badges=node('div','material-badges');
- editor.append(editActions);actions.append(roll,lock,edit);card.append(head,value,badges,actions,editor);$(container).append(card);
+ editor.append(editActions);actions.append(roll,lock,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提です。人物や事件は、ほかのお題と組み合わせて決められます。'));card.append(value,badges,actions,editor);$(container).append(card);
  cards.set(key,{card,value,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
 }
 function makeQuestions(category){

@@ -7,9 +7,9 @@ module.exports=async({browser,base,out,check})=>{
  const read=()=>p.evaluate(()=>JSON.parse(localStorage.getItem('creativeIdeaGacha_v2')));
  try{
  await boot();
- await check('round5 school tone5 uses irreversible new world, retains settings-only behavior and locks',async()=>{
+ await check('round5 school tone5 uses constrained world, retains settings-only behavior and locks',async()=>{
   const original=(await read()).current.items;await p.selectOption('#stageSelect','school');await p.selectOption('#toneSelect','5');assert.deepEqual((await read()).current.items,original);
-  await p.click('#rollAll');const s=(await read()).current;assert.ok(s.items.world.candidateId.startsWith('sf-school-world-'));assert.ok(s.items.world.tones.includes(5));assert.match(s.items.world.text,/廃校|回復されない|元の校舎を失い/);
+  await p.click('#rollAll');const s=(await read()).current;assert.ok(s.items.world.candidateId.startsWith('sf-school-world-'));assert.ok(s.items.world.tones.includes(5));assert.match(s.items.world.text,/島外への通学手段|成績記録の訂正|仮設の教室と乏しい物資/);
   await p.locator('[data-key="world"]').getByRole('button',{name:'世界観の固定を切り替える'}).click();await p.click('#rollAll');assert.deepEqual((await read()).current.items.world,s.items.world);await p.click('#unlockAll');await p.click('#rollAll');assert.notEqual((await read()).current.items.world.candidateId,s.items.world.candidateId);
  });
  await check('round5 six stages preserve new candidate IDs through UI saves/reload, eight handoffs, Markdown and JSON',async()=>{

@@ -1,3 +1,4 @@
+import {restoreReviewedText} from './world-restructure-support.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -33,14 +34,14 @@ test('stage fill exact A/B allocations and final minimum coverage are separate i
  assert.ok(a.after.worldTones.school[4]>=3);assert.equal(a.themeTaggedA,128);
 });
 test('stage fill old definition values, optional data, questions, themes and all weights stay identical',()=>{
- for(const [key,ids] of Object.entries(baseline.basicIds)){const set=new Set(ids),old=DATA[key].filter(r=>set.has(r.id)).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(old.length,ids.length);assert.equal(hash(old),baseline.basicHashes[key],key);}
+ for(const [key,ids] of Object.entries(baseline.basicIds)){const set=new Set(ids),old=DATA[key].filter(r=>set.has(r.id)).map(restoreReviewedText).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(old.length,ids.length);assert.equal(hash(old),baseline.basicHashes[key],key);}
  for(const [key,value] of Object.entries(baseline.extraHashes))assert.equal(hash(EXTRA_DATA[key]),value,key);
  assert.equal(hash(Object.fromEntries(Object.entries(QUESTION_DATA).map(([key,rows])=>[key,rows.slice(0,26)]))),baseline.questionHash);assert.equal(hash(THEMES.slice(0,20)),baseline.themeHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);assert.equal(STORAGE_KEY,'creativeIdeaGacha_v2');
 });
 test('stage fill new metadata has known dictionaries, unique IDs/text, explicit shapes and reachable backgrounds at every tone',()=>{
  const all=Object.values(EXTRA_DATA).flat();const ids=Object.values(STAGE_FILL_BASIC).flat().map(r=>r.id);assert.equal(new Set(ids).size,189);
  for(const [key,rows] of Object.entries(STAGE_FILL_BASIC))for(const row of rows){
-  assert.equal(all.filter(r=>r.id===row.id).length,1);assert.equal(DATA[key].filter(r=>r.text===row.text).length,1,row.id);
+  assert.equal(all.filter(r=>r.id===row.id).length,1);assert.equal(DATA[key].filter(r=>r.id===row.id).length,1,row.id);assert.equal(restoreReviewedText(DATA[key].find(r=>r.id===row.id)).text,row.text);
   assert.equal(row.id,`sf-${row.primaryStage}-${key}-${row.id.split(`sf-${row.primaryStage}-${key}-`)[1]}`);
   assert.equal(row.source,'generated');assert.equal(row.origin,'stage-fill');assert.ok(row.text.length<=500&&row.titleWord.length<=30);assert.ok(row.tones.length<5);
   for(const [tags,dict] of [[row.stageTags,STAGES],[row.themeTags,THEMES],[row.topicTags,TOPICS],[row.contextTags,CONTEXTS],[row.requiresContext,CONTEXTS]]){assert.equal(new Set(tags).size,tags.length);for(const tag of tags)assert.ok(dict.some(([id])=>id===tag),row.id+' '+tag);}

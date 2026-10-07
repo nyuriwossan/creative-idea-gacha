@@ -1,5 +1,8 @@
 # 創作アイデアガチャ
 
+長い葛藤・ギミック・ひねり156素材に、短い「核」を表示します。「具体例を見る」を開くと元の本文を確認でき、編集では元の本文を直せます。AI依頼文や構成メモは核を中心にし、具体例も添えます。核は保存データへ追加せず、古い本文や手入力を置き換えません。
+
+
 舞台を対等に2つ組み合わせられます。「舞台を組み合わせる（任意）」を開き、学園 × ファンタジー／現代 × 裏社会／裏社会 × ファンタジーから選んで、通常の抽選ボタンを押してください。設定変更・解除だけでは本文は変わりません。「まとまり重視」は両方をつなぐ素材を優先し、現在の素材から反映状況を表示します。
 
 
@@ -101,10 +104,11 @@ npx playwright install chromium
 node tests/browser-check.cjs
 ```
 
-`BROWSER_CHANNEL=chrome`、`PLAYWRIGHT_MODULE`、`TEST_OUTPUT_DIR`でブラウザや実行環境を指定できます。今回のNode検証109件、ブラウザ79項目、件数・トーン表・互換性・画面は[検証レポート](./VALIDATION.md)へ記録しました。実機iPhone／Safariは未検証で、スマートフォン相当のChrome表示と入力イベントによる確認です。
+`BROWSER_CHANNEL=chrome`、`PLAYWRIGHT_MODULE`、`TEST_OUTPUT_DIR`でブラウザや実行環境を指定できます。今回のNode検証117件、ブラウザ84項目、件数・トーン表・互換性・画面は[検証レポート](./VALIDATION.md)へ記録しました。実機iPhone／Safariは未検証で、スマートフォン相当のChrome表示と入力イベントによる確認です。
 
 ## 主な実装
 
+- `js/core-data.js` / `js/seed-core.js`：[核156件の表示と検証](./docs/round9/VALIDATION.md)、完全一致するgeneratedだけへ表示を投影
 - `js/stage-selection.js` / `js/stage-mix-data.js` / `js/stage-mix.js`：3ペア・混合専用63素材・有限の同時配分と実素材の判定
 - `tests/stage-mix-audit.mjs`：[候補数と45例](./docs/round8/VALIDATION.md)の再生成
 - `js/world-revision-data.js`：IDと変更前本文を確認し、補完後の32世界観へ本文・短語だけを適用

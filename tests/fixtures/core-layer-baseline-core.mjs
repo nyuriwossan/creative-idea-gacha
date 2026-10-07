@@ -1,13 +1,12 @@
-import {seedOf,materialLines,memoForMarkdown} from './seed-core.js';
-export {seedOf} from './seed-core.js';
-import {normalizeStages,stagePairKey,selectedStages,stageLabel} from './stage-selection.js';
-import {stageMixData} from './stage-mix-data.js';
-import {isBridge,rollMixedFields,mixReport} from './stage-mix.js';
-import {defaultHandoff} from './handoff-options.js';
-import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from './data.js';
-import { CONTEXTS,worldContext,contextLabels } from './context.js';
-import { availablePool,priorityPlan,themeMask,bitCount,MAJOR_FIELDS } from './priority.js';
-import {COHERENCE,COHESION_WEIGHTS,focusTopics,knownTopics,cohesionMultiplier} from './cohesion.js';
+// cdbb218: pre-core presentation and draw reference. Do not edit.
+import {normalizeStages,stagePairKey,selectedStages,stageLabel} from '../../js/stage-selection.js';
+import {stageMixData} from '../../js/stage-mix-data.js';
+import {isBridge,rollMixedFields,mixReport} from '../../js/stage-mix.js';
+import {defaultHandoff} from '../../js/handoff-options.js';
+import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from '../../js/data.js';
+import { CONTEXTS,worldContext,contextLabels } from '../../js/context.js';
+import { availablePool,priorityPlan,themeMask,bitCount,MAJOR_FIELDS } from '../../js/priority.js';
+import {COHERENCE,COHESION_WEIGHTS,focusTopics,knownTopics,cohesionMultiplier} from '../../js/cohesion.js';
 export const clone = value => JSON.parse(JSON.stringify(value));
 export const WEIGHTS = Object.freeze({stageMatch:4,generic:2,stageMismatch:0.25,themeMatch:3,contextMatch:1.5,recent:0.25,characterDuplicate:0.35,...COHESION_WEIGHTS});
 export const SCENE = [["scene.goal","今回の共同目標"],["scene.opening","開始状況"],["scene.problem","今回の小さな課題"],["scene.question","次回に残せる問い"]];
@@ -149,7 +148,7 @@ export const textOf=(state,key)=>state.items[key]?.text||'';
 // 候補には名詞と完全文が混在する。引用をラベル付きの独立した単位として扱い、
 // 「神託が下る」が起きる、などの接続や述語の二重化を避ける。手入力にも同じ規則。
 export function buildSummary(state) {
- const q=key=>`「${seedOf(state,key)}」`;
+ const q=key=>`「${textOf(state,key)}」`;
  const base=`舞台は${q('world')}。${q('relation')}という関係を軸に描く、${q('genre')}のタネ。`;
  if(state.settings.purpose==='一言ネタ')return `舞台：${q('world')}。関係：${q('relation')}。発端：${q('incident')}。鍵：${q('gimmick')}。`;
  if(state.settings.purpose==='三題噺向け')return `三つのお題：${q('world')}・${q('gimmick')}・${q('incident')}。\n${q('relation')}という関係を手がかりに、三つのお題をどうつなぐか考えてみる。`;
@@ -157,15 +156,15 @@ export function buildSummary(state) {
  return `${base}\n物語の発端は${q('incident')}。葛藤の核は${q('conflict')}。\n${directions[state.settings.tone-1]}`;
 }
 export function buildOutline(state) {
- const q=key=>`「${seedOf(state,key)}」`;
- const or=(key,fallback)=>seedOf(state,key)?q(key):fallback;
+ const q=key=>`「${textOf(state,key)}」`;
+ const or=(key,fallback)=>textOf(state,key)?q(key):fallback;
  const purpose=state.settings.purpose;
  let outline;
  switch(purpose){
- case 'ショートストーリー向け': outline=[`発端：${q('world')}を舞台に、${q('incident')}を物語の入口にする。`,`行動と障害：${or('protagonist.goal','主人公の目的を決める')}。${seedOf(state,'obstacle')?`障害の候補は${q('obstacle')}`:'目的を妨げる状況を考える'}。`,`選択：${q('conflict')}を踏まえて、何を優先するか。${seedOf(state,'cost')?`代償の候補は${q('cost')}`:'手放す可能性のあるものを考える'}。`,`変化・余韻：${or('ending','結末の方向を考える')}。ひねりの候補${q('twist')}をどこまで明かすか決める。`,'提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。'];break;
- case '漫画1話向け':outline=[`つかみ：${seedOf(state,'scene.opening')?q('scene.opening'):q('world')+'の印象的な風景や日常'}を見せる。`,`人物と関係：${q('relation')}が伝わる場面を置く。`,`事件：${q('incident')}を発端として見せる。`,`行動・障害：${or('scene.goal',or('protagonist.goal','その場で達成したいことを決める'))}。${or('scene.problem',or('obstacle','動きを妨げるものを考える'))}。`,`最後の引き：${or('scene.question','次の行動を気にさせる問いや発見を置く')}。続編を必須にはしない。${q('twist')}は今回明かす必要があるか検討する。`];break;
+ case 'ショートストーリー向け': outline=[`発端：${q('world')}を舞台に、${q('incident')}を物語の入口にする。`,`行動と障害：${or('protagonist.goal','主人公の目的を決める')}。${textOf(state,'obstacle')?`障害の候補は${q('obstacle')}`:'目的を妨げる状況を考える'}。`,`選択：${q('conflict')}を踏まえて、何を優先するか。${textOf(state,'cost')?`代償の候補は${q('cost')}`:'手放す可能性のあるものを考える'}。`,`変化・余韻：${or('ending','結末の方向を考える')}。ひねりの候補${q('twist')}をどこまで明かすか決める。`,'提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。'];break;
+ case '漫画1話向け':outline=[`つかみ：${textOf(state,'scene.opening')?q('scene.opening'):q('world')+'の印象的な風景や日常'}を見せる。`,`人物と関係：${q('relation')}が伝わる場面を置く。`,`事件：${q('incident')}を発端として見せる。`,`行動・障害：${or('scene.goal',or('protagonist.goal','その場で達成したいことを決める'))}。${or('scene.problem',or('obstacle','動きを妨げるものを考える'))}。`,`最後の引き：${or('scene.question','次の行動を気にさせる問いや発見を置く')}。続編を必須にはしない。${q('twist')}は今回明かす必要があるか検討する。`];break;
  case '連載プロット向け':outline=[`縦軸：${or('protagonist.goal','主人公が長く追う目的を決める')}。中心となる問いは${q('conflict')}を手がかりに考える。`,`横軸：${q('incident')}を入口に、各話で試せる課題や小さな変化を考える。`,`中盤の変化候補：${q('twist')}によって、それまでの理解がどう変わるか。`,`終盤の選択：${or('cost','最後に手放す可能性のあるものを決める')}。目的と関係のどちらをどう守るか。`,`結末の方向性：${or('ending','望む着地点を決める')}。`];break;
- case 'AIキャラプロットの種':outline=[`世界と関係：${q('world')}／${q('relation')}。`,`キャラ側の事情：${or('counterpart.secret',or('protagonist.secret','表に出せない事情を考える'))}。`,`ユーザーが関われる立場の候補：依頼人、協力者、近所の人、偶然出会った旅人など。性別や行動は相手が選べる余地を残す。`,`開始場面の候補：${or('scene.opening','日常の挨拶、依頼の相談、偶然の遭遇、共同作業')}。発端${q('incident')}への関わり方は対話で選べるようにする。`,`対話で変化できる要素：信頼、協力の範囲、秘密を伝える時期など。${seedOf(state,'ending')?`展開候補：${q('ending')}。`:'結末は対話の展開に応じて考える。'}`];break;
+ case 'AIキャラプロットの種':outline=[`世界と関係：${q('world')}／${q('relation')}。`,`キャラ側の事情：${or('counterpart.secret',or('protagonist.secret','表に出せない事情を考える'))}。`,`ユーザーが関われる立場の候補：依頼人、協力者、近所の人、偶然出会った旅人など。性別や行動は相手が選べる余地を残す。`,`開始場面の候補：${or('scene.opening','日常の挨拶、依頼の相談、偶然の遭遇、共同作業')}。発端${q('incident')}への関わり方は対話で選べるようにする。`,`対話で変化できる要素：信頼、協力の範囲、秘密を伝える時期など。${textOf(state,'ending')?`展開候補：${q('ending')}。`:'結末は対話の展開に応じて考える。'}`];break;
  case '世界観メモ':outline=[`制度：${q('gimmick')}を暮らしや仕組みにどう関わらせるか。`,'例外：規則から外れる人や場所はあるか。','暮らし：食事、移動、仕事、休息はどんな様子か。',`利害：${q('relation')}に関わる人々は、何で得をし、何に困るか。`];break;
  case '三題噺向け':outline=[`選んだ三要素：${q('world')}・${q('gimmick')}・${q('incident')}。`,'つなぎ方：一つを舞台、一つを道具、一つをきっかけとして扱うなど、役割から考える。',`関係：${q('relation')}。どの要素が関係の変化を生むか。`];break;
  default:outline=[`発端：${q('incident')}。`,`膨らませる問い：${q('conflict')}の中で、登場人物は何を選ぶか。`];
@@ -173,11 +172,11 @@ export function buildOutline(state) {
  return outline;
 }
 export function buildMemo(state){
- const q=key=>`「${seedOf(state,key)}」`,purpose=state.settings.purpose,outline=buildOutline(state);
- const details=[...BASIC,...OPTIONAL].filter(([k])=>seedOf(state,k)).flatMap(([key,label])=>materialLines(state,key,label));
+ const q=key=>`「${textOf(state,key)}」`,purpose=state.settings.purpose,outline=buildOutline(state);
+ const details=[...BASIC,...OPTIONAL].filter(([k])=>textOf(state,k)).map(([key,label])=>`${label}：${textOf(state,key)}`);
  const names=Object.entries(state.characters).filter(([,c])=>c.name).map(([key,c])=>`${key==='protagonist'?'主人公':'相手役'}の表示名：${c.name}`);
  const extra=['期限','最大の障害','代償（失うもの）','結末の方向性'];
- return [...details,...names,'',`構成メモ｜${purpose}`,'以下は、選んだ素材を育てるための構成案です。',...outline.map((x,i)=>`${i+1}. ${x}`),...OPTIONAL.filter(([k,label])=>extra.includes(label)&&seedOf(state,k)&&!outline.some(x=>x.includes(q(k)))).map(([k,label])=>`参照する設定｜${label}：${q(k)}`)].join('\n');
+ return [...details,...names,'',`構成メモ｜${purpose}`,'以下は、選んだ素材を育てるための構成案です。',...outline.map((x,i)=>`${i+1}. ${x}`),...OPTIONAL.filter(([k,label])=>extra.includes(label)&&textOf(state,k)&&!outline.some(x=>x.includes(q(k)))).map(([k,label])=>`参照する設定｜${label}：${q(k)}`)].join('\n');
 }
 export function buildTitles(state,rng=Math.random) {
  const vocab=state.settings.tone<=2?['約束','日和','便り','はじまり','小さな灯り','寄り道']:state.settings.tone===3?['境界','行方','残響','証明','輪郭','帰路']:['残り火','影','終焉','沈黙','罪','夜明け'];
@@ -189,7 +188,7 @@ export function buildTitles(state,rng=Math.random) {
 }
 export function sampleUnique(list,count,rng=Math.random){const pool=[...list],out=[];while(pool.length&&out.length<count)out.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);return out;}
 export function buildHint(state,rng=Math.random) {
- const pool=[`発端「${seedOf(state,'incident')}」の直前と直後では、誰の見え方が変わるだろう。`,`「${seedOf(state,'gimmick')}」を、道具・制約・日常の習慣のどれとして描けるだろう。`,`関係「${seedOf(state,'relation')}」に関わる人々は、何を言えずにいるだろう。`,`ひねりの候補「${seedOf(state,'twist')}」につながる小さな予兆を、どこに置けるだろう。`,'同じ場面を別の立場から見ると、何が変わるだろう。','初めて協力できるのは、どんな小さな出来事のあとだろう。'];
+ const pool=[`発端「${textOf(state,'incident')}」の直前と直後では、誰の見え方が変わるだろう。`,`「${textOf(state,'gimmick')}」を、道具・制約・日常の習慣のどれとして描けるだろう。`,`関係「${textOf(state,'relation')}」に関わる人々は、何を言えずにいるだろう。`,`ひねりの候補「${textOf(state,'twist')}」につながる小さな予兆を、どこに置けるだろう。`,'同じ場面を別の立場から見ると、何が変わるだろう。','初めて協力できるのは、どんな小さな出来事のあとだろう。'];
  return sampleUnique(pool,3,rng).join('\n\n');
 }
 export function refreshTexts(state,{rng=Math.random,randomize=true,titlesOnly=false}={}) {
@@ -199,7 +198,7 @@ export function refreshTexts(state,{rng=Math.random,randomize=true,titlesOnly=fa
  if(randomize||!state.texts.titles.length)state.texts.titles=buildTitles(state,rng);
 }
 export function markdown(state) {
- const lines=[`# ${state.metadata.name||state.texts.titles[0]||'無題のタネ'}`,'',`舞台：${STAGES.find(([k])=>k===state.settings.stage)?.[1]} / トーン：${TONES[state.settings.tone-1]} / 用途：${state.settings.purpose}`,`抽選テーマ：${state.settings.themes.map(k=>THEMES.find(([t])=>t===k)?.[1]).join('、')||'お任せ'}`,`整理用タグ：${state.metadata.tags.join('、')||'なし'}`,'','## 要約','',state.texts.summary,'','## 設定と構成メモ','',memoForMarkdown(state),'','## 発想ヒント','',state.texts.hint,'','## タイトル案','',...state.texts.titles.map(t=>`- ${t}`)];
+ const lines=[`# ${state.metadata.name||state.texts.titles[0]||'無題のタネ'}`,'',`舞台：${STAGES.find(([k])=>k===state.settings.stage)?.[1]} / トーン：${TONES[state.settings.tone-1]} / 用途：${state.settings.purpose}`,`抽選テーマ：${state.settings.themes.map(k=>THEMES.find(([t])=>t===k)?.[1]).join('、')||'お任せ'}`,`整理用タグ：${state.metadata.tags.join('、')||'なし'}`,'','## 要約','',state.texts.summary,'','## 設定と構成メモ','',state.texts.memo,'','## 発想ヒント','',state.texts.hint,'','## タイトル案','',...state.texts.titles.map(t=>`- ${t}`)];
  lines.splice(4,0,`抽選方針：${COHERENCE.find(([id])=>id===state.settings.coherence)?.[1]||'自由に混ぜる'}`);
  if(stagePairKey(state.settings))lines.splice(6,0,`選択した舞台：${stageLabel(state.settings)}`,`素材の反映状況：${mixReport(state).text}`);
  const background=contextLabels(state.items.world?.contextTags||[]);if(background.length)lines.push('','## 世界の背景要素','',background.join('、'));

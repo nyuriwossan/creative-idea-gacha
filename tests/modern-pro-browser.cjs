@@ -4,8 +4,24 @@ module.exports=async({browser,base,out,check})=>{
  const open=async p=>p.locator('#modernPresetDetails>summary').click();
  const edit=async(p,key,text)=>{await p.locator(`[data-key="${key}"]`).getByRole('button',{name:/を編集$/}).click();await p.fill('#input-'+key.replaceAll('.','-'),text);};
  await check('modern presets selection alone leaves saved state/history untouched and describes current one-shot action',()=>fresh(async(p,read)=>{
-  const before=await read(),undo=await p.isDisabled('#undo');await open(p);assert.equal(await p.locator('#presetSelect option').count(),7);for(const id of ['lovers','secret-office','work-love','police','education','medical','company']){await p.selectOption('#presetSelect',id);assert.deepEqual(await read(),before);assert.equal(await p.isDisabled('#undo'),undo);assert.match(await p.textContent('#presetPreview'),/今回の世界観/);}assert.equal(await p.locator('#presetSelect').evaluate(x=>x.getBoundingClientRect().height>=44),true);await p.screenshot({path:path.join(out,'modern-presets-mobile.png')});
+  const before=await read(),undo=await p.isDisabled('#undo');await open(p);assert.equal(await p.locator('#presetSelect option').count(),8);for(const id of ['lovers','secret-office','work-love','police','education','medical','company']){await p.selectOption('#presetSelect',id);assert.deepEqual(await read(),before);assert.equal(await p.isDisabled('#undo'),undo);assert.match(await p.textContent('#presetPreview'),/今回の世界観/);}assert.equal(await p.locator('#presetSelect').evaluate(x=>x.getBoundingClientRect().height>=44),true);await p.screenshot({path:path.join(out,'modern-presets-mobile.png')});
  }));
+ await check('optional preset starts empty, clears independently with focus, and ordinary seeded draws stay identical',async()=>{
+  let expected;
+  await fresh(async(p,read)=>{await p.click('#rollAll');expected=await read();});
+  await fresh(async(p,read)=>{
+   await open(p);assert.equal(await p.inputValue('#presetSelect'),'');assert.equal(await p.isDisabled('#runPreset'),true);assert.match(await p.textContent('#presetPreview'),/選んでいません/);
+   const before=await read();await p.evaluate(()=>document.querySelector('#runPreset').dispatchEvent(new MouseEvent('click')));assert.deepEqual(await read(),before);
+   await p.selectOption('#presetSelect','medical');assert.equal(await p.isDisabled('#runPreset'),false);
+   await p.locator('#stageMixDetails>summary').click();await p.selectOption('#stageMixSelect','fantasy+school');
+   await p.click('#clearPreset');assert.equal(await p.inputValue('#stageMixSelect'),'fantasy+school');assert.equal(await p.inputValue('#presetSelect'),'');assert.equal(await p.isDisabled('#runPreset'),true);assert.equal(await p.evaluate(()=>document.activeElement.id),'presetSelect');assert.match(await p.textContent('#presetPreview'),/選んでいません/);
+   await p.selectOption('#presetSelect','lovers');await p.click('#clearStageMix');assert.equal(await p.inputValue('#presetSelect'),'lovers');
+   await p.click('#runPreset');assert.equal(await p.inputValue('#presetSelect'),'lovers');assert.equal(await p.isVisible('#presetResult'),true);await p.click('#clearPreset');assert.equal(await p.textContent('#presetResult'),'');assert.equal(await p.isVisible('#presetResult'),false);
+   await p.focus('#clearPreset');await p.keyboard.press('Enter');assert.equal(await p.evaluate(()=>document.activeElement.id),'presetSelect');
+   assert.ok(await p.locator('#clearPreset').evaluate(x=>x.getBoundingClientRect().height>=44));assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.screenshot({path:path.join(out,'optional-preset-mobile.png')});
+  });
+  await fresh(async(p,read)=>{await open(p);await p.selectOption('#presetSelect','medical');await p.click('#clearPreset');await p.click('#rollAll');assert.deepEqual(await read(),expected);});
+ });
  await check('modern all seven presets replace themes, retain usage/tone/mode, support undo/redo and ordinary rerolls',()=>fresh(async(p,read)=>{
   await p.selectOption('#purposeSelect','漫画1話向け');await p.locator('[data-coherence="mix"]').click();await open(p);
   const expected={lovers:[], 'secret-office':['company'],'work-love':[],police:['police'],education:['education'],medical:['medical'],company:['company']};

@@ -282,10 +282,12 @@ $('stageMixSelect').addEventListener('change',()=>guard(()=>{const pair=$('stage
 bind('clearStageMix',()=>{commit(draft=>updateSettings(draft,{stage2:null}),{notice:`組み合わせを解除しました。舞台：${stageLabel({...state.settings,stage2:null})}`});$('stageMixPending').hidden=true;$('stageMixSelect').focus();});
 for(const [id,key] of [['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
-setOptions('presetSelect',MODERN_PRESETS.map(({id,label})=>[id,label]));
-function renderPresetSelection(){$('presetPreview').textContent=presetDescription($('presetSelect').value);$('presetResult').hidden=true;}
+setOptions('presetSelect',[['','選ばない'],...MODERN_PRESETS.map(({id,label})=>[id,label])]);
+function renderPresetSelection(){$('presetPreview').textContent=presetDescription($('presetSelect').value);$('runPreset').disabled=!$('presetSelect').value;$('presetResult').textContent='';$('presetResult').hidden=true;}
 $('presetSelect').addEventListener('change',renderPresetSelection);renderPresetSelection();
+bind('clearPreset',()=>{$('presetSelect').value='';renderPresetSelection();$('presetSelect').focus();});
 bind('runPreset',()=>{
+ if(!$('presetSelect').value)return;
  const authored=requireApplied({record:false});let result;
  try{result=tryModernPreset(state,recent,$('presetSelect').value);}catch(error){if(authored){history.record(state);persist();render();}throw error;}
  if(!result.ok){if(authored){history.record(state);persist();render();}$('presetResult').textContent=result.reason;$('presetResult').hidden=false;showToast(result.reason);return;}

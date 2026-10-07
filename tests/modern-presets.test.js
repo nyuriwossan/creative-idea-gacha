@@ -16,6 +16,7 @@ test('seven preset definitions contain replace-only <=3 themes and selection des
  assert.equal(MODERN_PRESETS.length,7);assert.deepEqual(MODERN_PRESETS.map(p=>p.label),['現代の恋人','秘密の社内恋愛','仕事と恋愛の両立','警察と事件','教師と学校の仕事','医療と夜勤','会社の再建']);
  for(const p of MODERN_PRESETS){assert.ok(p.themes.length<=3);assert.ok(p.themes.every(t=>THEMES.some(([id])=>id===t)));assert.ok(p.requiresContext.every(t=>CONTEXTS.some(([id])=>id===t)));assert.match(presetDescription(p.id),/今回/);}
  assert.throws(()=>tryModernPreset(emptyState(),{},'unknown'));assert.throws(()=>presetDescription('unknown'));
+ assert.equal(presetDescription(''),'選んでいません。選ぶと、その方向の世界観条件で一度だけ引けます。');
 });
 test('all seven presets at five tones in both modes preserve usage and fixed/optional data, with a single undoable operation',()=>{
  const originalData=JSON.stringify(DATA);

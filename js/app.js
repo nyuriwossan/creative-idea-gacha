@@ -1,3 +1,4 @@
+import {coreForField} from './seed-core.js';
 import {STAGE_PAIRS,stagePairKey,stageLabel,settingsForPair} from './stage-selection.js';
 import {mixReport,mixBadge} from './stage-mix.js';
 import {worldContext} from './context.js';
@@ -48,6 +49,7 @@ function errorFor(input,error,message){error.textContent=message;input.setAttrib
 function makeField(key,label,container,optional){
  const safeKey=key.replaceAll('.','-'),card=node('article','field-card');card.dataset.key=key;
  const head=node('div','card-head'),heading=node('span','field-label',label),source=node('span','source-label');head.append(heading,source);
+ const example=node('details','seed-example'),exampleToggle=node('summary','','具体例を見る'),exampleBody=node('p','example-body');example.append(exampleToggle,exampleBody);example.hidden=true;
  const value=node('p','field-value'),actions=node('div','field-actions');
  const roll=button('引き直す',()=>{
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
@@ -80,8 +82,8 @@ function makeField(key,label,container,optional){
   background.append(legend,hint,options);editor.append(background);
  }
  const badges=node('div','material-badges');
- editor.append(editActions);actions.append(roll,lock,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提です。人物や事件は、ほかのお題と組み合わせて決められます。'));card.append(value,badges,actions,editor);$(container).append(card);
- cards.set(key,{card,value,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
+ editor.append(editActions);actions.append(roll,lock,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提です。人物や事件は、ほかのお題と組み合わせて決められます。'));card.append(value,example,badges,actions,editor);$(container).append(card);
+ cards.set(key,{card,value,example,exampleBody,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
 }
 function makeQuestions(category){
  const panel=node('div');panel.dataset.category=category;
@@ -177,7 +179,7 @@ function render(){
  const world=state.items.world;
  const mismatch=state.locks.world&&state.settings.stage!=='all'&&(world?.source==='custom'||!world?.stageTags.includes(state.settings.stage));
  $('worldNotice').hidden=!mismatch;$('worldNotice').textContent='世界観は固定中。舞台設定は世界観を引き直すと反映します。';
- for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key];c.value.textContent=item?.text||'未設定';c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
+ for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key],core=coreForField(item,key);if(c.exampleBody.textContent!==item?.text)c.example.open=false;c.value.textContent=core||item?.text||'未設定';c.example.hidden=!core;c.exampleBody.textContent=core?item.text:'';c.value.classList.toggle('seed-value',Boolean(core));c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
   const badges=[];
   const badge=BASIC.some(([k])=>k===key)?mixBadge(item,state.settings,worldContext(state)):'';if(badge)badges.push(node('span','mix-tag',badge));
   if(item?.source==='generated')for(const [id,label] of PACKS)if(item.themeTags.includes(id))badges.push(node('span','material-tag',label));

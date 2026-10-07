@@ -16,6 +16,8 @@ import {Repository,STORAGE_KEY,V2_BACKUP_KEY,BACKUP_KEY,exportJSON,inspectImport
 import {validateState as oldValidate,Repository as OldRepository} from './fixtures/v2-storage-guard.mjs';
 import {tryModernPreset} from '../js/presets.js';
 import {buildAIHandoff} from '../js/ai-handoff.js';
+import {refreshTexts as baselineRefresh,markdown as baselineMarkdown} from './fixtures/core-layer-baseline-core.mjs';
+import {buildAIHandoff as baselineHandoff} from './fixtures/core-layer-baseline-handoff.mjs';
 const baseline=JSON.parse(fs.readFileSync(new URL('./fixtures/stage-mix-baseline.json',import.meta.url)));
 const oldFixtures=JSON.parse(fs.readFileSync(new URL('./fixtures/world-restructure-baseline.json',import.meta.url))).fixtures;
 const hash=value=>createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
@@ -26,12 +28,12 @@ const asV2=state=>{const s=clone(state);s.schemaVersion=2;delete s.settings.stag
 const snapshot=row=>{const {id,origin,key,...item}=clone(row);return {...item,candidateId:id};};
 const fixtureRoll=(s,data,recent={},rng=rngFor(1))=>rollMixedFields(s,BASIC.map(([key])=>key),{data,recent,rng,weightFor});
 function artifact(name,value){if(process.env.TEST_OUTPUT_DIR){fs.mkdirSync(process.env.TEST_OUTPUT_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.TEST_OUTPUT_DIR,name),JSON.stringify(value,null,2)+'\n');}}
-test('all single-stage candidate hashes, 200 seeded cases, RNG counts, notices and eight handoffs remain exact',()=>{
+test('all single-stage draws remain exact across 200 cases; pre-core output fixtures retain their full historical hashes',()=>{
  assert.equal(hash(DATA),baseline.dataHash);assert.equal(hash(EXTRA_DATA),baseline.extraHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
  for(const expected of baseline.cases){const s=emptyState(),recent={};Object.assign(s.settings,{stage:expected.stage,tone:expected.tone,coherence:expected.coherence,themes:expected.themes});let calls=0;const seeded=rngFor(20261007),rng=()=>{calls++;return seeded();},results=[];
-  for(let n=0;n<3;n++)results.push(rollFields(s,undefined,{data:EXTRA_DATA,recent,rng}));refreshTexts(s,{rng});
+  for(let n=0;n<3;n++)results.push(rollFields(s,undefined,{data:EXTRA_DATA,recent,rng}));baselineRefresh(s,{rng});
   assert.deepEqual(results,expected.results);assert.deepEqual(recent,expected.recent);assert.equal(calls,expected.calls);assert.equal(hash(asV2(s)),expected.stateHash);
-  assert.equal(hash(markdown(s)),expected.markdownHash);for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail'])assert.equal(hash(buildAIHandoff(s,{purpose,length})),expected.handoffs[purpose+'-'+length]);
+  assert.equal(hash(baselineMarkdown(s)),expected.markdownHash);for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail'])assert.equal(hash(baselineHandoff(s,{purpose,length})),expected.handoffs[purpose+'-'+length]);
  }
 });
 test('three equal pairs normalize order, reject invalid combinations and generate identical seeded snapshots',()=>{

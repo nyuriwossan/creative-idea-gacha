@@ -1,0 +1,14 @@
+{
+  "sha": "cdbb2181129fddc4abde07312b56e484f09b16d4",
+  "hashes": {
+    "js/storage.js": "e282c910014e3d918157d64aa1b3496cfc4529c3f7cc3451ba4d9f73743f85fe",
+    "js/data.js": "8ddd98366c2b51e8b83fc733f7c7064eca54b3807f9014cc5935a0e4057a318c",
+    "js/extra-data.js": "6b55432cd7d042b72eeaa3356a9c1b076200295e8404096258440f7b84a5e564",
+    "js/stage-mix-data.js": "df271747ed61cf68c496cf714921208d348590db87c00fd66891f7571656cf42",
+    "js/stage-mix.js": "e494fb5475bbe76a05c4ea360be2ea9b9be154776f71569585c89b3cd2b0a787",
+    "js/priority.js": "6357ec94b57490ef5517f2258dfdf3954e5e0c365d4f260b3a440070746c0b28",
+    "js/cohesion.js": "084ae62aa1d434bb66c1a7fc328879609e5ffcd5253080858a654c9058b499ff",
+    "js/presets.js": "1844d5125c222eb4a711bcd60cc899d6e61326a36624aeff8e4f821bb0d4d62c",
+    "drawFunctions": "25a7c9506f15c30645e6da437bfcae2c6c9149db3f7587108c051cfd9dd54a55"
+  }
+}

@@ -1,0 +1,6121 @@
+[
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 1,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "橋が使える一季節だけ、対岸の町と職人を交換する谷",
+        "titleWord": "一季節の橋",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "craft"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-world-bridge-season",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "民話風の物語",
+        "titleWord": "語り草",
+        "stageTags": [
+          "wafu",
+          "fantasy"
+        ],
+        "themeTags": [
+          "myth"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-new-140z1e2",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "婚約の解除権を守る立会人と婚約者",
+        "titleWord": "自由の立会人",
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "romantasy",
+          "status-gap"
+        ],
+        "contextTags": [
+          "royal"
+        ],
+        "requiresContext": [],
+        "source": "generated",
+        "relationShape": "pair",
+        "topicTags": [
+          "contract"
+        ],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "romantasy-relation-consent-witness",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "閉鎖した集会所の引き継ぎ箱から、備品とは別名義の使用約束が見つかる",
+        "titleWord": "備品とは別の約束",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-incident-facility-transfer",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "仲間に残ってほしいが、自由に離脱できる条件を守らなければ協力が支配になる",
+        "titleWord": "離脱できる協力",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "relationship-choice"
+        ],
+        "plotLinks": [
+          "r4-exit-clause"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-conflict-exit-clause",
+        "core": "残ってほしいが、離脱の自由を守らなければ支配になる"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "直した箇所を拓本にして、次の職人へ渡す修理履歴",
+        "titleWord": "継ぎ目の拓本",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-gimmick-repair-rubbing",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "契約を終えても再会を選ぶ権利は残っていた",
+        "titleWord": "終わりの再会",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "romantasy",
+          "reunion",
+          "romance"
+        ],
+        "contextTags": [
+          "magic"
+        ],
+        "requiresContext": [],
+        "source": "generated",
+        "topicTags": [
+          "contract"
+        ],
+        "plotLinks": [
+          "bond-beyond-contract"
+        ],
+        "blendPairs": [],
+        "candidateId": "romantasy-twist-reunion-choice",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「橋が使える一季節だけ、対岸の町と職人を交換する谷」。「婚約の解除権を守る立会人と婚約者」という関係を軸に描く、「民話風の物語」のタネ。\n物語の発端は「閉鎖した集会所の引き継ぎ箱から、備品とは別名義の使用約束が見つかる」。葛藤の核は「残ってほしいが、離脱の自由を守らなければ支配になる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：橋が使える一季節だけ、対岸の町と職人を交換する谷\nジャンル：民話風の物語\n関係性：婚約の解除権を守る立会人と婚約者\n中心事件：閉鎖した集会所の引き継ぎ箱から、備品とは別名義の使用約束が見つかる\n葛藤：残ってほしいが、離脱の自由を守らなければ支配になる\n具体例：仲間に残ってほしいが、自由に離脱できる条件を守らなければ協力が支配になる\nギミック：直した箇所を拓本にして、次の職人へ渡す修理履歴\nひねり：契約を終えても再会を選ぶ権利は残っていた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「橋が使える一季節だけ、対岸の町と職人を交換する谷」を舞台に、「閉鎖した集会所の引き継ぎ箱から、備品とは別名義の使用約束が見つかる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「残ってほしいが、離脱の自由を守らなければ支配になる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「契約を終えても再会を選ぶ権利は残っていた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n「直した箇所を拓本にして、次の職人へ渡す修理履歴」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。",
+      "titles": [
+        "終わりの再会と帰り道",
+        "終わりの再会の残響",
+        "残響を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 2,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "交番勤務の警察官が、地域の相談を雑談として受ける町",
+        "titleWord": "交番の相談所",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "mutual-aid",
+          "shop"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "police"
+        ],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "workplace-pro",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-workplace-pro-world-koban-town",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "空き店舗を使う人と住み続ける人が、違う生活時間から町の再生を考える群像劇",
+        "titleWord": "町の生活時間",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "shared-home",
+          "negotiation"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work",
+          "found-family"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-genre-local-revival",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "再開発前の図面を預かる店主と、帰郷して設計を担当する人",
+        "titleWord": "帰郷の設計担当",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "reunion",
+          "daily-work"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "sf-modern-relation-shop-designer",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "契約書の古い訳では、依頼人の権利が係員の裁量として書かれていた",
+        "titleWord": "訳された権利",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-incident-translation-right",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "誤った口コミを訂正したいが、名乗ることで職場に投稿を知られるのは避けたい",
+        "titleWord": "訂正と匿名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "record-conflict"
+        ],
+        "plotLinks": [
+          "md-correction-cost"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-conflict-anonymous-account",
+        "core": "誤りを訂正したいが、名乗れば職場に知られる"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "人工生命",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "人工生命",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-gxbaso",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "約束を守ることが裏切りになる",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "約束の裏側",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "twist-original-p7413u",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「交番勤務の警察官が、地域の相談を雑談として受ける町」。「再開発前の図面を預かる店主と、帰郷して設計を担当する人」という関係を軸に描く、「空き店舗を使う人と住み続ける人が、違う生活時間から町の再生を考える群像劇」のタネ。\n物語の発端は「契約書の古い訳では、依頼人の権利が係員の裁量として書かれていた」。葛藤の核は「誤りを訂正したいが、名乗れば職場に知られる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：交番勤務の警察官が、地域の相談を雑談として受ける町\nジャンル：空き店舗を使う人と住み続ける人が、違う生活時間から町の再生を考える群像劇\n関係性：再開発前の図面を預かる店主と、帰郷して設計を担当する人\n中心事件：契約書の古い訳では、依頼人の権利が係員の裁量として書かれていた\n葛藤：誤りを訂正したいが、名乗れば職場に知られる\n具体例：誤った口コミを訂正したいが、名乗ることで職場に投稿を知られるのは避けたい\nギミック：人工生命\nひねり：約束を守ることが裏切りになる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「交番勤務の警察官が、地域の相談を雑談として受ける町」を舞台に、「契約書の古い訳では、依頼人の権利が係員の裁量として書かれていた」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「誤りを訂正したいが、名乗れば職場に知られる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「約束を守ることが裏切りになる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「再開発前の図面を預かる店主と、帰郷して設計を担当する人」に関わる人々は、何を言えずにいるだろう。\n\n発端「契約書の古い訳では、依頼人の権利が係員の裁量として書かれていた」の直前と直後では、誰の見え方が変わるだろう。\n\nひねりの候補「約束を守ることが裏切りになる」につながる小さな予兆を、どこに置けるだろう。",
+      "titles": [
+        "行方を待つ場所",
+        "約束の裏側の行方",
+        "約束の裏側と帰り道"
+      ]
+    }
+  },
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 4,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "数字の目標と順位で人員と予算が決まり、成績が社員の暮らしにも響く企業の営業組織",
+        "titleWord": "数字に左右される職場",
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "topicTags": [
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "company"
+        ],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "workplace-pro",
+          "daily-work",
+          "rivalry"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-workplace-pro-world-sales-floor",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "傾いた領地を立て直す領主もの",
+        "titleWord": "領地再建",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "western"
+        ],
+        "themeTags": [
+          "daily-work",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-western-genre-estate",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "経費の不備を指摘する経理担当と、締切を理由に急ぐ営業",
+        "titleWord": "経費の確認係",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "company"
+        ],
+        "requiresContext": [
+          "company"
+        ],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "workplace-pro",
+          "rivalry"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "mp-workplace-pro-relation-accounting-sales",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "会議資料の担当者名が、別の同僚の名前に書き換えられている",
+        "titleWord": "書き換えの担当名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "company"
+        ],
+        "requiresContext": [
+          "company"
+        ],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "workplace-pro",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-workplace-pro-incident-name-rewritten",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "仮設住宅へ荷物を届けたいが、管理側は存在が確認できない住所への配達を認めない",
+        "titleWord": "住所を示す証拠",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "identity-role"
+        ],
+        "plotLinks": [
+          "md-address-boundary"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "rescue",
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-conflict-address-proof",
+        "core": "届けたいが、存在が確認できない場所への配達は認められない"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "材料の量だけでなく、調理に使う燃料と待ち時間を並べる献立板",
+        "titleWord": "燃料の献立",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-gimmick-fuel-board",
+        "core": "見えない手間も並べる献立の板"
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "貢献の記録は、実験ノートの共有ではなく装置の使用ログに残っていた",
+        "titleWord": "使用ログの貢献",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "craft"
+        ],
+        "plotLinks": [
+          "rs-credit"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "research"
+        ],
+        "themeTags": [
+          "practical-skill",
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-research-twist-usage-log",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「数字の目標と順位で人員と予算が決まり、成績が社員の暮らしにも響く企業の営業組織」。「経費の不備を指摘する経理担当と、締切を理由に急ぐ営業」という関係を軸に描く、「傾いた領地を立て直す領主もの」のタネ。\n物語の発端は「会議資料の担当者名が、別の同僚の名前に書き換えられている」。葛藤の核は「届けたいが、存在が確認できない場所への配達は認められない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：数字の目標と順位で人員と予算が決まり、成績が社員の暮らしにも響く企業の営業組織\nジャンル：傾いた領地を立て直す領主もの\n関係性：経費の不備を指摘する経理担当と、締切を理由に急ぐ営業\n中心事件：会議資料の担当者名が、別の同僚の名前に書き換えられている\n葛藤：届けたいが、存在が確認できない場所への配達は認められない\n具体例：仮設住宅へ荷物を届けたいが、管理側は存在が確認できない住所への配達を認めない\nギミック：見えない手間も並べる献立の板\n具体例：材料の量だけでなく、調理に使う燃料と待ち時間を並べる献立板\nひねり：貢献の記録は、実験ノートの共有ではなく装置の使用ログに残っていた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「数字の目標と順位で人員と予算が決まり、成績が社員の暮らしにも響く企業の営業組織」を舞台に、「会議資料の担当者名が、別の同僚の名前に書き換えられている」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「届けたいが、存在が確認できない場所への配達は認められない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「貢献の記録は、実験ノートの共有ではなく装置の使用ログに残っていた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「貢献の記録は、実験ノートの共有ではなく装置の使用ログに残っていた」につながる小さな予兆を、どこに置けるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n「見えない手間も並べる献立の板」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "書き換えの担当名の輪郭",
+        "書き換えの担当名と帰り道",
+        "輪郭を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 5,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "異なる校歌や制服の伝統が併存し、校内のルールが出身校によって異なる統合校",
+        "titleWord": "伝統の重なる学校",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "daily-work",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-world-school-merge",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "ホラー",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "ホラー",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-11rsrin",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "家族を探す者と待つ家族",
+        "stageTags": [],
+        "themeTags": [
+          "found-family"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "家族を探す者と待つ家族",
+        "source": "generated",
+        "relationShape": "group",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-1v1du5a",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "再会",
+        "stageTags": [],
+        "themeTags": [
+          "reunion"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "titleWord": "再会",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-1qgyuau",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "文化祭の出店配置を全員で決めたいが、組ごとに返答が揃わず委員だけで仮決定するしかない",
+        "titleWord": "出店配置の仮決定",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "sch-fair"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-conflict-few-decide",
+        "core": "全員で決めたいが、返答が揃わず少数で仮決定するしかない"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "完成品のどの部分を誰が作ったか、工程順にたどれる署名図",
+        "titleWord": "工程の署名",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-gimmick-credit-map",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "登録が抜けた棟は二つの自治体の境にあり、双方が相手の登録を待っていたため、共同の確認担当が必要になる",
+        "titleWord": "境の確認担当",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "negotiation"
+        ],
+        "plotLinks": [
+          "md-address-boundary"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "practical-skill",
+          "rescue"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-address-boundary",
+        "core": "抜けたのは境界の両側が互いを待っていたためで、確認担当が要る"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「異なる校歌や制服の伝統が併存し、校内のルールが出身校によって異なる統合校」。「家族を探す者と待つ家族」という関係を軸に描く、「ホラー」のタネ。\n物語の発端は「再会」。葛藤の核は「全員で決めたいが、返答が揃わず少数で仮決定するしかない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：異なる校歌や制服の伝統が併存し、校内のルールが出身校によって異なる統合校\nジャンル：ホラー\n関係性：家族を探す者と待つ家族\n中心事件：再会\n葛藤：全員で決めたいが、返答が揃わず少数で仮決定するしかない\n具体例：文化祭の出店配置を全員で決めたいが、組ごとに返答が揃わず委員だけで仮決定するしかない\nギミック：完成品のどの部分を誰が作ったか、工程順にたどれる署名図\nひねり：抜けたのは境界の両側が互いを待っていたためで、確認担当が要る\n具体例：登録が抜けた棟は二つの自治体の境にあり、双方が相手の登録を待っていたため、共同の確認担当が必要になる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「異なる校歌や制服の伝統が併存し、校内のルールが出身校によって異なる統合校」を舞台に、「再会」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「全員で決めたいが、返答が揃わず少数で仮決定するしかない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「抜けたのは境界の両側が互いを待っていたためで、確認担当が要る」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "発端「再会」の直前と直後では、誰の見え方が変わるだろう。\n\n関係「家族を探す者と待つ家族」に関わる人々は、何を言えずにいるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "出店配置の仮決定と帰り道",
+        "残響を待つ場所",
+        "残響の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 9,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "オンラインの出会いと地域の人付き合いが重なり、匿名でいられる範囲が狭い地域社会",
+        "titleWord": "重なる出会い",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "asymmetric-info",
+          "shop"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-world-apps-city",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "ブロマンス",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "titleWord": "ブロマンス",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-1o27ape",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "アプリで知り合い、後から共通の知人の存在に気づいた成人の二人",
+        "titleWord": "共通の知人",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "asymmetric-info"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-relation-app-match",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる",
+        "titleWord": "合鍵の返却",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "relationship-choice",
+          "shared-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-incident-key-return",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない",
+        "titleWord": "帰る場所の役目",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "loyalty"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-conflict-home-responsibility",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "終電の時刻表に二人だけの印を付けて待ち合わせる習慣",
+        "titleWord": "終電の印",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "return-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-gimmick-last-train-mark",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた",
+        "titleWord": "成果の署名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "mystery",
+          "daily-work"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "memory",
+          "shop"
+        ],
+        "plotLinks": [
+          "pair-general-archive-name"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-general-twist-archive-name",
+        "core": "記録にない協力者は、成果だけを共有する約束を選んでいた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「オンラインの出会いと地域の人付き合いが重なり、匿名でいられる範囲が狭い地域社会」。「アプリで知り合い、後から共通の知人の存在に気づいた成人の二人」という関係を軸に描く、「ブロマンス」のタネ。\n物語の発端は「同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる」。葛藤の核は「同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：オンラインの出会いと地域の人付き合いが重なり、匿名でいられる範囲が狭い地域社会\nジャンル：ブロマンス\n関係性：アプリで知り合い、後から共通の知人の存在に気づいた成人の二人\n中心事件：同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる\n葛藤：同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない\nギミック：終電の時刻表に二人だけの印を付けて待ち合わせる習慣\nひねり：記録にない協力者は、成果だけを共有する約束を選んでいた\n具体例：記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「オンラインの出会いと地域の人付き合いが重なり、匿名でいられる範囲が狭い地域社会」を舞台に、「同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「同じ家に帰りたいが、それぞれの町で引き受けた役目をすぐには手放せない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「記録にない協力者は、成果だけを共有する約束を選んでいた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n発端「同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる」の直前と直後では、誰の見え方が変わるだろう。\n\n関係「アプリで知り合い、後から共通の知人の存在に気づいた成人の二人」に関わる人々は、何を言えずにいるだろう。",
+      "titles": [
+        "重なる出会いの輪郭",
+        "重なる出会いと帰り道",
+        "重なる出会い、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "modern",
+    "tone": 3,
+    "draw": 10,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "証言の時刻を三種類の時計で記録し、換算係を置く港町",
+        "titleWord": "三つの時刻",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "shop"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "trade"
+        ],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-world-three-clocks",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "破滅に向かう物語",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "破滅に向かう物語",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-tb4sfc",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "監視者と観察対象",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "監視者と観察対象",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-srmsgy",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる",
+        "titleWord": "逆向きの道具",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-incident-repair-direction",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう",
+        "titleWord": "名前の公開",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "memory"
+        ],
+        "plotLinks": [
+          "r4-name-ledger"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-conflict-name-ledger",
+        "core": "存在を証明したいが、新しい名で暮らす人を追跡させてしまう"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "お金と小さな手伝いの両方を記せる店の帳簿",
+        "titleWord": "助けの帳簿",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "cozy-fantasy",
+          "buddy",
+          "daily-work"
+        ],
+        "contextTags": [
+          "trade"
+        ],
+        "requiresContext": [],
+        "source": "generated",
+        "topicTags": [
+          "shop"
+        ],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "cozy-fantasy-gimmick-gift-account",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "会ったことがない恩人もこちらに救われていた",
+        "titleWord": "巡る親切",
+        "stageTags": [],
+        "themeTags": [
+          "buddy",
+          "reunion"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "twist-new-1agpuq2",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「証言の時刻を三種類の時計で記録し、換算係を置く港町」。「監視者と観察対象」という関係を軸に描く、「破滅に向かう物語」のタネ。\n物語の発端は「壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる」。葛藤の核は「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：証言の時刻を三種類の時計で記録し、換算係を置く港町\nジャンル：破滅に向かう物語\n関係性：監視者と観察対象\n中心事件：壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる\n葛藤：存在を証明したいが、新しい名で暮らす人を追跡させてしまう\n具体例：消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう\nギミック：お金と小さな手伝いの両方を記せる店の帳簿\nひねり：会ったことがない恩人もこちらに救われていた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「証言の時刻を三種類の時計で記録し、換算係を置く港町」を舞台に、「壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「会ったことがない恩人もこちらに救われていた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「監視者と観察対象」に関わる人々は、何を言えずにいるだろう。\n\n「お金と小さな手伝いの両方を記せる店の帳簿」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。",
+      "titles": [
+        "破滅に向かう物語と帰り道",
+        "境界の向こう側",
+        "境界を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 2,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "管理社会",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "管理社会",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-rjtscu",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "クライム",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "クライム",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-10k8eex",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "逃げる者と追う者",
+        "stageTags": [],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "逃げる者と追う者",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-1qpj3vi",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "追放",
+        "stageTags": [],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "追放",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-1f01g2q",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "主君の願いを叶えたいが、休むようにという命令だけは聞き入れられない",
+        "titleWord": "休息の命令",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "master-servant"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "loyalty"
+        ],
+        "plotLinks": [],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-bonds-conflict-command-rest",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "目的地の横に帰りたい理由を記し、理由が変われば道も選び直す旅の地図",
+        "titleWord": "帰る理由の地図",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "caravan"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "found-family",
+          "journey",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-cross-journey-gimmick-reasons-map",
+        "core": "理由が変われば道も変わる地図"
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "一つの屋号だと思われた署名は、参加した店の仕事を追える工程図の略記だった",
+        "titleWord": "屋号の読み方",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "identity-role"
+        ],
+        "plotLinks": [
+          "r4-shared-name"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-twist-shared-name",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「管理社会」。「逃げる者と追う者」という関係を軸に描く、「クライム」のタネ。\n物語の発端は「追放」。葛藤の核は「主君の願いを叶えたいが、休むようにという命令だけは聞き入れられない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：管理社会\nジャンル：クライム\n関係性：逃げる者と追う者\n中心事件：追放\n葛藤：主君の願いを叶えたいが、休むようにという命令だけは聞き入れられない\nギミック：理由が変われば道も変わる地図\n具体例：目的地の横に帰りたい理由を記し、理由が変われば道も選び直す旅の地図\nひねり：一つの屋号だと思われた署名は、参加した店の仕事を追える工程図の略記だった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「管理社会」を舞台に、「追放」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「主君の願いを叶えたいが、休むようにという命令だけは聞き入れられない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「一つの屋号だと思われた署名は、参加した店の仕事を追える工程図の略記だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n「理由が変われば道も変わる地図」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "輪郭を待つ場所",
+        "休息の命令の輪郭",
+        "休息の命令と帰り道"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 5,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "近未来都市",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "近未来都市",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-c82p5q",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "別れた相手と、仕事や家族を通じて再会する再会もの",
+        "titleWord": "再会のあと",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "reunion",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-genre-ex-return",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "異母兄弟・異父兄弟",
+        "stageTags": [],
+        "themeTags": [
+          "found-family"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "異母兄弟・異父兄弟",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-yag7gn",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "古い道具の持ち主を探すことになる",
+        "titleWord": "道具の持ち主",
+        "stageTags": [],
+        "themeTags": [
+          "mystery",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-new-1c1rnl8",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "古い旅案内を頼りに歩きたいが、案内通りの道が住民の暮らしを妨げている",
+        "titleWord": "古い道案内",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "journey"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "caravan",
+          "memory"
+        ],
+        "plotLinks": [
+          "pair-general-guide-detour"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-general-conflict-guide-detour",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "寄り道の数だけ増える旅のしおり",
+        "titleWord": "旅のしおり",
+        "stageTags": [],
+        "themeTags": [
+          "journey"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-new-7zu10t",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "原文の権利は全員同じ行動を求めず、それぞれが断る理由を提出できることを保障していた",
+        "titleWord": "断るための訳",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "contract"
+        ],
+        "plotLinks": [
+          "r4-translation-right"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-twist-translation-right",
+        "core": "原文は全員同じ行動を求めず、断る理由の提出を保障していた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「近未来都市」。「異母兄弟・異父兄弟」という関係を軸に描く、「別れた相手と、仕事や家族を通じて再会する再会もの」のタネ。\n物語の発端は「古い道具の持ち主を探すことになる」。葛藤の核は「古い旅案内を頼りに歩きたいが、案内通りの道が住民の暮らしを妨げている」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：近未来都市\nジャンル：別れた相手と、仕事や家族を通じて再会する再会もの\n関係性：異母兄弟・異父兄弟\n中心事件：古い道具の持ち主を探すことになる\n葛藤：古い旅案内を頼りに歩きたいが、案内通りの道が住民の暮らしを妨げている\nギミック：寄り道の数だけ増える旅のしおり\nひねり：原文は全員同じ行動を求めず、断る理由の提出を保障していた\n具体例：原文の権利は全員同じ行動を求めず、それぞれが断る理由を提出できることを保障していた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「近未来都市」を舞台に、「古い道具の持ち主を探すことになる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「古い旅案内を頼りに歩きたいが、案内通りの道が住民の暮らしを妨げている」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「原文は全員同じ行動を求めず、断る理由の提出を保障していた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「異母兄弟・異父兄弟」に関わる人々は、何を言えずにいるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n発端「古い道具の持ち主を探すことになる」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "近未来都市、その先へ",
+        "輪郭を待つ場所",
+        "近未来都市の輪郭"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 8,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "本人が返却を求めるまで記憶の複製を保管する技術がある都市",
+        "titleWord": "返却する記憶",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [],
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-world-memory-consent",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "休戦の仲介を担う者たちが、組ごとに異なる合意の意味をすり合わせる調停劇",
+        "titleWord": "休戦の仲介",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "underworld"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "status-gap"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-underworld-genre-ceasefire-mediators",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "記憶の複製を返したい保管技師と、複製を見ない権利を求める本人",
+        "titleWord": "複製と本人",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [
+          "memory-tech"
+        ],
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-relation-memory-owner",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "保管した記憶の複製へ、本人と別人から同じ返却番号の請求が届く",
+        "titleWord": "二つの返却請求",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [
+          "memory-tech"
+        ],
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-incident-return-request",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "証拠として記憶の複製を保全したいが、保存期限が切れる前に本人の同意を取り直す必要がある",
+        "titleWord": "複製の保全期限",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "relationship-choice"
+        ],
+        "plotLinks": [
+          "r4-owner-choice"
+        ],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [
+          "memory-tech"
+        ],
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-conflict-owner-choice",
+        "core": "保全したいが、期限前に本人の同意を取り直す必要がある"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "契約",
+        "stageTags": [],
+        "themeTags": [
+          "status-gap"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "契約",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-atcpk8",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "旧作の収入は同じ名義でも、新作の送金先は複製ごとの署名で変更できる。合意すべき対象が全財産から旧作だけへ狭まる",
+        "titleWord": "分けられる署名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "contract"
+        ],
+        "plotLinks": [
+          "sf-copy-allocation"
+        ],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [
+          "memory-tech"
+        ],
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "status-gap"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-scifi-twist-copy-signature",
+        "core": "送金先は複製ごとに変えられ、合意の対象は全部から一部へ狭まる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「本人が返却を求めるまで記憶の複製を保管する技術がある都市」。「記憶の複製を返したい保管技師と、複製を見ない権利を求める本人」という関係を軸に描く、「休戦の仲介を担う者たちが、組ごとに異なる合意の意味をすり合わせる調停劇」のタネ。\n物語の発端は「保管した記憶の複製へ、本人と別人から同じ返却番号の請求が届く」。葛藤の核は「保全したいが、期限前に本人の同意を取り直す必要がある」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：本人が返却を求めるまで記憶の複製を保管する技術がある都市\nジャンル：休戦の仲介を担う者たちが、組ごとに異なる合意の意味をすり合わせる調停劇\n関係性：記憶の複製を返したい保管技師と、複製を見ない権利を求める本人\n中心事件：保管した記憶の複製へ、本人と別人から同じ返却番号の請求が届く\n葛藤：保全したいが、期限前に本人の同意を取り直す必要がある\n具体例：証拠として記憶の複製を保全したいが、保存期限が切れる前に本人の同意を取り直す必要がある\nギミック：契約\nひねり：送金先は複製ごとに変えられ、合意の対象は全部から一部へ狭まる\n具体例：旧作の収入は同じ名義でも、新作の送金先は複製ごとの署名で変更できる。合意すべき対象が全財産から旧作だけへ狭まる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「本人が返却を求めるまで記憶の複製を保管する技術がある都市」を舞台に、「保管した記憶の複製へ、本人と別人から同じ返却番号の請求が届く」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「保全したいが、期限前に本人の同意を取り直す必要がある」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「送金先は複製ごとに変えられ、合意の対象は全部から一部へ狭まる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「送金先は複製ごとに変えられ、合意の対象は全部から一部へ狭まる」につながる小さな予兆を、どこに置けるだろう。\n\n発端「保管した記憶の複製へ、本人と別人から同じ返却番号の請求が届く」の直前と直後では、誰の見え方が変わるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "行方を待つ場所",
+        "行方の向こう側",
+        "契約の行方"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 13,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "宇宙港の共同住宅",
+        "titleWord": "星港の家",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "found-family",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-new-5q1qsh",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "SF",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "SF",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-op3er0",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "義親子",
+        "stageTags": [],
+        "themeTags": [
+          "found-family"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "義親子",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-1y1exfy",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "逃亡",
+        "stageTags": [],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "逃亡",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-eemfhl",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "一人で完成させたいが助けを借りれば良くなる",
+        "titleWord": "共同作業",
+        "stageTags": [],
+        "themeTags": [
+          "buddy"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-15x4st3",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "誰もが一日だけ店主になれる規則",
+        "titleWord": "一日の店主",
+        "stageTags": [],
+        "themeTags": [
+          "daily-work",
+          "status-gap"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-new-pquo4h",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "両国の窓口が閉まる空白時間は、当初は係員同士が相談を引き継ぐ時間として設けられていた",
+        "titleWord": "空白の用途",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "identity-role"
+        ],
+        "plotLinks": [
+          "r4-closing-hour"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-twist-closing-hour",
+        "core": "両者の間の空白時間は、本来は引き継ぎの相談の時間だった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「宇宙港の共同住宅」。「義親子」という関係を軸に描く、「SF」のタネ。\n物語の発端は「逃亡」。葛藤の核は「一人で完成させたいが助けを借りれば良くなる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：宇宙港の共同住宅\nジャンル：SF\n関係性：義親子\n中心事件：逃亡\n葛藤：一人で完成させたいが助けを借りれば良くなる\nギミック：誰もが一日だけ店主になれる規則\nひねり：両者の間の空白時間は、本来は引き継ぎの相談の時間だった\n具体例：両国の窓口が閉まる空白時間は、当初は係員同士が相談を引き継ぐ時間として設けられていた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「宇宙港の共同住宅」を舞台に、「逃亡」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「一人で完成させたいが助けを借りれば良くなる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「両者の間の空白時間は、本来は引き継ぎの相談の時間だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「両者の間の空白時間は、本来は引き継ぎの相談の時間だった」につながる小さな予兆を、どこに置けるだろう。\n\n発端「逃亡」の直前と直後では、誰の見え方が変わるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。",
+      "titles": [
+        "星港の家の行方",
+        "星港の家、その先へ",
+        "行方の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 15,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "消えた航路だけが残る星域",
+        "titleWord": "消えた航路",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "mystery",
+          "journey"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-new-1rtybcy",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "スポーツもの",
+        "titleWord": "挑戦",
+        "stageTags": [],
+        "themeTags": [
+          "buddy"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-new-s8o7yf",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "違う時代から手紙を交わす友人",
+        "titleWord": "時を越す便り",
+        "stageTags": [
+          "scifi",
+          "fantasy"
+        ],
+        "themeTags": [
+          "buddy",
+          "mystery"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-1ld2s8m",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "封印の解除",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "封印の解除",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-1czzacp",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "失われたものを取り戻せるが他人の記憶を奪うことになる",
+        "titleWord": "取り戻す代価",
+        "stageTags": [
+          "fantasy",
+          "scifi"
+        ],
+        "themeTags": [
+          "myth",
+          "rescue"
+        ],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-hgz8hc",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "期限付き観察",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "観察期限",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-x4y9x7",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "忠誠を試す命令だと思っていた書状は、従者の責任を免じて逃がすための手続きだった",
+        "titleWord": "免責の書状",
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "master-servant",
+          "rescue"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "loyalty",
+          "escape"
+        ],
+        "plotLinks": [
+          "pair-bonds-order-release"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-bonds-twist-order-release",
+        "core": "忠誠を試す命令に見えたものは、責任を免じる手続きだった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「消えた航路だけが残る星域」。「違う時代から手紙を交わす友人」という関係を軸に描く、「スポーツもの」のタネ。\n物語の発端は「封印の解除」。葛藤の核は「失われたものを取り戻せるが他人の記憶を奪うことになる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：消えた航路だけが残る星域\nジャンル：スポーツもの\n関係性：違う時代から手紙を交わす友人\n中心事件：封印の解除\n葛藤：失われたものを取り戻せるが他人の記憶を奪うことになる\nギミック：期限付き観察\nひねり：忠誠を試す命令に見えたものは、責任を免じる手続きだった\n具体例：忠誠を試す命令だと思っていた書状は、従者の責任を免じて逃がすための手続きだった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「消えた航路だけが残る星域」を舞台に、「封印の解除」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「失われたものを取り戻せるが他人の記憶を奪うことになる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「忠誠を試す命令に見えたものは、責任を免じる手続きだった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "「期限付き観察」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n発端「封印の解除」の直前と直後では、誰の見え方が変わるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "消えた航路の輪郭",
+        "消えた航路、その先へ",
+        "輪郭の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "scifi",
+    "tone": 3,
+    "draw": 18,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "ロボットと人が働く配送所",
+        "titleWord": "星の配送所",
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "buddy",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-new-qwslb",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "サスペンス",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "サスペンス",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-vvrb7v",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "断罪する側と断罪される側",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "断罪する側と断罪される側",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-xzapuv",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "封印の解除",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "封印の解除",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-1czzacp",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "大切な相手を支えたいが、自分が世話を引き受けるほど相手の選択が減っている",
+        "titleWord": "世話の境界",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "romance"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "relationship-choice",
+          "shared-home"
+        ],
+        "plotLinks": [
+          "pair-bonds-care-control"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-bonds-conflict-care-control",
+        "core": "支えたいが、世話するほど相手の選択が減っている"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "期限",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "期限",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-s581ne",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "失踪は仲間を逃がすための計画だった",
+        "titleWord": "消えた理由",
+        "stageTags": [],
+        "themeTags": [
+          "rescue",
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "twist-new-13fjgin",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「ロボットと人が働く配送所」。「断罪する側と断罪される側」という関係を軸に描く、「サスペンス」のタネ。\n物語の発端は「封印の解除」。葛藤の核は「支えたいが、世話するほど相手の選択が減っている」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：ロボットと人が働く配送所\nジャンル：サスペンス\n関係性：断罪する側と断罪される側\n中心事件：封印の解除\n葛藤：支えたいが、世話するほど相手の選択が減っている\n具体例：大切な相手を支えたいが、自分が世話を引き受けるほど相手の選択が減っている\nギミック：期限\nひねり：失踪は仲間を逃がすための計画だった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「ロボットと人が働く配送所」を舞台に、「封印の解除」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「支えたいが、世話するほど相手の選択が減っている」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「失踪は仲間を逃がすための計画だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "同じ場面を別の立場から見ると、何が変わるだろう。\n\nひねりの候補「失踪は仲間を逃がすための計画だった」につながる小さな予兆を、どこに置けるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "世話の境界と帰り道",
+        "行方を待つ場所",
+        "世話の境界の行方"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 2,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "陰陽寮のある都",
+        "stageTags": [
+          "wafu"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "陰陽の都",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-vmn2pg",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "群像劇",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "群像劇",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-wf0nnt",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "対立する一族の人々",
+        "stageTags": [
+          "western",
+          "wafu"
+        ],
+        "themeTags": [
+          "rivalry"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "対立する一族の人々",
+        "source": "generated",
+        "relationShape": "group",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-7zqkfq",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "逃亡",
+        "stageTags": [],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "逃亡",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-eemfhl",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "一人で完成させたいが助けを借りれば良くなる",
+        "titleWord": "共同作業",
+        "stageTags": [],
+        "themeTags": [
+          "buddy"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-15x4st3",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "寄り道の数だけ増える旅のしおり",
+        "titleWord": "旅のしおり",
+        "stageTags": [],
+        "themeTags": [
+          "journey"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-new-7zu10t",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "口コミの訂正で店の疑いは晴れるが、取り消された予約は戻らない。投稿者は名を伏せたまま補償の交渉を始める",
+        "titleWord": "訂正の後に残る損失",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "md-correction-cost"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-correction-aftercare",
+        "core": "訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「陰陽寮のある都」。「対立する一族の人々」という関係を軸に描く、「群像劇」のタネ。\n物語の発端は「逃亡」。葛藤の核は「一人で完成させたいが助けを借りれば良くなる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：陰陽寮のある都\nジャンル：群像劇\n関係性：対立する一族の人々\n中心事件：逃亡\n葛藤：一人で完成させたいが助けを借りれば良くなる\nギミック：寄り道の数だけ増える旅のしおり\nひねり：訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる\n具体例：口コミの訂正で店の疑いは晴れるが、取り消された予約は戻らない。投稿者は名を伏せたまま補償の交渉を始める\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「陰陽寮のある都」を舞台に、「逃亡」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「一人で完成させたいが助けを借りれば良くなる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "発端「逃亡」の直前と直後では、誰の見え方が変わるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "境界を待つ場所",
+        "対立する一族の人々の境界",
+        "境界の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 4,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "和風ファンタジー",
+        "stageTags": [
+          "fantasy",
+          "wafu"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "和風ファンタジー",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-125mqkl",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "日々の仕事を通じた別れの物語",
+        "titleWord": "仕事の別れ",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "cozy-fantasy"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "shop",
+          "relationship-choice"
+        ],
+        "plotLinks": [],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-cozy-fantasy-genre-gentle-farewell",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "店を守る共同契約を結んだ店主と同居人",
+        "titleWord": "店の共同契約",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "romantasy",
+          "cozy-fantasy",
+          "found-family"
+        ],
+        "contextTags": [
+          "magic",
+          "trade"
+        ],
+        "requiresContext": [],
+        "source": "generated",
+        "relationShape": "pair",
+        "topicTags": [
+          "shop",
+          "contract"
+        ],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "romantasy-relation-shop-partners",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "祭りの直前に供物が姿を消す",
+        "titleWord": "消えた供物",
+        "stageTags": [
+          "wafu",
+          "fantasy"
+        ],
+        "themeTags": [
+          "myth",
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-new-3v0oxi",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "最後の冬に修理技術を教えたいが、弟子は町を出る仕事を選ぼうとしている",
+        "titleWord": "最後の冬の授業",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "cozy-fantasy"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "shop",
+          "shared-home"
+        ],
+        "plotLinks": [
+          "pair-cozy-fantasy-winter-repair"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-cozy-fantasy-conflict-winter-repair",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "地図から消せる道と消せない足跡",
+        "titleWord": "消せない足跡",
+        "stageTags": [],
+        "themeTags": [
+          "journey",
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-new-16evgq",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "修理を学んだ弟子の旅先には、冬のあいだ町で使わない道具を直せる仕事場があった",
+        "titleWord": "旅先の仕事場",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "cozy-fantasy"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "shop",
+          "shared-home"
+        ],
+        "plotLinks": [
+          "pair-cozy-fantasy-winter-repair"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-cozy-fantasy-twist-winter-repair",
+        "core": "学んだ弟子の旅先に、続けられる仕事場があった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「和風ファンタジー」。「店を守る共同契約を結んだ店主と同居人」という関係を軸に描く、「日々の仕事を通じた別れの物語」のタネ。\n物語の発端は「祭りの直前に供物が姿を消す」。葛藤の核は「最後の冬に修理技術を教えたいが、弟子は町を出る仕事を選ぼうとしている」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：和風ファンタジー\nジャンル：日々の仕事を通じた別れの物語\n関係性：店を守る共同契約を結んだ店主と同居人\n中心事件：祭りの直前に供物が姿を消す\n葛藤：最後の冬に修理技術を教えたいが、弟子は町を出る仕事を選ぼうとしている\nギミック：地図から消せる道と消せない足跡\nひねり：学んだ弟子の旅先に、続けられる仕事場があった\n具体例：修理を学んだ弟子の旅先には、冬のあいだ町で使わない道具を直せる仕事場があった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「和風ファンタジー」を舞台に、「祭りの直前に供物が姿を消す」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「最後の冬に修理技術を教えたいが、弟子は町を出る仕事を選ぼうとしている」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「学んだ弟子の旅先に、続けられる仕事場があった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「学んだ弟子の旅先に、続けられる仕事場があった」につながる小さな予兆を、どこに置けるだろう。\n\n発端「祭りの直前に供物が姿を消す」の直前と直後では、誰の見え方が変わるだろう。\n\n「地図から消せる道と消せない足跡」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "消せない足跡と帰り道",
+        "帰路の向こう側",
+        "消せない足跡、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 6,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "辺境の国府",
+        "stageTags": [
+          "wafu"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "辺境の国府",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-1ff8lf1",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "倫理の揺らぎ",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "倫理の揺らぎ",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-1w1oo4j",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "人ならざるものと契約者",
+        "stageTags": [
+          "wafu",
+          "fantasy"
+        ],
+        "themeTags": [
+          "status-gap"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "人ならざるものと契約者",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-qc6uy3",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "古い道具の持ち主を探すことになる",
+        "titleWord": "道具の持ち主",
+        "stageTags": [],
+        "themeTags": [
+          "mystery",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-new-1c1rnl8",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう",
+        "titleWord": "名前の公開",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "memory"
+        ],
+        "plotLinks": [
+          "r4-name-ledger"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-conflict-name-ledger",
+        "core": "存在を証明したいが、新しい名で暮らす人を追跡させてしまう"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "好感度システム",
+        "stageTags": [
+          "isekai"
+        ],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "好感度システム",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-1k8kitz",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた",
+        "titleWord": "成果の署名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "mystery",
+          "daily-work"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "memory",
+          "shop"
+        ],
+        "plotLinks": [
+          "pair-general-archive-name"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-general-twist-archive-name",
+        "core": "記録にない協力者は、成果だけを共有する約束を選んでいた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「辺境の国府」。「人ならざるものと契約者」という関係を軸に描く、「倫理の揺らぎ」のタネ。\n物語の発端は「古い道具の持ち主を探すことになる」。葛藤の核は「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：辺境の国府\nジャンル：倫理の揺らぎ\n関係性：人ならざるものと契約者\n中心事件：古い道具の持ち主を探すことになる\n葛藤：存在を証明したいが、新しい名で暮らす人を追跡させてしまう\n具体例：消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう\nギミック：好感度システム\nひねり：記録にない協力者は、成果だけを共有する約束を選んでいた\n具体例：記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「辺境の国府」を舞台に、「古い道具の持ち主を探すことになる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「記録にない協力者は、成果だけを共有する約束を選んでいた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n「好感度システム」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n発端「古い道具の持ち主を探すことになる」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "辺境の国府と帰り道",
+        "証明を待つ場所",
+        "証明の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 7,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "王朝文化の都",
+        "stageTags": [
+          "wafu"
+        ],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "王朝文化の都",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-1209gd1",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "現代ファンタジー",
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "現代ファンタジー",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-1ht09q",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "加害者と被害者",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "加害者と被害者",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-qzqbyu",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "呪いの発覚",
+        "stageTags": [],
+        "themeTags": [
+          "myth"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "呪いの発覚",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-gpvvz",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "後輩に任せたいが、任せたら自分の居場所がなくなる気がする",
+        "titleWord": "任せる怖さ",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "loyalty"
+        ],
+        "plotLinks": [
+          "sch-handover"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-conflict-trust-successor",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "夢",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "夢",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-awg2at",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "契約解消時に消えるのは義務だけで、残す連絡先は互いが別々に選べると分かった",
+        "titleWord": "選べる宛先",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "romantasy"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "contract",
+          "relationship-choice"
+        ],
+        "plotLinks": [
+          "pair-romantasy-release-address"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-romantasy-twist-release-address",
+        "core": "解消で消えるのは義務だけで、つながりは別々に選べた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「王朝文化の都」。「加害者と被害者」という関係を軸に描く、「現代ファンタジー」のタネ。\n物語の発端は「呪いの発覚」。葛藤の核は「後輩に任せたいが、任せたら自分の居場所がなくなる気がする」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：王朝文化の都\nジャンル：現代ファンタジー\n関係性：加害者と被害者\n中心事件：呪いの発覚\n葛藤：後輩に任せたいが、任せたら自分の居場所がなくなる気がする\nギミック：夢\nひねり：解消で消えるのは義務だけで、つながりは別々に選べた\n具体例：契約解消時に消えるのは義務だけで、残す連絡先は互いが別々に選べると分かった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「王朝文化の都」を舞台に、「呪いの発覚」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「後輩に任せたいが、任せたら自分の居場所がなくなる気がする」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「解消で消えるのは義務だけで、つながりは別々に選べた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "同じ場面を別の立場から見ると、何が変わるだろう。\n\n「夢」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n発端「呪いの発覚」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "呪いの発覚の帰路",
+        "呪いの発覚、その先へ",
+        "帰路の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 11,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "妖たちが夜市を開く参道",
+        "titleWord": "妖の夜市",
+        "stageTags": [
+          "wafu",
+          "fantasy"
+        ],
+        "themeTags": [
+          "myth",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-new-a7n53s",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "証言の食い違いを仕事の手順から解くミステリー",
+        "titleWord": "手順の謎",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "craft"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-genre-testimony",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "前世の製法を覚えている転生者と、土地の材料では同じ手順が使えないと知る職人",
+        "titleWord": "土地の材料と製法",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "asymmetric-info"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "isekai"
+        ],
+        "themeTags": [
+          "practical-skill",
+          "buddy"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "sf-isekai-relation-craft-materials",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "海図にない島へ漂着する",
+        "titleWord": "海図の外",
+        "stageTags": [],
+        "themeTags": [
+          "journey",
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-new-1x4slui",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "真実を知ると居場所を失う",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "真実の居場所",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-original-1wcldux",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "完成品のどの部分を誰が作ったか、工程順にたどれる署名図",
+        "titleWord": "工程の署名",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-gimmick-credit-map",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "古い台本には短い前口上も残っている。演目を削らず、観客へ入口を渡す役を後継者が担える",
+        "titleWord": "台本の前口上",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "memory"
+        ],
+        "plotLinks": [
+          "wf-double-performance"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "wafu"
+        ],
+        "themeTags": [
+          "practical-skill",
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-wafu-twist-double-performance",
+        "core": "古い台本には、入口になる前口上も残っていた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「妖たちが夜市を開く参道」。「前世の製法を覚えている転生者と、土地の材料では同じ手順が使えないと知る職人」という関係を軸に描く、「証言の食い違いを仕事の手順から解くミステリー」のタネ。\n物語の発端は「海図にない島へ漂着する」。葛藤の核は「真実を知ると居場所を失う」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：妖たちが夜市を開く参道\nジャンル：証言の食い違いを仕事の手順から解くミステリー\n関係性：前世の製法を覚えている転生者と、土地の材料では同じ手順が使えないと知る職人\n中心事件：海図にない島へ漂着する\n葛藤：真実を知ると居場所を失う\nギミック：完成品のどの部分を誰が作ったか、工程順にたどれる署名図\nひねり：古い台本には、入口になる前口上も残っていた\n具体例：古い台本には短い前口上も残っている。演目を削らず、観客へ入口を渡す役を後継者が担える\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「妖たちが夜市を開く参道」を舞台に、「海図にない島へ漂着する」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「真実を知ると居場所を失う」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「古い台本には、入口になる前口上も残っていた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「古い台本には、入口になる前口上も残っていた」につながる小さな予兆を、どこに置けるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n「完成品のどの部分を誰が作ったか、工程順にたどれる署名図」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "手順の謎と帰り道",
+        "手順の謎の残響",
+        "手順の謎、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "wafu",
+    "tone": 3,
+    "draw": 13,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "鬼が封じられた地方国",
+        "stageTags": [
+          "fantasy",
+          "wafu"
+        ],
+        "themeTags": [
+          "myth"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "鬼封じの国",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-11kjnsw",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "契約恋愛譚",
+        "titleWord": "契約と本心",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy",
+          "western"
+        ],
+        "themeTags": [
+          "romantasy",
+          "romance",
+          "status-gap"
+        ],
+        "contextTags": [
+          "royal"
+        ],
+        "requiresContext": [],
+        "source": "generated",
+        "topicTags": [
+          "contract"
+        ],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "romantasy-genre-contract-romance",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "祭りの期間だけ同じ調理場を使う競合店の料理人",
+        "titleWord": "一週間の厨房",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-relation-rival-cooks",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる",
+        "titleWord": "合鍵の返却",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "relationship-choice",
+          "shared-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-incident-key-return",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "同居契約を終えて一人で暮らしたいが、相手との朝食は失いたくない",
+        "titleWord": "朝食の約束",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "stageTags": [
+          "fantasy"
+        ],
+        "themeTags": [
+          "romantasy",
+          "cozy-fantasy"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "contract",
+          "shared-home"
+        ],
+        "plotLinks": [
+          "pair-romantasy-shared-key"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-romantasy-conflict-shared-key",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "直した箇所を拓本にして、次の職人へ渡す修理履歴",
+        "titleWord": "継ぎ目の拓本",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-gimmick-repair-rubbing",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "増えた食事は誰かの取り分を減らしたのではなく、再加熱で捨てていた分を作り方で救ったものだった",
+        "titleWord": "捨てない一食",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "r4-meal-count"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-twist-meal-count",
+        "core": "増えた分は誰かの取り分でなく、捨てていた分を救ったものだった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「鬼が封じられた地方国」。「祭りの期間だけ同じ調理場を使う競合店の料理人」という関係を軸に描く、「契約恋愛譚」のタネ。\n物語の発端は「同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる」。葛藤の核は「同居契約を終えて一人で暮らしたいが、相手との朝食は失いたくない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：鬼が封じられた地方国\nジャンル：契約恋愛譚\n関係性：祭りの期間だけ同じ調理場を使う競合店の料理人\n中心事件：同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる\n葛藤：同居契約を終えて一人で暮らしたいが、相手との朝食は失いたくない\nギミック：直した箇所を拓本にして、次の職人へ渡す修理履歴\nひねり：増えた分は誰かの取り分でなく、捨てていた分を救ったものだった\n具体例：増えた食事は誰かの取り分を減らしたのではなく、再加熱で捨てていた分を作り方で救ったものだった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「鬼が封じられた地方国」を舞台に、「同棲中の部屋の合鍵を、返すかどうか相手が聞いてくる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「同居契約を終えて一人で暮らしたいが、相手との朝食は失いたくない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「増えた分は誰かの取り分でなく、捨てていた分を救ったものだった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「祭りの期間だけ同じ調理場を使う競合店の料理人」に関わる人々は、何を言えずにいるだろう。\n\n「直した箇所を拓本にして、次の職人へ渡す修理履歴」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。",
+      "titles": [
+        "契約と本心の行方",
+        "行方を待つ場所",
+        "行方の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 1,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "植物を育てる軌道農園",
+        "titleWord": "軌道農園",
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-new-1b9ns61",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "実験を止めずに担当を交代する研究チームの、技術と仕事の継承劇",
+        "titleWord": "止めない継承",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "research"
+        ],
+        "themeTags": [
+          "daily-work",
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-research-genre-team-succession",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "兄弟姉妹",
+        "stageTags": [],
+        "themeTags": [
+          "found-family"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "兄弟姉妹",
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-1sihhyi",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "記憶喪失",
+        "stageTags": [],
+        "themeTags": [
+          "mystery"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "記憶喪失",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-17g90we",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "失われたものを取り戻せるが他人の記憶を奪うことになる",
+        "titleWord": "取り戻す代価",
+        "stageTags": [
+          "fantasy",
+          "scifi"
+        ],
+        "themeTags": [
+          "myth",
+          "rescue"
+        ],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-hgz8hc",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "機密ファイル",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "機密ファイル",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-dod69n",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "引き継ぎ書には次の部長が任せたい役を記す欄があり、前の部長も支える担当として活動に残れる",
+        "titleWord": "前部長の新しい担当",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role"
+        ],
+        "plotLinks": [
+          "sch-handover"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-twist-blank-page",
+        "core": "引き継ぎには役を決める余地があり、前任も支える側に残れる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「植物を育てる軌道農園」。「兄弟姉妹」という関係を軸に描く、「実験を止めずに担当を交代する研究チームの、技術と仕事の継承劇」のタネ。\n物語の発端は「記憶喪失」。葛藤の核は「失われたものを取り戻せるが他人の記憶を奪うことになる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：植物を育てる軌道農園\nジャンル：実験を止めずに担当を交代する研究チームの、技術と仕事の継承劇\n関係性：兄弟姉妹\n中心事件：記憶喪失\n葛藤：失われたものを取り戻せるが他人の記憶を奪うことになる\nギミック：機密ファイル\nひねり：引き継ぎには役を決める余地があり、前任も支える側に残れる\n具体例：引き継ぎ書には次の部長が任せたい役を記す欄があり、前の部長も支える担当として活動に残れる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「植物を育てる軌道農園」を舞台に、「記憶喪失」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「失われたものを取り戻せるが他人の記憶を奪うことになる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「引き継ぎには役を決める余地があり、前任も支える側に残れる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "同じ場面を別の立場から見ると、何が変わるだろう。\n\n関係「兄弟姉妹」に関わる人々は、何を言えずにいるだろう。\n\n「機密ファイル」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "記憶喪失と帰り道",
+        "記憶喪失、その先へ",
+        "残響を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 2,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "廃棄された研究所",
+        "stageTags": [
+          "research"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "廃棄された研究所",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-vg9u4u",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "コメディ",
+        "stageTags": [],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "titleWord": "コメディ",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-vt6ljv",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "口下手な依頼人と聞き上手な案内人",
+        "titleWord": "ふたりの道",
+        "stageTags": [],
+        "themeTags": [
+          "buddy",
+          "journey"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-6xq6uy",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "倫理違反の研究の告発",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "告発",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-1agpuw8",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "再現できなかった結果を報告したいが、報告すれば最初に信じてくれた人の信用に傷がつく",
+        "titleWord": "報告の代償",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "loyalty"
+        ],
+        "plotLinks": [
+          "rs-replicate"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-research-conflict-report-failure",
+        "core": "失敗を報告したいが、最初に信じてくれた人の信用に傷がつく"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "培養槽",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "培養槽",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-1xs7vfp",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "敵だと思っていた相手が唯一の味方だった",
+        "stageTags": [],
+        "themeTags": [
+          "rivalry"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "最後の味方",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "twist-original-h6gwyl",
+        "core": null
+      }
+    },
+    "texts": {
+      "summary": "舞台は「廃棄された研究所」。「口下手な依頼人と聞き上手な案内人」という関係を軸に描く、「コメディ」のタネ。\n物語の発端は「倫理違反の研究の告発」。葛藤の核は「失敗を報告したいが、最初に信じてくれた人の信用に傷がつく」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：廃棄された研究所\nジャンル：コメディ\n関係性：口下手な依頼人と聞き上手な案内人\n中心事件：倫理違反の研究の告発\n葛藤：失敗を報告したいが、最初に信じてくれた人の信用に傷がつく\n具体例：再現できなかった結果を報告したいが、報告すれば最初に信じてくれた人の信用に傷がつく\nギミック：培養槽\nひねり：敵だと思っていた相手が唯一の味方だった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「廃棄された研究所」を舞台に、「倫理違反の研究の告発」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「失敗を報告したいが、最初に信じてくれた人の信用に傷がつく」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「敵だと思っていた相手が唯一の味方だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「口下手な依頼人と聞き上手な案内人」に関わる人々は、何を言えずにいるだろう。\n\n「培養槽」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\nひねりの候補「敵だと思っていた相手が唯一の味方だった」につながる小さな予兆を、どこに置けるだろう。",
+      "titles": [
+        "残響を待つ場所",
+        "コメディ、その先へ",
+        "残響の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 3,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "民間研究ラボ",
+        "stageTags": [
+          "research",
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "民間研究ラボ",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-3i4j0i",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "別れた相手と、仕事や家族を通じて再会する再会もの",
+        "titleWord": "再会のあと",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "reunion",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-genre-ex-return",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "追放された者を匿う船員たち",
+        "titleWord": "匿う船",
+        "stageTags": [],
+        "themeTags": [
+          "found-family",
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "relationShape": "group",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-zacdfc",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く",
+        "titleWord": "更新前の誘い",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "shared-home",
+          "return-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-incident-rent-decision",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "褒められるのは嬉しいが期待が少し重い",
+        "titleWord": "期待の重さ",
+        "stageTags": [],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-15wnslm",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "ループ",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "ループ",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-8jomun",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "登録が抜けた棟は二つの自治体の境にあり、双方が相手の登録を待っていたため、共同の確認担当が必要になる",
+        "titleWord": "境の確認担当",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "negotiation"
+        ],
+        "plotLinks": [
+          "md-address-boundary"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "practical-skill",
+          "rescue"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-address-boundary",
+        "core": "抜けたのは境界の両側が互いを待っていたためで、確認担当が要る"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「民間研究ラボ」。「追放された者を匿う船員たち」という関係を軸に描く、「別れた相手と、仕事や家族を通じて再会する再会もの」のタネ。\n物語の発端は「二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く」。葛藤の核は「褒められるのは嬉しいが期待が少し重い」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：民間研究ラボ\nジャンル：別れた相手と、仕事や家族を通じて再会する再会もの\n関係性：追放された者を匿う船員たち\n中心事件：二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く\n葛藤：褒められるのは嬉しいが期待が少し重い\nギミック：ループ\nひねり：抜けたのは境界の両側が互いを待っていたためで、確認担当が要る\n具体例：登録が抜けた棟は二つの自治体の境にあり、双方が相手の登録を待っていたため、共同の確認担当が必要になる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「民間研究ラボ」を舞台に、「二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「褒められるのは嬉しいが期待が少し重い」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「抜けたのは境界の両側が互いを待っていたためで、確認担当が要る」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「抜けたのは境界の両側が互いを待っていたためで、確認担当が要る」につながる小さな予兆を、どこに置けるだろう。\n\n発端「二人の部屋の更新日を前に、片方へ別の町で暮らす仕事の誘いが届く」の直前と直後では、誰の見え方が変わるだろう。\n\n関係「追放された者を匿う船員たち」に関わる人々は、何を言えずにいるだろう。",
+      "titles": [
+        "期待の重さ、その先へ",
+        "残響の向こう側",
+        "残響を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 4,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "本人が返却を求めるまで記憶の複製を保管する技術がある都市",
+        "titleWord": "返却する記憶",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [
+          "memory-tech"
+        ],
+        "requiresContext": [],
+        "stageTags": [
+          "scifi",
+          "research"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-world-memory-consent",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "閉鎖までに標本と装置の受け入れ先を決め、長期研究を次の施設へつなぐ引き継ぎ劇",
+        "titleWord": "研究の受け入れ先",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "resource-fairness",
+          "return-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "research"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-research-genre-assets-before-close",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "違う時代から手紙を交わす友人",
+        "titleWord": "時を越す便り",
+        "stageTags": [
+          "scifi",
+          "fantasy"
+        ],
+        "themeTags": [
+          "buddy",
+          "mystery"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-1ld2s8m",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "研究棟の封鎖",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "研究棟の封鎖",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-original-q5xjqt",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "帰港した住民へ居住枠を渡したいが、割当て済みの人もその枠を前提に仕事と生活を決めている",
+        "titleWord": "帰港者の居住枠",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "sf-return-allocation"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-scifi-conflict-late-residents",
+        "core": "帰った人へ枠を渡したいが、割当て済みの人も前提に生活している"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "遺伝子の秘密",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "遺伝子の秘密",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-1kwx3rk",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "帰港者に住居を用意するには、抽選のやり直しより先に、出航して無人になる区画の交代利用を合意する必要がある",
+        "titleWord": "出航後の空室",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "return-home",
+          "negotiation"
+        ],
+        "plotLinks": [
+          "sf-return-allocation"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "scifi"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-scifi-twist-residence-rotation",
+        "core": "用意するには、抽選より先に空く区画の交代利用を決める必要がある"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「本人が返却を求めるまで記憶の複製を保管する技術がある都市」。「違う時代から手紙を交わす友人」という関係を軸に描く、「閉鎖までに標本と装置の受け入れ先を決め、長期研究を次の施設へつなぐ引き継ぎ劇」のタネ。\n物語の発端は「研究棟の封鎖」。葛藤の核は「帰った人へ枠を渡したいが、割当て済みの人も前提に生活している」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：本人が返却を求めるまで記憶の複製を保管する技術がある都市\nジャンル：閉鎖までに標本と装置の受け入れ先を決め、長期研究を次の施設へつなぐ引き継ぎ劇\n関係性：違う時代から手紙を交わす友人\n中心事件：研究棟の封鎖\n葛藤：帰った人へ枠を渡したいが、割当て済みの人も前提に生活している\n具体例：帰港した住民へ居住枠を渡したいが、割当て済みの人もその枠を前提に仕事と生活を決めている\nギミック：遺伝子の秘密\nひねり：用意するには、抽選より先に空く区画の交代利用を決める必要がある\n具体例：帰港者に住居を用意するには、抽選のやり直しより先に、出航して無人になる区画の交代利用を合意する必要がある\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「本人が返却を求めるまで記憶の複製を保管する技術がある都市」を舞台に、「研究棟の封鎖」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「帰った人へ枠を渡したいが、割当て済みの人も前提に生活している」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「用意するには、抽選より先に空く区画の交代利用を決める必要がある」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "初めて協力できるのは、どんな小さな出来事のあとだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n発端「研究棟の封鎖」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "返却する記憶、その先へ",
+        "返却する記憶と帰り道",
+        "行方を待つ場所"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 5,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "医療研究機関",
+        "stageTags": [
+          "research",
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "医療研究機関",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-z3ksaj",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "用水路と共同の道具を巡る古い約束を、今の暮らしから問い直す町の物語",
+        "titleWord": "暮らしと古い約束",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "shared-home"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "wafu"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-wafu-genre-town-promise",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "契約文を訳し直す通訳と、以前の訳で損をした依頼人",
+        "titleWord": "訳し直す相手",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-relation-translator-client",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う",
+        "titleWord": "空き地の議事録",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-incident-minutes-gap",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "被験者を救いたいが、組織を裏切ることになる",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "救う決意",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-original-o2im3z",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "消された研究ログ",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "消えたログ",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-3axddg",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "逆向きの修理は故障を隠すためではなく、片手でも扱えるよう持ち主が頼んだ変更だった",
+        "titleWord": "持ち方の依頼",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "record-conflict"
+        ],
+        "plotLinks": [
+          "r4-repair-direction"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-twist-repair-direction",
+        "core": "逆向きの修理は、隠すためでなく持ち主が頼んだ変更だった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「医療研究機関」。「契約文を訳し直す通訳と、以前の訳で損をした依頼人」という関係を軸に描く、「用水路と共同の道具を巡る古い約束を、今の暮らしから問い直す町の物語」のタネ。\n物語の発端は「住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う」。葛藤の核は「被験者を救いたいが、組織を裏切ることになる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：医療研究機関\nジャンル：用水路と共同の道具を巡る古い約束を、今の暮らしから問い直す町の物語\n関係性：契約文を訳し直す通訳と、以前の訳で損をした依頼人\n中心事件：住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う\n葛藤：被験者を救いたいが、組織を裏切ることになる\nギミック：消された研究ログ\nひねり：逆向きの修理は、隠すためでなく持ち主が頼んだ変更だった\n具体例：逆向きの修理は故障を隠すためではなく、片手でも扱えるよう持ち主が頼んだ変更だった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「医療研究機関」を舞台に、「住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「被験者を救いたいが、組織を裏切ることになる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「逆向きの修理は、隠すためでなく持ち主が頼んだ変更だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "発端「住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う」の直前と直後では、誰の見え方が変わるだろう。\n\n「消された研究ログ」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n関係「契約文を訳し直す通訳と、以前の訳で損をした依頼人」に関わる人々は、何を言えずにいるだろう。",
+      "titles": [
+        "消えたログの残響",
+        "消えたログと帰り道",
+        "消えたログ、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "research",
+    "tone": 3,
+    "draw": 6,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "温室の管理者と研究員が鍵を共有し、互いの作業日を調整する研究棟",
+        "titleWord": "温室の共有鍵",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "shared-home",
+          "negotiation"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "research",
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work",
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-research-world-greenhouse-key",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "料理もの",
+        "titleWord": "食卓",
+        "stageTags": [],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-new-w2phli",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "閉門時刻の異なる二国の窓口係",
+        "titleWord": "対岸の窓口係",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "shop"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-relation-border-clerks",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "閉店予定の店に一日だけ客が集まる",
+        "titleWord": "最後の営業日",
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "incident-new-10221eg",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "誤った口コミを訂正したいが、名乗ることで職場に投稿を知られるのは避けたい",
+        "titleWord": "訂正と匿名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "record-conflict"
+        ],
+        "plotLinks": [
+          "md-correction-cost"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-conflict-anonymous-account",
+        "core": "誤りを訂正したいが、名乗れば職場に知られる"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "感情抑制装置",
+        "stageTags": [
+          "research",
+          "scifi"
+        ],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "感情抑制装置",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-1prpslt",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "引き継いだ約束が守る対象は集会所の備品ではなく、そこで集まる人の利用時間だと分かり、別の会場を探す道が開く",
+        "titleWord": "守るのは集まる時間",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "shared-home"
+        ],
+        "plotLinks": [
+          "md-promise-object"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "daily-work",
+          "found-family"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-promise-users",
+        "core": "約束が守る対象は物ではなく、そこに集う人の時間だった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「温室の管理者と研究員が鍵を共有し、互いの作業日を調整する研究棟」。「閉門時刻の異なる二国の窓口係」という関係を軸に描く、「料理もの」のタネ。\n物語の発端は「閉店予定の店に一日だけ客が集まる」。葛藤の核は「誤りを訂正したいが、名乗れば職場に知られる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：温室の管理者と研究員が鍵を共有し、互いの作業日を調整する研究棟\nジャンル：料理もの\n関係性：閉門時刻の異なる二国の窓口係\n中心事件：閉店予定の店に一日だけ客が集まる\n葛藤：誤りを訂正したいが、名乗れば職場に知られる\n具体例：誤った口コミを訂正したいが、名乗ることで職場に投稿を知られるのは避けたい\nギミック：感情抑制装置\nひねり：約束が守る対象は物ではなく、そこに集う人の時間だった\n具体例：引き継いだ約束が守る対象は集会所の備品ではなく、そこで集まる人の利用時間だと分かり、別の会場を探す道が開く\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「温室の管理者と研究員が鍵を共有し、互いの作業日を調整する研究棟」を舞台に、「閉店予定の店に一日だけ客が集まる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「誤りを訂正したいが、名乗れば職場に知られる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「約束が守る対象は物ではなく、そこに集う人の時間だった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "発端「閉店予定の店に一日だけ客が集まる」の直前と直後では、誰の見え方が変わるだろう。\n\n「感情抑制装置」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n関係「閉門時刻の異なる二国の窓口係」に関わる人々は、何を言えずにいるだろう。",
+      "titles": [
+        "最後の営業日と帰り道",
+        "輪郭を待つ場所",
+        "輪郭の向こう側"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 1,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "売店・菜園・放送を生徒が運営し、権限と仕事を学年ごとに引き継ぐ学校",
+        "titleWord": "生徒の運営する学校",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "craft"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "daily-work",
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-world-student-services",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "救済",
+        "stageTags": [],
+        "themeTags": [
+          "rescue"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "救済",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-19m20po",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "共同住宅で暮らす住人たち",
+        "titleWord": "ひとつ屋根",
+        "stageTags": [],
+        "themeTags": [
+          "found-family",
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "source": "generated",
+        "relationShape": "group",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-1xztvua",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "文化祭の会計帳簿が一冊だけ見つからない",
+        "titleWord": "消えた帳簿",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-incident-missing-ledger",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "証言の矛盾を公表したいが、時刻の換算規則自体が間違っていた可能性がある",
+        "titleWord": "換算の責任",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "craft"
+        ],
+        "plotLinks": [
+          "r4-clock-rule"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-conflict-clock-rule",
+        "core": "矛盾を公表したいが、前提の換算自体が間違いかもしれない"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "部室の黒板に、前の代の「やり残し」を書き残す欄",
+        "titleWord": "やり残しの黒板",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "memory",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "daily-work",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-gimmick-blackboard-left",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "引き継ぎ書には次の部長が任せたい役を記す欄があり、前の部長も支える担当として活動に残れる",
+        "titleWord": "前部長の新しい担当",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role"
+        ],
+        "plotLinks": [
+          "sch-handover"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-twist-blank-page",
+        "core": "引き継ぎには役を決める余地があり、前任も支える側に残れる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「売店・菜園・放送を生徒が運営し、権限と仕事を学年ごとに引き継ぐ学校」。「共同住宅で暮らす住人たち」という関係を軸に描く、「救済」のタネ。\n物語の発端は「文化祭の会計帳簿が一冊だけ見つからない」。葛藤の核は「矛盾を公表したいが、前提の換算自体が間違いかもしれない」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：売店・菜園・放送を生徒が運営し、権限と仕事を学年ごとに引き継ぐ学校\nジャンル：救済\n関係性：共同住宅で暮らす住人たち\n中心事件：文化祭の会計帳簿が一冊だけ見つからない\n葛藤：矛盾を公表したいが、前提の換算自体が間違いかもしれない\n具体例：証言の矛盾を公表したいが、時刻の換算規則自体が間違っていた可能性がある\nギミック：部室の黒板に、前の代の「やり残し」を書き残す欄\nひねり：引き継ぎには役を決める余地があり、前任も支える側に残れる\n具体例：引き継ぎ書には次の部長が任せたい役を記す欄があり、前の部長も支える担当として活動に残れる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「売店・菜園・放送を生徒が運営し、権限と仕事を学年ごとに引き継ぐ学校」を舞台に、「文化祭の会計帳簿が一冊だけ見つからない」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「矛盾を公表したいが、前提の換算自体が間違いかもしれない」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「引き継ぎには役を決める余地があり、前任も支える側に残れる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "同じ場面を別の立場から見ると、何が変わるだろう。\n\n「部室の黒板に、前の代の「やり残し」を書き残す欄」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n発端「文化祭の会計帳簿が一冊だけ見つからない」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "輪郭の向こう側",
+        "輪郭を待つ場所",
+        "消えた帳簿、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 2,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "卒業生の文集と行事の記録が、整理されないまま資料室に積まれた学校",
+        "titleWord": "資料室の文集",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "memory"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-world-class-archive",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "冒険",
+        "stageTags": [],
+        "themeTags": [
+          "journey"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "titleWord": "冒険",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-1k3en19",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "家族を演じる人々",
+        "stageTags": [],
+        "themeTags": [
+          "found-family"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "家族を演じる人々",
+        "source": "generated",
+        "relationShape": "group",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-original-ex4zc",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う",
+        "titleWord": "空き地の議事録",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "negotiation",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-incident-minutes-gap",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "記録を訂正したいが、訂正すれば世話になった先生の立場が危うくなる",
+        "titleWord": "訂正の代償",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "loyalty"
+        ],
+        "plotLinks": [
+          "sch-record"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "archive-mystery",
+          "mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-conflict-correct-record",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "記憶改ざん",
+        "stageTags": [],
+        "themeTags": [
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "記憶改ざん",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-1n4q401",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "親が反対していたのは進路ではなく、学費の見通しをまだ話せていないことだった",
+        "titleWord": "話せていない学費",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "asymmetric-info"
+        ],
+        "plotLinks": [
+          "sch-path"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-twist-tuition-talk",
+        "core": "反対の理由は進路でなく、費用の見通しを話せていないことだった"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「卒業生の文集と行事の記録が、整理されないまま資料室に積まれた学校」。「家族を演じる人々」という関係を軸に描く、「冒険」のタネ。\n物語の発端は「住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う」。葛藤の核は「記録を訂正したいが、訂正すれば世話になった先生の立場が危うくなる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：卒業生の文集と行事の記録が、整理されないまま資料室に積まれた学校\nジャンル：冒険\n関係性：家族を演じる人々\n中心事件：住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う\n葛藤：記録を訂正したいが、訂正すれば世話になった先生の立場が危うくなる\nギミック：記憶改ざん\nひねり：反対の理由は進路でなく、費用の見通しを話せていないことだった\n具体例：親が反対していたのは進路ではなく、学費の見通しをまだ話せていないことだった\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「卒業生の文集と行事の記録が、整理されないまま資料室に積まれた学校」を舞台に、「住民会で決めた空き地の用途について、議事録と参加者のメモが食い違う」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「記録を訂正したいが、訂正すれば世話になった先生の立場が危うくなる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「反対の理由は進路でなく、費用の見通しを話せていないことだった」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "同じ場面を別の立場から見ると、何が変わるだろう。\n\n関係「家族を演じる人々」に関わる人々は、何を言えずにいるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "輪郭の向こう側",
+        "輪郭を待つ場所",
+        "冒険、その先へ"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 3,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "部室の使用日を、部活どうしが月ごとの話し合いで貸し借りする学校",
+        "titleWord": "貸し借りの部室",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "negotiation",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "daily-work",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-world-club-lend",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "別れる日を決めて始める共同事業譚",
+        "titleWord": "終わりのある協力",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "contract",
+          "negotiation"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-genre-finite-alliance",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "古い戸籍を復元したい司書と、旧名で呼ばれることを拒む旅人",
+        "titleWord": "復元と改名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "memory",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-relation-name-choice",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる",
+        "titleWord": "逆向きの道具",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "record-conflict"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-incident-repair-direction",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる",
+        "titleWord": "支える側の休息",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "mutual-aid",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-conflict-support-tired",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "儀式",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "titleWord": "儀式",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-wusxtc",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "同僚は祝うつもりで噂を広めたが、二人は公開を望んでいない。好意だけでは済まず、訂正する範囲を話し合う",
+        "titleWord": "祝う側の噂",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "asymmetric-info"
+        ],
+        "plotLinks": [
+          "ml-rumor"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-twist-warm-rumor",
+        "core": "悪意のない噂でも、訂正する範囲は話し合うことになる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「部室の使用日を、部活どうしが月ごとの話し合いで貸し借りする学校」。「古い戸籍を復元したい司書と、旧名で呼ばれることを拒む旅人」という関係を軸に描く、「別れる日を決めて始める共同事業譚」のタネ。\n物語の発端は「壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる」。葛藤の核は「相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：部室の使用日を、部活どうしが月ごとの話し合いで貸し借りする学校\nジャンル：別れる日を決めて始める共同事業譚\n関係性：古い戸籍を復元したい司書と、旧名で呼ばれることを拒む旅人\n中心事件：壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる\n葛藤：相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる\nギミック：儀式\nひねり：悪意のない噂でも、訂正する範囲は話し合うことになる\n具体例：同僚は祝うつもりで噂を広めたが、二人は公開を望んでいない。好意だけでは済まず、訂正する範囲を話し合う\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「部室の使用日を、部活どうしが月ごとの話し合いで貸し借りする学校」を舞台に、「壊れた道具の修理跡から、事故当日は普段と逆向きに使われたと分かる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「相手の仕事を支えたいが、支える役に回り続けて自分の休息がなくなる」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「悪意のない噂でも、訂正する範囲は話し合うことになる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "関係「古い戸籍を復元したい司書と、旧名で呼ばれることを拒む旅人」に関わる人々は、何を言えずにいるだろう。\n\n「儀式」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n初めて協力できるのは、どんな小さな出来事のあとだろう。",
+      "titles": [
+        "支える側の休息と帰り道",
+        "行方を待つ場所",
+        "支える側の休息の行方"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 5,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "災害で校舎を失った地域で、仮設の教室と乏しい物資で学びを続ける学校",
+        "titleWord": "仮設教室の学校",
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "topicTags": [
+          "mutual-aid",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "rescue",
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-world-shelter-school",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "ディストピア",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "titleWord": "ディストピア",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-original-1kleclg",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "店の誤った口コミを訂正したい依頼人と、投稿名を明かしたくない書き手",
+        "titleWord": "口コミの訂正相手",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "asymmetric-info",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "mystery",
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "sf-modern-relation-review-correction",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "記念日と個人の仕事の締切が重なり、相談する時間もないまま優先順位を決める日が来る",
+        "titleWord": "重なった記念日",
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "topicTags": [
+          "negotiation",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "modern-love",
+          "romance"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "mp-modern-love-incident-anniversary-clash",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "仲間を守るための決定が別の集団を追い詰める",
+        "titleWord": "守る範囲",
+        "stageTags": [],
+        "themeTags": [
+          "buddy",
+          "rescue"
+        ],
+        "tones": [
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "conflict-new-14sq8jq",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "期限",
+        "stageTags": [],
+        "themeTags": [],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "期限",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "gimmick-original-s581ne",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "別々の活動名で頼まれた手伝いは同じ配達員に集中していた。名前をまとめると、住民たちは当番を分担し直せる",
+        "titleWord": "重なった活動名",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "md-alias-hours"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "buddy",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-alias-shifts",
+        "core": "別名の頼みが一人に集中していた。まとめれば分担し直せる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「災害で校舎を失った地域で、仮設の教室と乏しい物資で学びを続ける学校」。「店の誤った口コミを訂正したい依頼人と、投稿名を明かしたくない書き手」という関係を軸に描く、「ディストピア」のタネ。\n物語の発端は「記念日と個人の仕事の締切が重なり、相談する時間もないまま優先順位を決める日が来る」。葛藤の核は「仲間を守るための決定が別の集団を追い詰める」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：災害で校舎を失った地域で、仮設の教室と乏しい物資で学びを続ける学校\nジャンル：ディストピア\n関係性：店の誤った口コミを訂正したい依頼人と、投稿名を明かしたくない書き手\n中心事件：記念日と個人の仕事の締切が重なり、相談する時間もないまま優先順位を決める日が来る\n葛藤：仲間を守るための決定が別の集団を追い詰める\nギミック：期限\nひねり：別名の頼みが一人に集中していた。まとめれば分担し直せる\n具体例：別々の活動名で頼まれた手伝いは同じ配達員に集中していた。名前をまとめると、住民たちは当番を分担し直せる\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「災害で校舎を失った地域で、仮設の教室と乏しい物資で学びを続ける学校」を舞台に、「記念日と個人の仕事の締切が重なり、相談する時間もないまま優先順位を決める日が来る」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「仲間を守るための決定が別の集団を追い詰める」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「別名の頼みが一人に集中していた。まとめれば分担し直せる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "ひねりの候補「別名の頼みが一人に集中していた。まとめれば分担し直せる」につながる小さな予兆を、どこに置けるだろう。\n\n発端「記念日と個人の仕事の締切が重なり、相談する時間もないまま優先順位を決める日が来る」の直前と直後では、誰の見え方が変わるだろう。\n\n「期限」を、道具・制約・日常の習慣のどれとして描けるだろう。",
+      "titles": [
+        "証明の向こう側",
+        "証明を待つ場所",
+        "守る範囲と帰り道"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 6,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "生徒数の減少が続き、地域に一つだけの学校が学びと交流を支えている地域",
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "titleWord": "地域に一つの学校",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-17jnmz1",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "証言の食い違いを仕事の手順から解くミステリー",
+        "titleWord": "手順の謎",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "craft"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-genre-testimony",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "互いの弱みを知る交渉相手",
+        "titleWord": "交渉の席",
+        "stageTags": [],
+        "themeTags": [
+          "rivalry",
+          "mystery"
+        ],
+        "tones": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "relation-new-x1swfl",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "三人の目撃時刻を換算すると、事故の順序が一つだけ入れ替わる",
+        "titleWord": "換算後の事故",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "craft"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-incident-clock-gap",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "後輩に任せたいが、任せたら自分の居場所がなくなる気がする",
+        "titleWord": "任せる怖さ",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "loyalty"
+        ],
+        "plotLinks": [
+          "sch-handover"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "school"
+        ],
+        "themeTags": [
+          "buddy"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-school-conflict-trust-successor",
+        "core": null
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "組どうしの貸し借りを、同じ筆跡の帳面に交互に書き込む習慣",
+        "titleWord": "同じ筆跡の帳面",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "contract"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "underworld"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "daily-work"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-underworld-gimmick-same-hand",
+        "core": "同じ筆跡で貸し借りを交互に書く帳面"
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "口コミの訂正で店の疑いは晴れるが、取り消された予約は戻らない。投稿者は名を伏せたまま補償の交渉を始める",
+        "titleWord": "訂正の後に残る損失",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "resource-fairness"
+        ],
+        "plotLinks": [
+          "md-correction-cost"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "limited-cooperation",
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-twist-correction-aftercare",
+        "core": "訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「生徒数の減少が続き、地域に一つだけの学校が学びと交流を支えている地域」。「互いの弱みを知る交渉相手」という関係を軸に描く、「証言の食い違いを仕事の手順から解くミステリー」のタネ。\n物語の発端は「三人の目撃時刻を換算すると、事故の順序が一つだけ入れ替わる」。葛藤の核は「後輩に任せたいが、任せたら自分の居場所がなくなる気がする」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：生徒数の減少が続き、地域に一つだけの学校が学びと交流を支えている地域\nジャンル：証言の食い違いを仕事の手順から解くミステリー\n関係性：互いの弱みを知る交渉相手\n中心事件：三人の目撃時刻を換算すると、事故の順序が一つだけ入れ替わる\n葛藤：後輩に任せたいが、任せたら自分の居場所がなくなる気がする\nギミック：同じ筆跡で貸し借りを交互に書く帳面\n具体例：組どうしの貸し借りを、同じ筆跡の帳面に交互に書き込む習慣\nひねり：訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる\n具体例：口コミの訂正で店の疑いは晴れるが、取り消された予約は戻らない。投稿者は名を伏せたまま補償の交渉を始める\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「生徒数の減少が続き、地域に一つだけの学校が学びと交流を支えている地域」を舞台に、「三人の目撃時刻を換算すると、事故の順序が一つだけ入れ替わる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「後輩に任せたいが、任せたら自分の居場所がなくなる気がする」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "「同じ筆跡で貸し借りを交互に書く帳面」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\nひねりの候補「訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる」につながる小さな予兆を、どこに置けるだろう。\n\n関係「互いの弱みを知る交渉相手」に関わる人々は、何を言えずにいるだろう。",
+      "titles": [
+        "同じ筆跡の帳面と帰り道",
+        "同じ筆跡の帳面、その先へ",
+        "同じ筆跡の帳面の証明"
+      ]
+    }
+  },
+  {
+    "stage": "school",
+    "tone": 3,
+    "draw": 7,
+    "notices": [],
+    "items": {
+      "world": {
+        "label": "世界観",
+        "text": "全寮制学校",
+        "stageTags": [
+          "modern",
+          "school"
+        ],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "titleWord": "全寮制学校",
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "world-original-1eqnsna",
+        "core": null
+      },
+      "genre": {
+        "label": "ジャンル",
+        "text": "料理もの",
+        "titleWord": "食卓",
+        "stageTags": [],
+        "themeTags": [
+          "daily-work"
+        ],
+        "tones": [
+          1,
+          2,
+          3
+        ],
+        "source": "generated",
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [],
+        "plotLinks": [],
+        "blendPairs": [],
+        "candidateId": "genre-new-w2phli",
+        "core": null
+      },
+      "relation": {
+        "label": "関係性",
+        "text": "限られた燃料で料理を作る料理人と、食事を冷める前に届けたい配達員",
+        "titleWord": "火と配達",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "resource-fairness"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "practical-skill"
+        ],
+        "source": "generated",
+        "relationShape": "pair",
+        "blendPairs": [],
+        "candidateId": "r4-practical-skill-relation-cook-carrier",
+        "core": null
+      },
+      "incident": {
+        "label": "中心事件",
+        "text": "災害後に設けた仮設住宅の一棟だけ、配達先の登録が抜けていると分かる",
+        "titleWord": "抜けた配達先",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "record-conflict",
+          "mutual-aid"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern"
+        ],
+        "themeTags": [
+          "rescue",
+          "practical-skill"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "sf-modern-incident-unlisted-address",
+        "core": null
+      },
+      "conflict": {
+        "label": "葛藤",
+        "text": "消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう",
+        "titleWord": "名前の公開",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "identity-role",
+          "memory"
+        ],
+        "plotLinks": [
+          "r4-name-ledger"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [],
+        "themeTags": [
+          "archive-mystery"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-archive-mystery-conflict-name-ledger",
+        "core": "存在を証明したいが、新しい名で暮らす人を追跡させてしまう"
+      },
+      "gimmick": {
+        "label": "ギミック",
+        "text": "完成品のどの部分を誰が作ったか、工程順にたどれる署名図",
+        "titleWord": "工程の署名",
+        "tones": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "topicTags": [
+          "craft",
+          "identity-role"
+        ],
+        "plotLinks": [],
+        "contextTags": [],
+        "requiresContext": [],
+        "stageTags": [
+          "modern",
+          "fantasy"
+        ],
+        "themeTags": [
+          "limited-cooperation"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "r4-limited-cooperation-gimmick-credit-map",
+        "core": null
+      },
+      "twist": {
+        "label": "ひねり",
+        "text": "記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた",
+        "titleWord": "成果の署名",
+        "tones": [
+          2,
+          3,
+          4
+        ],
+        "stageTags": [],
+        "themeTags": [
+          "mystery",
+          "daily-work"
+        ],
+        "contextTags": [],
+        "requiresContext": [],
+        "topicTags": [
+          "memory",
+          "shop"
+        ],
+        "plotLinks": [
+          "pair-general-archive-name"
+        ],
+        "source": "generated",
+        "blendPairs": [],
+        "candidateId": "story3-general-twist-archive-name",
+        "core": "記録にない協力者は、成果だけを共有する約束を選んでいた"
+      }
+    },
+    "texts": {
+      "summary": "舞台は「全寮制学校」。「限られた燃料で料理を作る料理人と、食事を冷める前に届けたい配達員」という関係を軸に描く、「料理もの」のタネ。\n物語の発端は「災害後に設けた仮設住宅の一棟だけ、配達先の登録が抜けていると分かる」。葛藤の核は「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」。\n望みがぶつかる場面で、何を選ぶのかを考えてみる。",
+      "memo": "世界観：全寮制学校\nジャンル：料理もの\n関係性：限られた燃料で料理を作る料理人と、食事を冷める前に届けたい配達員\n中心事件：災害後に設けた仮設住宅の一棟だけ、配達先の登録が抜けていると分かる\n葛藤：存在を証明したいが、新しい名で暮らす人を追跡させてしまう\n具体例：消された名前を公開して存在を証明したいが、新しい名で暮らす人を追跡させてしまう\nギミック：完成品のどの部分を誰が作ったか、工程順にたどれる署名図\nひねり：記録にない協力者は、成果だけを共有する約束を選んでいた\n具体例：記録にない協力者は抹消されたのではなく、仕事の成果だけを共有財産にする約束を選んでいた\n\n構成メモ｜ショートストーリー向け\n以下は、選んだ素材を育てるための構成案です。\n1. 発端：「全寮制学校」を舞台に、「災害後に設けた仮設住宅の一棟だけ、配達先の登録が抜けていると分かる」を物語の入口にする。\n2. 行動と障害：主人公の目的を決める。目的を妨げる状況を考える。\n3. 選択：「存在を証明したいが、新しい名で暮らす人を追跡させてしまう」を踏まえて、何を優先するか。手放す可能性のあるものを考える。\n4. 変化・余韻：結末の方向を考える。ひねりの候補「記録にない協力者は、成果だけを共有する約束を選んでいた」をどこまで明かすか決める。\n5. 提案：短い期間や少ない登場人物に絞ると、ひとつの変化を描きやすい。",
+      "hint": "「完成品のどの部分を誰が作ったか、工程順にたどれる署名図」を、道具・制約・日常の習慣のどれとして描けるだろう。\n\n同じ場面を別の立場から見ると、何が変わるだろう。\n\n発端「災害後に設けた仮設住宅の一棟だけ、配達先の登録が抜けていると分かる」の直前と直後では、誰の見え方が変わるだろう。",
+      "titles": [
+        "火と配達の証明",
+        "証明の向こう側",
+        "証明を待つ場所"
+      ]
+    }
+  }
+]

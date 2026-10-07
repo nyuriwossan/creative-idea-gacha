@@ -1,0 +1,782 @@
+[
+ {
+  "id": "sf-scifi-conflict-prediction-feedback",
+  "field": "conflict",
+  "core": "予測を改良したいが、外れだけを教えると次の警告が弱まる"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-cannot-refuse",
+  "field": "conflict",
+  "core": "好きな仕事を続けたいが、直接の依頼を相談前に引き受けてしまう"
+ },
+ {
+  "id": "sf-modern-conflict-warehouse-fee",
+  "field": "conflict",
+  "core": "共同の場を残したいが、更新の条件が小さな店に負担を強いる"
+ },
+ {
+  "id": "sf-scifi-conflict-copy-pooling",
+  "field": "conflict",
+  "core": "収入を分けたいが、それぞれ別の使い道を選んでいる"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-tradition-excludes",
+  "field": "conflict",
+  "core": "古い基準を守りたいが、新入りの仕事は載らず発言もできない"
+ },
+ {
+  "id": "r4-archive-mystery-conflict-owner-choice",
+  "field": "conflict",
+  "core": "保全したいが、期限前に本人の同意を取り直す必要がある"
+ },
+ {
+  "id": "sf-scifi-conflict-late-residents",
+  "field": "conflict",
+  "core": "帰った人へ枠を渡したいが、割当て済みの人も前提に生活している"
+ },
+ {
+  "id": "sf-school-conflict-few-decide",
+  "field": "conflict",
+  "core": "全員で決めたいが、返答が揃わず少数で仮決定するしかない"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-hasty-arrest",
+  "field": "conflict",
+  "core": "区切りを急ぎたいが、裏付け不足では被害者の疑問に答えられない"
+ },
+ {
+  "id": "sf-research-conflict-report-failure",
+  "field": "conflict",
+  "core": "失敗を報告したいが、最初に信じてくれた人の信用に傷がつく"
+ },
+ {
+  "id": "sf-scifi-conflict-postal-liability",
+  "field": "conflict",
+  "core": "存続させたいが、引き継ぎの条件に過去の賠償まで含まれる"
+ },
+ {
+  "id": "sf-wafu-conflict-performance-audience",
+  "field": "conflict",
+  "core": "受け継いだものを守りたいが、昔の言葉では初めての人に伝わらない"
+ },
+ {
+  "id": "mp-modern-love-conflict-report-bond",
+  "field": "conflict",
+  "core": "関係を届けたいが、面談で二人の希望が別々に扱われそうだ"
+ },
+ {
+  "id": "r4-cross-scifi-conflict-ai-testimony",
+  "field": "conflict",
+  "core": "救うため必要性を示したいが、役立つことを存続条件にされたくない"
+ },
+ {
+  "id": "story3-beastfolk-conflict-small-voice",
+  "field": "conflict",
+  "core": "小さな声も届けたいが、議論の速さは止めたくない"
+ },
+ {
+  "id": "r4-archive-mystery-conflict-name-ledger",
+  "field": "conflict",
+  "core": "存在を証明したいが、新しい名で暮らす人を追跡させてしまう"
+ },
+ {
+  "id": "story3-general-conflict-archive-name",
+  "field": "conflict",
+  "core": "正確に公開したいが、名を残したくない人の仕事まで消える"
+ },
+ {
+  "id": "sf-modern-conflict-promise-keeper",
+  "field": "conflict",
+  "core": "約束を記録どおり守りたいが、利用者は今に合わせた変更を望む"
+ },
+ {
+  "id": "sf-modern-conflict-address-proof",
+  "field": "conflict",
+  "core": "届けたいが、存在が確認できない場所への配達は認められない"
+ },
+ {
+  "id": "story3-cozy-fantasy-conflict-house-farewell",
+  "field": "conflict",
+  "core": "送り出したいが、取り残される寂しさを隠せない"
+ },
+ {
+  "id": "r4-care-gothic-conflict-grief-hands",
+  "field": "conflict",
+  "core": "直して返したいが、触れる人だけが悲しみを引き受けてしまう"
+ },
+ {
+  "id": "r4-practical-skill-conflict-repair-direction",
+  "field": "conflict",
+  "core": "原因を説明したいが、規格外の使い方が人を助けていた"
+ },
+ {
+  "id": "r4-practical-skill-conflict-skill-cost",
+  "field": "conflict",
+  "core": "技術を残したいが、その成果が大切な相手を傷つけうる"
+ },
+ {
+  "id": "r4-cross-scifi-conflict-copy-erasure",
+  "field": "conflict",
+  "core": "一つを消せば全体を復旧できるが、どれも別の人生を歩み始めている"
+ },
+ {
+  "id": "sf-wafu-conflict-festival-office",
+  "field": "conflict",
+  "core": "役目を継ぎたいが、毎年戻る約束では遠方の仕事を続けられない"
+ },
+ {
+  "id": "story3-romantasy-conflict-shield-burden",
+  "field": "conflict",
+  "core": "力を借りて暮らすため、本心で断る自由があるか分からない"
+ },
+ {
+  "id": "story3-bonds-conflict-care-control",
+  "field": "conflict",
+  "core": "支えたいが、世話するほど相手の選択が減っている"
+ },
+ {
+  "id": "r4-archive-mystery-conflict-last-record",
+  "field": "conflict",
+  "core": "自分の記録を守るため、他人の記録を見捨てるか迫られる"
+ },
+ {
+  "id": "r4-limited-cooperation-conflict-exit-clause",
+  "field": "conflict",
+  "core": "残ってほしいが、離脱の自由を守らなければ支配になる"
+ },
+ {
+  "id": "sf-school-conflict-archive-secret",
+  "field": "conflict",
+  "core": "記録を残したいが、残せば隠したかった事情も明らかになる"
+ },
+ {
+  "id": "sf-modern-conflict-anonymous-account",
+  "field": "conflict",
+  "core": "誤りを訂正したいが、名乗れば職場に知られる"
+ },
+ {
+  "id": "sf-modern-conflict-family-access",
+  "field": "conflict",
+  "core": "家族の経緯を知りたいが、隠されていたものまで読むべきか迷う"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-report-colleague-rule",
+  "field": "conflict",
+  "core": "同僚の違反を報告したいが、報告すれば彼の追う事件が止まる"
+ },
+ {
+  "id": "story3-beastfolk-conflict-tool-owner",
+  "field": "conflict",
+  "core": "無償で直したいが、相手は対価を払おうとする"
+ },
+ {
+  "id": "story3-beastfolk-conflict-memory-guilt",
+  "field": "conflict",
+  "core": "争いの記録を残したいが、憎しみも渡してしまいそうだ"
+ },
+ {
+  "id": "story3-desert-court-conflict-heir-ledger",
+  "field": "conflict",
+  "core": "証明のため公開したいが、都合の悪い負債も明らかになる"
+ },
+ {
+  "id": "story3-romantasy-conflict-release-address",
+  "field": "conflict",
+  "core": "関係を解消したいが、会いたいと伝えれば引き留めになる"
+ },
+ {
+  "id": "story3-romantasy-conflict-role-letter",
+  "field": "conflict",
+  "core": "役目の言葉と本心の言葉を、相手に区別してほしい"
+ },
+ {
+  "id": "story3-cozy-fantasy-conflict-closing-tools",
+  "field": "conflict",
+  "core": "手放したいが、一つずつに思い出がある"
+ },
+ {
+  "id": "story3-cozy-fantasy-conflict-spirit-season",
+  "field": "conflict",
+  "core": "代わりを務めたいが、相手は先代との時間を求めている"
+ },
+ {
+  "id": "story3-bonds-conflict-name-shelter",
+  "field": "conflict",
+  "core": "名を捨てたいが、捨てると助けた人との約束を証明できない"
+ },
+ {
+  "id": "story3-cozy-fantasy-conflict-last-customer",
+  "field": "conflict",
+  "core": "最後を丁寧に迎えたいが、片づける家族の時間も守りたい"
+ },
+ {
+  "id": "r4-archive-mystery-conflict-clock-rule",
+  "field": "conflict",
+  "core": "矛盾を公表したいが、前提の換算自体が間違いかもしれない"
+ },
+ {
+  "id": "r4-cross-beastfolk-conflict-name-privacy",
+  "field": "conflict",
+  "core": "同一人物と証明したいが、過去の名の公開は本人の禁忌に触れる"
+ },
+ {
+  "id": "r4-cross-beastfolk-conflict-sense-bias",
+  "field": "conflict",
+  "core": "鋭い証言を尊重したいが、一方だけを常に正しい証人にしたくない"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-protect-witness",
+  "field": "conflict",
+  "core": "目撃者を守りたいが、守るには核心を伏せて進めるしかない"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-fair-grade",
+  "field": "conflict",
+  "core": "評価を公平につけたいが、負担を考えると曖昧にしたくなる"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-share-burden",
+  "field": "conflict",
+  "core": "相談した人を守りたいが、一人で抱えれば必要な支援に届かない"
+ },
+ {
+  "id": "mp-workplace-pro-conflict-nightshift-limit",
+  "field": "conflict",
+  "core": "仕事を続けたいが、今の勤務では自分の生活が立ち行かない"
+ },
+ {
+  "id": "desert-court-conflict-nomad-testimony",
+  "field": "conflict",
+  "core": "立場の違いで、証言が認められない"
+ },
+ {
+  "id": "mp-workplace-pro-gimmick-strength-notebook",
+  "field": "gimmick",
+  "core": "得意と望む支援を分けて記す引き継ぎ帳"
+ },
+ {
+  "id": "sf-modern-gimmick-revision-board",
+  "field": "gimmick",
+  "core": "訂正前後を並べて差し替え済みを示す掲示板"
+ },
+ {
+  "id": "sf-modern-gimmick-contract-calendar",
+  "field": "gimmick",
+  "core": "終了日と再提案の期間を別に示す暦"
+ },
+ {
+  "id": "sf-modern-gimmick-shared-pickup-book",
+  "field": "gimmick",
+  "core": "事情を書かせずに受け渡しを記す台帳"
+ },
+ {
+  "id": "r4-cross-journey-gimmick-reasons-map",
+  "field": "gimmick",
+  "core": "理由が変われば道も変わる地図"
+ },
+ {
+  "id": "sf-school-gimmick-thanks-broadcast",
+  "field": "gimmick",
+  "core": "一日一件だけ感謝を読み上げる決まり"
+ },
+ {
+  "id": "r4-care-gothic-gimmick-shift-bell",
+  "field": "gimmick",
+  "core": "回数で緊急度を伝える呼び鈴"
+ },
+ {
+  "id": "r4-cross-scifi-gimmick-appeal-log",
+  "field": "gimmick",
+  "core": "却下理由まで本人が読める記録"
+ },
+ {
+  "id": "r4-cross-journey-gimmick-handover-box",
+  "field": "gimmick",
+  "core": "降りる人が役目を書き残す箱"
+ },
+ {
+  "id": "mp-modern-love-gimmick-status-signal",
+  "field": "gimmick",
+  "core": "ステータス表示だけで伝える暗黙の合図"
+ },
+ {
+  "id": "r4-care-gothic-gimmick-grief-gloves",
+  "field": "gimmick",
+  "core": "悲しみを少しずつ受け取る魔法の手袋"
+ },
+ {
+  "id": "mp-workplace-pro-gimmick-handover-tag",
+  "field": "gimmick",
+  "core": "引き継ぎ札に一言添える慣習"
+ },
+ {
+  "id": "r4-care-gothic-gimmick-shadow-signature",
+  "field": "gimmick",
+  "core": "一人ずつ更新を拒める契約"
+ },
+ {
+  "id": "r4-limited-cooperation-gimmick-handover-ticket",
+  "field": "gimmick",
+  "core": "係員が引継ぎ理由を書く相談票"
+ },
+ {
+  "id": "r4-cross-beastfolk-gimmick-weather-sheet",
+  "field": "gimmick",
+  "core": "条件を添えて比べられる証言の調書"
+ },
+ {
+  "id": "mp-workplace-pro-gimmick-bed-color",
+  "field": "gimmick",
+  "core": "受け入れ条件で色分けする掲示板"
+ },
+ {
+  "id": "r4-practical-skill-gimmick-fuel-board",
+  "field": "gimmick",
+  "core": "見えない手間も並べる献立の板"
+ },
+ {
+  "id": "r4-cross-scifi-gimmick-prediction-origin",
+  "field": "gimmick",
+  "core": "未来の記録の出どころをたどれる装置"
+ },
+ {
+  "id": "sf-western-gimmick-topic-cards",
+  "field": "gimmick",
+  "core": "席ごとの禁句を記した小札"
+ },
+ {
+  "id": "sf-western-gimmick-two-bells",
+  "field": "gimmick",
+  "core": "用途で鳴らし方が違う鐘"
+ },
+ {
+  "id": "r4-archive-mystery-gimmick-revocable-copy",
+  "field": "gimmick",
+  "core": "撤回すると封印がかかる記憶保存"
+ },
+ {
+  "id": "sf-school-gimmick-sealed-capsule",
+  "field": "gimmick",
+  "core": "卒業まで開けないタイムカプセル"
+ },
+ {
+  "id": "sf-underworld-gimmick-same-hand",
+  "field": "gimmick",
+  "core": "同じ筆跡で貸し借りを交互に書く帳面"
+ },
+ {
+  "id": "mp-modern-love-gimmick-seat-courtesy",
+  "field": "gimmick",
+  "core": "席次に暗黙の配慮が表れる慣習"
+ },
+ {
+  "id": "sf-isekai-twist-departure-work",
+  "field": "twist",
+  "core": "残すはずだった役目は、すでに誰かが引き継ぎ始めていた"
+ },
+ {
+  "id": "sf-scifi-twist-postal-stop-clock",
+  "field": "twist",
+  "core": "未配達の期間に停止日が含まれ、切り分ければ契約を見直せる"
+ },
+ {
+  "id": "mp-workplace-pro-twist-old-success-index",
+  "field": "twist",
+  "core": "基準を更新すると順位が変わるため、合意を取り直す必要がある"
+ },
+ {
+  "id": "mp-workplace-pro-twist-handover-options",
+  "field": "twist",
+  "core": "断る場合の代替案も残っていて、範囲を選ぶ交渉へ進める"
+ },
+ {
+  "id": "mp-workplace-pro-twist-patient-ready",
+  "field": "twist",
+  "core": "聞く準備ができたことと、合意できることは別の課題だった"
+ },
+ {
+  "id": "mp-workplace-pro-twist-later-consultation",
+  "field": "twist",
+  "core": "欠けた履歴の手がかりは、新しい相談の入口につながる"
+ },
+ {
+  "id": "sf-scifi-twist-copy-signature",
+  "field": "twist",
+  "core": "送金先は複製ごとに変えられ、合意の対象は全部から一部へ狭まる"
+ },
+ {
+  "id": "sf-wafu-twist-office-calendar",
+  "field": "twist",
+  "core": "役目は一人ではなく、季節ごとの分担へ分けられる"
+ },
+ {
+  "id": "sf-modern-twist-promise-users",
+  "field": "twist",
+  "core": "約束が守る対象は物ではなく、そこに集う人の時間だった"
+ },
+ {
+  "id": "mp-modern-love-twist-interview-only",
+  "field": "twist",
+  "core": "配置は自動で決まらず、希望を伝える段階が残っている"
+ },
+ {
+  "id": "mp-workplace-pro-twist-unrecorded-approval",
+  "field": "twist",
+  "core": "承認が口頭しか見つからず、行動と承認の責任を分けて確認する"
+ },
+ {
+  "id": "sf-scifi-twist-residence-rotation",
+  "field": "twist",
+  "core": "用意するには、抽選より先に空く区画の交代利用を決める必要がある"
+ },
+ {
+  "id": "sf-modern-twist-alias-shifts",
+  "field": "twist",
+  "core": "別名の頼みが一人に集中していた。まとめれば分担し直せる"
+ },
+ {
+  "id": "sf-modern-twist-correction-aftercare",
+  "field": "twist",
+  "core": "訂正で疑いは晴れるが失った分は戻らず、補償の交渉が始まる"
+ },
+ {
+  "id": "mp-modern-love-twist-provisional-entry",
+  "field": "twist",
+  "core": "仮の数字が確定として説明されていた。責任を分けて調べる"
+ },
+ {
+  "id": "sf-modern-twist-address-boundary",
+  "field": "twist",
+  "core": "抜けたのは境界の両側が互いを待っていたためで、確認担当が要る"
+ },
+ {
+  "id": "mp-modern-love-twist-joint-sheet",
+  "field": "twist",
+  "core": "共同の成果は別に記せるが、誰の貢献かは合意が要る"
+ },
+ {
+  "id": "mp-modern-love-twist-warm-rumor",
+  "field": "twist",
+  "core": "悪意のない噂でも、訂正する範囲は話し合うことになる"
+ },
+ {
+  "id": "mp-workplace-pro-twist-team-waiting",
+  "field": "twist",
+  "core": "共有は望まれるが時期は割れ、試す人と検討の期間を決め直す"
+ },
+ {
+  "id": "sf-scifi-twist-intervention-label",
+  "field": "twist",
+  "core": "防げた被害を「外れ」と分ける区別が加わり、評価の軸が変わる"
+ },
+ {
+  "id": "mp-modern-love-twist-committee-rates",
+  "field": "twist",
+  "core": "推薦は資料に残り、その扱いも相談し直せる"
+ },
+ {
+  "id": "mp-workplace-pro-twist-second-vault",
+  "field": "twist",
+  "core": "別の場所から写しが見つかり、照合まで区切りを延期する"
+ },
+ {
+  "id": "mp-workplace-pro-twist-device-drift",
+  "field": "twist",
+  "core": "機器の誤差が見つかり、その数値を使った判断を確認し直す"
+ },
+ {
+  "id": "r4-practical-skill-twist-meal-count",
+  "field": "twist",
+  "core": "増えた分は誰かの取り分でなく、捨てていた分を救ったものだった"
+ },
+ {
+  "id": "mp-workplace-pro-twist-completion-rate",
+  "field": "twist",
+  "core": "配置案が参照した指標から、他を支える未完了の仕事が漏れていた"
+ },
+ {
+  "id": "mp-workplace-pro-twist-open-rubric",
+  "field": "twist",
+  "core": "基準の公開で疑問が具体的になり、個別に説明する時間が要る"
+ },
+ {
+  "id": "sf-school-twist-blank-page",
+  "field": "twist",
+  "core": "引き継ぎには役を決める余地があり、前任も支える側に残れる"
+ },
+ {
+  "id": "story3-romantasy-twist-prophecy-exit",
+  "field": "twist",
+  "core": "予言には、別の道を選んだ未来が載せられていなかった"
+ },
+ {
+  "id": "story3-general-twist-archive-name",
+  "field": "twist",
+  "core": "記録にない協力者は、成果だけを共有する約束を選んでいた"
+ },
+ {
+  "id": "story3-bonds-twist-empty-room",
+  "field": "twist",
+  "core": "空けていた部屋は、戻ることを求めず整理を待つ時間だった"
+ },
+ {
+  "id": "r4-cross-journey-twist-return-reason",
+  "field": "twist",
+  "core": "同じ目的だと思っていたが、理由はそれぞれ別だった"
+ },
+ {
+  "id": "sf-modern-twist-termination-window",
+  "field": "twist",
+  "core": "終了日は締切でなく、条件を白紙に戻して再交渉できる日だった"
+ },
+ {
+  "id": "mp-workplace-pro-twist-premise-restated",
+  "field": "twist",
+  "core": "前提が変わった日付が見つかり、誤りと変更を分けて説明し直す"
+ },
+ {
+  "id": "mp-workplace-pro-twist-substitute-ring",
+  "field": "twist",
+  "core": "代わりの案は届くが、引き継ぎの時間と休みの調整が残る"
+ },
+ {
+  "id": "story3-romantasy-twist-shield-burden",
+  "field": "twist",
+  "core": "守りの力は、恋人以外へ移す手続きが省かれていた"
+ },
+ {
+  "id": "story3-cozy-fantasy-twist-spirit-season",
+  "field": "twist",
+  "core": "繰り返される注文は、先代を忘れないための順番だった"
+ },
+ {
+  "id": "story3-general-twist-festival-budget",
+  "field": "twist",
+  "core": "不足は浪費ではなく、無償だった時間を初めて数えた結果だった"
+ },
+ {
+  "id": "story3-general-twist-return-ticket",
+  "field": "twist",
+  "core": "帰りの用意は、戻る日を決める権利を渡すためだった"
+ },
+ {
+  "id": "story3-bonds-twist-return-choice",
+  "field": "twist",
+  "core": "用意された帰路は、別れではなく会い直すための道だった"
+ },
+ {
+  "id": "r4-limited-cooperation-twist-closing-hour",
+  "field": "twist",
+  "core": "両者の間の空白時間は、本来は引き継ぎの相談の時間だった"
+ },
+ {
+  "id": "r4-cross-scifi-twist-appeal-design",
+  "field": "twist",
+  "core": "異議が届かなかったのは、出す資格から除かれていたからだった"
+ },
+ {
+  "id": "sf-school-twist-deadline-gap",
+  "field": "twist",
+  "core": "決まらなかったのは意見でなく、締切の伝わり方の違いだった"
+ },
+ {
+  "id": "sf-wafu-twist-double-performance",
+  "field": "twist",
+  "core": "古い台本には、入口になる前口上も残っていた"
+ },
+ {
+  "id": "story3-desert-court-twist-throne-maintainer",
+  "field": "twist",
+  "core": "空席の役目は、名のない者たちの交代制で果たされていた"
+ },
+ {
+  "id": "story3-bonds-twist-oath-ending",
+  "field": "twist",
+  "core": "終わらない誓いには、別の役目を選べる終了日があった"
+ },
+ {
+  "id": "r4-care-gothic-twist-shadow-contract",
+  "field": "twist",
+  "core": "契約の条件は存在でなく業務の継続で、引き継ぐ余地があった"
+ },
+ {
+  "id": "r4-practical-skill-twist-translation-right",
+  "field": "twist",
+  "core": "原文は全員同じ行動を求めず、断る理由の提出を保障していた"
+ },
+ {
+  "id": "mp-modern-love-twist-family-knew",
+  "field": "twist",
+  "core": "家族が知っていたのは一部だけで、本人が話す範囲を選ぶ場が要る"
+ },
+ {
+  "id": "story3-desert-court-twist-well-rule",
+  "field": "twist",
+  "core": "失われた規則の一節は、使う側も参加できると定めていた"
+ },
+ {
+  "id": "story3-desert-court-twist-caravan-rest",
+  "field": "twist",
+  "core": "遠回りの指定は、途中で休む権利も保障していた"
+ },
+ {
+  "id": "story3-romantasy-twist-role-letter",
+  "field": "twist",
+  "core": "定型の手紙の間に、小さな本音の言い換えがあった"
+ },
+ {
+  "id": "story3-cozy-fantasy-twist-moving-sign",
+  "field": "twist",
+  "core": "閉じた店の目印は、新しい共同の場の案内に作り替えられていた"
+ },
+ {
+  "id": "r4-limited-cooperation-twist-exit-clause",
+  "field": "twist",
+  "core": "退出の代役は別人ではなく、仕事を終えるか縮める共同計画だった"
+ },
+ {
+  "id": "r4-practical-skill-twist-repair-direction",
+  "field": "twist",
+  "core": "逆向きの修理は、隠すためでなく持ち主が頼んだ変更だった"
+ },
+ {
+  "id": "r4-cross-scifi-twist-old-road",
+  "field": "twist",
+  "core": "旧道の名は近道ではなく、探し合うための合言葉だった"
+ },
+ {
+  "id": "story3-beastfolk-twist-memory-guilt",
+  "field": "twist",
+  "core": "敵の記録には、互いを助け合った痕跡も綴じられていた"
+ },
+ {
+  "id": "story3-desert-court-twist-tent-court",
+  "field": "twist",
+  "core": "移動の義務は全員ではなく、役目の交代制だった"
+ },
+ {
+  "id": "story3-bonds-twist-order-release",
+  "field": "twist",
+  "core": "忠誠を試す命令に見えたものは、責任を免じる手続きだった"
+ },
+ {
+  "id": "story3-bonds-twist-borrowed-uniform",
+  "field": "twist",
+  "core": "借りた装いは、隠れるためでなく保護を求める資格の印だった"
+ },
+ {
+  "id": "r4-care-gothic-twist-grief-hands",
+  "field": "twist",
+  "core": "残った悲しみは、一人ではなく担ってきた人々のものだった"
+ },
+ {
+  "id": "story3-beastfolk-twist-citizen-oath",
+  "field": "twist",
+  "core": "古い誓約は、思っていたのと別のものを守る約束だった"
+ },
+ {
+  "id": "story3-beastfolk-twist-tool-owner",
+  "field": "twist",
+  "core": "修理代だと思った支払いは、次の担い手への出資だった"
+ },
+ {
+  "id": "story3-desert-court-twist-heir-ledger",
+  "field": "twist",
+  "core": "記録上の借り手は、民ではなく歴代の上の立場の側だった"
+ },
+ {
+  "id": "story3-romantasy-twist-shared-key",
+  "field": "twist",
+  "core": "返すものとは別に、自由に招き合う取り決めが作れた"
+ },
+ {
+  "id": "story3-cozy-fantasy-twist-closing-tools",
+  "field": "twist",
+  "core": "買い取りに来た客たちは、仕事を受け継ぐ相談をしていた"
+ },
+ {
+  "id": "story3-cozy-fantasy-twist-winter-repair",
+  "field": "twist",
+  "core": "学んだ弟子の旅先に、続けられる仕事場があった"
+ },
+ {
+  "id": "story3-general-twist-guide-detour",
+  "field": "twist",
+  "core": "寄り道は、生活の場を避けるため住民と決めた順路だった"
+ },
+ {
+  "id": "story3-general-twist-repair-proof",
+  "field": "twist",
+  "core": "道具の傷は事故の原因ではなく、被害を止めた痕だった"
+ },
+ {
+  "id": "r4-archive-mystery-twist-owner-choice",
+  "field": "twist",
+  "core": "保存の期限は、消去でなく閲覧権限を終える日だった"
+ },
+ {
+  "id": "r4-care-gothic-twist-stair-rest",
+  "field": "twist",
+  "core": "精霊が止めた階段は、眠る住人へ静けさを届けるためだった"
+ },
+ {
+  "id": "mp-workplace-pro-twist-reopened-questions",
+  "field": "twist",
+  "core": "やり直すと、解決したはずの被害が続いている記録に行き着く"
+ },
+ {
+  "id": "story3-romantasy-twist-release-address",
+  "field": "twist",
+  "core": "解消で消えるのは義務だけで、つながりは別々に選べた"
+ },
+ {
+  "id": "story3-cozy-fantasy-twist-last-recipe",
+  "field": "twist",
+  "core": "先代が残したのは完成形ではなく、変え続けた試みだった"
+ },
+ {
+  "id": "story3-bonds-twist-loyalty-record",
+  "field": "twist",
+  "core": "記録を消せという命令は、主君ではなく側近が出していた"
+ },
+ {
+  "id": "story3-beastfolk-twist-scent-archive",
+  "field": "twist",
+  "core": "消えたと思われた目印は、別の形の記録に移されていた"
+ },
+ {
+  "id": "story3-romantasy-twist-expiry-garden",
+  "field": "twist",
+  "core": "期限付きの約束で育てたものは、成否によらず譲る約束だった"
+ },
+ {
+  "id": "story3-general-twist-late-clock",
+  "field": "twist",
+  "core": "いつも遅れる合図は、遠くの人を待つためのものだった"
+ },
+ {
+  "id": "r4-archive-mystery-twist-name-ledger",
+  "field": "twist",
+  "core": "空欄は抹消ではなく、本人が決めるまでの追跡停止だった"
+ },
+ {
+  "id": "r4-cross-beastfolk-twist-witness-route",
+  "field": "twist",
+  "core": "証言は居場所ではなく、受け渡された順序を示していた"
+ },
+ {
+  "id": "r4-cross-desert-twist-old-line",
+  "field": "twist",
+  "core": "古い線は境界でなく、止まったとき互いを支える迂回路だった"
+ },
+ {
+  "id": "sf-school-twist-tuition-talk",
+  "field": "twist",
+  "core": "反対の理由は進路でなく、費用の見通しを話せていないことだった"
+ },
+ {
+  "id": "mp-modern-love-twist-key-swap",
+  "field": "twist",
+  "core": "催促に見えた話は、新しいものを一緒に選ぶ提案の前置きだった"
+ }
+]

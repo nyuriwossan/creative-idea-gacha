@@ -28,10 +28,12 @@ const asV2=state=>{const s=clone(state);s.schemaVersion=2;delete s.settings.stag
 const snapshot=row=>{const {id,origin,key,...item}=clone(row);return {...item,candidateId:id};};
 const fixtureRoll=(s,data,recent={},rng=rngFor(1))=>rollMixedFields(s,BASIC.map(([key])=>key),{data,recent,rng,weightFor});
 function artifact(name,value){if(process.env.TEST_OUTPUT_DIR){fs.mkdirSync(process.env.TEST_OUTPUT_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.TEST_OUTPUT_DIR,name),JSON.stringify(value,null,2)+'\n');}}
+const historicalData=Object.fromEntries(Object.entries(DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
+const historicalExtra=Object.fromEntries(Object.entries(EXTRA_DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
 test('all single-stage draws remain exact across 200 cases; pre-core output fixtures retain their full historical hashes',()=>{
- assert.equal(hash(DATA),baseline.dataHash);assert.equal(hash(EXTRA_DATA),baseline.extraHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
+ assert.equal(hash(historicalData),baseline.dataHash);assert.equal(hash(historicalExtra),baseline.extraHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
  for(const expected of baseline.cases){const s=emptyState(),recent={};Object.assign(s.settings,{stage:expected.stage,tone:expected.tone,coherence:expected.coherence,themes:expected.themes});let calls=0;const seeded=rngFor(20261007),rng=()=>{calls++;return seeded();},results=[];
-  for(let n=0;n<3;n++)results.push(rollFields(s,undefined,{data:EXTRA_DATA,recent,rng}));baselineRefresh(s,{rng});
+  for(let n=0;n<3;n++)results.push(rollFields(s,undefined,{data:historicalExtra,recent,rng}));baselineRefresh(s,{rng});
   assert.deepEqual(results,expected.results);assert.deepEqual(recent,expected.recent);assert.equal(calls,expected.calls);assert.equal(hash(asV2(s)),expected.stateHash);
   assert.equal(hash(baselineMarkdown(s)),expected.markdownHash);for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail'])assert.equal(hash(baselineHandoff(s,{purpose,length})),expected.handoffs[purpose+'-'+length]);
  }

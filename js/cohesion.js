@@ -1,3 +1,4 @@
+import {ABSTRACT_BASIC,ABSTRACT_SCENE} from './abstract-seed-data.js';
 import {STAGE_MIX_BASIC} from './stage-mix-data.js';
 import {ROUND4_BASIC} from './round4-data.js';
 import {STAGE_FILL_BASIC} from './stage-fill-data.js';
@@ -8,7 +9,7 @@ import {TOPICS,STORY_PATCHES} from './story-metadata.js';
 import {STORY_BASIC,STORY_PROGRESS} from './story-data.js';
 export const COHERENCE=[['cohesive','まとまり重視'],['mix','自由に混ぜる']];
 const topics=new Set(TOPICS.map(([id])=>id));
-const links=new Set([...Object.values(STAGE_MIX_BASIC).flat(),...Object.values(STORY_PATCHES),...Object.values(STORY_BASIC).flat(),...Object.values(STORY_PROGRESS).flat(),...Object.values(SCENE_DATA).flat(),...Object.values(ROUND4_BASIC).flat(),...Object.values(STAGE_FILL_BASIC).flat(),...Object.values(MODERN_PRO_BASIC).flat(),...Object.values(ROUND4_CHARACTERS).flat(),...Object.values(ROUND4_PROGRESSION).flat()].flatMap(r=>r.plotLinks));
+const links=new Set([...Object.values(ABSTRACT_BASIC).flat(),...Object.values(ABSTRACT_SCENE).flat(),...Object.values(STAGE_MIX_BASIC).flat(),...Object.values(STORY_PATCHES),...Object.values(STORY_BASIC).flat(),...Object.values(STORY_PROGRESS).flat(),...Object.values(SCENE_DATA).flat(),...Object.values(ROUND4_BASIC).flat(),...Object.values(STAGE_FILL_BASIC).flat(),...Object.values(MODERN_PRO_BASIC).flat(),...Object.values(ROUND4_CHARACTERS).flat(),...Object.values(ROUND4_PROGRESSION).flat()].flatMap(r=>r.plotLinks));
 export const knownTopics=item=>(item?.topicTags||[]).filter(t=>topics.has(t));
 export const knownLinks=item=>(item?.plotLinks||[]).filter(t=>links.has(t));
 export const COHESION_WEIGHTS={topicMatch:3,plotLinkMatch:4,storyAnchorMatch:1.5,maxMultiplier:8,pairPreference:1.3};

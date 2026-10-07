@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {stripExpansion} from './stage-expansion-support.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -38,7 +39,7 @@ test('every abstract row enters all supported stages at each declared tone regar
 test('all original definitions stay in order byte-for-byte; only basic and scene rows append, draw/storage/planner sources stay exact',()=>{
  for(const [key,pool] of Object.entries(before.DATA)){assert.equal(hash(DATA[key].slice(0,pool.count)),pool.hash);assert.deepEqual(DATA[key].slice(pool.count),ABSTRACT_BASIC[key]);}
  for(const [key,pool] of Object.entries(before.EXTRA_DATA)){assert.equal(hash(EXTRA_DATA[key].slice(0,pool.count)),pool.hash);assert.deepEqual(EXTRA_DATA[key].slice(pool.count),ABSTRACT_BASIC[key]||ABSTRACT_SCENE[key]||[]);}
- for(const [file,source] of Object.entries(before.files))assert.equal(hash(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8')),source,file);
+ for(const [file,source] of Object.entries(before.files))assert.equal(hash(stripExpansion(file,fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'))),source,file);
  assert.equal(BASIC.flatMap(([key])=>DATA[key]).length,1561);assert.equal(THEMES.length,22);
 });
 test('all 152 abstract rows can be drawn, preserve full prose in outputs, and save/reload without core metadata',()=>{

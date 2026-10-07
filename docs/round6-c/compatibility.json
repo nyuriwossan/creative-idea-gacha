@@ -1,0 +1,35 @@
+[
+  {
+    "pair": "fantasy+school",
+    "oldAppAccepted": true,
+    "schemaVersion": 3
+  },
+  {
+    "pair": "modern+underworld",
+    "oldAppAccepted": true,
+    "schemaVersion": 3
+  },
+  {
+    "pair": "fantasy+underworld",
+    "oldAppAccepted": true,
+    "schemaVersion": 3
+  },
+  {
+    "pair": "modern+fantasy",
+    "oldAppAccepted": false,
+    "message": "この舞台の組み合わせには対応していません。",
+    "schemaVersion": 3
+  },
+  {
+    "pair": "wafu+fantasy",
+    "oldAppAccepted": false,
+    "message": "この舞台の組み合わせには対応していません。",
+    "schemaVersion": 3
+  },
+  {
+    "pair": "scifi+research",
+    "oldAppAccepted": false,
+    "message": "この舞台の組み合わせには対応していません。",
+    "schemaVersion": 3
+  }
+]

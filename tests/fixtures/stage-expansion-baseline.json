@@ -1,0 +1,14 @@
+{
+  "sha": "d506b3bcdd96741820aa0d32bc9abfb3f2cb37b6",
+  "hashes": {
+    "js/stage-selection.js": "2e679521773be845160f5ff0811425ff920ec0d430df4baec740868fa5f07ea4",
+    "js/stage-mix-data.js": "df271747ed61cf68c496cf714921208d348590db87c00fd66891f7571656cf42",
+    "js/core.js": "12a1378dde327ff58214c1ba4609fa26a407832bd97c29a8e0a196ac86bf13b6",
+    "js/stage-mix.js": "e494fb5475bbe76a05c4ea360be2ea9b9be154776f71569585c89b3cd2b0a787",
+    "js/priority.js": "6357ec94b57490ef5517f2258dfdf3954e5e0c365d4f260b3a440070746c0b28",
+    "js/storage.js": "e282c910014e3d918157d64aa1b3496cfc4529c3f7cc3451ba4d9f73743f85fe",
+    "js/data.js": "f4d20ea2beccd6a57417f0c6cddfeca02d77bf3cc310340e3ee9638e6e512392",
+    "js/extra-data.js": "813e93a3511ee532020b339739339bdee069aba38410cce482eed254f1e1f228",
+    "js/cohesion.js": "22129c545ea56c9a1a010091434724a7105fc8bda253c46db0ccb2531242979e"
+  }
+}

@@ -1,5 +1,5 @@
 export const STAGES=[['all','すべて'],['modern','現代'],['western','西洋風'],['wafu','和風'],['fantasy','ファンタジー'],['isekai','異世界転生'],['scifi','SF'],['research','研究施設'],['underworld','裏社会'],['school','学園']];
-export const STAGE_PAIRS=[['fantasy+school','学園 × ファンタジー'],['modern+underworld','現代 × 裏社会'],['fantasy+underworld','裏社会 × ファンタジー'],['modern+fantasy','現代 × ファンタジー'],['wafu+fantasy','和風 × ファンタジー'],['scifi+research','SF × 研究施設']];
+export const STAGE_PAIRS=[['fantasy+school','学園 × ファンタジー'],['modern+underworld','現代 × 裏社会'],['fantasy+underworld','裏社会 × ファンタジー']];
 export function normalizeStages(stage,stage2=null){
  if(!STAGES.some(([id])=>id===stage))throw Error('不明な舞台です。');
  if(stage2===null)return {stage,stage2:null};

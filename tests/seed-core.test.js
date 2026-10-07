@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {stripExpansion} from './stage-expansion-support.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -28,7 +29,7 @@ test('draw code, metadata, definitions, mixture planning and storage are byte-fo
 if(file==='js/data.js')source=source.replace("import {ABSTRACT_BASIC} from './abstract-seed-data.js';\n",'').replace(',MODERN_PRO_BASIC[key],ABSTRACT_BASIC[key]',',MODERN_PRO_BASIC[key]');
 if(file==='js/extra-data.js')source=source.replace("import {ABSTRACT_SCENE} from './abstract-seed-data.js';\n",'').replace("...Object.fromEntries(Object.entries(SCENE_DATA).map(([key,rows])=>[key,[...rows,...ABSTRACT_SCENE[key]]])),",'...SCENE_DATA,');
 if(file==='js/cohesion.js')source=source.replace("import {ABSTRACT_BASIC,ABSTRACT_SCENE} from './abstract-seed-data.js';\n",'').replace('...Object.values(ABSTRACT_BASIC).flat(),...Object.values(ABSTRACT_SCENE).flat(),','');
-assert.equal(hash(source),expected,file);}}
+assert.equal(hash(stripExpansion(file,source)),expected,file);}}
 });
 test('core projection is strict by generated source, exact current text, registered ID and supported field',()=>{
  for(const row of input){const item=itemFor(row.id),before=clone(item);assert.equal(coreFor(item),row.core);assert.equal(coreForField(item,row.field),row.core);for(const source of ['custom','legacy','unknown',undefined])assert.equal(coreFor({...item,source}),null);assert.equal(coreFor({...item,text:item.text+'旧'}),null);assert.equal(coreFor({...item,candidateId:'missing'}),null);assert.equal(coreFor(item,{}),null);assert.equal(coreFor(item,{[row.id]:item.text}),row.core);assert.equal(coreForField(item,'world'),null);assert.deepEqual(item,before);}

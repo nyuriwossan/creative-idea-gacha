@@ -22,12 +22,13 @@ export function tryModernPreset(state,recent,id,{data=EXTRA_DATA,rng=Math.random
   const w=draft.items.world,stageOK=w&&(w.source==='custom'?['all','modern'].includes(state.settings.stage):w.stageTags.includes('modern'));
   if(!stageOK||!meetsContext({requiresContext:p.requiresContext},worldContext(draft)))return failure('世界観が固定中です。この方向で引くには世界観の固定を外すか、背景を編集してください。舞台が異なる手入力の世界観は、作者が舞台設定も変更してください。');
  }
- updateSettings(draft,{stage:'modern',themes:[...p.themes]});
+ updateSettings(draft,{stage:'modern',stage2:null,themes:[...p.themes]});
  // 背景事実を後付けせず、明示された定義だけを今回のworld候補にする。
  const trialData={...data,world:(data.world||[]).filter(w=>p.requiresContext.every(tag=>(w.contextTags||[]).includes(tag)))};
  if(!draft.locks.world&&!availablePool(draft,'world',trialData,[]).pool.length)return failure('このトーンと職業背景では、直前と異なる世界観候補がありません。トーンや世界観の背景を確認してください。設定と抽選は適用していません。');
  const result=rollFields(draft,BASIC.map(([key])=>key),{data:trialData,recent:trialRecent,rng});
  const context=worldContext(draft);
  for(const [key,label] of BASIC.slice(1)){const row=draft.items[key];if(draft.locks[key]&&row&&!meetsContext(row,context))result.notices.push(`固定中の${label}に必要な背景（${contextLabels((row.requiresContext||[]).filter(t=>!context.includes(t))).join('・')||'未確認の要素'}）が今の世界観では確認できません。固定本文は残しました。`);}
+ if(state.settings.stage2)result.notices.push('組み合わせを解除して、単独の現代舞台で引きました。');
  return {ok:true,state:draft,recent:trialRecent,...result};
 }

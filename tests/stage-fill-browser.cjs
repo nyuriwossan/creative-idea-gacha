@@ -20,7 +20,7 @@ module.exports=async({browser,base,out,check})=>{
     const w=stage==='scifi'?DATA.world.find(r=>r.id==='r4-cross-scifi-world-appeal-ai'):STAGE_FILL_BASIC.world.find(r=>r.primaryStage===stage&&r.tones.includes(3))||DATA.world.find(r=>r.stageTags.includes(stage)&&r.tones.includes(3));
     rollFields(s,['world'],{data:{world:[w]},rng:()=>0});
     for(const [key] of BASIC.slice(1)){const pool=STAGE_FILL_BASIC[key].filter(r=>r.primaryStage===stage&&r.tones.includes(3)&&meetsContext(r,w.contextTags));rollFields(s,[key],{data:pool.length?{[key]:pool}:DATA,rng:()=>0});}
-    refreshTexts(s,{rng:()=>0});s.metadata.name='第5回・'+stage;s.questions.consistency=[{id:'author-q',text:'引き継ぎの条件は？',answer:'作者があとで決める',locked:true}];localStorage.setItem('creativeIdeaGacha_v2',JSON.stringify({schemaVersion:2,current:s,works:[]}));
+    refreshTexts(s,{rng:()=>0});s.metadata.name='第5回・'+stage;s.questions.consistency=[{id:'author-q',text:'引き継ぎの条件は？',answer:'作者があとで決める',locked:true}];localStorage.setItem('creativeIdeaGacha_v2',JSON.stringify({schemaVersion:3,current:s,works:[]}));
    },stage);
    await p.reload();await p.locator('#summaryBody').filter({hasText:'舞台'}).waitFor();const state=(await read()).current;assert.ok(Object.values(state.items).some(r=>r?.candidateId?.startsWith('sf-')));
    await p.click('#saveNew');const saved=await read();await p.reload();await p.locator('#summaryBody').filter({hasText:'舞台'}).waitFor();assert.deepEqual(await read(),saved);

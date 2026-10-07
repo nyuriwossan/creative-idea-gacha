@@ -1,10 +1,11 @@
+import {selectedStages} from './stage-selection.js';
 import {meetsContext} from './context.js';
 export const MAJOR_FIELDS=['relation','incident','conflict','gimmick','twist'];
 export function themeMask(item,themes){return themes.reduce((mask,t,i)=>mask|((item?.themeTags||[]).includes(t)?1<<i:0),0);}
 export const bitCount=mask=>mask.toString(2).replaceAll('0','').length;
 export function availablePool(state,key,data,context){
  let pool=(data[key]||[]).filter(item=>!item.tones.length||item.tones.includes(state.settings.tone));
- if(key==='world'&&state.settings.stage!=='all')pool=pool.filter(item=>item.stageTags.includes(state.settings.stage));
+ if(key==='world'&&state.settings.stage!=='all')pool=pool.filter(item=>state.settings.stage2?selectedStages(state.settings).some(stage=>item.stageTags.includes(stage)):item.stageTags.includes(state.settings.stage));
  const beforeContext=pool.length;
  if(key!=='world')pool=pool.filter(item=>meetsContext(item,context));
  const beforePrevious=pool.length;

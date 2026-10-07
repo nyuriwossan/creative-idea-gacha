@@ -1,0 +1,242 @@
+[
+  {
+    "pair": "fantasy+school",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+school",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 8,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 11,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 7,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 5,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 6,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "modern+underworld",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 3,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 3,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "notices": 0
+  },
+  {
+    "pair": "fantasy+underworld",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 7,
+    "notices": 0
+  }
+]

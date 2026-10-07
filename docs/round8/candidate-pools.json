@@ -1,0 +1,916 @@
+{
+  "baseBasic": 1457,
+  "countRows": [
+    {
+      "pair": "fantasy+school",
+      "tone": 1,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 78,
+      "bridgeWorlds": 4,
+      "categories": {
+        "world": {
+          "eligible": 78,
+          "bridges": 4
+        },
+        "genre": {
+          "eligibleMin": 63,
+          "eligibleMax": 73,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 79,
+          "eligibleMax": 117,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "incident": {
+          "eligibleMin": 41,
+          "eligibleMax": 63,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "conflict": {
+          "eligibleMin": 59,
+          "eligibleMax": 69,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "gimmick": {
+          "eligibleMin": 57,
+          "eligibleMax": 101,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "twist": {
+          "eligibleMin": 49,
+          "eligibleMax": 75,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        }
+      }
+    },
+    {
+      "pair": "fantasy+school",
+      "tone": 2,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 120,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 120,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 86,
+          "eligibleMax": 101,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 144,
+          "eligibleMax": 201,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 101,
+          "eligibleMax": 143,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 127,
+          "eligibleMax": 164,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 108,
+          "eligibleMax": 179,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 103,
+          "eligibleMax": 152,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+school",
+      "tone": 3,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 128,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 128,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 96,
+          "eligibleMax": 111,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 148,
+          "eligibleMax": 207,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 107,
+          "eligibleMax": 152,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 137,
+          "eligibleMax": 181,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 111,
+          "eligibleMax": 184,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 114,
+          "eligibleMax": 168,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+school",
+      "tone": 4,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 109,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 109,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 85,
+          "eligibleMax": 96,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 127,
+          "eligibleMax": 170,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 90,
+          "eligibleMax": 121,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 118,
+          "eligibleMax": 160,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 93,
+          "eligibleMax": 147,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 95,
+          "eligibleMax": 137,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+school",
+      "tone": 5,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 37,
+      "bridgeWorlds": 2,
+      "categories": {
+        "world": {
+          "eligible": 37,
+          "bridges": 2
+        },
+        "genre": {
+          "eligibleMin": 21,
+          "eligibleMax": 25,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "relation": {
+          "eligibleMin": 39,
+          "eligibleMax": 54,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "incident": {
+          "eligibleMin": 49,
+          "eligibleMax": 64,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "conflict": {
+          "eligibleMin": 47,
+          "eligibleMax": 63,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "gimmick": {
+          "eligibleMin": 42,
+          "eligibleMax": 62,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "twist": {
+          "eligibleMin": 33,
+          "eligibleMax": 45,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        }
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "tone": 1,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 52,
+      "bridgeWorlds": 3,
+      "categories": {
+        "world": {
+          "eligible": 52,
+          "bridges": 3
+        },
+        "genre": {
+          "eligibleMin": 63,
+          "eligibleMax": 65,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "relation": {
+          "eligibleMin": 80,
+          "eligibleMax": 87,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "incident": {
+          "eligibleMin": 42,
+          "eligibleMax": 45,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "conflict": {
+          "eligibleMin": 60,
+          "eligibleMax": 63,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "gimmick": {
+          "eligibleMin": 58,
+          "eligibleMax": 63,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "twist": {
+          "eligibleMin": 50,
+          "eligibleMax": 52,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        }
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "tone": 2,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 74,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 74,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 87,
+          "eligibleMax": 89,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 146,
+          "eligibleMax": 161,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 103,
+          "eligibleMax": 115,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 129,
+          "eligibleMax": 141,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 110,
+          "eligibleMax": 117,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 105,
+          "eligibleMax": 115,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "tone": 3,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 91,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 91,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 97,
+          "eligibleMax": 99,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 150,
+          "eligibleMax": 165,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 109,
+          "eligibleMax": 121,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 139,
+          "eligibleMax": 152,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 113,
+          "eligibleMax": 120,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 116,
+          "eligibleMax": 127,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "tone": 4,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 72,
+      "bridgeWorlds": 4,
+      "categories": {
+        "world": {
+          "eligible": 72,
+          "bridges": 4
+        },
+        "genre": {
+          "eligibleMin": 86,
+          "eligibleMax": 87,
+          "bridgeMin": 2,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 129,
+          "eligibleMax": 142,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 92,
+          "eligibleMax": 103,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 120,
+          "eligibleMax": 133,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 95,
+          "eligibleMax": 97,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 97,
+          "eligibleMax": 108,
+          "bridgeMin": 3,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "tone": 5,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 22,
+      "bridgeWorlds": 2,
+      "categories": {
+        "world": {
+          "eligible": 22,
+          "bridges": 2
+        },
+        "genre": {
+          "eligibleMin": 21,
+          "eligibleMax": 21,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "relation": {
+          "eligibleMin": 39,
+          "eligibleMax": 41,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "incident": {
+          "eligibleMin": 49,
+          "eligibleMax": 52,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "conflict": {
+          "eligibleMin": 47,
+          "eligibleMax": 51,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "gimmick": {
+          "eligibleMin": 42,
+          "eligibleMax": 42,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "twist": {
+          "eligibleMin": 33,
+          "eligibleMax": 36,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        }
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "tone": 1,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 72,
+      "bridgeWorlds": 3,
+      "categories": {
+        "world": {
+          "eligible": 72,
+          "bridges": 3
+        },
+        "genre": {
+          "eligibleMin": 63,
+          "eligibleMax": 72,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "relation": {
+          "eligibleMin": 79,
+          "eligibleMax": 116,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "incident": {
+          "eligibleMin": 41,
+          "eligibleMax": 62,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "conflict": {
+          "eligibleMin": 59,
+          "eligibleMax": 68,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "gimmick": {
+          "eligibleMin": 57,
+          "eligibleMax": 100,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        },
+        "twist": {
+          "eligibleMin": 49,
+          "eligibleMax": 74,
+          "bridgeMin": 1,
+          "bridgeMax": 1
+        }
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "tone": 2,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 117,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 117,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 86,
+          "eligibleMax": 101,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 144,
+          "eligibleMax": 202,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 101,
+          "eligibleMax": 144,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 127,
+          "eligibleMax": 165,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 108,
+          "eligibleMax": 180,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 103,
+          "eligibleMax": 153,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "tone": 3,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 132,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 132,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 96,
+          "eligibleMax": 111,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 148,
+          "eligibleMax": 208,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 107,
+          "eligibleMax": 153,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 137,
+          "eligibleMax": 182,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 111,
+          "eligibleMax": 185,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 114,
+          "eligibleMax": 169,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "tone": 4,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 114,
+      "bridgeWorlds": 5,
+      "categories": {
+        "world": {
+          "eligible": 114,
+          "bridges": 5
+        },
+        "genre": {
+          "eligibleMin": 85,
+          "eligibleMax": 96,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 127,
+          "eligibleMax": 171,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "incident": {
+          "eligibleMin": 90,
+          "eligibleMax": 122,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "conflict": {
+          "eligibleMin": 118,
+          "eligibleMax": 161,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "gimmick": {
+          "eligibleMin": 93,
+          "eligibleMax": 148,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        },
+        "twist": {
+          "eligibleMin": 95,
+          "eligibleMax": 138,
+          "bridgeMin": 1,
+          "bridgeMax": 3
+        }
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "tone": 5,
+      "conditions": "固定なし・テーマなし・初回（直前除外なし）",
+      "worlds": 43,
+      "bridgeWorlds": 3,
+      "categories": {
+        "world": {
+          "eligible": 43,
+          "bridges": 3
+        },
+        "genre": {
+          "eligibleMin": 21,
+          "eligibleMax": 26,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "relation": {
+          "eligibleMin": 39,
+          "eligibleMax": 55,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "incident": {
+          "eligibleMin": 49,
+          "eligibleMax": 65,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "conflict": {
+          "eligibleMin": 47,
+          "eligibleMax": 64,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "gimmick": {
+          "eligibleMin": 42,
+          "eligibleMax": 63,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        },
+        "twist": {
+          "eligibleMin": 33,
+          "eligibleMax": 46,
+          "bridgeMin": 1,
+          "bridgeMax": 2
+        }
+      }
+    }
+  ],
+  "conditional": [
+    {
+      "pair": "fantasy+school",
+      "conditions": "トーン3・手入力の背景なし世界観を固定・テーマbuddy/mystery/journey",
+      "counts": {
+        "world": {
+          "eligible": 128,
+          "bridges": 5,
+          "themeRelated": 28
+        },
+        "genre": {
+          "eligible": 96,
+          "bridges": 1,
+          "themeRelated": 21
+        },
+        "relation": {
+          "eligible": 148,
+          "bridges": 1,
+          "themeRelated": 44
+        },
+        "incident": {
+          "eligible": 107,
+          "bridges": 1,
+          "themeRelated": 36
+        },
+        "conflict": {
+          "eligible": 137,
+          "bridges": 1,
+          "themeRelated": 38
+        },
+        "gimmick": {
+          "eligible": 111,
+          "bridges": 1,
+          "themeRelated": 26
+        },
+        "twist": {
+          "eligible": 114,
+          "bridges": 1,
+          "themeRelated": 39
+        }
+      },
+      "result": {
+        "changed": 6,
+        "notices": [],
+        "relatedCount": 3,
+        "unavailableThemes": [],
+        "focusTopics": []
+      },
+      "report": {
+        "counts": [
+          2,
+          2
+        ],
+        "bridges": 2,
+        "custom": true,
+        "status": "両方をつなぐ素材あり",
+        "text": "両方をつなぐ素材あり （基本7項目：ファンタジー2件・学園2件／主要な橋渡し2件） 手入力を含むため自動判定は参考。"
+      }
+    },
+    {
+      "pair": "modern+underworld",
+      "conditions": "トーン3・手入力の背景なし世界観を固定・テーマbuddy/mystery/journey",
+      "counts": {
+        "world": {
+          "eligible": 91,
+          "bridges": 5,
+          "themeRelated": 19
+        },
+        "genre": {
+          "eligible": 97,
+          "bridges": 2,
+          "themeRelated": 22
+        },
+        "relation": {
+          "eligible": 150,
+          "bridges": 3,
+          "themeRelated": 46
+        },
+        "incident": {
+          "eligible": 109,
+          "bridges": 3,
+          "themeRelated": 39
+        },
+        "conflict": {
+          "eligible": 139,
+          "bridges": 3,
+          "themeRelated": 40
+        },
+        "gimmick": {
+          "eligible": 113,
+          "bridges": 3,
+          "themeRelated": 28
+        },
+        "twist": {
+          "eligible": 116,
+          "bridges": 3,
+          "themeRelated": 41
+        }
+      },
+      "result": {
+        "changed": 6,
+        "notices": [],
+        "relatedCount": 3,
+        "unavailableThemes": [],
+        "focusTopics": []
+      },
+      "report": {
+        "counts": [
+          2,
+          2
+        ],
+        "bridges": 2,
+        "custom": true,
+        "status": "両方をつなぐ素材あり",
+        "text": "両方をつなぐ素材あり （基本7項目：現代2件・裏社会2件／主要な橋渡し2件） 手入力を含むため自動判定は参考。"
+      }
+    },
+    {
+      "pair": "fantasy+underworld",
+      "conditions": "トーン3・手入力の背景なし世界観を固定・テーマbuddy/mystery/journey",
+      "counts": {
+        "world": {
+          "eligible": 132,
+          "bridges": 5,
+          "themeRelated": 27
+        },
+        "genre": {
+          "eligible": 96,
+          "bridges": 1,
+          "themeRelated": 21
+        },
+        "relation": {
+          "eligible": 148,
+          "bridges": 1,
+          "themeRelated": 44
+        },
+        "incident": {
+          "eligible": 107,
+          "bridges": 1,
+          "themeRelated": 36
+        },
+        "conflict": {
+          "eligible": 137,
+          "bridges": 1,
+          "themeRelated": 39
+        },
+        "gimmick": {
+          "eligible": 111,
+          "bridges": 1,
+          "themeRelated": 26
+        },
+        "twist": {
+          "eligible": 114,
+          "bridges": 1,
+          "themeRelated": 40
+        }
+      },
+      "result": {
+        "changed": 6,
+        "notices": [],
+        "relatedCount": 3,
+        "unavailableThemes": [],
+        "focusTopics": []
+      },
+      "report": {
+        "counts": [
+          2,
+          2
+        ],
+        "bridges": 2,
+        "custom": true,
+        "status": "両方をつなぐ素材あり",
+        "text": "両方をつなぐ素材あり （基本7項目：ファンタジー2件・裏社会2件／主要な橋渡し2件） 手入力を含むため自動判定は参考。"
+      }
+    }
+  ]
+}

@@ -1,12 +1,10 @@
-import {STAGE_MIX_BASIC} from './stage-mix-data.js';
-import {validateBlendPairs} from './stage-selection.js';
-import {validateHandoff} from './handoff-options.js';
-import { emptyState, FIELDS, QUESTION_CATEGORIES, clone, updateSettings } from './core.js';
-import { EXTRA_DATA } from './extra-data.js';
-const DEFINITION_BY_ID=new Map([...Object.values(EXTRA_DATA).flat(),...Object.values(STAGE_MIX_BASIC).flat()].map(item=>[item.id,item]));
+// 基準mainの保存validator。旧アプリがv3を拒否する検証用。変更しない。
+import {validateHandoff} from '../../js/handoff-options.js';
+import { emptyState, FIELDS, QUESTION_CATEGORIES, clone, updateSettings } from '../../js/core.js';
+import { EXTRA_DATA } from '../../js/extra-data.js';
+const DEFINITION_BY_ID=new Map(Object.values(EXTRA_DATA).flat().map(item=>[item.id,item]));
 export const APP_ID='creative-idea-gacha';
 export const STORAGE_KEY='creativeIdeaGacha_v2';
-export const V2_BACKUP_KEY='creativeIdeaGacha_v2RawBackup';
 export const BACKUP_KEY='creativeIdeaGacha_legacyBackup';
 export const OLD_KEYS=['creativeIdeaGacha_state','creativeIdeaGacha_savedItems'];
 export const MAX_WORKS=500, MAX_BYTES=5*1024*1024;
@@ -17,7 +15,7 @@ const string=(v,label,max=Infinity)=>{if(typeof v!=='string'||v.length>max)throw
 const bool=(v,label)=>{if(typeof v!=='boolean')throw new Error(`${label}の型が不正です。`);return v;};
 function strings(v,label,maxCount=Infinity,maxLength=Infinity){if(!Array.isArray(v)||v.length>maxCount)throw new Error(`${label}の件数が不正です。`);return v.map(x=>string(x,label,maxLength));}
 function tags(value,label,maxCount,maxLength){const list=strings(value,label,maxCount,maxLength);if(new Set(list).size!==list.length)throw new Error(`${label}が重複しています。`);return list;}
-function validItem(raw,{legacy=false,version=3}={}) {
+function validItem(raw,{legacy=false}={}) {
  if(raw===null)return null;
  const row=object(raw,'候補');
  const source=legacy?'legacy':row.source;
@@ -29,30 +27,26 @@ function validItem(raw,{legacy=false,version=3}={}) {
  const candidateId=legacy?null:row.candidateId;
  if(candidateId!==null&&typeof candidateId!=='string')throw new Error('候補IDが不正です。');
  const shape=row.relationShape||'neutral';if(!['pair','group','neutral'].includes(shape))throw new Error('関係性の形が不正です。');
- const blendPairs=validateBlendPairs(own(row,'blendPairs')?row.blendPairs:[]);
- if(version===2&&blendPairs.length)throw new Error('v2には混合メタデータを保存できません。');
- if(source==='custom'&&blendPairs.length)throw new Error('手入力には橋渡し情報を設定できません。');
  const definition=source==='generated'?DEFINITION_BY_ID.get(candidateId):null;
  const contextTags=tags(own(row,'contextTags')?row.contextTags:definition?.contextTags??[],'背景タグ',16,40),requiresContext=tags(own(row,'requiresContext')?row.requiresContext:definition?.requiresContext??[],'必要な背景',16,40);
  const themeTags=tags(row.themeTags??[],'テーマタグ',32,80);
  const topicTags=tags(own(row,'topicTags')?row.topicTags:definition?.topicTags??[],'題材タグ',16,80),plotLinks=tags(own(row,'plotLinks')?row.plotLinks:definition?.plotLinks??[],'物語の対応タグ',16,100);
  const hydratedThemes=tags([...new Set([...themeTags,...(definition?.themeTags||[])])],'テーマタグ',32,80);
- return {candidateId,text,source,blendPairs,stageTags:tags(row.stageTags??row.tags??[],'舞台タグ',20,80),themeTags:hydratedThemes,contextTags,requiresContext,topicTags,plotLinks,tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
+ return {candidateId,text,source,stageTags:tags(row.stageTags??row.tags??[],'舞台タグ',20,80),themeTags:hydratedThemes,contextTags,requiresContext,topicTags,plotLinks,tones:[...tones],titleWord:string(row.titleWord??'','タイトル用の言葉',source==='legacy'?Infinity:30),...(own(row,'relationShape')?{relationShape:shape}:{})};
 }
 function validTexts(raw){const t=object(raw,'生成文');return {summary:string(t.summary??'','要約'),memo:string(t.memo??'','構成メモ'),hint:string(t.hint??'','発想ヒント'),titles:strings(t.titles??[],'タイトル案')};}
 export function validateState(raw,{legacy=false}={}) {
  const src=object(raw,'状態'), state=emptyState();
- if(!legacy&&![2,3].includes(src.schemaVersion))throw new Error('未対応のデータバージョンです。');
+ if(!legacy&&src.schemaVersion!==2)throw new Error('未対応のデータバージョンです。');
  if(legacy){updateSettings(state,{stage:src.stage??'all',tone:src.tone??3,purpose:src.purpose??state.settings.purpose,coherence:'mix'});}
  else{
   const settings=object(src.settings,'設定');
-  if(src.schemaVersion===2&&settings.stage2!=null)throw new Error('v2には舞台の組み合わせを保存できません。');
-  updateSettings(state,{stage:settings.stage,stage2:settings.stage2??null,tone:settings.tone,purpose:settings.purpose,themes:strings(settings.themes,'テーマ',3),coherence:own(settings,'coherence')?settings.coherence:'mix'});
+  updateSettings(state,{stage:settings.stage,tone:settings.tone,purpose:settings.purpose,themes:strings(settings.themes,'テーマ',3),coherence:own(settings,'coherence')?settings.coherence:'mix'});
   if(src.loadedWorkId!==null&&typeof src.loadedWorkId!=='string'&&typeof src.loadedWorkId!=='number')throw new Error('読み込み作品IDが不正です。');
   state.loadedWorkId=src.loadedWorkId;
  }
  const items=object(src.items??{},'項目'), locks=object(src.locks??{},'固定状態');
- for(const [key] of FIELDS){if(own(items,key))state.items[key]=validItem(items[key],{legacy,version:src.schemaVersion});if(own(locks,key))state.locks[key]=bool(locks[key],'固定状態');}
+ for(const [key] of FIELDS){if(own(items,key))state.items[key]=validItem(items[key],{legacy});if(own(locks,key))state.locks[key]=bool(locks[key],'固定状態');}
  state.handoff=validateHandoff(src.handoff);
  state.texts=validTexts(src.texts??{});
  if(!legacy){
@@ -76,24 +70,13 @@ export function validateWork(raw,{legacy=false}={}) {
  const created=legacy?(date||new Date().toISOString()):string(src.createdAt,'作成日時');
  return {id:src.id??uid(),createdAt:created,updatedAt:legacy?created:string(src.updatedAt,'更新日時'),fav:bool(src.fav??(legacy?false:undefined),'お気に入り'),legacyDate:legacy?date:string(src.legacyDate??'','旧保存日'),state};
 }
-function matchingVersion(version,current,works){
- if(![2,3].includes(version))throw new Error('未対応の保存バージョンです。');
- for(const state of [current,...works.map(work=>work?.state)].filter(state=>state!==null))if(state?.schemaVersion!==version)throw new Error('保存領域と作品のデータバージョンが一致しません。');
-}
-export function validateBundle(raw){
- const bundle=object(raw,'保存領域');
- if(!Array.isArray(bundle.works)||bundle.works.length>MAX_WORKS)throw new Error('保存作品数が上限を超えています。');
- matchingVersion(bundle.schemaVersion,bundle.current,bundle.works);
- const works=bundle.works.map(work=>validateWork(work));
- if(new Set(works.map(work=>String(work.id))).size!==works.length)throw new Error('保存作品IDが重複しています。');
- return {schemaVersion:3,current:bundle.current===null?null:validateState(bundle.current),works};
-}
+function validateBundle(raw){const bundle=object(raw,'保存領域');if(bundle.schemaVersion!==2)throw new Error('未対応の保存バージョンです。');if(!Array.isArray(bundle.works)||bundle.works.length>MAX_WORKS)throw new Error('保存作品数が上限を超えています。');const works=bundle.works.map(w=>validateWork(w));if(new Set(works.map(w=>String(w.id))).size!==works.length)throw new Error('保存作品IDが重複しています。');return {schemaVersion:2,current:bundle.current===null?null:validateState(bundle.current),works};}
 export class Repository {
- constructor(storage){this.storage=storage;this.works=[];this.blocked=false;this.rawBackup=null;this.needsV3Write=false;}
+ constructor(storage){this.storage=storage;this.works=[];this.blocked=false;this.rawBackup=null;}
  load(){
   try{
    const raw=this.storage.getItem(STORAGE_KEY);
-   if(raw){this.rawBackup=raw;const source=JSON.parse(raw),bundle=validateBundle(source);this.needsV3Write=source.schemaVersion===2;this.works=bundle.works;return {current:bundle.current,warnings:[]};}
+   if(raw){this.rawBackup=raw;const bundle=validateBundle(JSON.parse(raw));this.works=bundle.works;return {current:bundle.current,warnings:[]};}
    const oldCurrent=this.storage.getItem(OLD_KEYS[0]),oldWorks=this.storage.getItem(OLD_KEYS[1]);
    if(oldCurrent===null&&oldWorks===null)return {current:null,warnings:[]};
    const originals={state:oldCurrent,savedItems:oldWorks};this.rawBackup=JSON.stringify(originals);
@@ -102,7 +85,7 @@ export class Repository {
    const current=oldCurrent?validateState(JSON.parse(oldCurrent),{legacy:true}):null;
    const old=oldWorks?JSON.parse(oldWorks):[];if(!Array.isArray(old)||old.length>MAX_WORKS)throw new Error('旧保存作品の形式または件数が不正です。');
    const works=old.map(w=>validateWork(w,{legacy:true}));
-   const bundle=validateBundle({schemaVersion:3,current,works});
+   const bundle=validateBundle({schemaVersion:2,current,works});
    this.storage.setItem(STORAGE_KEY,JSON.stringify(bundle));this.works=bundle.works;
    return {current:bundle.current,warnings:['旧保存データを引き継ぎました。元データとバックアップを残しています。']};
   }catch(error){this.blocked=true;return {current:null,warnings:[`保存データを安全に読み込めませんでした：${error.message} 元データは残しています。画面下の「元データを取り出す」で保管できます。新規の作業はJSONで持ち出してください。`]};}
@@ -110,32 +93,17 @@ export class Repository {
  write(current,works=this.works){
   if(this.blocked)throw new Error('元データ保護のため、ブラウザへの書き込みを停止しています。JSONで取り出してください。');
   if(works.length>MAX_WORKS)throw new Error(`保存は${MAX_WORKS}件までです。バックアップ後に不要な作品を整理してください。`);
-  let bundle;
-  try{
-   bundle=validateBundle({schemaVersion:3,current,works});
-   if(this.needsV3Write){
-    // Preserve the exact v2 bytes before the first write; never replace either backup.
-    validateBundle(JSON.parse(this.rawBackup));
-    if(this.storage.getItem(V2_BACKUP_KEY)===null)this.storage.setItem(V2_BACKUP_KEY,this.rawBackup);
-    const backup=this.storage.getItem(V2_BACKUP_KEY);
-    if(backup===null||JSON.parse(backup).schemaVersion!==2)throw new Error('旧保存データのバックアップを確認できません。');
-    validateBundle(JSON.parse(backup));
-   }
-   this.storage.setItem(STORAGE_KEY,JSON.stringify(bundle));
-  }catch(error){
-   if(this.needsV3Write)this.blocked=true;
-   throw new Error('ブラウザに保存できませんでした。容量・ブラウザ設定を確認し、現在のタネをJSONで取り出してください。'+(this.blocked?' 元データ保護のため書き込みを停止しました。':''));
-  }
-  this.works=clone(bundle.works);this.needsV3Write=false;
+  try{this.storage.setItem(STORAGE_KEY,JSON.stringify({schemaVersion:2,current,works}));}catch{throw new Error('ブラウザに保存できませんでした。容量・ブラウザ設定を確認し、現在のタネをJSONで取り出してください。');}
+  this.works=clone(works);
  }
  save(state,{overwrite=false}={}) {
   const now=new Date().toISOString();let work;
-  const snapshot=validateState(state);snapshot.loadedWorkId=null;
+  const snapshot=clone(state);snapshot.loadedWorkId=null;
   snapshot.metadata.name=snapshot.metadata.name||snapshot.texts.titles[0]||'無題のタネ';
   let list=clone(this.works);
   if(overwrite){const index=list.findIndex(w=>w.id===state.loadedWorkId);if(index<0)throw new Error('上書きする作品が見つかりません。別名で保存してください。');work={...list[index],updatedAt:now,state:snapshot};list[index]=work;}
   else{if(list.length>=MAX_WORKS)throw new Error('保存は500件までです。');work={id:uid(),createdAt:now,updatedAt:now,fav:false,legacyDate:'',state:snapshot};list.push(work);}
-  const current=validateState(state);current.loadedWorkId=work.id;current.metadata.name=snapshot.metadata.name;
+  const current=clone(state);current.loadedWorkId=work.id;current.metadata.name=snapshot.metadata.name;
   this.write(current,list);return current;
  }
  duplicate(id,current){const original=this.works.find(w=>w.id===id);if(!original)throw new Error('作品が見つかりません。');const copy=clone(original.state);copy.loadedWorkId=null;copy.metadata.name=`${copy.metadata.name}（複製）`.slice(0,200);return this.save(copy);}
@@ -150,14 +118,14 @@ export class Repository {
 }
 export function exportJSON(state,works=null,{sourceWork=null}={}) {
  const records=works??[{id:state.loadedWorkId??uid(),createdAt:sourceWork?.createdAt??new Date().toISOString(),updatedAt:new Date().toISOString(),fav:sourceWork?.fav??false,legacyDate:sourceWork?.legacyDate??'',state:clone(state)}];
- return JSON.stringify({app:APP_ID,schemaVersion:3,exportedAt:new Date().toISOString(),works:records.map(work=>validateWork(work))},null,2);
+ return JSON.stringify({app:APP_ID,schemaVersion:2,exportedAt:new Date().toISOString(),works:records},null,2);
 }
 export function inspectImport(text) {
  if(new TextEncoder().encode(text).length>MAX_BYTES)throw new Error('ファイルは5MiBまでです。');
  let raw;try{raw=JSON.parse(text);}catch{throw new Error('JSONを読み取れません。ファイルの内容を確認してください。');}
  let works,legacy=false;
  if(Array.isArray(raw)){works=raw;legacy=true;}
- else{object(raw,'バックアップ');if(raw.app!==APP_ID)throw new Error('このアプリのバックアップではありません。');if(![2,3].includes(raw.schemaVersion))throw new Error('未対応のデータバージョンです。');works=raw.works;if(Array.isArray(works))matchingVersion(raw.schemaVersion,null,works);}
+ else{object(raw,'バックアップ');if(raw.app!==APP_ID)throw new Error('このアプリのバックアップではありません。');if(raw.schemaVersion!==2)throw new Error('未対応のデータバージョンです。');works=raw.works;}
  if(!Array.isArray(works)||works.length>MAX_WORKS)throw new Error('作品は500件までです。');
  // 全件通過して初めて追加可能。未知のキーはstateにコピーしない。
  return works.map((work,index)=>{try{return validateWork(work,{legacy});}catch(e){throw new Error(`${index+1}件目：${e.message}`);}});

@@ -1,3 +1,6 @@
+import {normalizeStages,stagePairKey,selectedStages,stageLabel} from './stage-selection.js';
+import {stageMixData} from './stage-mix-data.js';
+import {isBridge,rollMixedFields,mixReport} from './stage-mix.js';
 import {defaultHandoff} from './handoff-options.js';
 import { BASIC, DATA, PURPOSES, STAGES, TONES, THEMES } from './data.js';
 import { CONTEXTS,worldContext,contextLabels } from './context.js';
@@ -16,7 +19,7 @@ export const PROGRESSION_FIELDS=OPTIONAL.filter(([k])=>!k.includes("."));
 export const FIELDS = [...BASIC,...OPTIONAL];
 export const QUESTION_CATEGORIES = [['world','世界観'],['character','人物・関係性'],['plot','物語を動かす'],['consistency','設定を確かめる']];
 export function emptyState() {
- return {schemaVersion:2,loadedWorkId:null,handoff:defaultHandoff(),settings:{stage:'all',tone:3,purpose:PURPOSES[1],themes:[],coherence:'cohesive'},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
+ return {schemaVersion:3,loadedWorkId:null,handoff:defaultHandoff(),settings:{stage:'all',stage2:null,tone:3,purpose:PURPOSES[1],themes:[],coherence:'cohesive'},items:Object.fromEntries(FIELDS.map(([key])=>[key,null])),locks:Object.fromEntries(FIELDS.map(([key])=>[key,false])),characters:{protagonist:{name:''},counterpart:{name:''}},questions:Object.fromEntries(QUESTION_CATEGORIES.map(([key])=>[key,[]])),texts:{summary:'',memo:'',hint:'',titles:[]},metadata:{name:'',tags:[],notes:''}};
 }
 export function weightedPick(list, weightFn, rng=Math.random) {
  if(!list.length)return null;
@@ -29,6 +32,7 @@ export function weightFor(item, state, key, recent=[],axes) {
  const world=state.items.world;
  const tags=world?.source==='custom' ? (state.settings.stage==='all'?[]:[state.settings.stage]) : (world?.stageTags||[]);
  let weight=key==='world'?1:!item.stageTags.length?WEIGHTS.generic:item.stageTags.some(t=>tags.includes(t))?WEIGHTS.stageMatch:WEIGHTS.stageMismatch;
+ if(stagePairKey(state.settings)&&key!=='world'){weight=isBridge(item,state.settings)||item.stageTags.some(t=>selectedStages(state.settings).includes(t))?4:!item.stageTags.length?2:0.25;if(isBridge(item,state.settings))weight*=state.settings.coherence==='cohesive'?3:1.5;}
  if(item.themeTags.some(t=>state.settings.themes.includes(t)))weight*=WEIGHTS.themeMatch;
  if((item.contextTags||[]).some(t=>worldContext(state).includes(t)))weight*=WEIGHTS.contextMatch;
  if(/\.(goal|secret)$/.test(key)){const other=key.startsWith('protagonist.')?key.replace('protagonist.','counterpart.'):key.replace('counterpart.','protagonist.');if(state.items[other]?.text===item.text)weight*=WEIGHTS.characterDuplicate;}
@@ -38,12 +42,13 @@ export function weightFor(item, state, key, recent=[],axes) {
  return weight;
 }
 export function rollFields(state, keys=BASIC.map(([k])=>k), {rng=Math.random,recent={},data=DATA}={}) {
+ if(stagePairKey(state.settings))return rollMixedFields(state,keys,{rng,recent,data:stageMixData(state.settings,data),weightFor});
  const notices=[],themes=state.settings.themes,allBasic=BASIC.every(([k])=>keys.includes(k));let changed=0;
  let axes=[];
  const related=item=>Boolean(themeMask(item,themes));
  function pick(key,pool){
   const picked=weightedPick(pool,x=>weightFor(x,state,key,recent[key]||[],axes),rng);
-  const {id,origin,primaryPack,storyGroup,round4Group,primaryStage,stageFillBatch,modernProCategory,modernProBatch,...fields}=clone(picked);state.items[key]={...fields,candidateId:id};
+  const {id,origin,primaryPack,storyGroup,round4Group,primaryStage,stageFillBatch,modernProCategory,modernProBatch,...fields}=clone(picked);state.items[key]={...fields,blendPairs:[],candidateId:id};
   recent[key]=[...(recent[key]||[]),picked.id].slice(-10);changed++;
  }
  function shortage(key,info){
@@ -113,7 +118,7 @@ export function editField(state,key,text,titleWord='',contextTags=[]) {
  if(!Array.isArray(contextTags)||contextTags.length>8||new Set(contextTags).size!==contextTags.length||contextTags.some(t=>!CONTEXTS.some(([id])=>id===t)))throw new Error('世界の背景要素が不正です。');
  const old=state.items[key],sameBackground=key!=='world'||JSON.stringify(old?.contextTags||[])===JSON.stringify(contextTags)||(old?.source!=='custom'&&!contextTags.length);
  if(old?.text===text&&old?.titleWord===titleWord&&sameBackground)return false;
- state.items[key]={candidateId:null,text,titleWord,source:'custom',stageTags:[],themeTags:[],tones:[],contextTags:key==='world'?[...contextTags]:[],requiresContext:[],topicTags:[],plotLinks:[],...(key==='relation'?{relationShape:'neutral'}:{})};
+ state.items[key]={candidateId:null,text,titleWord,source:'custom',blendPairs:[],stageTags:[],themeTags:[],tones:[],contextTags:key==='world'?[...contextTags]:[],requiresContext:[],topicTags:[],plotLinks:[],...(key==='relation'?{relationShape:'neutral'}:{})};
  state.locks[key]=true; return true;
 }
 export function updateSettings(state, patch) {
@@ -121,6 +126,7 @@ export function updateSettings(state, patch) {
  if(!COHERENCE.some(([id])=>id===next.coherence))throw new Error('抽選方針が不正です。');
  if(!STAGES.some(([k])=>k===next.stage)||!Number.isInteger(next.tone)||next.tone<1||next.tone>5||!PURPOSES.includes(next.purpose))throw new Error('設定が不正です。');
  if(!Array.isArray(next.themes)||next.themes.length>3||new Set(next.themes).size!==next.themes.length||next.themes.some(x=>!THEMES.some(([k])=>k===x)))throw new Error('テーマは3つまで選べます。');
+ Object.assign(next,normalizeStages(next.stage,next.stage2??null));
  state.settings=next;
 }
 export class History {
@@ -193,6 +199,7 @@ export function refreshTexts(state,{rng=Math.random,randomize=true,titlesOnly=fa
 export function markdown(state) {
  const lines=[`# ${state.metadata.name||state.texts.titles[0]||'無題のタネ'}`,'',`舞台：${STAGES.find(([k])=>k===state.settings.stage)?.[1]} / トーン：${TONES[state.settings.tone-1]} / 用途：${state.settings.purpose}`,`抽選テーマ：${state.settings.themes.map(k=>THEMES.find(([t])=>t===k)?.[1]).join('、')||'お任せ'}`,`整理用タグ：${state.metadata.tags.join('、')||'なし'}`,'','## 要約','',state.texts.summary,'','## 設定と構成メモ','',state.texts.memo,'','## 発想ヒント','',state.texts.hint,'','## タイトル案','',...state.texts.titles.map(t=>`- ${t}`)];
  lines.splice(4,0,`抽選方針：${COHERENCE.find(([id])=>id===state.settings.coherence)?.[1]||'自由に混ぜる'}`);
+ if(stagePairKey(state.settings))lines.splice(6,0,`選択した舞台：${stageLabel(state.settings)}`,`素材の反映状況：${mixReport(state).text}`);
  const background=contextLabels(state.items.world?.contextTags||[]);if(background.length)lines.push('','## 世界の背景要素','',background.join('、'));
  for(const [category,label] of QUESTION_CATEGORIES){const slots=state.questions[category];if(!slots.length)continue;lines.push('',`## 質問｜${label}`);for(const slot of slots)lines.push('',`### ${slot.text}`,'',slot.answer||'（未回答）');}
  if(state.metadata.notes)lines.push('','## 自由メモ','',state.metadata.notes);

@@ -9,7 +9,7 @@ import {supplementStory} from './story-metadata.js';
 import {STORY_BASIC} from './story-data.js';
 export { BASELINE_COUNTS };
 export const BASIC = [ ['world','世界観'], ['genre','ジャンル'], ['relation','関係性'], ['incident','中心事件'], ['conflict','葛藤'], ['gimmick','ギミック'], ['twist','ひねり'] ];
-export const STAGES = [['all','すべて'],['modern','現代'],['western','西洋風'],['wafu','和風'],['fantasy','ファンタジー'],['isekai','異世界転生'],['scifi','SF'],['research','研究施設'],['underworld','裏社会'],['school','学園']];
+export {STAGES} from './stage-selection.js';
 export const TONES = ['ほのぼの','ほんのり不穏','シリアス','ダーク','破滅寄り'];
 export const PURPOSES = ['一言ネタ','ショートストーリー向け','漫画1話向け','連載プロット向け','AIキャラプロットの種','世界観メモ','三題噺向け'];
 export const THEMES = [['master-servant','主従'],['buddy','バディ・協力'],['reunion','幼なじみ・再会'],['rivalry','敵対・因縁'],['status-gap','契約・身分差'],['found-family','疑似家族'],['romance','恋愛・愛憎'],['myth','人外・神話'],['rescue','逃亡・救済'],['mystery','秘密・謎解き'],['daily-work','日常・仕事'],['journey','旅・冒険'],...PACKS.map(([id,label])=>[id,label])];

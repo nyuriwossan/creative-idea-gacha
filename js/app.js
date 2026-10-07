@@ -1,3 +1,6 @@
+import {STAGE_PAIRS,stagePairKey,stageLabel,settingsForPair} from './stage-selection.js';
+import {mixReport,mixBadge} from './stage-mix.js';
+import {worldContext} from './context.js';
 import {buildAIHandoff,characterCount} from './ai-handoff.js';
 import {HANDOFF_PURPOSES,validateHandoff} from './handoff-options.js';
 import { BASIC,STAGES,TONES,PURPOSES,THEMES } from './data.js';
@@ -29,6 +32,8 @@ function commit(fn,{output=false,randomize=false,titlesOnly=false,notice=''}={})
  const draft=clone(state),result=fn(draft);
  if(result?.notices){$('drawNotice').textContent=result.notices.join('\n');$('drawNotice').hidden=!result.notices.length;}
  else if(JSON.stringify(draft.settings)!==JSON.stringify(state.settings)||JSON.stringify(draft.items.world)!==JSON.stringify(state.items.world))$('drawNotice').hidden=true;
+ if(result?.aborted){showToast(result.notices.join('\n'));return result;}
+ if(result?.changed>0)$('stageMixPending').hidden=true;
  if(result===false||(result?.changed===0&&JSON.stringify(draft)===JSON.stringify(state))){if(result?.notices?.length)showToast(result.notices.join('\n'));else if(result?.notice)showToast(result.notice);return result;}
  if(output)refreshTexts(draft,{randomize,titlesOnly});
  if(JSON.stringify(draft)!==JSON.stringify(state)){state=draft;history.record(state);persist();render();}
@@ -154,9 +159,14 @@ function renderQuestions(){
 function render(){
  renderHandoff();
  document.body.dataset.tone=state.settings.tone;
+ $('stageMixSelect').value=stagePairKey(state.settings)||'';
+ if(!state.settings.stage2)$('stageMixPending').hidden=true;
+ $('stageMixCondition').textContent=`選択した舞台：${stageLabel(state.settings)}`;
+ $('clearStageMix').disabled=!state.settings.stage2;
+ $('mixReport').hidden=!state.settings.stage2;$('mixReport').textContent=mixReport(state)?.text||'';
  $('stageSelect').value=state.settings.stage;$('toneSelect').value=state.settings.tone;$('purposeSelect').value=state.settings.purpose;$('purposeLabel').textContent=state.settings.purpose;
  for(const b of document.querySelectorAll('[data-coherence]'))b.setAttribute('aria-pressed',String(b.dataset.coherence===state.settings.coherence));
- $('coherenceHelp').textContent=state.settings.coherence==='cohesive'?'同じ題材や葛藤を持つ素材を優先します。':'舞台と背景の条件を守りながら、意外な組み合わせも残します。';
+ $('coherenceHelp').textContent=state.settings.stage2?(state.settings.coherence==='cohesive'?'両方をつなぐ素材を優先します。':'二つの舞台の素材を広く混ぜます。つながりは自分で育てられます。'):state.settings.coherence==='cohesive'?'同じ題材や葛藤を持つ素材を優先します。':'舞台と背景の条件を守りながら、意外な組み合わせも残します。';
  $('lockStatus').hidden=!BASIC.every(([key])=>state.locks[key]);
  $('groupNotice').hidden=state.items.relation?.relationShape!=='group';
  $('cozyToneAction').hidden=!(state.settings.themes.includes('cozy-fantasy')&&state.settings.tone===5);
@@ -169,6 +179,7 @@ function render(){
  $('worldNotice').hidden=!mismatch;$('worldNotice').textContent='世界観は固定中。舞台設定は世界観を引き直すと反映します。';
  for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key];c.value.textContent=item?.text||'未設定';c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
   const badges=[];
+  const badge=BASIC.some(([k])=>k===key)?mixBadge(item,state.settings,worldContext(state)):'';if(badge)badges.push(node('span','mix-tag',badge));
   if(item?.source==='generated')for(const [id,label] of PACKS)if(item.themeTags.includes(id))badges.push(node('span','material-tag',label));
   if(key==='world'&&item)for(const label of contextLabels(item.contextTags||[]))badges.push(node('span','context-tag',label));
   c.badges.replaceChildren(...badges);c.badges.hidden=!badges.length;
@@ -248,6 +259,7 @@ bind('updateHandoff',()=>{requireApplied();renderHandoff();showToast('依頼文�
 bind('copyHandoff',()=>{requireApplied();renderHandoff();return copy($('handoffPreview').value);});
 // UIは初回だけ組み立てる。抽選や描画で編集中の入力欄やフォーカスを作り直さない。
 setOptions('handoffPurpose',HANDOFF_PURPOSES);
+setOptions('stageMixSelect',[['','なし'],...STAGE_PAIRS]);
 setOptions('stageSelect',STAGES);setOptions('toneSelect',TONES.map((label,i)=>[i+1,label]));setOptions('purposeSelect',PURPOSES.map(p=>[p,p]));setOptions('questionCategory',QUESTION_CATEGORIES);
 for(const [key,label] of BASIC)makeField(key,label,'basicFields',false);
 for(const [key,label] of OPTIONAL)makeField(key,label,key.startsWith('scene.')?'sceneFields':key.includes('.')?'characterFields':'progressionFields',true);
@@ -263,7 +275,10 @@ bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{notice:'
 bind('unlockAll',()=>commit(draft=>{for(const key of Object.keys(draft.locks))draft.locks[key]=false;for(const slots of Object.values(draft.questions))for(const slot of slots)slot.locked=false;},{notice:'すべてのロックを外しました。回答や本文は残しています。'}));
 for(const b of document.querySelectorAll('[data-coherence]'))b.addEventListener('click',()=>guard(()=>commit(draft=>updateSettings(draft,{coherence:b.dataset.coherence}))));
 bind('cozyToneAction',()=>commit(draft=>updateSettings(draft,{tone:4})));
-for(const [id,key] of [['stageSelect','stage'],['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
+$('stageSelect').addEventListener('change',()=>guard(()=>commit(draft=>{updateSettings(draft,{stage:$('stageSelect').value,stage2:null});$('stageMixPending').hidden=true;},{notice:'単独の舞台に変更しました。'})));
+$('stageMixSelect').addEventListener('change',()=>guard(()=>{const pair=$('stageMixSelect').value;commit(draft=>updateSettings(draft,pair?settingsForPair(pair):{stage2:null}),{notice:pair?'新しい組み合わせは次の抽選で使います。':`組み合わせを解除しました。舞台：${stageLabel({...state.settings,stage2:null})}`});$('stageMixPending').hidden=!pair;}));
+bind('clearStageMix',()=>{commit(draft=>updateSettings(draft,{stage2:null}),{notice:`組み合わせを解除しました。舞台：${stageLabel({...state.settings,stage2:null})}`});$('stageMixPending').hidden=true;$('stageMixSelect').focus();});
+for(const [id,key] of [['toneSelect','tone'],['purposeSelect','purpose']])$(id).addEventListener('change',()=>guard(()=>commit(draft=>updateSettings(draft,{[key]:key==='tone'?Number($(id).value):$(id).value}),{output:true})));
 function roll(keys=BASIC.map(([k])=>k)){return commit(draft=>rollFields(draft,keys,{data:EXTRA_DATA,recent}),{output:true,randomize:true});}
 setOptions('presetSelect',MODERN_PRESETS.map(({id,label})=>[id,label]));
 function renderPresetSelection(){$('presetPreview').textContent=presetDescription($('presetSelect').value);$('presetResult').hidden=true;}
@@ -320,4 +335,4 @@ window.addEventListener('resize',keepInputVisible);window.visualViewport?.addEve
 render();renderSaved();
 $('exportRaw').hidden=!repository.rawBackup;
 if(initial.warnings.length)storageWarning(initial.warnings.join('\n'));
-else persist();
+else if(!repository.needsV3Write)persist();

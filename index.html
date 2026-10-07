@@ -32,6 +32,12 @@
           <label>トーン<select id="toneSelect"></select></label>
           <label>出力用途<select id="purposeSelect"></select></label>
         </div>
+        <details id="stageMixDetails" class="preset-details"><summary>舞台を組み合わせる（任意）</summary>
+          <label for="stageMixSelect">組み合わせ</label><select id="stageMixSelect"></select>
+          <button id="clearStageMix" class="secondary">組み合わせを解除</button>
+          <p id="stageMixCondition" class="note" role="status"></p>
+          <p id="stageMixPending" class="note notice" hidden>新しい組み合わせは次の抽選で使います。</p>
+        </details>
         <details id="modernPresetDetails" class="preset-details"><summary>現代ものから選ぶ</summary>
           <p class="note">選ぶだけでは変わりません。「この方向で引く」で基本7項目のうち固定していないものを引きます。人物・入口・質問は任意のままです。</p>
           <label for="presetSelect">引きたい方向</label><select id="presetSelect"></select>
@@ -63,6 +69,7 @@
       <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
       <p id="drawNotice" class="draw-notice" role="status" hidden></p>
       <button id="cozyToneAction" class="secondary" hidden>ダーク・シリアスへ変更する</button>
+      <p id="mixReport" class="note notice" role="status" hidden></p>
       <div id="basicFields" class="field-grid"></div>
       <div class="under-actions"><button id="rollLight" class="text-btn">☀ ほのぼのにして引く</button><a class="button-link" href="#result">結果を見る ↓</a></div>
       <details class="usage-help"><summary>抽選・編集の使い方</summary><p class="note">主ボタンは基本7項目が対象です。手入力を反映すると自動で固定します。保存・コピー・現在のJSON出力では、編集中の変更もまとめて確認して反映します。取消したい項目は「キャンセル」を選んでください。物語のつながりはあなたが選べます。</p></details>

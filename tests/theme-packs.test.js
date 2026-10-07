@@ -94,7 +94,7 @@ test('old v2 hydrates background by generated candidate ID while preserving save
  const loaded=validateState(s);assert.deepEqual(loaded.items.world.contextTags,['beastfolk']);assert.ok(loaded.items.world.themeTags.includes('beastfolk'));assert.equal(loaded.items.world.text,'保存された原文');assert.equal(loaded.items.world.titleWord,'保存語');assert.deepEqual(loaded.texts,s.texts);assert.equal(loaded.locks.world,true);
  for(const source of ['custom','legacy']){s.items.world.source=source;const kept=validateState(s);assert.deepEqual(kept.items.world.contextTags,[]);assert.deepEqual(kept.items.world.themeTags,[]);}
  s.items.world.source='generated';s.items.world.candidateId='missing';s.items.world.text=def.text;assert.deepEqual(validateState(s).items.world.contextTags,[]);
- const map=new Map([[STORAGE_KEY,JSON.stringify({app:'creative-idea-gacha',schemaVersion:2,current:s,works:[]})]]);const store={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};const repo=new Repository(store);assert.equal(repo.load().current.items.world.text,def.text);
+ const map=new Map([[STORAGE_KEY,JSON.stringify({app:'creative-idea-gacha',schemaVersion:3,current:s,works:[]})]]);const store={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};const repo=new Repository(store);assert.equal(repo.load().current.items.world.text,def.text);
 });
 test('untrusted background arrays are bounded, unknown IDs remain neutral, and dangerous keys are ignored',()=>{
  const s=emptyState();s.items.world=fixedWorld(['unknown']);assert.deepEqual(worldContext(s),[]);assert.equal(meetsContext(row('x',[],['unknown']),['unknown']),false);assert.deepEqual(validateState(s).items.world.contextTags,['unknown']);

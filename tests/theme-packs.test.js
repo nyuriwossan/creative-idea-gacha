@@ -37,7 +37,7 @@ test('characters use 60 shared definitions, progression 64, and questions 32 sta
  for(const pack of packIds){for(const key of ['role','goal','secret'])assert.equal(PACK_EXTRA[pack][key].length,5);for(const key of ['deadline','obstacle','cost','ending'])assert.equal(PACK_EXTRA[pack][key].length,4);assert.equal(Object.values(PACK_QUESTIONS).flat().filter(q=>q.primaryPack===pack).length,8);}
  assert.equal(new Set(Object.values(PACK_EXTRA).flatMap(p=>Object.values(p).flat()).map(r=>r.id)).size,124);
  for(const row of [...Object.values(PACK_DATA),...Object.values(PACK_EXTRA)].flatMap(p=>Object.values(p).flat())){assert.ok(row.titleWord&&row.titleWord.length<=30);assert.ok(row.stageTags.every(t=>STAGES.some(([id])=>id===t)));assert.ok(row.themeTags.every(t=>THEMES.some(([id])=>id===t)));assert.ok(row.tones.length&&row.tones.every(t=>Number.isInteger(t)&&t>=1&&t<=5));}
- for(const [key] of OPTIONAL)assert.equal(EXTRA_DATA[key].length,key.startsWith('scene.')?16:key.endsWith('.role')?52:key.includes('.')?48:key==='ending'?54:key==='cost'?48:44);
+ for(const [key] of OPTIONAL)assert.equal(EXTRA_DATA[key].filter(r=>r.origin!=='abstract-seed').length,key.startsWith('scene.')?16:key.endsWith('.role')?52:key.includes('.')?48:key==='ending'?54:key==='cost'?48:44);
  for(const rows of Object.values(QUESTION_DATA)){assert.equal(rows.length,29);assert.ok(rows.slice(0,15).every(q=>typeof q==='string'));assert.ok(rows.slice(15).every(q=>typeof q.id==='string'));}
 });
 test('full draws reflect three categories and two major categories across packs and fixed seeds',()=>{

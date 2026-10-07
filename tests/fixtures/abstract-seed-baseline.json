@@ -1,0 +1,127 @@
+{
+  "sha": "0e67f9e8804d84dc167e27e10752e7b52c0c50ab",
+  "DATA": {
+    "world": {
+      "count": 249,
+      "hash": "9e8f5e656bf90fe59a03952c257f35e63d2b9744310b8cf3eac20fccd18da961"
+    },
+    "genre": {
+      "count": 122,
+      "hash": "f72cb548917f2dedeb77590e7667c8393d78fd16c027e313e3cd72ecfdab5324"
+    },
+    "relation": {
+      "count": 251,
+      "hash": "d156ba7a0e91f88ec66233ec704271ba6ed432ca3471a4f769bb35282d9664a8"
+    },
+    "incident": {
+      "count": 197,
+      "hash": "c3e33cdc470e14a154487efe3078af615d07ccea0cb90f8044b300569e2886a2"
+    },
+    "conflict": {
+      "count": 229,
+      "hash": "a515d0d9cd92d086ea45e9752c6678b5f0bc644a1bfee3afcf9a98b6c735baeb"
+    },
+    "gimmick": {
+      "count": 204,
+      "hash": "8def46af86bd67660c3ca79c925596a171eade4d7b47e841f06fb2d818b22282"
+    },
+    "twist": {
+      "count": 205,
+      "hash": "b6ee950505517c1defdc2d6af8185a26512906b78b1ed0e57c3ceeb999cf0f91"
+    }
+  },
+  "EXTRA_DATA": {
+    "world": {
+      "count": 249,
+      "hash": "9e8f5e656bf90fe59a03952c257f35e63d2b9744310b8cf3eac20fccd18da961"
+    },
+    "genre": {
+      "count": 122,
+      "hash": "f72cb548917f2dedeb77590e7667c8393d78fd16c027e313e3cd72ecfdab5324"
+    },
+    "relation": {
+      "count": 251,
+      "hash": "d156ba7a0e91f88ec66233ec704271ba6ed432ca3471a4f769bb35282d9664a8"
+    },
+    "incident": {
+      "count": 197,
+      "hash": "c3e33cdc470e14a154487efe3078af615d07ccea0cb90f8044b300569e2886a2"
+    },
+    "conflict": {
+      "count": 229,
+      "hash": "a515d0d9cd92d086ea45e9752c6678b5f0bc644a1bfee3afcf9a98b6c735baeb"
+    },
+    "gimmick": {
+      "count": 204,
+      "hash": "8def46af86bd67660c3ca79c925596a171eade4d7b47e841f06fb2d818b22282"
+    },
+    "twist": {
+      "count": 205,
+      "hash": "b6ee950505517c1defdc2d6af8185a26512906b78b1ed0e57c3ceeb999cf0f91"
+    },
+    "scene.goal": {
+      "count": 16,
+      "hash": "cf8acbb5db4bee96c1ee7233b82a77d75a93bf99b64d43f1667ee0ed35e4a4a0"
+    },
+    "scene.opening": {
+      "count": 16,
+      "hash": "d8888499d5e1f2598164eda30bce5cb1e828c69fdce407a0545061131025228f"
+    },
+    "scene.problem": {
+      "count": 16,
+      "hash": "46c9da49a5d1a2daa96a15dae9f00b668f0505fe5a084625c109684515166eee"
+    },
+    "scene.question": {
+      "count": 16,
+      "hash": "d2b0ccfcc176633e01d53574ebc1934b18aa9162e0aa449077f2c940d3ea5d3f"
+    },
+    "deadline": {
+      "count": 44,
+      "hash": "cf82a8be18e75b6d357c2a31e634c2bd7320fdf360202ceaa2c30c0dbe69232d"
+    },
+    "obstacle": {
+      "count": 44,
+      "hash": "a32fe8b487aa4525a1d4e39fda1ed12378efd6c74f6fbc720923365979566e79"
+    },
+    "cost": {
+      "count": 48,
+      "hash": "b59618e6091bb1bbaafffb002ce759a87ad2af065f2f7e8c6f26b9de9a152ebb"
+    },
+    "ending": {
+      "count": 54,
+      "hash": "e701854c3c1651b52d938f86732444e7e425b746168e9e1ee4dcb70255b537cf"
+    },
+    "protagonist.role": {
+      "count": 52,
+      "hash": "57ff809d08fd4a895bbd21957836e2b772738bc4876899e3aaa5681d2d4000dd"
+    },
+    "protagonist.goal": {
+      "count": 48,
+      "hash": "c27809db11eb3dffa5ace7654f19e6517fd9743d234cbdc7fae6bfdd2946a769"
+    },
+    "protagonist.secret": {
+      "count": 48,
+      "hash": "89d9f7e0e64eaef5353dc8828e6d8e3174e3cf7bd63fe617b3dd77a2601aa403"
+    },
+    "counterpart.role": {
+      "count": 52,
+      "hash": "81fb483712ad5b879f4ae9fc724903303c1d314d904887daddb9bf8589d4402d"
+    },
+    "counterpart.goal": {
+      "count": 48,
+      "hash": "6d0eeff67da443a1c32d40f53d7111d9a498aede60c1259f1be9d11f4de35979"
+    },
+    "counterpart.secret": {
+      "count": 48,
+      "hash": "de442f67f2b25237ff56e0cde735384a8915448574f9b0d0665b356665340393"
+    }
+  },
+  "files": {
+    "js/core.js": "12a1378dde327ff58214c1ba4609fa26a407832bd97c29a8e0a196ac86bf13b6",
+    "js/stage-mix.js": "e494fb5475bbe76a05c4ea360be2ea9b9be154776f71569585c89b3cd2b0a787",
+    "js/priority.js": "6357ec94b57490ef5517f2258dfdf3954e5e0c365d4f260b3a440070746c0b28",
+    "js/storage.js": "e282c910014e3d918157d64aa1b3496cfc4529c3f7cc3451ba4d9f73743f85fe",
+    "js/stage-mix-data.js": "df271747ed61cf68c496cf714921208d348590db87c00fd66891f7571656cf42",
+    "js/stage-selection.js": "2e679521773be845160f5ff0811425ff920ec0d430df4baec740868fa5f07ea4"
+  }
+}

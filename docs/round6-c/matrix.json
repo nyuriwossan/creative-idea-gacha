@@ -1,0 +1,272 @@
+[
+  {
+    "pair": "modern+fantasy",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 100
+  },
+  {
+    "pair": "modern+fantasy",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 3,
+    "percent": 1.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "percent": 0.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 0,
+    "percent": 0,
+    "noticeCount": 0
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 100
+  },
+  {
+    "pair": "wafu+fantasy",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 3,
+    "percent": 1.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 1,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 1,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "percent": 0.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 2,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 2,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 2,
+    "percent": 1,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 3,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 3,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "percent": 0.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 4,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 4,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 1,
+    "percent": 0.5,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 5,
+    "coherence": "cohesive",
+    "draws": 200,
+    "goals": 200,
+    "percent": 100,
+    "noticeCount": 0
+  },
+  {
+    "pair": "scifi+research",
+    "tone": 5,
+    "coherence": "mix",
+    "draws": 200,
+    "goals": 4,
+    "percent": 2,
+    "noticeCount": 0
+  }
+]

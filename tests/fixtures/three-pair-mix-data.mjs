@@ -1,6 +1,5 @@
-import {STAGE_EXPANSION_ROWS} from './stage-expansion-data.js';
-import {stagePairKey} from './stage-selection.js';
-export const STAGE_MIX_ROWS=[...STAGE_EXPANSION_ROWS,
+import {stagePairKey} from './three-pair-selection.mjs';
+export const STAGE_MIX_ROWS=[
  {
   "key": "world",
   "id": "sm-fantasy-school-world-mixed-aptitudes",

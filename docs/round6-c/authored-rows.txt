@@ -1,0 +1,39 @@
+# modern+fantasy: 通勤・設備・公共の仕事を魔法と同じ暮らしへ置く
+modern+fantasy|world|transit|電車の路線と魔法の転移路を同じ通勤定期で使え、駅員が両方の乗り継ぎを案内する現代の都市|二つの通勤路|1234|magic|negotiation,craft|daily-work,journey|mf-transit
+modern+fantasy|world|apartment|賃貸住宅の住人が電気設備と魔法の灯りを共同で管理し、更新費用を管理組合で話し合う現代の街|魔法のある集合住宅|1234|magic|shared-home,resource-fairness|found-family,daily-work|mf-housing
+modern+fantasy|world|outage|電力と魔法の供給網が同時に途切れ、病院や住宅への復旧順を行政と術師が決める現代都市|二つの供給網の断絶|345|magic|resource-fairness,mutual-aid|rescue,buddy|mf-supply
+modern+fantasy|genre|civic|現代の公共サービスを、機械と魔法の両方で支える人々の仕事の物語|機械と魔法の仕事|12345||craft,negotiation|daily-work,practical-skill|
+modern+fantasy|relation|repair|賃貸住宅の設備担当者と、電気配線を傷めず魔法の灯りを取り付けたい術師|設備担当者と術師|1234||craft,negotiation|buddy,daily-work|mf-housing
+modern+fantasy|relation|dispatch|現代都市の復旧担当者と、魔法の供給を止めてでも安全を確かめたい術師|復旧と術式の点検|2345||mutual-aid,resource-fairness|buddy,rescue|mf-supply
+modern+fantasy|incident|pass|通勤定期の更新日に転移路だけが使えず、駅員と術師が乗車記録を照合する|定期と転移路|1234||record-conflict,negotiation|mystery,daily-work|mf-transit
+modern+fantasy|incident|restore|停電後の魔法供給を再開する条件が、病院への電力復旧と食い違う|食い違う復旧条件|2345||resource-fairness,negotiation|rescue,buddy|mf-supply
+modern+fantasy|conflict|cost|住人へ魔法の灯りを残したいが、賃貸住宅の共益費だけでは術式の更新費を払えない|灯りと共益費|1234||resource-fairness,contract|daily-work,limited-cooperation|mf-housing
+modern+fantasy|conflict|restart|現代都市の停電を早く直したいが、送電を再開すると未点検の魔法供給網も動いてしまう|送電と術式点検|2345||mutual-aid,resource-fairness|rescue,buddy|mf-supply
+modern+fantasy|gimmick|inspection|電気設備と魔法の術式を別々の担当が点検し、両者の確認が揃ってから再開する手順|二つの点検記録|12345||record-conflict,craft|practical-skill,buddy|mf-supply
+modern+fantasy|twist|separate|止まっていたのは魔法そのものではなく、送電再開と術式再開を一度に扱う制御だった。別々に点検すれば復旧する区画を選べる|分けられる再開手順|12345||record-conflict,resource-fairness|practical-skill,rescue|mf-supply
+# wafu+fantasy: 宿場・祭り・社の慣習と術や精霊を結ぶ
+wafu+fantasy|world|inn|街道の宿場で人と精霊が同じ旅籠に泊まり、帳場が客ごとに異なる灯りや結界を用意する和風の国|精霊も泊まる旅籠|1234|magic|shared-home,craft|daily-work,myth|wf-inn
+wafu+fantasy|world|festival|町ごとの祭りで妖が結界を張り、氏子が参道や水路の手入れを分担する和風の里|妖と氏子の祭り|1234|magic|mutual-aid,negotiation|myth,daily-work|wf-festival
+wafu+fantasy|world|boundary|社の結界が弱まり、街道沿いの村々が妖と人の避難先を古い寄合の取り決めで調整する和風の土地|結界と村の寄合|345|magic|resource-fairness,return-home|rescue,myth|wf-boundary
+wafu+fantasy|genre|custom|宿場や社の暮らしを支える人と妖が、古い取り決めを結び直す和風の生活幻想譚|社と宿場の生活幻想|12345||contract,mutual-aid|myth,daily-work|
+wafu+fantasy|relation|keeper|街道の旅籠の帳場係と、人とは休む時刻の異なる精霊の客|帳場係と精霊の客|1234||shared-home,negotiation|daily-work,myth|wf-inn
+wafu+fantasy|relation|delegate|村の寄合で避難先を探す世話役と、社の結界を離れるか迷う妖|寄合の世話役と妖|2345||return-home,negotiation|rescue,myth|wf-boundary
+wafu+fantasy|incident|festival-water|祭りの支度の日に、妖の結界を支える水が参道の清掃に使う水と競合する|祭りの二つの水|1234||resource-fairness,negotiation|daily-work,myth|wf-festival
+wafu+fantasy|incident|route|社の結界が途切れ、古い街道の道しるべを人と妖が別々の避難先へ読んでしまう|道しるべと避難先|2345||record-conflict,return-home|rescue,myth|wf-boundary
+wafu+fantasy|conflict|quiet|旅籠の客を静かに休ませたいが、精霊の灯りを消すと街道を戻る客への目印も消える|旅籠の休みと灯り|1234||shared-home,mutual-aid|daily-work,myth|wf-inn
+wafu+fantasy|conflict|boundary-land|妖を新しい避難先へ迎えたいが、社の結界を移すには村の共有地の使い方を変えなければならない|共有地と移す結界|2345||resource-fairness,contract|rescue,limited-cooperation|wf-boundary
+wafu+fantasy|gimmick|marks|街道の道しるべに人が読む墨書と妖が読む術の印を併記し、宿場で両方を照合する習慣|墨書と術の道しるべ|12345||record-conflict,craft|myth,practical-skill|wf-boundary
+wafu+fantasy|twist|path|道しるべの墨書と術の印は、別々の避難先ではなく人と妖で歩ける道が異なるための案内だった|異なる道の同じ行き先|12345||record-conflict,return-home|myth,rescue|wf-boundary
+# scifi+research: 技術の運用を実験・記録・検証の責任につなぐ
+scifi+research|world|orbital|軌道上の研究施設でAIが実験装置を操作し、研究員が地上へ送る観測記録を検証する社会|軌道施設の実験記録|12345|artificial-intelligence|record-conflict,craft|practical-skill,archive-mystery|sr-record
+scifi+research|world|open|市民がAI制御の実験設備を予約でき、研究員と一緒に仮説を確かめる公開研究施設がある都市|AI設備の公開研究室|1234|artificial-intelligence|craft,mutual-aid|buddy,practical-skill|sr-open
+scifi+research|world|closure|AI制御の生命維持装置に異常が起きた軌道研究施設で、研究員が実験の中断と帰還の順序を検討する社会|帰還を検討する軌道施設|345|artificial-intelligence|resource-fairness,return-home|rescue,archive-mystery|sr-return
+scifi+research|genre|verification|AIによる実験の結果を、人が再現と検証で問い直すSFの研究室ミステリー|AI実験の検証劇|12345||record-conflict,craft|mystery,practical-skill|
+scifi+research|relation|operator|AI制御の実験装置を使う研究員と、結果より測定方法の確認を優先する検証担当者|AI実験と測定の検証|1234||record-conflict,craft|buddy,practical-skill|sr-record
+scifi+research|relation|return|軌道施設から研究員を帰還させたい管制担当者と、AIの実験記録を失う前に検証したい研究員|帰還管制と実験の検証|2345||return-home,record-conflict|rescue,archive-mystery|sr-return
+scifi+research|incident|result|公開研究施設のAI実験で同じ手順から異なる結果が出て、市民と研究員が条件を調べ直す|再現しないAI実験|1234||record-conflict,craft|mystery,practical-skill|sr-open
+scifi+research|incident|log|軌道施設の帰還予定が早まり、AIの生データを検証する前に実験設備を止める必要が生じる|帰還前の未検証データ|2345||return-home,record-conflict|rescue,archive-mystery|sr-return
+scifi+research|conflict|reproduce|AI実験の発見を早く発表したいが、公開研究施設で人が再現できる手順をまだ確かめていない|発見と再現手順|1234||record-conflict,craft|practical-skill,mystery|sr-open
+scifi+research|conflict|data|軌道施設の研究員を帰還させたいが、AIの生データを持ち帰るには実験の検証時間を削る必要がある|帰還と検証時間|2345||return-home,record-conflict|rescue,archive-mystery|sr-return
+scifi+research|gimmick|raw|AIの実験結果と測定装置の生データを別々に保存し、人が再検証できるようにする記録方式|AI結果と生データ|12345||record-conflict,craft|practical-skill,archive-mystery|sr-record
+scifi+research|twist|calibration|AIの実験結果の食い違いは仮説の違いではなく、測定装置の校正時刻のずれだった。生データを照合すれば条件を揃えて検証し直せる|校正時刻のずれ|12345||record-conflict,craft|practical-skill,mystery|sr-record

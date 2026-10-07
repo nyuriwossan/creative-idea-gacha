@@ -1,3 +1,5 @@
+最新の舞台組み合わせ拡張: [Cの検証・互換性](./docs/round6-c/VALIDATION.md)。
+
 最新の追加素材改修: [Bの検証・計測](./docs/round6-b/VALIDATION.md)。現代プリセットの任意化: [Aの検証](./docs/round6-a/VALIDATION.md)。以下は過去の検証記録です。
 
 # 最新：第9回改修（素材の核）

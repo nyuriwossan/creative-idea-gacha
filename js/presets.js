@@ -12,7 +12,7 @@ export const MODERN_PRESETS=[
  {id:'medical',label:'医療と夜勤',themes:['workplace-pro','daily-work'],requiresContext:['medical']},
  {id:'company',label:'会社の再建',themes:['workplace-pro','daily-work','buddy'],requiresContext:['company']}
 ];
-export function presetDescription(id){const p=MODERN_PRESETS.find(p=>p.id===id);if(!p)throw new Error('不明なプリセットです。');return `舞台：現代／テーマ：${p.themes.map(t=>THEMES.find(([key])=>key===t)[1]).join('・')}／今回の世界観に必要な背景：${contextLabels(p.requiresContext).join('・')||'指定なし'}。トーン・出力用途・抽選方針はそのままです。`;}
+export function presetDescription(id){if(id==='')return '選んでいません。選ぶと、その方向の世界観条件で一度だけ引けます。';const p=MODERN_PRESETS.find(p=>p.id===id);if(!p)throw new Error('不明なプリセットです。');return `舞台：現代／テーマ：${p.themes.map(t=>THEMES.find(([key])=>key===t)[1]).join('・')}／今回の世界観に必要な背景：${contextLabels(p.requiresContext).join('・')||'指定なし'}。トーン・出力用途・抽選方針はそのままです。`;}
 // 成功したstate/recentだけをUI側で一度に適用する。世界観の制約はこの呼び出し限り。
 export function tryModernPreset(state,recent,id,{data=EXTRA_DATA,rng=Math.random}={}){
  const p=MODERN_PRESETS.find(p=>p.id===id);if(!p)throw new Error('不明なプリセットです。');

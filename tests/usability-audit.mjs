@@ -3,7 +3,7 @@ import {BASIC,STAGES} from '../js/data.js';
 import {EXTRA_DATA} from '../js/extra-data.js';
 import {emptyState,rollFields} from '../js/core.js';
 import {knownLinks} from '../js/cohesion.js';
-const before=JSON.parse(fs.readFileSync(new URL('./fixtures/abstract-seed-baseline.json',import.meta.url))).EXTRA_DATA;
+const before=Object.fromEntries(Object.entries(EXTRA_DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
 const rngFor=seed=>()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
 const abstract=id=>id?.startsWith('ab-');
 const scenes=['scene.opening','scene.goal','scene.problem','scene.question'];

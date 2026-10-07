@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import {ABSTRACT_BASIC,ABSTRACT_SCENE,parseAbstractBasic,parseAbstractScene} from '../js/abstract-seed-data.js';
 import {DATA,BASIC,STAGES,THEMES} from '../js/data.js';
 import {EXTRA_DATA} from '../js/extra-data.js';
@@ -10,6 +11,8 @@ import {emptyState,rollFields,refreshTexts,markdown,clone} from '../js/core.js';
 import {validateState,inspectImport,exportJSON} from '../js/storage.js';
 import {buildAIHandoff} from '../js/ai-handoff.js';
 const before=JSON.parse(fs.readFileSync(new URL('./fixtures/abstract-seed-baseline.json',import.meta.url)));
+const hash=v=>createHash('sha256').update(typeof v==='string'?v:JSON.stringify(v)).digest('hex');
+const historicalExtra=Object.fromEntries(Object.entries(EXTRA_DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
 const rows=[...Object.values(ABSTRACT_BASIC).flat(),...Object.values(ABSTRACT_SCENE).flat()];
 const rngFor=seed=>()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
 test('abstract layer imports exactly the supplied 104 + 48 rows with unique IDs and empty stage/background/themes',()=>{
@@ -33,14 +36,14 @@ test('every abstract row enters all supported stages at each declared tone regar
  for(const [stage] of STAGES)for(let tone=1;tone<=5;tone++){const s=emptyState();Object.assign(s.settings,{stage,tone});for(const [key,pool] of Object.entries({...ABSTRACT_BASIC,...ABSTRACT_SCENE})){if(!pool.length)continue;for(const context of [[],['magic','company','artificial-intelligence'],['royal','education','medical']]){const actual=availablePool(s,key,EXTRA_DATA,context).pool;for(const row of pool)assert.equal(actual.some(r=>r.id===row.id),row.tones.includes(tone),`${stage}/${tone}/${row.id}`);}}}
 });
 test('all original definitions stay in order byte-for-byte; only basic and scene rows append, draw/storage/planner sources stay exact',()=>{
- for(const [key,pool] of Object.entries(before.DATA)){assert.deepEqual(DATA[key].slice(0,pool.length),pool);assert.deepEqual(DATA[key].slice(pool.length),ABSTRACT_BASIC[key]);}
- for(const [key,pool] of Object.entries(before.EXTRA_DATA)){assert.deepEqual(EXTRA_DATA[key].slice(0,pool.length),pool);assert.deepEqual(EXTRA_DATA[key].slice(pool.length),ABSTRACT_BASIC[key]||ABSTRACT_SCENE[key]||[]);}
- for(const [file,source] of Object.entries(before.files))assert.equal(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'),source,file);
+ for(const [key,pool] of Object.entries(before.DATA)){assert.equal(hash(DATA[key].slice(0,pool.count)),pool.hash);assert.deepEqual(DATA[key].slice(pool.count),ABSTRACT_BASIC[key]);}
+ for(const [key,pool] of Object.entries(before.EXTRA_DATA)){assert.equal(hash(EXTRA_DATA[key].slice(0,pool.count)),pool.hash);assert.deepEqual(EXTRA_DATA[key].slice(pool.count),ABSTRACT_BASIC[key]||ABSTRACT_SCENE[key]||[]);}
+ for(const [file,source] of Object.entries(before.files))assert.equal(hash(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8')),source,file);
  assert.equal(BASIC.flatMap(([key])=>DATA[key]).length,1561);assert.equal(THEMES.length,22);
 });
 test('all 152 abstract rows can be drawn, preserve full prose in outputs, and save/reload without core metadata',()=>{
  for(const [key,pool] of Object.entries({...ABSTRACT_BASIC,...ABSTRACT_SCENE}))for(const row of pool){const s=emptyState();s.settings.tone=row.tones[0];rollFields(s,[key],{data:{[key]:[row]},rng:rngFor(1)});assert.equal(s.items[key].candidateId,row.id);assert.equal(s.items[key].text,row.text);refreshTexts(s,{rng:rngFor(2)});assert.deepEqual(validateState(s),s);assert.deepEqual(inspectImport(exportJSON(s))[0].state,s);assert.equal(Object.hasOwn(s.items[key],'core'),false);assert.ok(markdown(s).includes(row.text));for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail'])assert.ok(buildAIHandoff(s,{purpose,length}).includes(row.text));}
 });
 test('fixed custom/old materials, locks and original input survive abstract-layer draws',()=>{
- const s=emptyState();rollFields(s,undefined,{data:before.EXTRA_DATA,rng:rngFor(11)});s.locks.conflict=true;s.locks.world=true;const old=clone(s.items);for(let n=0;n<12;n++){rollFields(s,undefined,{data:EXTRA_DATA,rng:rngFor(n)});assert.deepEqual(s.items.conflict,old.conflict);assert.deepEqual(s.items.world,old.world);}const state=clone(s);validateState(s);assert.deepEqual(s,state);
+ const s=emptyState();rollFields(s,undefined,{data:historicalExtra,rng:rngFor(11)});s.locks.conflict=true;s.locks.world=true;const old=clone(s.items);for(let n=0;n<12;n++){rollFields(s,undefined,{data:EXTRA_DATA,rng:rngFor(n)});assert.deepEqual(s.items.conflict,old.conflict);assert.deepEqual(s.items.world,old.world);}const state=clone(s);validateState(s);assert.deepEqual(s,state);
 });

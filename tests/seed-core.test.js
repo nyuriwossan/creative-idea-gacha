@@ -4,6 +4,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {CORE_BY_ID,CORE_FIELD_BY_ID} from '../js/core-data.js';
+import {SHORT_CORE_BY_ID} from '../js/short-core-data.js';
+// 第9回の核のうち長いものは短い核で置き換えた。画面・出力に出るのは置き換え後の核。
+const effectiveCore=id=>SHORT_CORE_BY_ID[id]??CORE_BY_ID[id];
 import {coreFor,coreForField,seedOf,materialLines,memoForMarkdown,CORE_EXAMPLE_NOTE} from '../js/seed-core.js';
 import {DATA,STAGES,PURPOSES} from '../js/data.js';
 import {EXTRA_DATA} from '../js/extra-data.js';
@@ -32,7 +35,7 @@ if(file==='js/cohesion.js')source=source.replace("import {ABSTRACT_BASIC,ABSTRAC
 assert.equal(hash(stripExpansion(file,source)),expected,file);}}
 });
 test('core projection is strict by generated source, exact current text, registered ID and supported field',()=>{
- for(const row of input){const item=itemFor(row.id),before=clone(item);assert.equal(coreFor(item),row.core);assert.equal(coreForField(item,row.field),row.core);for(const source of ['custom','legacy','unknown',undefined])assert.equal(coreFor({...item,source}),null);assert.equal(coreFor({...item,text:item.text+'旧'}),null);assert.equal(coreFor({...item,candidateId:'missing'}),null);assert.equal(coreFor(item,{}),null);assert.equal(coreFor(item,{[row.id]:item.text}),row.core);assert.equal(coreForField(item,'world'),null);assert.deepEqual(item,before);}
+ for(const row of input){const item=itemFor(row.id),before=clone(item);assert.equal(coreFor(item),effectiveCore(row.id));assert.equal(coreForField(item,row.field),effectiveCore(row.id));for(const source of ['custom','legacy','unknown',undefined])assert.equal(coreFor({...item,source}),null);assert.equal(coreFor({...item,text:item.text+'旧'}),null);assert.equal(coreFor({...item,candidateId:'missing'}),null);assert.equal(coreFor(item,{}),null);assert.equal(coreFor(item,{[row.id]:item.text}),effectiveCore(row.id));assert.equal(coreForField(item,'world'),null);assert.deepEqual(item,before);}
  assert.equal(coreFor(null),null);assert.equal(coreFor({source:'generated',candidateId:'constructor',text:'constructor'}),null);
 });
 test('current and pre-core draws match all fields/recent/notices/RNG in single and mixed modes even across refreshes',()=>{
@@ -43,8 +46,8 @@ test('current and pre-core draws match all fields/recent/notices/RNG in single a
 });
 test('all seven purpose builders use core plus examples without changing textOf, items, titles or historical saved prose',()=>{
  const s=withCore(),before=clone(s.items),replaceCores=text=>['conflict','gimmick','twist'].reduce((out,key)=>out.replaceAll(s.items[key].text,seedOf(s,key)),text);
- for(const purpose of PURPOSES){s.settings.purpose=purpose;assert.equal(textOf(s,'conflict'),s.items.conflict.text);assert.equal(seedOf(s,'conflict'),CORE_BY_ID[s.items.conflict.candidateId]);const memo=buildMemo(s);for(const key of ['conflict','gimmick','twist']){assert.ok(memo.includes(CORE_BY_ID[s.items[key].candidateId]));assert.ok(memo.includes(`具体例：${s.items[key].text}`));}assert.deepEqual(buildOutline(s),oldOutline(s).map(replaceCores));assert.equal(buildSummary(s),replaceCores(oldSummary(s)));assert.equal(buildHint(s,rngFor(2)),replaceCores(oldHint(s,rngFor(2))));refreshTexts(s,{rng:rngFor(2)});assert.deepEqual(s.items,before);}
- const raw=emptyState();rollFields(raw,undefined,{rng:rngFor(11)});for(const key of ['conflict','gimmick','twist'])if(raw.items[key])raw.items[key].source='custom';for(const purpose of PURPOSES){raw.settings.purpose=purpose;assert.equal(buildSummary(raw),oldSummary(raw));assert.equal(buildMemo(raw),oldMemo(raw));assert.deepEqual(buildOutline(raw),oldOutline(raw));assert.equal(buildHint(raw,rngFor(2)),oldHint(raw,rngFor(2)));}
+ for(const purpose of PURPOSES){s.settings.purpose=purpose;assert.equal(textOf(s,'conflict'),s.items.conflict.text);assert.equal(seedOf(s,'conflict'),effectiveCore(s.items.conflict.candidateId));const memo=buildMemo(s);for(const key of ['conflict','gimmick','twist']){assert.ok(memo.includes(effectiveCore(s.items[key].candidateId)));assert.ok(memo.includes(`具体例：${s.items[key].text}`));}assert.deepEqual(buildOutline(s),oldOutline(s).map(replaceCores));assert.equal(buildSummary(s),replaceCores(oldSummary(s)));assert.equal(buildHint(s,rngFor(2)),replaceCores(oldHint(s,rngFor(2))));refreshTexts(s,{rng:rngFor(2)});assert.deepEqual(s.items,before);}
+ const raw=emptyState();rollFields(raw,undefined,{rng:rngFor(11)});for(const key of ['world','genre','relation','incident','conflict','gimmick','twist'])if(raw.items[key])raw.items[key].source='custom';for(const purpose of PURPOSES){raw.settings.purpose=purpose;assert.equal(buildSummary(raw),oldSummary(raw));assert.equal(buildMemo(raw),oldMemo(raw));assert.deepEqual(buildOutline(raw),oldOutline(raw));assert.equal(buildHint(raw,rngFor(2)),oldHint(raw,rngFor(2)));}
 });
 test('Markdown renders two-line materials from fresh and historical memos without rewriting stored text or duplicating examples',()=>{
  const s=withCore();oldRefresh(s,{rng:rngFor(1)});const before=clone(s);for(const key of ['conflict','gimmick','twist'])assert.ok(markdown(s).includes(materialLines(s,key,{conflict:'葛藤',gimmick:'ギミック',twist:'ひねり'}[key]).join('\n')));assert.deepEqual(s,before);
@@ -63,5 +66,5 @@ test('old v3 JSON, save/overwrite/separate/duplicate/favorite/reload and history
  const map=new Map(),storage={getItem:key=>map.get(key)??null,setItem:(key,value)=>map.set(key,value)},repo=new Repository(storage);repo.load();let current=repo.save(loaded);repo.favorite(current.loadedWorkId,current);current=repo.save(current,{overwrite:true});const separate=repo.save(current),duplicate=repo.duplicate(current.loadedWorkId,current);assert.deepEqual(duplicate.items,s.items);assert.deepEqual(duplicate.texts,s.texts);assert.equal(repo.works.length,3);assert.deepEqual(repo.works[0].state.texts,s.texts);assert.notEqual(separate.loadedWorkId,current.loadedWorkId);const reloaded=new Repository(storage);assert.deepEqual(reloaded.load().current,duplicate);assert.ok(map.get(STORAGE_KEY));
  const stripIdentity=state=>{const copy=clone(state);copy.loadedWorkId=null;copy.metadata.name='旧作品';return copy;};assert.deepEqual(stripIdentity(inspectImport(exportJSON(current))[0].state),s);
  const inspect=value=>{if(value&&typeof value==='object'){assert.equal(Object.hasOwn(value,'core'),false);for(const child of Object.values(value))inspect(child);}};inspect(JSON.parse(map.get(STORAGE_KEY)));assert.equal(JSON.parse(map.get(STORAGE_KEY)).schemaVersion,3);
- const history=new History(s),draft=clone(s);editField(draft,'twist','作者が書き直したひねり','ひねり');history.record(draft);assert.equal(coreFor(history.redo()?.items.twist),null);const undone=history.undo();assert.equal(coreFor(undone.items.twist),CORE_BY_ID[s.items.twist.candidateId]);assert.equal(coreFor(history.redo().items.twist),null);
+ const history=new History(s),draft=clone(s);editField(draft,'twist','作者が書き直したひねり','ひねり');history.record(draft);assert.equal(coreFor(history.redo()?.items.twist),null);const undone=history.undo();assert.equal(coreFor(undone.items.twist),effectiveCore(s.items.twist.candidateId));assert.equal(coreFor(history.redo().items.twist),null);
 });

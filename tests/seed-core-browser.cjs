@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs');
 module.exports=async({browser,base,out,check})=>{
- const old=await import('./fixtures/core-layer-baseline-core.mjs'),{DATA}=await import('../js/data.js'),{CORE_BY_ID,CORE_FIELD_BY_ID}=await import('../js/core-data.js'),{validateState}=await import('../js/storage.js');
+ const old=await import('./fixtures/core-layer-baseline-core.mjs'),{DATA}=await import('../js/data.js'),{CORE_BY_ID,CORE_FIELD_BY_ID}=await import('../js/seed-core.js'),{validateState}=await import('../js/storage.js');
  const state=old.emptyState();state.metadata.name='核を確認する旧作品';
  for(const key of ['conflict','gimmick','twist']){const id=Object.keys(CORE_BY_ID).find(id=>CORE_FIELD_BY_ID[id]===key),definition=DATA[key].find(row=>row.id===id);state.items[key]={...definition,candidateId:id,blendPairs:[]};}
  old.refreshTexts(state,{rng:()=>.2});const fixture=validateState(state);

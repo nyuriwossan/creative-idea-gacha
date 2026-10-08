@@ -3,6 +3,7 @@ const assert=require('node:assert/strict'),path=require('node:path');
 module.exports=async({browser,base,out,check})=>{
  async function fresh(fn,{width=390,height=844}={}){
   const ctx=await browser.newContext({viewport:{width,height}}),p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  await p.addInitScript(()=>{window.copied=undefined;Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.copied=text;}}});});
   await p.addInitScript(()=>{let n=31415;Math.random=()=>((n=(Math.imul(n,1664525)+1013904223)>>>0)/4294967296);});
   await p.goto(base);await p.locator('#basicFields .field-card').first().waitFor();
   const read=()=>p.evaluate(()=>JSON.parse(localStorage.getItem('creativeIdeaGacha_v2')||'null'));
@@ -57,5 +58,38 @@ module.exports=async({browser,base,out,check})=>{
   assert.equal(await p.locator('.action-bar').evaluate(x=>getComputedStyle(x).position),'sticky');
   await p.locator('#workNotes').focus();assert.equal(await p.locator('.action-bar').evaluate(x=>getComputedStyle(x).position),'static');
   await p.locator('#workNotes').blur();await p.waitForTimeout(20);assert.equal(await p.locator('.action-bar').evaluate(x=>getComputedStyle(x).position),'sticky');
+ }));
+ await check('ui v2 cards offer only redraw, lock and edit; lock disables redraw and keeps the label text',()=>fresh(async(p,read)=>{
+  for(const key of ['world','genre','relation','incident','conflict','gimmick','twist']){
+   const card=p.locator(`#basicFields [data-key="${key}"]`);
+   const labels=await card.locator('button').evaluateAll(xs=>xs.filter(x=>x.checkVisibility()).map(x=>x.textContent.trim()));
+   assert.deepEqual(labels,['固定','引き直す','編集'],key);
+   assert.ok((await card.locator('.lock-toggle').boundingBox()).height>=44);
+  }
+  const card=p.locator('#basicFields [data-key="conflict"]'),roll=card.getByRole('button',{name:'葛藤を引き直す',exact:true}),lock=card.locator('.lock-toggle');
+  await lock.click();assert.equal(await lock.textContent(),'固定中 ✓');assert.equal(await lock.getAttribute('aria-pressed'),'true');assert.equal(await roll.isDisabled(),true);assert.equal((await read()).current.locks.conflict,true);
+  const locked=(await read()).current.items.conflict;await p.locator('#rollAll').click();assert.deepEqual((await read()).current.items.conflict,locked);
+  await lock.click();assert.equal(await lock.textContent(),'固定');assert.equal(await roll.isDisabled(),false);
+  await roll.click();assert.notDeepEqual((await read()).current.items.conflict,locked);
+  await p.screenshot({path:path.join(out,'ui-v2-cards-390.png')});
+ }));
+ await check('ui v2 AI handoff sheet: purpose chips drive the select, preview updates and copy happen in one sheet',()=>fresh(async(p,read)=>{
+  const before=(await read()).current.items;
+  await p.locator('#openHandoff').click();assert.equal(await p.evaluate(()=>document.getElementById('handoffSheet').open),true);
+  assert.equal((await read()).current.handoff.purpose,'story');assert.deepEqual((await read()).current.items,before);
+  assert.equal(await p.evaluate(()=>document.activeElement.dataset.purpose),'story');
+  assert.equal(await p.locator('.purpose-chip').count(),4);assert.equal(await p.evaluate(()=>document.getElementById('handoffDetails').open),false);
+  const story=await p.inputValue('#handoffPreview');
+  await p.locator('.purpose-chip[data-purpose="chat"]').click();
+  assert.equal(await p.evaluate(()=>document.getElementById('handoffPurpose').value),'chat');
+  assert.deepEqual(await p.locator('.purpose-chip').evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-pressed'))),['false','true','false','false']);
+  assert.equal((await read()).current.handoff.purpose,'chat');
+  const chat=await p.inputValue('#handoffPreview');assert.notEqual(chat,story);assert.match(chat,/本編は開始しない/);
+  assert.match(await p.textContent('#handoffCount'),new RegExp('^'+Array.from(chat).length+'文字'));
+  await p.locator('#copyHandoff').click();assert.equal(await p.evaluate(()=>window.copied),chat);
+  assert.equal(await p.locator('#toast').textContent(),'コピーしました。');assert.equal(await p.evaluate(()=>document.getElementById('toast').checkVisibility()),true);
+  await p.screenshot({path:path.join(out,'ui-v2-handoff-390.png')});
+  await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>document.getElementById('handoffSheet').open),false);assert.equal(await p.evaluate(()=>document.activeElement.id),'openHandoff');
+  await p.locator('#undo').click();assert.equal((await read()).current.handoff.purpose,'story');
  }));
 };

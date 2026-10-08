@@ -54,7 +54,7 @@ test('Markdown renders two-line materials from fresh and historical memos withou
 test('four AI purposes and both lengths distinguish core/example, preserve fixed/custom and retain no-core material format',()=>{
  const s=withCore();for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail']){const before=clone(s),text=buildAIHandoff(s,{purpose,length});assert.ok(text.includes(CORE_EXAMPLE_NOTE));for(const key of ['conflict','gimmick','twist']){assert.ok(text.includes(seedOf(s,key)));assert.ok(text.includes(s.items[key].text));}assert.match(text,/具体例（一例。差し替えてOK）/);assert.doesNotMatch(text,/sf-scifi-|mp-workplace-pro-|undefined|null/);assert.deepEqual(s,before);}
  s.locks.conflict=true;const fixed=buildAIHandoff(s);assert.ok(fixed.includes('具体例（固定した本文・変更は作者に確認）'));assert.ok(fixed.includes('固定した素材と手入力の本文は保持したい設定'));editField(s,'gimmick','作者の仕組み','仕組み');assert.equal(coreFor(s.items.gimmick),null);assert.ok(buildAIHandoff(s).includes('│ 作者の仕組み'));
- const noCore=emptyState();rollFields(noCore,undefined,{rng:rngFor(1)});for(const key of ['conflict','gimmick','twist'])noCore.items[key].text='保存済みの別本文：'+key;
+ const noCore=emptyState();rollFields(noCore,undefined,{rng:rngFor(1)});for(const key of ['world','genre','relation','incident','conflict','gimmick','twist'])noCore.items[key].text='保存済みの別本文：'+key;
  for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail'])assert.equal(buildAIHandoff(noCore,{purpose,length}).replace(CORE_EXAMPLE_NOTE+'\n',''),oldHandoff(noCore,{purpose,length}));
 });
 test('old v3 JSON, save/overwrite/separate/duplicate/favorite/reload and history preserve original fields and generated prose; no core is stored',()=>{

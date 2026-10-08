@@ -9,27 +9,28 @@ import {emptyState,rollFields,refreshTexts,History,markdown,WEIGHTS,clone,seedOf
 import {validateState,Repository,STORAGE_KEY,exportJSON,inspectImport,filterWorks} from '../js/storage.js';
 import {buildAIHandoff} from '../js/ai-handoff.js';
 import {tryModernPreset} from '../js/presets.js';
-import {baseline,priorData,restoreReviewedText,rngFor,countWorldPools,simulatePresets} from './world-restructure-support.mjs';
+import {baseline,priorData,restoreReviewedText,rngFor,countWorldPools,simulatePresets,historicalWorlds} from './world-restructure-support.mjs';
+import {WORLD_EXPAND_CONTEXTS} from '../js/world-expand-data.js';
 // Only the new version/default fields change; every prior snapshot value is still compared.
 const upgraded=state=>{const copy=clone(state);copy.schemaVersion=3;copy.settings.stage2=null;for(const item of Object.values(copy.items))if(item)item.blendPairs=[];return copy;};
 const hash=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const revised=new Map(WORLD_REVISIONS.map(row=>[row.id,row]));
 const generated=row=>{const s=emptyState();s.settings.tone=row.tones[0];rollFields(s,['world'],{data:{world:[row]},rng:()=>0});return s;};
 test('world restructure changes exactly 32 text/title pairs and preserves all 249 IDs, 217 others and every metadata value',()=>{
- assert.equal(DATA.world.length,249);assert.equal(BASIC.flatMap(([key])=>DATA[key].filter(r=>r.origin!=='abstract-seed')).length,1457);assert.equal(revised.size,32);assert.deepEqual(WORLD_REVISIONS,baseline.expectedRevisions);
- assert.equal(new Set(DATA.world.map(w=>w.id)).size,249);assert.deepEqual(DATA.world.map(w=>w.id),baseline.world.map(w=>w.id));assert.equal(new Set(DATA.world.map(w=>w.text)).size,249);
+ assert.equal(DATA.world.filter(r=>r.origin!=='world-expand').length,249);assert.equal(BASIC.flatMap(([key])=>DATA[key].filter(r=>!['abstract-seed','world-expand'].includes(r.origin))).length,1457);assert.equal(revised.size,32);assert.deepEqual(WORLD_REVISIONS,baseline.expectedRevisions);
+ assert.equal(new Set(historicalWorlds(DATA.world).map(w=>w.id)).size,249);assert.deepEqual(historicalWorlds(DATA.world).map(w=>w.id),baseline.world.map(w=>w.id));assert.equal(new Set(historicalWorlds(DATA.world).map(w=>w.text)).size,249);
  let changed=0;for(const before of baseline.world){const after=DATA.world.find(w=>w.id===before.id),r=revised.get(before.id);if(r){assert.equal(before.text,r.beforeText);assert.equal(after.text,r.text);assert.equal(after.titleWord,r.titleWord);assert.deepEqual(restoreReviewedText(after),before);changed++;}else assert.deepEqual(after,before);assert.ok(after.text.length<=500&&after.titleWord.length<=30);assert.equal(EXTRA_DATA.world.find(w=>w.id===after.id),after);}
- assert.equal(changed,32);for(const [key,value] of Object.entries(baseline.otherHashes))assert.equal(hash(DATA[key].filter(r=>r.origin!=='abstract-seed')),value,key);for(const [key,value] of Object.entries(baseline.optionalHashes))assert.equal(hash(EXTRA_DATA[key].filter(r=>r.origin!=='abstract-seed')),value,key);assert.equal(hash(QUESTION_DATA),baseline.questionHash);assert.deepEqual(THEMES,baseline.THEMES);assert.deepEqual(CONTEXTS,baseline.CONTEXTS);assert.deepEqual(STAGES,baseline.STAGES);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
+ assert.equal(changed,32);for(const [key,value] of Object.entries(baseline.otherHashes))assert.equal(hash(DATA[key].filter(r=>!['abstract-seed','world-expand'].includes(r.origin))),value,key);for(const [key,value] of Object.entries(baseline.optionalHashes))assert.equal(hash(EXTRA_DATA[key].filter(r=>!['abstract-seed','world-expand'].includes(r.origin))),value,key);assert.equal(hash(QUESTION_DATA),baseline.questionHash);assert.deepEqual(THEMES,baseline.THEMES);assert.deepEqual(CONTEXTS.filter(([id])=>!WORLD_EXPAND_CONTEXTS.some(([extra])=>extra===id)),baseline.CONTEXTS);assert.deepEqual(STAGES,baseline.STAGES);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
  const royal=DATA.world.find(w=>w.id==='world-original-1jdjray');assert.ok(royal.contextTags.includes('royal'));assert.deepEqual(royal.themeTags,baseline.world.find(w=>w.id===royal.id).themeTags);
  for(const text of ['言霊が力を持つ世界','魔法学校']){const before=baseline.world.find(w=>w.text===text);assert.ok(before,text);assert.deepEqual(DATA.world.find(w=>w.id===before.id),before);}
 });
 test('world revision application is immutable, idempotent and never overwrites a divergent source',()=>{
- const input=clone(baseline.world),snapshot=clone(input);for(const row of input)Object.freeze(row);Object.freeze(input);const result=reviseWorldDefinitions(input);assert.notEqual(result,input);assert.deepEqual(input,snapshot);assert.deepEqual(result,DATA.world);assert.deepEqual(reviseWorldDefinitions(result),result);
+ const input=clone(baseline.world),snapshot=clone(input);for(const row of input)Object.freeze(row);Object.freeze(input);const result=reviseWorldDefinitions(input);assert.notEqual(result,input);assert.deepEqual(input,snapshot);assert.deepEqual(result,historicalWorlds(DATA.world));assert.deepEqual(reviseWorldDefinitions(result),result);
  for(let i=0;i<input.length;i++)assert.equal(result[i]===input[i],!revised.has(input[i].id));
  const changed={...input.find(w=>revised.has(w.id)),text:'別の改修で作者が指定した本文'};assert.equal(reviseWorldDefinitions([changed])[0],changed);
 });
 test('world stage/tone and profession/tone pools plus deterministic normal draws remain equal in both modes',()=>{
- assert.deepEqual(countWorldPools(DATA.world),countWorldPools(baseline.world));
+ assert.deepEqual(countWorldPools(historicalWorlds(DATA.world)),countWorldPools(baseline.world));
  for(const [stage] of STAGES.slice(1))for(let tone=1;tone<=5;tone++)for(const coherence of ['cohesive','mix'])for(const seed of [1,42,20261006]){
   const a=emptyState(),b=emptyState();for(const s of [a,b])Object.assign(s.settings,{stage,tone,coherence});const ar={},br={},rngA=rngFor(seed),rngB=rngFor(seed);
   for(let draw=0;draw<3;draw++){const x=rollFields(a,undefined,{data:priorData,recent:ar,rng:rngA}),y=rollFields(b,undefined,{data:EXTRA_DATA,recent:br,rng:rngB});assert.deepEqual(x,y);assert.deepEqual(ar,br);const normalized=clone(b);normalized.items.world=restoreReviewedText(b.items.world);assert.deepEqual(normalized,a);for(const [key] of BASIC)assert.ok(meetsContext(b.items[key],worldContext(b)));assert.ok(b.items.world.stageTags.includes(stage));}

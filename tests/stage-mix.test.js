@@ -30,8 +30,8 @@ const asV2=state=>{const s=clone(state);s.schemaVersion=2;delete s.settings.stag
 const snapshot=row=>{const {id,origin,key,...item}=clone(row);return {...item,candidateId:id};};
 const fixtureRoll=(s,data,recent={},rng=rngFor(1))=>rollMixedFields(s,BASIC.map(([key])=>key),{data,recent,rng,weightFor});
 function artifact(name,value){if(process.env.TEST_OUTPUT_DIR){fs.mkdirSync(process.env.TEST_OUTPUT_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.TEST_OUTPUT_DIR,name),JSON.stringify(value,null,2)+'\n');}}
-const historicalData=Object.fromEntries(Object.entries(DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
-const historicalExtra=Object.fromEntries(Object.entries(EXTRA_DATA).map(([key,rows])=>[key,rows.filter(r=>r.origin!=='abstract-seed')]));
+const historicalData=Object.fromEntries(Object.entries(DATA).map(([key,rows])=>[key,rows.filter(r=>!['abstract-seed','world-expand'].includes(r.origin))]));
+const historicalExtra=Object.fromEntries(Object.entries(EXTRA_DATA).map(([key,rows])=>[key,rows.filter(r=>!['abstract-seed','world-expand'].includes(r.origin))]));
 test('all single-stage draws remain exact across 200 cases; pre-core output fixtures retain their full historical hashes',()=>{
  assert.equal(hash(historicalData),baseline.dataHash);assert.equal(hash(historicalExtra),baseline.extraHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);
  for(const expected of baseline.cases){const s=emptyState(),recent={};Object.assign(s.settings,{stage:expected.stage,tone:expected.tone,coherence:expected.coherence,themes:expected.themes});let calls=0;const seeded=rngFor(20261007),rng=()=>{calls++;return seeded();},results=[];

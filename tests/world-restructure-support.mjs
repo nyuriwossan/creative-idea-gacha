@@ -4,13 +4,16 @@ import {EXTRA_DATA} from '../js/extra-data.js';
 import {WORLD_REVISIONS} from '../js/world-revision-data.js';
 import {emptyState} from '../js/core.js';
 import {MODERN_PRESETS,tryModernPreset} from '../js/presets.js';
+import {WORLD_EXPAND_BASIC} from '../js/world-expand-data.js';
 export const baseline=JSON.parse(fs.readFileSync(new URL('./fixtures/world-restructure-baseline.json',import.meta.url),'utf8'));
 const originals=new Map(baseline.world.map(row=>[row.id,row]));
 const revisedIds=new Set(WORLD_REVISIONS.map(row=>row.id));
 // 過去の素材追加テストでは、今回許可された本文・短語だけを逆正規化する。
 // メタデータを元候補で丸ごと置き換えない。別の回帰テストで32件の新本文を照合する。
 export function restoreReviewedText(row){const before=originals.get(row.id??row.candidateId);return before&&revisedIds.has(before.id)?{...row,text:before.text,titleWord:before.titleWord}:row;}
-export const priorData={...EXTRA_DATA,world:baseline.world};
+// 第7弾（world-expand）の世界観は32件の改修とは無関係に末尾へ足したもの。改修前の比較用データにも同じく足す。
+export const priorData={...EXTRA_DATA,world:[...baseline.world,...WORLD_EXPAND_BASIC.world]};
+export const historicalWorlds=rows=>rows.filter(r=>r.origin!=='world-expand');
 export const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 export function countWorldPools(world){return {
  stages:Object.fromEntries(STAGES.slice(1).map(([stage])=>[stage,[1,2,3,4,5].map(tone=>world.filter(w=>w.stageTags.includes(stage)&&w.tones.includes(tone)).length)])),

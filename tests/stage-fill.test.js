@@ -35,7 +35,7 @@ test('stage fill exact A/B allocations and final minimum coverage are separate i
 });
 test('stage fill old definition values, optional data, questions, themes and all weights stay identical',()=>{
  for(const [key,ids] of Object.entries(baseline.basicIds)){const set=new Set(ids),old=DATA[key].filter(r=>set.has(r.id)).map(restoreReviewedText).map(r=>PROFESSIONAL_WORLD_PATCHES[r.id]?{...r,contextTags:r.contextTags.filter(t=>!PROFESSIONAL_WORLD_PATCHES[r.id].includes(t))}:r);assert.equal(old.length,ids.length);assert.equal(hash(old),baseline.basicHashes[key],key);}
- for(const [key,value] of Object.entries(baseline.extraHashes))assert.equal(hash(EXTRA_DATA[key].filter(r=>!['abstract-seed','world-expand'].includes(r.origin))),value,key);
+ for(const [key,value] of Object.entries(baseline.extraHashes))assert.equal(hash(EXTRA_DATA[key].filter(r=>!['abstract-seed','world-expand','aozora'].includes(r.origin))),value,key);
  assert.equal(hash(Object.fromEntries(Object.entries(QUESTION_DATA).map(([key,rows])=>[key,rows.slice(0,26)]))),baseline.questionHash);assert.equal(hash(THEMES.slice(0,20)),baseline.themeHash);assert.deepEqual(WEIGHTS,baseline.WEIGHTS);assert.equal(STORAGE_KEY,'creativeIdeaGacha_v2');
 });
 test('stage fill new metadata has known dictionaries, unique IDs/text, explicit shapes and reachable backgrounds at every tone',()=>{

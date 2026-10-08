@@ -1,5 +1,6 @@
 import {ABSTRACT_BASIC} from './abstract-seed-data.js';
 import {WORLD_EXPAND_BASIC} from './world-expand-data.js';
+import {AOZORA_BASIC} from './aozora-data.js';
 import {reviseWorldDefinitions} from './world-revision-data.js';
 import {ROUND4_BASIC} from './round4-data.js';
 import {STAGE_FILL_BASIC} from './stage-fill-data.js';
@@ -223,7 +224,7 @@ const ORIGINAL_TITLE_WORDS={
  '断罪イベントの本当の黒幕が別にいる':'断罪の黒幕',
  '帰りたかった元の世界の方が既に失われていた':'失われた帰路'
 };
-const assembledData = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]].map(item=>supplementDefinition(item,key)).concat(THEME_PACK_DATA[key]).map(supplementStory).concat(STORY_BASIC[key],ROUND4_BASIC[key],STAGE_FILL_BASIC[key],MODERN_PRO_BASIC[key],ABSTRACT_BASIC[key],WORLD_EXPAND_BASIC[key])]));
+const assembledData = Object.fromEntries(BASIC.map(([key]) => [key, [...BASE_DATA[key].map(item=>({...item,titleWord:ORIGINAL_TITLE_WORDS[item.text]??item.titleWord})), ...ADDITIONS[key]].map(item=>supplementDefinition(item,key)).concat(THEME_PACK_DATA[key]).map(supplementStory).concat(STORY_BASIC[key],ROUND4_BASIC[key],STAGE_FILL_BASIC[key],MODERN_PRO_BASIC[key],ABSTRACT_BASIC[key],WORLD_EXPAND_BASIC[key],AOZORA_BASIC[key])]));
 export const DATA={...assembledData,world:reviseWorldDefinitions(assembledData.world)};
 export const ADDITION_COUNTS = Object.fromEntries(BASIC.map(([key])=>[key,ADDITIONS[key].length]));
 export { rows };

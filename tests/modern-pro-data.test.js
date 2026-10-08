@@ -1,4 +1,5 @@
 import {restoreReviewedText} from './world-restructure-support.mjs';
+import {WORLD_EXPAND_CONTEXTS} from '../js/world-expand-data.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -34,7 +35,7 @@ test('modern-pro A127+B53 match category distributions and preserve 20 original 
  for(const link of links){const c=MODERN_PRO_BASIC.conflict.filter(r=>r.plotLinks.includes(link)),t=MODERN_PRO_BASIC.twist.filter(r=>r.plotLinks.includes(link));assert.equal(c.length,1,link);assert.equal(t.length,1,link);assert.ok(c[0].tones.some(tone=>t[0].tones.includes(tone)));assert.deepEqual(knownLinks(t[0]),t[0].plotLinks);const s=emptyState();s.items.conflict=c[0];assert.equal(cohesionMultiplier(t[0],s,'twist',[]),4);s.settings.coherence='mix';assert.equal(cohesionMultiplier(t[0],s,'twist',[]),1);}
 });
 test('modern-pro full DATA IDs/text, dictionary tags, shape, adult interpretation and professional coverage are valid',()=>{
- assert.ok(Object.values(DATA).flat().length>=1457);assert.equal(THEMES.length,22);assert.equal(CONTEXTS.length,15);assert.equal(new Set(Object.values(DATA).flat().map(r=>r.id)).size,Object.values(DATA).flat().length);
+ assert.ok(Object.values(DATA).flat().length>=1457);assert.equal(THEMES.length,22);assert.equal(CONTEXTS.filter(([id])=>!WORLD_EXPAND_CONTEXTS.some(([extra])=>extra===id)).length,15);assert.equal(new Set(Object.values(DATA).flat().map(r=>r.id)).size,Object.values(DATA).flat().length);
  for(const [key,rows] of Object.entries(MODERN_PRO_BASIC))for(const definition of rows){const r=DATA[key].find(row=>row.id===definition.id);assert.equal(DATA[key].filter(x=>x.text===r.text).length,1,r.id);assert.ok(EXTRA_DATA[key].includes(r));assert.deepEqual(r.stageTags,['modern']);assert.ok(r.text.length<=500&&r.titleWord.length<=30);for(const [tags,dict] of [[r.topicTags,TOPICS],[r.themeTags,THEMES],[r.contextTags,CONTEXTS],[r.requiresContext,CONTEXTS]])for(const tag of tags)assert.ok(dict.some(([id])=>id===tag),r.id+' '+tag);if(key==='relation')assert.ok(['pair','group'].includes(r.relationShape));else assert.equal(Object.hasOwn(r,'relationShape'),false);for(const tone of r.tones)assert.ok(DATA.world.some(w=>w.stageTags.includes('modern')&&w.tones.includes(tone)&&meetsContext(r,w.contextTags)),r.id+' tone'+tone);}
  for(const [tag] of PROFESSIONAL_CONTEXTS){assert.ok(MODERN_PRO_BASIC.world.filter(r=>r.contextTags.includes(tag)).length>=2);for(const [key] of BASIC.slice(1))assert.ok(MODERN_PRO_BASIC[key].some(r=>r.requiresContext.includes(tag)),tag+key);}
  for(const slug of ['fiance-family','doctor-family'])assert.equal(MODERN_PRO_BASIC.relation.find(r=>r.id.endsWith('-'+slug)).relationShape,'group');assert.match(MODERN_PRO_BASIC.relation.find(r=>r.id.endsWith('-app-match')).text,/二人/);assert.match(MODERN_PRO_BASIC.twist.find(r=>r.id.endsWith('-device-drift')).text,/判断への影響/);

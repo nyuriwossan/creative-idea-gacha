@@ -211,8 +211,8 @@
     "tone": 2,
     "coherence": "mix",
     "draws": 200,
-    "goals": 2,
-    "percent": 1,
+    "goals": 1,
+    "percent": 0.5,
     "noticeCount": 0
   },
   {

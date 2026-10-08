@@ -26,6 +26,8 @@ export function openSheet(sheet,from=document.activeElement){
  sheet.showModal();
 }
 export function openSettings(from){openSheet($('settingsSheet'),from);}
+// 閉じてすぐ通知を出したいとき用：トーストを先に元の位置へ戻してから閉じ終える。
+export function closeSheet(sheet){sheet.close();restoreToast();}
 
 function restoreToast(){
  if(!toastHome||document.querySelector('dialog.sheet[open]'))return;
@@ -71,6 +73,7 @@ export function initShell(){
  $('openSettings').addEventListener('click',event=>openSettings(event.currentTarget));
  initSheet(settings,$('openSettings'));
  initSheet($('handoffSheet'),$('openHandoff'));
+ initSheet($('pickSheet'),$('rollAll'));
  // 「この方向で引く」は抽選なので、先にシートを閉じて結果（または直すべき入力欄）が見える状態で実行する。
  settings.addEventListener('click',event=>{if(event.target.closest('#runPreset')&&!$('runPreset').disabled)settings.close();},true);
  // 「人物・進行・入口・質問」への導線：該当する欄を開いて、そこまで移動する。

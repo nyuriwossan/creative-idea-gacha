@@ -173,6 +173,18 @@
       <div class="sheet-foot"><button id="copyHandoff" class="primary"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>依頼文をコピー</button></div>
     </div>
   </dialog>
+  <dialog id="pickSheet" class="sheet pick-sheet" aria-labelledby="pickTitle">
+    <div class="sheet-frame">
+      <div class="sheet-head"><h2 id="pickTitle">10連で選ぶ</h2><button id="closePick" type="button" class="text-btn" data-close-sheet aria-label="選ばずに閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sheet-body">
+        <p class="note pick-lead">10個の候補から、気に入ったものを1つ選びます。選ばなかったものは残りません。</p>
+        <p id="pickShort" class="note notice" role="status" hidden></p>
+        <p id="pickEmpty" class="note notice" role="status" hidden>この条件では、ほかの候補が見つかりませんでした。舞台・トーン・テーマを変えると候補が増えます。</p>
+        <div id="pickList" class="pick-list" role="group" aria-labelledby="pickTitle"></div>
+      </div>
+      <div class="sheet-foot pick-foot"><button id="pickMore" type="button" class="secondary">もう10個</button><button id="pickUse" type="button" class="primary" disabled>1つ選んでください</button></div>
+    </div>
+  </dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
   <dialog id="decisionDialog"><h3 id="decisionTitle"></h3><p id="decisionBody"></p><div id="decisionActions" class="dialog-actions"></div></dialog>
   <dialog id="manualCopy"><h3>手動でコピーしてください</h3><p class="note">コピーを実行できませんでした。下の文字を選択してコピーできます。</p><textarea id="manualCopyText" rows="12" aria-label="コピー用の本文" readonly></textarea><button id="closeManualCopy">閉じる</button></dialog>

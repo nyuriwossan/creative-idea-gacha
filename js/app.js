@@ -14,6 +14,7 @@ import {prepareDrafts,DraftError} from './drafts.js';
 import {BackupStatus} from './backup.js';
 import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
 import {initShell,renderChips,openSheet,initPurposeChips,syncPurposeChips,focusPurposeChip} from './ui-shell.js';
+import {initPickSheet,openPick} from './pick-sheet.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -56,6 +57,7 @@ function makeField(key,label,container,optional){
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
   if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定以外を引く」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
+ const pick=optional?null:button('他から選ぶ',()=>openPick(key,label,{getState:()=>state,data:EXTRA_DATA,recent,from:pick}),'pick-btn');pick?.setAttribute('aria-label',`${label}を他の候補から選ぶ`);pick?.setAttribute('aria-haspopup','dialog');
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
  const contextInputs=[];
@@ -83,8 +85,8 @@ function makeField(key,label,container,optional){
   background.append(legend,hint,options);editor.append(background);
  }
  const badges=node('div','material-badges');
- editor.append(editActions);roll.classList.add('roll-btn');lock.classList.add('lock-toggle');edit.classList.add('text-btn','edit-btn');head.append(lock);actions.append(roll,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提（人物・事件は別の項目）'));card.append(value,example,badges,actions,editor);$(container).append(card);
- cards.set(key,{card,value,example,exampleBody,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
+ editor.append(editActions);roll.classList.add('roll-btn');lock.classList.add('lock-toggle');edit.classList.add('text-btn','edit-btn');head.append(lock);actions.append(roll,...(pick?[pick]:[]),edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提（人物・事件は別の項目）'));card.append(value,example,badges,actions,editor);$(container).append(card);
+ cards.set(key,{card,value,example,exampleBody,source,roll,pick,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
 }
 function makeQuestions(category){
  const panel=node('div');panel.dataset.category=category;
@@ -180,7 +182,7 @@ function render(){
  const world=state.items.world;
  const mismatch=state.locks.world&&state.settings.stage!=='all'&&(world?.source==='custom'||!world?.stageTags.includes(state.settings.stage));
  $('worldNotice').hidden=!mismatch;$('worldNotice').textContent='世界観は固定中。舞台設定は世界観を引き直すと反映します。';
- for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key],core=coreForField(item,key);if(c.exampleBody.textContent!==item?.text)c.example.open=false;c.value.textContent=core||item?.text||'未設定';c.example.hidden=!core;c.exampleBody.textContent=core?item.text:'';c.value.classList.toggle('seed-value',Boolean(core));c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
+ for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key],core=coreForField(item,key);if(c.exampleBody.textContent!==item?.text)c.example.open=false;c.value.textContent=core||item?.text||'未設定';c.example.hidden=!core;c.exampleBody.textContent=core?item.text:'';c.value.classList.toggle('seed-value',Boolean(core));c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;if(c.pick)c.pick.disabled=locked;
   const badges=[];
   const badge=BASIC.some(([k])=>k===key)?mixBadge(item,state.settings,worldContext(state)):'';if(badge)badges.push(node('span','mix-tag',badge));
   if(item?.source==='generated')for(const [id,label] of PACKS)if(item.themeTags.includes(id))badges.push(node('span','material-tag',label));
@@ -338,6 +340,7 @@ document.addEventListener('focusout',()=>{setTimeout(()=>{if(!document.activeEle
 function keepInputVisible(){const input=document.activeElement;if(input?.matches('textarea,input:not([type="checkbox"])'))requestAnimationFrame(()=>input.scrollIntoView({block:'center',behavior:'instant'}));}
 window.addEventListener('resize',keepInputVisible);window.visualViewport?.addEventListener('resize',keepInputVisible);
 initShell();
+initPickSheet((key,candidate)=>guard(()=>{const result=commit(draft=>{draft.items[key]=clone(candidate);},{output:true,randomize:true});recent[key]=[...(recent[key]||[]),candidate.candidateId].slice(-10);if(key==='world'&&result!==false)showToast('世界観を変えました。他の項目も合わせたいときは「固定以外を引く」を使えます。');}));
 render();renderSaved();
 $('exportRaw').hidden=!repository.rawBackup;
 if(initial.warnings.length)storageWarning(initial.warnings.join('\n'));

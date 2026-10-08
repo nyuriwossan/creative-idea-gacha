@@ -10,6 +10,7 @@ function check(name,fn){return Promise.resolve().then(fn).then(()=>{results.push
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const base=`http://127.0.0.1:${server.address().port}/creative-idea-gacha/`;
  const browser=await chromium.launch({...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{}),headless:true});
+ await require('./ui-helpers.cjs').installSettingsSheetHelper(browser);
  try{
  const ctx=await browser.newContext({viewport:{width:1280,height:900},acceptDownloads:true});const p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto(base);await p.locator('#summaryBody').filter({hasText:'舞台'}).waitFor();
@@ -121,6 +122,7 @@ function check(name,fn){return Promise.resolve().then(fn).then(()=>{results.push
  await require('./stage-mix-browser.cjs')({browser,base,out,check});
  await require('./seed-core-browser.cjs')({browser,base,out,check});
  await require('./stage-expansion-browser.cjs')({browser,base,out,check});
+ await require('./ui-v2-browser.cjs')({browser,base,out,check});
  fs.unlinkSync(path.join(out,'future-test.json'));
  fs.writeFileSync(path.join(out,'browser-check-results.json'),JSON.stringify({passed:results.length,checks:results,errors},null,2));
  }finally{await browser.close();}

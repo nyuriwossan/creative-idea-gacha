@@ -13,6 +13,7 @@ import { CONTEXTS,PACKS,contextLabels } from './context.js';
 import {prepareDrafts,DraftError} from './drafts.js';
 import {BackupStatus} from './backup.js';
 import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
+import {initShell,renderChips} from './ui-shell.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -190,6 +191,7 @@ function render(){
  $('titleList').replaceChildren(...state.texts.titles.map(t=>node('li','',t)));
  $('undo').disabled=!history.canUndo;$('redo').disabled=!history.canRedo;
  renderMetadata();renderQuestions();
+ renderChips(state);
 }
 function renderSaved(){
  backup.observe(repository.works);renderBackup();
@@ -336,6 +338,7 @@ document.addEventListener('focusin',event=>{if(event.target.matches('textarea,in
 document.addEventListener('focusout',()=>{setTimeout(()=>{if(!document.activeElement?.matches('textarea,input:not([type="checkbox"])'))document.body.classList.remove('text-input-active');},0);});
 function keepInputVisible(){const input=document.activeElement;if(input?.matches('textarea,input:not([type="checkbox"])'))requestAnimationFrame(()=>input.scrollIntoView({block:'center',behavior:'instant'}));}
 window.addEventListener('resize',keepInputVisible);window.visualViewport?.addEventListener('resize',keepInputVisible);
+initShell();
 render();renderSaved();
 $('exportRaw').hidden=!repository.rawBackup;
 if(initial.warnings.length)storageWarning(initial.warnings.join('\n'));

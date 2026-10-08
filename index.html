@@ -50,22 +50,6 @@
       <div class="section-head"><div><span class="eyebrow">02 / YOUR STORY SEED</span><h2>ここから、物語が始まる</h2></div><span id="purposeLabel" class="pill"></span></div>
       <div class="result-card"><div class="card-head"><h3>タネの要約</h3><button data-copy="summary" class="small-btn">要約をコピー</button></div><p id="summaryBody" class="result-body"></p><div class="result-actions"><a class="button-link secondary" href="#saveEditor">このタネを保存する ↓</a><button id="rebuild" class="text-btn">出力文を作り直す</button></div></div>
 
-      <details id="handoffPanel" class="panel accordion handoff-panel"><summary>AIに渡す依頼文</summary>
-        <p class="note">基本7項目だけでも使えます。人物・進行・質問は任意です。依頼文をコピーして、使いたいAIに貼ってください。</p>
-        <label>AIへの依頼内容（上の出力用途とは別に選べます）<select id="handoffPurpose"></select></label>
-        <label>依頼文の長さ<select id="handoffLength"><option value="simple">簡易</option><option value="detail">詳細</option></select></label>
-        <div class="handoff-checks"><label class="check-label"><input id="preserveAll" type="checkbox" checked>現在の素材をすべて保持する</label><label class="check-label"><input id="suggestMissing" type="checkbox" checked>不足する設定をAIに提案してもらう</label><label class="check-label"><input id="includeNotes" type="checkbox">自由メモを含める</label></div>
-        <p class="note">この設定はAIへの依頼だけに作用します。「固定」は抽選を止める機能です。</p>
-        <details id="chatOptions" class="usage-help"><summary>チャットの役割・追加条件（任意）</summary>
-          <label>ユーザーが担当する人物<select id="userRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="other">その他</option></select></label>
-          <label>その他の役割（100文字まで）<input id="userRoleText"></label>
-          <label>AIが担当する範囲<select id="aiRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="ensemble">複数人物・語り手</option></select></label>
-          <label>作成先・追加条件（2,000文字まで）<textarea id="extraRequest" rows="3"></textarea></label>
-        </details>
-        <p id="handoffError" class="input-error" role="alert"></p><p id="handoffPending" class="note notice" role="status" hidden>未反映の編集があります。更新・コピー時にまとめて反映します。</p>
-        <div class="inline-actions"><button id="updateHandoff" class="secondary">依頼文を更新</button><button id="copyHandoff" class="primary">依頼文をコピー</button></div>
-        <label>依頼文のプレビュー<textarea id="handoffPreview" readonly rows="12"></textarea></label><p id="handoffCount" class="note" aria-live="polite"></p>
-      </details>
       <div class="optional-stack">
         <details id="charactersDetails" class="panel accordion"><summary><span>人物を足す</span><span class="subtle">任意 / 立場・目的・秘密</span></summary>
           <p id="groupNotice" class="note" hidden>主人公・相手役は集団の中の人物として設定できます。</p>
@@ -114,7 +98,7 @@
   </div>
   <dialog id="settingsSheet" class="sheet" aria-labelledby="settingsTitle">
     <div class="sheet-frame">
-      <div class="sheet-head"><h2 id="settingsTitle">設定</h2><button id="closeSettings" type="button" class="text-btn" aria-label="設定を閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sheet-head"><h2 id="settingsTitle">設定</h2><button id="closeSettings" type="button" class="text-btn" data-close-sheet aria-label="設定を閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       <div class="sheet-body">
         <div class="settings-panel">
         <div class="settings-grid">
@@ -155,7 +139,38 @@
         <p class="note">ロック解除は基本・人物・進行・入口・質問が対象です。内容は消しません。テーマ解除は「お任せ」に戻します。</p>
         <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
       </div>
-      <div class="sheet-foot"><button id="doneSettings" type="button" class="primary">この設定で閉じる</button></div>
+      <div class="sheet-foot"><button id="doneSettings" type="button" class="primary" data-close-sheet>この設定で閉じる</button></div>
+    </div>
+  </dialog>
+  <dialog id="handoffSheet" class="sheet handoff-sheet" aria-labelledby="handoffTitle">
+    <div class="sheet-frame">
+      <div class="sheet-head"><h2 id="handoffTitle">AIに渡す</h2><button id="closeHandoff" type="button" class="text-btn" data-close-sheet aria-label="AIに渡す画面を閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sheet-body">
+        <p class="note handoff-lead">いま引いた素材を、そのままAIに貼れる依頼文にします。基本7項目だけでも使えます。</p>
+        <div class="handoff-purpose">
+          <p id="handoffPurposeLabel" class="handoff-label">AIへの依頼内容 <span class="subtle">設定の出力用途とは別に選べます</span></p>
+          <div id="handoffPurposeChips" class="purpose-chips" role="group" aria-labelledby="handoffPurposeLabel"></div>
+          <select id="handoffPurpose" class="visually-hidden" tabindex="-1" aria-hidden="true"></select>
+        </div>
+        <p id="handoffError" class="input-error" role="alert"></p><p id="handoffPending" class="note notice" role="status" hidden>未反映の編集があります。更新・コピー時にまとめて反映します。</p>
+        <div class="handoff-preview">
+          <div class="preview-head"><label for="handoffPreview">依頼文のプレビュー</label><span id="handoffCount" class="note" aria-live="polite"></span></div>
+          <textarea id="handoffPreview" readonly rows="12"></textarea>
+          <button id="updateHandoff" class="text-btn small-btn">依頼文を更新</button>
+        </div>
+        <details id="handoffDetails" class="handoff-more"><summary>くわしい設定</summary>
+          <p class="note">長さ・保持する素材・チャットの役割などを変えられます。この設定はAIへの依頼だけに作用します。「固定」は抽選を止める機能です。</p>
+          <label>依頼文の長さ<select id="handoffLength"><option value="simple">簡易</option><option value="detail">詳細</option></select></label>
+          <div class="handoff-checks"><label class="check-label"><input id="preserveAll" type="checkbox" checked>現在の素材をすべて保持する</label><label class="check-label"><input id="suggestMissing" type="checkbox" checked>不足する設定をAIに提案してもらう</label><label class="check-label"><input id="includeNotes" type="checkbox">自由メモを含める</label></div>
+          <details id="chatOptions" class="usage-help"><summary>チャットの役割・追加条件（任意）</summary>
+          <label>ユーザーが担当する人物<select id="userRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="other">その他</option></select></label>
+          <label>その他の役割（100文字まで）<input id="userRoleText"></label>
+          <label>AIが担当する範囲<select id="aiRole"><option value="unspecified">未指定</option><option value="protagonist">主人公</option><option value="counterpart">相手役</option><option value="ensemble">複数人物・語り手</option></select></label>
+          <label>作成先・追加条件（2,000文字まで）<textarea id="extraRequest" rows="3"></textarea></label>
+        </details>
+        </details>
+      </div>
+      <div class="sheet-foot"><button id="copyHandoff" class="primary"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>依頼文をコピー</button></div>
     </div>
   </dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>

@@ -8,7 +8,7 @@ module.exports=async({browser,base,out,check})=>{
   assert.equal((await read()).works.length,3);
  });
  await check('expanded pair JSON download preserves snapshots and AI/Markdown report new stage labels',async()=>{
-  const pending=p.waitForEvent('download');await p.click('#exportCurrent');const dl=await pending;const file=path.join(out,'expanded-pair.json');await dl.saveAs(file);const json=JSON.parse(fs.readFileSync(file,'utf8'));assert.equal(json.schemaVersion,3);assert.deepEqual(json.works[0].state.items,(await read()).current.items);await p.click('#openHandoff');assert.match(await p.inputValue('#handoffPreview'),/SF × 研究施設/);await p.locator('#handoffPanel>summary').click();
+  const pending=p.waitForEvent('download');await p.click('#exportCurrent');const dl=await pending;const file=path.join(out,'expanded-pair.json');await dl.saveAs(file);const json=JSON.parse(fs.readFileSync(file,'utf8'));assert.equal(json.schemaVersion,3);assert.deepEqual(json.works[0].state.items,(await read()).current.items);await p.click('#openHandoff');assert.match(await p.inputValue('#handoffPreview'),/SF × 研究施設/);await p.locator('#closeHandoff').click();
  });
  await check('expanded selector fits mobile widths and remains keyboard-operable with no page errors',async()=>{
   for(const width of [360,390,430]){await p.setViewportSize({width,height:844});await p.locator('#stageMixDetails').scrollIntoViewIfNeeded();assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));for(const sel of ['#stageMixSelect','#clearStageMix'])assert.ok(await p.locator(sel).evaluate(x=>x.getBoundingClientRect().height>=44));await p.screenshot({path:path.join(out,`expanded-pairs-${width}.png`)});}

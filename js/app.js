@@ -13,7 +13,7 @@ import { CONTEXTS,PACKS,contextLabels } from './context.js';
 import {prepareDrafts,DraftError} from './drafts.js';
 import {BackupStatus} from './backup.js';
 import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
-import {initShell,renderChips} from './ui-shell.js';
+import {initShell,renderChips,openSheet,initPurposeChips,syncPurposeChips,focusPurposeChip} from './ui-shell.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -54,7 +54,7 @@ function makeField(key,label,container,optional){
  const value=node('p','field-value'),actions=node('div','field-actions');
  const roll=button('引き直す',()=>{
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
-  if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定していない項目を引く」を使えます。');
+  if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定以外を引く」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
@@ -83,7 +83,7 @@ function makeField(key,label,container,optional){
   background.append(legend,hint,options);editor.append(background);
  }
  const badges=node('div','material-badges');
- editor.append(editActions);actions.append(roll,lock,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提です。人物や事件は、ほかのお題と組み合わせて決められます。'));card.append(value,example,badges,actions,editor);$(container).append(card);
+ editor.append(editActions);roll.classList.add('roll-btn');lock.classList.add('lock-toggle');edit.classList.add('text-btn','edit-btn');head.append(lock);actions.append(roll,edit);card.append(head);if(key==='world')card.append(node('p','note world-help','時代・社会・暮らしの前提（人物・事件は別の項目）'));card.append(value,example,badges,actions,editor);$(container).append(card);
  cards.set(key,{card,value,example,exampleBody,source,roll,lock,edit,editor,text,short,contextInputs,selectedContexts,badges,inputError,shortError,isDirty,readEditor});
 }
 function makeQuestions(category){
@@ -115,7 +115,7 @@ function parseMeta(id,key,max){
  return parsed;
 }
 function hasFieldDraft(){return [...cards.values()].some(c=>c.isDirty());}
-function revealInput(input){for(let p=input.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;input.scrollIntoView({block:'center'});input.focus({preventScroll:true});}
+function revealInput(input){const sheet=document.querySelector('dialog.sheet[open]');if(sheet&&!sheet.contains(input))sheet.close();for(let p=input.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;input.scrollIntoView({block:'center'});input.focus({preventScroll:true});}
 function requireApplied({record=true}={}){
  const fields=[...cards.values()].filter(c=>c.isDirty()).map(c=>c.readEditor());
  const answers=[...questionDrafts].map(([key,pending])=>{const [category,index]=key.split(':');return {category,index:Number(index),value:pending.value,...(state.questions[category][index]?.id!==pending.slot.id?{slot:pending.slot,group:pending.group}:{})};});
@@ -126,7 +126,7 @@ function requireApplied({record=true}={}){
    for(const issue of error.errors){const [kind,key,part]=issue.target.split(':');let input,notice;
     if(kind==='field'){const c=cards.get(key);input=part==='short'?c.short:c.text;notice=part==='short'?c.shortError:c.inputError;}
     if(kind==='answer'){const c=questionCards.get(key).slots[Number(part)];input=c.input;notice=c.error;if(!first){questionCategory=key;$('questionCategory').value=key;renderQuestions();}}
-    if(kind==='handoff'){input=$(key);notice=$('handoffError');$('handoffPanel').open=true;$('chatOptions').hidden=false;$('chatOptions').open=true;}
+    if(kind==='handoff'){input=$(key);notice=$('handoffError');openSheet($('handoffSheet'));$('chatOptions').hidden=false;$('chatOptions').open=true;}
     if(kind==='meta'){input=$(key);notice=$(`${key}Error`);}
     if(input){errorFor(input,notice,issue.message);first??=input;}
    }if(first)revealInput(first);
@@ -246,13 +246,12 @@ const handoffBindings={handoffPurpose:'purpose',handoffLength:'length',preserveA
 function renderHandoff(){
  const value={...state.handoff,...handoffDraft},purpose=value.purpose||(state.settings.purpose==='AIキャラプロットの種'?'chat':'story');
  for(const [id,key] of Object.entries(handoffBindings)){if(document.activeElement===$(id))continue;const v=key==='purpose'?purpose:value[key];if($(id).type==='checkbox')$(id).checked=v;else $(id).value=v;}
- $('chatOptions').hidden=purpose!=='chat';
+ $('chatOptions').hidden=purpose!=='chat';syncPurposeChips();
  $('handoffPending').hidden=!(Object.keys(handoffDraft).length||dirtyInputs.size||hasFieldDraft()||questionDrafts.size);
  try{const text=buildAIHandoff(state);$('handoffPreview').value=text;$('handoffCount').textContent=characterCount(text)+'文字（全文）';if(!Object.keys(handoffDraft).length)$('handoffError').textContent='';}catch(e){$('handoffError').textContent=e.message;}
 }
-function openHandoff(){if(state.handoff.purpose===null)commit(draft=>{draft.handoff.purpose=draft.settings.purpose==='AIキャラプロットの種'?'chat':'story';});$('handoffPanel').open=true;renderHandoff();$('handoffPanel').scrollIntoView({block:'start'});$('handoffPurpose').focus({preventScroll:true});}
+function openHandoff(){if(state.handoff.purpose===null)commit(draft=>{draft.handoff.purpose=draft.settings.purpose==='AIキャラプロットの種'?'chat':'story';});renderHandoff();openSheet($('handoffSheet'),$('openHandoff'));focusPurposeChip();}
 bind('openHandoff',openHandoff);
-$('handoffPanel').addEventListener('toggle',()=>{if($('handoffPanel').open&&state.handoff.purpose===null)commit(draft=>{draft.handoff.purpose=draft.settings.purpose==='AIキャラプロットの種'?'chat':'story';});});
 for(const [id,key] of Object.entries(handoffBindings))$(id).addEventListener(['userRoleText','extraRequest'].includes(id)?'input':'change',()=>{
  handoffDraft[key]=$(id).type==='checkbox'?$(id).checked:$(id).value;
  try{validateHandoff({...state.handoff,...handoffDraft});$('handoffError').textContent='';if(!['userRoleText','extraRequest'].includes(id)){const value={...state.handoff,[key]:handoffDraft[key]};validateHandoff(value);delete handoffDraft[key];commit(draft=>{draft.handoff=value;});}}catch(e){$('handoffError').textContent=e.message;}
@@ -262,7 +261,7 @@ document.addEventListener('input',()=>{$('handoffPending').hidden=!(Object.keys(
 bind('updateHandoff',()=>{requireApplied();renderHandoff();showToast('依頼文を更新しました。');});
 bind('copyHandoff',()=>{requireApplied();renderHandoff();return copy($('handoffPreview').value);});
 // UIは初回だけ組み立てる。抽選や描画で編集中の入力欄やフォーカスを作り直さない。
-setOptions('handoffPurpose',HANDOFF_PURPOSES);
+setOptions('handoffPurpose',HANDOFF_PURPOSES);initPurposeChips();
 setOptions('stageMixSelect',[['','なし'],...STAGE_PAIRS]);
 setOptions('stageSelect',STAGES);setOptions('toneSelect',TONES.map((label,i)=>[i+1,label]));setOptions('purposeSelect',PURPOSES.map(p=>[p,p]));setOptions('questionCategory',QUESTION_CATEGORIES);
 for(const [key,label] of BASIC)makeField(key,label,'basicFields',false);

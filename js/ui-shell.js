@@ -1,8 +1,9 @@
-// 画面の外枠（設定シート・設定チップ・任意欄への導線）。抽選や保存のロジックは持たない。
+// 画面の外枠（設定シート・AIに渡すシート・設定チップ・任意欄への導線）。抽選や保存のロジックは持たない。
 import {settingsChips,settingsChipsLabel} from './settings-chips.js';
 
 const $=id=>document.getElementById(id);
-let opener=null,toastHome=null;
+const openers=new WeakMap();
+let toastHome=null;
 
 export function renderChips(state){
  const chips=settingsChips(state),list=$('settingsChips');
@@ -14,39 +15,64 @@ export function renderChips(state){
  $('openSettings').setAttribute('aria-label',settingsChipsLabel(chips));
 }
 
-export function openSettings(from=document.activeElement){
- const sheet=$('settingsSheet');if(sheet.open)return;
- opener=from instanceof HTMLElement?from:$('openSettings');
- // 設定変更の通知（トースト）がシートの下に隠れないよう、開いている間だけシート内（閉じるボタンの上）へ移す。
- const toast=$('toast');toastHome={parent:toast.parentElement,next:toast.nextSibling};sheet.querySelector('.sheet-foot').before(toast);
+// シートは同時に1枚だけ。開いている間は、通知（トースト）がシートの下に隠れないよう閉じるボタンの上へ移す。
+export function openSheet(sheet,from=document.activeElement){
+ if(sheet.open)return;
+ for(const other of document.querySelectorAll('dialog.sheet[open]'))other.close();
+ openers.set(sheet,from instanceof HTMLElement?from:null);
+ const toast=$('toast');
+ if(!toastHome)toastHome={parent:toast.parentElement,next:toast.nextSibling};
+ sheet.querySelector('.sheet-foot').before(toast);
  sheet.showModal();
 }
+export function openSettings(from){openSheet($('settingsSheet'),from);}
 
 function restoreToast(){
- if(!toastHome)return;const toast=$('toast');
- toastHome.parent.insertBefore(toast,toastHome.next);toastHome=null;
+ if(!toastHome||document.querySelector('dialog.sheet[open]'))return;
+ toastHome.parent.insertBefore($('toast'),toastHome.next);toastHome=null;
 }
 
-export function initShell(){
- const sheet=$('settingsSheet');
- $('openSettings').addEventListener('click',event=>openSettings(event.currentTarget));
- $('closeSettings').addEventListener('click',()=>sheet.close());
- $('doneSettings').addEventListener('click',()=>sheet.close());
+function initSheet(sheet,fallback){
+ for(const button of sheet.querySelectorAll('[data-close-sheet]'))button.addEventListener('click',()=>sheet.close());
  // 背景（シートの外側）を押したら閉じる。シート内の余白では閉じない。
  sheet.addEventListener('click',event=>{
   if(event.target!==sheet)return;
   const r=sheet.getBoundingClientRect();
   if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)sheet.close();
  });
- // 「この方向で引く」は抽選なので、先にシートを閉じて結果（または直すべき入力欄）が見える状態で実行する。
- sheet.addEventListener('click',event=>{if(event.target.closest('#runPreset')&&!$('runPreset').disabled)sheet.close();},true);
  sheet.addEventListener('close',()=>{
   restoreToast();
-  const target=opener&&opener.isConnected?opener:$('openSettings');opener=null;
+  const opener=openers.get(sheet),target=opener&&opener.isConnected?opener:fallback;openers.delete(sheet);
   // 閉じた直後に別の欄へフォーカスが移っていたら（入力エラーの案内など）、それを奪わない。
   const active=document.activeElement;
   if(!active||active===document.body||active===target||sheet.contains(active))target.focus({preventScroll:true});
  });
+}
+
+// 「AIへの依頼内容」は select を正本として残し、見た目は4つのチップで操作する（change を発火して既存の処理に渡す）。
+export function initPurposeChips(){
+ const select=$('handoffPurpose'),group=$('handoffPurposeChips');
+ group.replaceChildren(...[...select.options].map(option=>{
+  const chip=document.createElement('button');chip.type='button';chip.className='purpose-chip';chip.dataset.purpose=option.value;chip.textContent=option.textContent;
+  chip.setAttribute('aria-pressed','false');
+  chip.addEventListener('click',()=>{if(select.value===option.value)return;select.value=option.value;select.dispatchEvent(new Event('change'));syncPurposeChips();});
+  return chip;
+ }));
+ select.addEventListener('change',syncPurposeChips);
+}
+export function syncPurposeChips(){
+ const value=$('handoffPurpose').value;
+ for(const chip of $('handoffPurposeChips').children)chip.setAttribute('aria-pressed',String(chip.dataset.purpose===value));
+}
+export function focusPurposeChip(){$('handoffPurposeChips').querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});}
+
+export function initShell(){
+ const settings=$('settingsSheet');
+ $('openSettings').addEventListener('click',event=>openSettings(event.currentTarget));
+ initSheet(settings,$('openSettings'));
+ initSheet($('handoffSheet'),$('openHandoff'));
+ // 「この方向で引く」は抽選なので、先にシートを閉じて結果（または直すべき入力欄）が見える状態で実行する。
+ settings.addEventListener('click',event=>{if(event.target.closest('#runPreset')&&!$('runPreset').disabled)settings.close();},true);
  // 「人物・進行・入口・質問」への導線：該当する欄を開いて、そこまで移動する。
  for(const link of document.querySelectorAll('[data-open-details]'))link.addEventListener('click',()=>{
   const details=$(link.dataset.openDetails);details.open=true;

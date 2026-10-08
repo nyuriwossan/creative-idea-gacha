@@ -11,74 +11,44 @@
   <script type="module" src="./js/app.js"></script>
 </head>
 <body data-tone="3">
-  <a class="skip" href="#draw">抽選へ移動</a>
-  <header class="hero">
-    <div class="eyebrow"><span class="seed-icon" aria-hidden="true">✦</span> CREATIVE IDEA GACHA</div>
+  <a class="skip" href="#basicFields">結果へ移動</a>
+  <header class="app-header">
     <h1>創作アイデアガチャ</h1>
-    <p class="hero-lead">ひとつの偶然から、あなたの物語へ。</p>
-    <p class="hero-note">方向を選ぶ → 固定していない項目を引く → 編集して保存</p>
+    <div class="history-actions" role="group" aria-label="作業履歴">
+      <button id="undo" type="button" aria-label="一つ前の作業に戻す"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>戻す</span></button>
+      <button id="redo" type="button" aria-label="戻した作業を進める"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg><span>進む</span></button>
+    </div>
   </header>
-  <nav class="jump-nav" aria-label="ページ内の移動">
-    <a href="#draw">01 抽選</a><a href="#result">02 結果</a><a href="#library">03 保存</a>
-  </nav>
+  <div class="settings-bar">
+    <button id="openSettings" type="button" class="settings-summary" aria-haspopup="dialog" aria-controls="settingsSheet"><span id="settingsChips" class="setting-chips"></span><span class="settings-open"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>設定</span></button>
+  </div>
   <main class="wrap">
     <div id="storageWarning" class="warning" role="alert" hidden></div>
     <div id="actionWarning" class="warning" role="alert" hidden></div>
-    <section id="draw" class="section">
-      <div class="section-head"><div><span class="eyebrow">01 / DRAW A SEED</span><h2>まずは、タネを引く</h2></div><span class="subtle">基本の7項目</span></div>
-      <div class="panel settings-panel">
-        <div class="settings-grid">
-          <label>舞台<select id="stageSelect"></select></label>
-          <label>トーン<select id="toneSelect"></select></label>
-          <label>出力用途<select id="purposeSelect"></select></label>
-        </div>
-        <details id="stageMixDetails" class="preset-details"><summary>舞台を組み合わせる（任意）</summary>
-          <label for="stageMixSelect">組み合わせ</label><select id="stageMixSelect"></select>
-          <button id="clearStageMix" class="secondary">組み合わせを解除</button>
-          <p id="stageMixCondition" class="note" role="status"></p>
-          <p id="stageMixPending" class="note notice" hidden>新しい組み合わせは次の抽選で使います。</p>
-        </details>
-        <details id="modernPresetDetails" class="preset-details"><summary>現代ものから選ぶ（任意）</summary>
-          <p class="note">選ぶだけでは変わりません。「この方向で引く」で基本7項目のうち固定していないものを引きます。人物・入口・質問は任意のままです。</p>
-          <label for="presetSelect">引きたい方向</label><select id="presetSelect"></select>
-          <button id="clearPreset" class="secondary">選択を解除</button>
-          <p id="presetPreview" class="note"></p>
-          <button id="runPreset" class="secondary">この方向で引く</button>
-          <p id="presetResult" class="note notice" role="status" hidden></p>
-        </details>
-        <fieldset class="coherence-control"><legend>素材の組み合わせ方</legend><div class="inline-actions"><button data-coherence="cohesive" aria-pressed="true">まとまり重視</button><button data-coherence="mix" aria-pressed="false">自由に混ぜる</button></div><p id="coherenceHelp" class="note">同じ題材や葛藤を持つ素材を優先します。</p></fieldset>
-        <p class="note">設定変更は次の抽選から。今の素材は残ります。</p>
-        <p id="worldNotice" class="note notice" hidden></p>
-        <details id="themeDetails" class="theme-details"><summary>好みで絞る <span id="themeCount" class="subtle">お任せ</span></summary>
-          <p class="note">最大3つ。組み合わせても使えます。世界観に合う素材から、選んだ方向を事件や葛藤にも反映します。</p>
-          <div id="themeButtons">
-            <h3 class="theme-heading">世界観を広げる</h3>
-            <div id="packButtons" class="pack-grid" role="group" aria-label="世界観を広げるテーマ"></div>
-            <h3 class="theme-heading">関係・物語の方向</h3>
-            <div id="classicThemeButtons" class="chips" role="group" aria-label="関係・物語のテーマ"></div>
-          </div>
-
-        </details>
-      </div>
-      <p id="activeThemes" class="active-themes" aria-live="polite">選んだ方向：お任せ</p>
-      <div class="draw-actions">
-        <button id="rollAll" class="primary">✦ 固定していない項目を引く</button>
-        <div class="history-actions" role="group" aria-label="作業履歴"><span class="subtle">履歴</span><button id="undo" aria-label="一つ前の作業に戻す">↶ 戻す</button><button id="redo" aria-label="戻した作業を進める">↷ 進む</button></div>
-      </div>
-      <div class="inline-actions reset-actions"><button id="unlockAll">すべてのロックを外す</button><button id="clearThemes">テーマの選択を全解除</button></div>
-      <p class="note">ロック解除は基本・人物・進行・入口・質問が対象です。内容は消しません。テーマ解除は「お任せ」に戻します。</p>
-      <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
+    <section id="draw" class="section draw-section" aria-labelledby="drawHeading">
+      <h2 id="drawHeading" class="visually-hidden">引いたタネ（基本の7項目）</h2>
       <p id="drawNotice" class="draw-notice" role="status" hidden></p>
       <button id="cozyToneAction" class="secondary" hidden>ダーク・シリアスへ変更する</button>
       <p id="mixReport" class="note notice" role="status" hidden></p>
       <div id="basicFields" class="field-grid"></div>
-      <div class="under-actions"><button id="rollLight" class="text-btn">☀ ほのぼのにして引く</button><a class="button-link" href="#result">結果を見る ↓</a></div>
-      <details class="usage-help"><summary>抽選・編集の使い方</summary><p class="note">主ボタンは基本7項目が対象です。手入力を反映すると自動で固定します。保存・コピー・現在のJSON出力では、編集中の変更もまとめて確認して反映します。取消したい項目は「キャンセル」を選んでください。物語のつながりはあなたが選べます。</p></details>
+      <div class="optional-entry" role="group" aria-labelledby="optionalEntryTitle">
+        <p id="optionalEntryTitle" class="optional-entry-title">人物・進行・入口・質問を足す <span class="subtle">任意</span></p>
+        <div class="optional-entry-links">
+          <button type="button" data-open-details="charactersDetails">人物</button>
+          <button type="button" data-open-details="progressionDetails">進行</button>
+          <button type="button" data-open-details="sceneDetails">入口</button>
+          <button type="button" data-open-details="questionsDetails">質問</button>
+        </div>
+      </div>
+      <div class="under-actions"><button id="rollLight" class="text-btn">☀ ほのぼのにして引く</button>
+        <nav class="jump-nav" aria-label="ページ内の移動"><a href="#result">結果 ↓</a><a href="#library">保存 ↓</a></nav>
+      </div>
+      <details class="usage-help"><summary>抽選・編集の使い方</summary><p class="note">「固定以外を引く」は基本7項目が対象です。手入力を反映すると自動で固定します。保存・コピー・現在のJSON出力では、編集中の変更もまとめて確認して反映します。取消したい項目は「キャンセル」を選んでください。物語のつながりはあなたが選べます。</p></details>
     </section>
 
     <section id="result" class="section">
       <div class="section-head"><div><span class="eyebrow">02 / YOUR STORY SEED</span><h2>ここから、物語が始まる</h2></div><span id="purposeLabel" class="pill"></span></div>
-      <div class="result-card"><div class="card-head"><h3>タネの要約</h3><button data-copy="summary" class="small-btn">要約をコピー</button></div><p id="summaryBody" class="result-body"></p><div class="result-actions"><button id="openHandoff" class="primary">AIに渡して続きを作る</button><a class="button-link secondary" href="#saveEditor">このタネを保存する ↓</a><button id="rebuild" class="text-btn">出力文を作り直す</button></div></div>
+      <div class="result-card"><div class="card-head"><h3>タネの要約</h3><button data-copy="summary" class="small-btn">要約をコピー</button></div><p id="summaryBody" class="result-body"></p><div class="result-actions"><a class="button-link secondary" href="#saveEditor">このタネを保存する ↓</a><button id="rebuild" class="text-btn">出力文を作り直す</button></div></div>
 
       <details id="handoffPanel" class="panel accordion handoff-panel"><summary>AIに渡す依頼文</summary>
         <p class="note">基本7項目だけでも使えます。人物・進行・質問は任意です。依頼文をコピーして、使いたいAIに貼ってください。</p>
@@ -138,6 +108,56 @@
     </section>
   </main>
   <footer><p>引くのはきっかけ。物語をつくるのは、あなた。</p><p class="note">ログイン不要・外部AIへの自動送信なし。素材と問いから考える創作の道具です。</p><a href="https://github.com/nyuriwossan/creative-idea-gacha" target="_blank" rel="noreferrer">GitHub</a></footer>
+  <div class="action-bar" role="group" aria-label="よく使う操作">
+    <button id="rollAll" class="primary"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>固定以外を引く</button>
+    <button id="openHandoff" class="secondary">AIに渡す</button>
+  </div>
+  <dialog id="settingsSheet" class="sheet" aria-labelledby="settingsTitle">
+    <div class="sheet-frame">
+      <div class="sheet-head"><h2 id="settingsTitle">設定</h2><button id="closeSettings" type="button" class="text-btn" aria-label="設定を閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sheet-body">
+        <div class="settings-panel">
+        <div class="settings-grid">
+          <label>舞台<select id="stageSelect"></select></label>
+          <label>トーン<select id="toneSelect"></select></label>
+          <label>出力用途<select id="purposeSelect"></select></label>
+        </div>
+        <details id="stageMixDetails" class="preset-details"><summary>舞台を組み合わせる（任意）</summary>
+          <label for="stageMixSelect">組み合わせ</label><select id="stageMixSelect"></select>
+          <button id="clearStageMix" class="secondary">組み合わせを解除</button>
+          <p id="stageMixCondition" class="note" role="status"></p>
+          <p id="stageMixPending" class="note notice" hidden>新しい組み合わせは次の抽選で使います。</p>
+        </details>
+        <details id="modernPresetDetails" class="preset-details"><summary>現代ものから選ぶ（任意）</summary>
+          <p class="note">選ぶだけでは変わりません。「この方向で引く」で基本7項目のうち固定していないものを引きます。人物・入口・質問は任意のままです。</p>
+          <label for="presetSelect">引きたい方向</label><select id="presetSelect"></select>
+          <button id="clearPreset" class="secondary">選択を解除</button>
+          <p id="presetPreview" class="note"></p>
+          <button id="runPreset" class="secondary">この方向で引く</button>
+          <p id="presetResult" class="note notice" role="status" hidden></p>
+        </details>
+        <fieldset class="coherence-control"><legend>素材の組み合わせ方</legend><div class="inline-actions"><button data-coherence="cohesive" aria-pressed="true">まとまり重視</button><button data-coherence="mix" aria-pressed="false">自由に混ぜる</button></div><p id="coherenceHelp" class="note">同じ題材や葛藤を持つ素材を優先します。</p></fieldset>
+        <p class="note">設定変更は次の抽選から。今の素材は残ります。</p>
+        <p id="worldNotice" class="note notice" hidden></p>
+        <details id="themeDetails" class="theme-details"><summary>好みで絞る <span id="themeCount" class="subtle">お任せ</span></summary>
+          <p class="note">最大3つ。組み合わせても使えます。世界観に合う素材から、選んだ方向を事件や葛藤にも反映します。</p>
+          <div id="themeButtons">
+            <h3 class="theme-heading">世界観を広げる</h3>
+            <div id="packButtons" class="pack-grid" role="group" aria-label="世界観を広げるテーマ"></div>
+            <h3 class="theme-heading">関係・物語の方向</h3>
+            <div id="classicThemeButtons" class="chips" role="group" aria-label="関係・物語のテーマ"></div>
+          </div>
+
+        </details>
+        </div>
+        <p id="activeThemes" class="active-themes" aria-live="polite">選んだ方向：お任せ</p>
+        <div class="inline-actions reset-actions"><button id="unlockAll">すべてのロックを外す</button><button id="clearThemes">テーマの選択を全解除</button></div>
+        <p class="note">ロック解除は基本・人物・進行・入口・質問が対象です。内容は消しません。テーマ解除は「お任せ」に戻します。</p>
+        <p id="lockStatus" class="note" role="status" hidden>基本7項目はすべて固定中です。固定を外すと引き直せます。</p>
+      </div>
+      <div class="sheet-foot"><button id="doneSettings" type="button" class="primary">この設定で閉じる</button></div>
+    </div>
+  </dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
   <dialog id="decisionDialog"><h3 id="decisionTitle"></h3><p id="decisionBody"></p><div id="decisionActions" class="dialog-actions"></div></dialog>
   <dialog id="manualCopy"><h3>手動でコピーしてください</h3><p class="note">コピーを実行できませんでした。下の文字を選択してコピーできます。</p><textarea id="manualCopyText" rows="12" aria-label="コピー用の本文" readonly></textarea><button id="closeManualCopy">閉じる</button></dialog>

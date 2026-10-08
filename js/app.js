@@ -15,6 +15,7 @@ import {BackupStatus} from './backup.js';
 import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
 import {initShell,renderChips,openSheet,initPurposeChips,syncPurposeChips,focusPurposeChip} from './ui-shell.js';
 import {initPickSheet,openPick} from './pick-sheet.js';
+import {unlockAll,clearThemes,quickResetView,UNLOCK_NOTICE,CLEAR_THEMES_NOTICE} from './quick-reset.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
 const button=(text,handler,className='')=>{const el=node('button',className,text);el.type='button';el.addEventListener('click',()=>guard(handler));return el;};
@@ -194,6 +195,8 @@ function render(){
  $('undo').disabled=!history.canUndo;$('redo').disabled=!history.canRedo;
  renderMetadata();renderQuestions();
  renderChips(state);
+ const quick=quickResetView(state);
+ for(const [id,view] of [['quickUnlock',quick.unlock],['quickClearThemes',quick.themes]]){const focused=document.activeElement===$(id);$(id).disabled=view.disabled;$(id).setAttribute('aria-label',view.label);if(focused&&view.disabled)$('openSettings').focus({preventScroll:true});}
 }
 function renderSaved(){
  backup.observe(repository.works);renderBackup();
@@ -276,8 +279,10 @@ for(const [key,label] of THEMES){
  if(pack)b.replaceChildren(node('span','pack-title',label),node('span','pack-description',pack[2]));
  $(pack?'packButtons':'classicThemeButtons').append(b);
 }
-bind('clearThemes',()=>commit(draft=>updateSettings(draft,{themes:[]}),{notice:'テーマの選択を全解除しました。'}));
-bind('unlockAll',()=>commit(draft=>{for(const key of Object.keys(draft.locks))draft.locks[key]=false;for(const slots of Object.values(draft.questions))for(const slot of slots)slot.locked=false;},{notice:'すべてのロックを外しました。回答や本文は残しています。'}));
+// 上部と設定シート内の解除ボタンは同じ処理。解除だけで再抽選しない（1回の「戻す」で戻せる）。
+const runClearThemes=()=>commit(clearThemes,{notice:CLEAR_THEMES_NOTICE}),runUnlockAll=()=>commit(unlockAll,{notice:UNLOCK_NOTICE});
+bind('clearThemes',runClearThemes);bind('quickClearThemes',runClearThemes);
+bind('unlockAll',runUnlockAll);bind('quickUnlock',runUnlockAll);
 for(const b of document.querySelectorAll('[data-coherence]'))b.addEventListener('click',()=>guard(()=>commit(draft=>updateSettings(draft,{coherence:b.dataset.coherence}))));
 bind('cozyToneAction',()=>commit(draft=>updateSettings(draft,{tone:4})));
 $('stageSelect').addEventListener('change',()=>guard(()=>commit(draft=>{updateSettings(draft,{stage:$('stageSelect').value,stage2:null});$('stageMixPending').hidden=true;},{notice:'単独の舞台に変更しました。'})));

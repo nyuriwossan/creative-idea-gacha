@@ -1,12 +1,14 @@
 // UI v2 のシート（<dialog class="sheet">）に対応する browser テスト用 helper。
 //
-// 設定（#settingsSheet）と「AIに渡す」（#handoffSheet）はモーダルのシートに移ったため、閉じたままでは操作できない。
+// 設定（#settingsSheet）・「AIに渡す」（#handoffSheet）・「他から選ぶ」（#pickSheet）はモーダルのシートなので、閉じたままでは操作できない。
 // 既存テストの手順はそのままに、操作の直前に「対象がどのシートの中か」を見て、
 // 実際のボタン（開く・閉じる）を押して開閉する。DOM を直接いじらない。
 // 「くわしい設定」（#handoffDetails）の中の欄を操作するときは、その見出しを押して開く。
 const SHEETS={
  settingsSheet:{open:'#openSettings',close:'#doneSettings'},
- handoffSheet:{open:'#openHandoff',close:'#closeHandoff'}
+ handoffSheet:{open:'#openHandoff',close:'#closeHandoff'},
+ // 他から選ぶ：開く操作はカードごとに違うので、テストの手順で開く（helper は閉じるだけ）。
+ pickSheet:{open:null,close:'#closePick'}
 };
 const FOLDS=['handoffDetails'];
 const LOCATOR_ACTIONS=['click','dblclick','tap','fill','type','pressSequentially','press','selectOption','check','uncheck','setChecked','focus','hover','isVisible','waitFor','boundingBox','scrollIntoViewIfNeeded','evaluate','evaluateAll','screenshot'];
@@ -35,7 +37,7 @@ async function placeFor(locator){
   return {sheet:sheet?.id||null,otherDialog:!sheet&&Boolean(el.closest('dialog[open]')),fold:fold?.id||null};
  },FOLDS);}catch{return;}
  if(!where||where.otherDialog)return;
- if(where.sheet&&SHEETS[where.sheet])await showSheet(page,where.sheet);
+ if(where.sheet&&SHEETS[where.sheet]?.open)await showSheet(page,where.sheet);
  else if(!where.sheet)await closeSheets(page);
  if(where.fold)await original.locator.click.call(page.locator(`#${where.fold}>summary`));
 }

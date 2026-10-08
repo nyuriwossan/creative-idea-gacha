@@ -26,7 +26,7 @@ test('all 118 rows are parsed once with valid columns, tones, shapes and unique 
 
 test('mentor roles are added to both the protagonist and the counterpart (52 -> 70 each)',()=>{
  for(const person of ['protagonist','counterpart']){
-  const pool=EXTRA_DATA[`${person}.role`];assert.equal(pool.filter(r=>!r.id.includes('-az-')).length,70);
+  const pool=EXTRA_DATA[`${person}.role`];assert.equal(pool.filter(r=>!r.id.startsWith(`${person}-az-`)&&!r.id.startsWith(`${person}-se-`)).length,70);
   for(const row of WORLD_EXPAND_CHARACTERS.role)assert.ok(pool.some(r=>r.id===`${person}-${row.id}`&&r.text===row.text),`${person} ${row.id}`);
  }
  assert.ok(EXTRA_DATA['protagonist.role'].some(r=>r.text==='剣士の弟子'));assert.ok(EXTRA_DATA['counterpart.role'].some(r=>r.text==='魔法使いの弟子'));

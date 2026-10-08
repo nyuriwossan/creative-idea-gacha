@@ -5,7 +5,7 @@ import {DATA,BASIC,STAGES,THEMES} from '../js/data.js';
 import {EXTRA_DATA,QUESTION_DATA} from '../js/extra-data.js';
 import {CONTEXTS,meetsContext,worldContext} from '../js/context.js';
 import {WORLD_REVISIONS,reviseWorldDefinitions} from '../js/world-revision-data.js';
-import {emptyState,rollFields,refreshTexts,History,markdown,WEIGHTS,clone} from '../js/core.js';
+import {emptyState,rollFields,refreshTexts,History,markdown,WEIGHTS,clone,seedOf} from '../js/core.js';
 import {validateState,Repository,STORAGE_KEY,exportJSON,inspectImport,filterWorks} from '../js/storage.js';
 import {buildAIHandoff} from '../js/ai-handoff.js';
 import {tryModernPreset} from '../js/presets.js';
@@ -55,7 +55,7 @@ test('new and old world prose flows into summaries, Markdown and eight Japanese 
  for(const id of ['mp-modern-love-world-share-house','world-original-1jdjray','sf-school-world-score-rewrite','mp-workplace-pro-world-night-ward'])for(const row of [baseline.world.find(w=>w.id===id),DATA.world.find(w=>w.id===id)]){
   const s=generated(row);s.texts={summary:'保存済み要約',memo:'保存済み構成メモ',hint:'保存済みヒント',titles:['保存済み題']};const loaded=validateState(s);assert.deepEqual(loaded.texts,s.texts);assert.ok(markdown(loaded).includes('保存済み要約'));
   for(const purpose of ['story','chat','brainstorm','setting'])for(const length of ['simple','detail']){const text=buildAIHandoff(loaded,{purpose,length});assert.ok(text.includes(row.text));assert.doesNotMatch(text,/world-original-|mp-modern-love-world-|sf-school-world-|mp-workplace-pro-world-|undefined|null/);assert.deepEqual(loaded.texts,s.texts);}
-  refreshTexts(loaded,{rng:()=>0});assert.ok(loaded.texts.summary.includes(row.text));assert.ok(markdown(loaded).includes(row.text));assert.equal(loaded.items.world.text,row.text);
+  refreshTexts(loaded,{rng:()=>0});assert.ok(loaded.texts.summary.includes(seedOf(loaded,'world')));assert.ok(markdown(loaded).includes(row.text));assert.equal(loaded.items.world.text,row.text);
  }
 });
 test('saved old works retain save/overwrite/copy/favorite/search/tag and full backup behavior',()=>{

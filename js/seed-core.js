@@ -1,8 +1,12 @@
-import {CORE_BY_ID,CORE_FIELD_BY_ID} from './core-data.js';
+import {CORE_BY_ID as ROUND9_CORE_BY_ID,CORE_FIELD_BY_ID as ROUND9_CORE_FIELD_BY_ID} from './core-data.js';
+import {SHORT_CORE_BY_ID,SHORT_CORE_FIELD_BY_ID} from './short-core-data.js';
+// 第9回の核（葛藤・ギミック・ひねり）に、短い核（全項目）を重ねる。同じIDなら短い核を使う。
+export const CORE_BY_ID=Object.freeze({...ROUND9_CORE_BY_ID,...SHORT_CORE_BY_ID});
+export const CORE_FIELD_BY_ID=Object.freeze({...ROUND9_CORE_FIELD_BY_ID,...SHORT_CORE_FIELD_BY_ID});
 import {EXTRA_DATA} from './extra-data.js';
 import {BASIC} from './data.js';
 export const DATA_TEXT_BY_ID=Object.freeze(Object.fromEntries(Object.values(EXTRA_DATA).flat().map(item=>[item.id,item.text])));
-export const CORE_FIELDS=Object.freeze(['conflict','gimmick','twist']);
+export const CORE_FIELDS=Object.freeze(['world','genre','relation','incident','conflict','gimmick','twist']);
 export function coreFor(item,dataTextById=DATA_TEXT_BY_ID){
  if(!item||item.source!=='generated'||!Object.hasOwn(CORE_BY_ID,item.candidateId))return null;
  return Object.hasOwn(dataTextById,item.candidateId)&&dataTextById[item.candidateId]===item.text?CORE_BY_ID[item.candidateId]:null;

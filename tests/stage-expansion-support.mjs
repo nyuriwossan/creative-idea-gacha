@@ -1,5 +1,11 @@
 export const NEW_PAIRS=['modern+fantasy','wafu+fantasy','scifi+research'];
 // 第7弾（world-expand）の配線は、既存ファイルに足した import と連結だけ。ここで外して、それ以前の版と比べる。
+// 海外古典（standard-ebooks）の配線。青空文庫より後に足したので、さらに先に外す。
+function stripStandardEbooks(file,source){
+ if(file==='js/data.js')return source.replace("import {SE_BASIC} from './standard-ebooks-data.js';\n",'').replace(',SE_BASIC[key])',')');
+ if(file==='js/extra-data.js')return source.replace("import {SE_CHARACTERS} from './standard-ebooks-data.js';\n",'').replace(',...(SE_CHARACTERS[key]||[])]',']');
+ return source;
+}
 // 青空文庫素材（aozora）の配線。第7弾より後に足したので、先にこちらを外す。
 function stripAozora(file,source){
  if(file==='js/data.js')return source.replace("import {AOZORA_BASIC} from './aozora-data.js';\n",'').replace(',AOZORA_BASIC[key])',')');
@@ -13,7 +19,7 @@ function stripWorldExpand(file,source){
  return source;
 }
 export function stripExpansion(file,source){
- source=stripWorldExpand(file,stripAozora(file,source));
+ source=stripWorldExpand(file,stripAozora(file,stripStandardEbooks(file,source)));
  if(file==='js/stage-selection.js')return source.replace(",['modern+fantasy','現代 × ファンタジー'],['wafu+fantasy','和風 × ファンタジー'],['scifi+research','SF × 研究施設']",'');
  if(file==='js/stage-mix-data.js')return source.replace("import {STAGE_EXPANSION_ROWS} from './stage-expansion-data.js';\n",'').replace('STAGE_MIX_ROWS=[...STAGE_EXPANSION_ROWS,','STAGE_MIX_ROWS=[');
  return source;

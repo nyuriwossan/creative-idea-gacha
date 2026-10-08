@@ -6,6 +6,7 @@ import {emptyState} from '../js/core.js';
 import {MODERN_PRESETS,tryModernPreset} from '../js/presets.js';
 import {WORLD_EXPAND_BASIC} from '../js/world-expand-data.js';
 import {AOZORA_BASIC} from '../js/aozora-data.js';
+import {SE_BASIC} from '../js/standard-ebooks-data.js';
 export const baseline=JSON.parse(fs.readFileSync(new URL('./fixtures/world-restructure-baseline.json',import.meta.url),'utf8'));
 const originals=new Map(baseline.world.map(row=>[row.id,row]));
 const revisedIds=new Set(WORLD_REVISIONS.map(row=>row.id));
@@ -13,8 +14,8 @@ const revisedIds=new Set(WORLD_REVISIONS.map(row=>row.id));
 // メタデータを元候補で丸ごと置き換えない。別の回帰テストで32件の新本文を照合する。
 export function restoreReviewedText(row){const before=originals.get(row.id??row.candidateId);return before&&revisedIds.has(before.id)?{...row,text:before.text,titleWord:before.titleWord}:row;}
 // 第7弾（world-expand）と青空文庫（aozora）の世界観は32件の改修とは無関係に末尾へ足したもの。改修前の比較用データにも同じく足す。
-export const priorData={...EXTRA_DATA,world:[...baseline.world,...WORLD_EXPAND_BASIC.world,...AOZORA_BASIC.world]};
-export const historicalWorlds=rows=>rows.filter(r=>!['world-expand','aozora'].includes(r.origin));
+export const priorData={...EXTRA_DATA,world:[...baseline.world,...WORLD_EXPAND_BASIC.world,...AOZORA_BASIC.world,...SE_BASIC.world]};
+export const historicalWorlds=rows=>rows.filter(r=>!['world-expand','aozora','standard-ebooks'].includes(r.origin));
 export const rngFor=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 export function countWorldPools(world){return {
  stages:Object.fromEntries(STAGES.slice(1).map(([stage])=>[stage,[1,2,3,4,5].map(tone=>world.filter(w=>w.stageTags.includes(stage)&&w.tones.includes(tone)).length)])),

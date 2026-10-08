@@ -1,6 +1,7 @@
 import {ABSTRACT_SCENE} from './abstract-seed-data.js';
 import {WORLD_EXPAND_CHARACTERS} from './world-expand-data.js';
 import {AOZORA_CHARACTERS} from './aozora-data.js';
+import {SE_CHARACTERS} from './standard-ebooks-data.js';
 import {ROUND4_CHARACTERS,ROUND4_PROGRESSION,ROUND4_QUESTIONS} from './round4-extra.js';
 import {MODERN_PRO_QUESTIONS} from './modern-pro-questions.js';
 import {SCENE_DATA} from './scene-data.js';
@@ -165,7 +166,7 @@ ending:rows('ending',`
 最後の選択で居場所を失う|居場所の果て||rescue|45
 `)
 };
-export const EXTRA_DATA={...DATA,...Object.fromEntries(Object.entries(SCENE_DATA).map(([key,rows])=>[key,[...rows,...ABSTRACT_SCENE[key]]])),...Object.fromEntries(Object.entries(progression).map(([key,pool])=>[key,[...pool.map(item=>supplementDefinition(item,key)),...PACK_PROGRESSION[key]].map(supplementStory).concat(STORY_PROGRESS[key]||[],ROUND4_PROGRESSION[key]||[])])),...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,[...pool.map(item=>supplementDefinition(item,key)),...SHARED_PACK_CHARACTERS[key],...ROUND4_CHARACTERS[key],...(WORLD_EXPAND_CHARACTERS[key]||[]),...(AOZORA_CHARACTERS[key]||[])].map(supplementStory).map(item=>({...item,id:`${person}-${item.id}`}))])))};
+export const EXTRA_DATA={...DATA,...Object.fromEntries(Object.entries(SCENE_DATA).map(([key,rows])=>[key,[...rows,...ABSTRACT_SCENE[key]]])),...Object.fromEntries(Object.entries(progression).map(([key,pool])=>[key,[...pool.map(item=>supplementDefinition(item,key)),...PACK_PROGRESSION[key]].map(supplementStory).concat(STORY_PROGRESS[key]||[],ROUND4_PROGRESSION[key]||[])])),...Object.fromEntries(['protagonist','counterpart'].flatMap(person=>[['role',roles],['goal',goals],['secret',secrets]].map(([key,pool])=>[`${person}.${key}`,[...pool.map(item=>supplementDefinition(item,key)),...SHARED_PACK_CHARACTERS[key],...ROUND4_CHARACTERS[key],...(WORLD_EXPAND_CHARACTERS[key]||[]),...(AOZORA_CHARACTERS[key]||[]),...(SE_CHARACTERS[key]||[])].map(supplementStory).map(item=>({...item,id:`${person}-${item.id}`}))])))};
 const ORIGINAL_QUESTIONS={
  world:[
  'この世界で当たり前とされることは、どこから来たのだろう。',

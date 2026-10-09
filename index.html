@@ -179,14 +179,40 @@
   </dialog>
   <dialog id="pickSheet" class="sheet pick-sheet" aria-labelledby="pickTitle">
     <div class="sheet-frame">
-      <div class="sheet-head"><h2 id="pickTitle">10連で選ぶ</h2><button id="closePick" type="button" class="text-btn" data-close-sheet aria-label="選ばずに閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sheet-head"><h2 id="pickTitle">素材を選ぶ</h2><button id="closePick" type="button" class="text-btn" data-close-sheet aria-label="選ばずに閉じる"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       <div class="sheet-body">
-        <p class="note pick-lead">10個の候補から、気に入ったものを1つ選びます。選ばなかったものは残りません。</p>
-        <p id="pickShort" class="note notice" role="status" hidden></p>
-        <p id="pickEmpty" class="note notice" role="status" hidden>この条件では、ほかの候補が見つかりませんでした。舞台・トーン・テーマを変えると候補が増えます。</p>
-        <div id="pickList" class="pick-list" role="group" aria-labelledby="pickTitle"></div>
+        <div class="pick-current"><span class="pick-current-label">現在の素材</span><span id="pickCurrent" class="pick-current-text"></span><span id="pickCurrentLock" class="pick-lock-badge" hidden>固定中</span></div>
+        <p id="pickLockedNote" class="note notice pick-locked-note" hidden>現在は固定中です。採用すると、この項目だけを選び直します。</p>
+        <div class="pick-modes" role="group" aria-label="選び方"><button id="pickModeBrowse" type="button" class="pick-mode" aria-pressed="true">分類から選ぶ</button><button id="pickModeTen" type="button" class="pick-mode" aria-pressed="false">お任せ10候補</button></div>
+        <div id="browsePanel" class="browse-panel">
+          <fieldset class="browse-scope"><legend class="visually-hidden">対象範囲</legend>
+            <label class="scope-option"><input type="radio" name="browseScope" value="fit" checked>現在の条件に合う素材</label>
+            <label class="scope-option"><input type="radio" name="browseScope" value="all">条件外の素材も見る</label>
+          </fieldset>
+          <div class="browse-selects">
+            <label>大分類<select id="browseMajor"></select></label>
+            <label>小分類<select id="browseMinor"></select></label>
+          </div>
+          <p id="browsePath" class="browse-path" role="status" aria-live="polite"></p>
+          <label class="browse-search-label">さらに絞る（検索）<input id="browseSearch" type="search" autocomplete="off" enterkeyhint="search" placeholder="例：手紙、水路、先輩"></label>
+          <button id="browseGacha" type="button" class="secondary browse-gacha">この中からガチャ</button>
+          <div id="browseEmpty" class="browse-empty" role="status" hidden><p id="browseEmptyText"></p><div id="browseEmptyActions" class="inline-actions"></div></div>
+          <div id="browseList" class="browse-list" role="group" aria-label="素材の一覧"></div>
+          <button id="browseMore" type="button" class="text-btn browse-more" hidden>さらに表示</button>
+        </div>
+        <div id="tenPanel" class="ten-panel" hidden>
+          <p class="note pick-lead">今の設定で引ける候補を最大10個並べます。選ばなかったものは残りません。</p>
+          <p id="pickShort" class="note notice" role="status" hidden></p>
+          <p id="pickEmpty" class="note notice" role="status" hidden>この条件では、ほかの候補が見つかりませんでした。舞台・トーン・テーマを変えると候補が増えます。</p>
+          <div id="pickList" class="pick-list" role="group" aria-label="10個の候補"></div>
+        </div>
       </div>
-      <div class="sheet-foot pick-foot"><button id="pickMore" type="button" class="secondary">もう10個</button><button id="pickUse" type="button" class="primary" disabled>1つ選んでください</button></div>
+      <div class="sheet-foot pick-foot">
+        <p id="pickChosen" class="pick-chosen" role="status" aria-live="polite"></p>
+        <p id="pickMisfit" class="pick-misfit" hidden></p>
+        <label class="check-label pick-lock-check"><input id="pickLockAfter" type="checkbox" checked>採用した素材を固定する</label>
+        <div class="pick-foot-actions"><button id="pickMore" type="button" class="secondary" hidden>もう10個</button><button id="pickUse" type="button" class="primary" disabled>素材を選んでください</button></div>
+      </div>
     </div>
   </dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>

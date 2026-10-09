@@ -15,6 +15,7 @@ import {BackupStatus} from './backup.js';
 import {MODERN_PRESETS,presetDescription,tryModernPreset} from './presets.js';
 import {initShell,renderChips,openSheet,initPurposeChips,syncPurposeChips,focusPurposeChip} from './ui-shell.js';
 import {initPickSheet,openPick} from './pick-sheet.js';
+import {contextMismatches} from './browse.js';
 import {unlockAll,clearThemes,quickResetView,UNLOCK_NOTICE,CLEAR_THEMES_NOTICE} from './quick-reset.js';
 const $=id=>document.getElementById(id);
 const node=(tag,className='',text='')=>{const el=document.createElement(tag);el.className=className;el.textContent=text;return el;};
@@ -58,7 +59,8 @@ function makeField(key,label,container,optional){
   const result=commit(draft=>rollFields(draft,[key],{data:EXTRA_DATA,recent}),{output:true,randomize:true});
   if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定以外を引く」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
- const pick=optional?null:button('他から選ぶ',()=>openPick(key,label,{getState:()=>state,data:EXTRA_DATA,recent,from:pick}),'pick-btn');pick?.setAttribute('aria-label',`${label}を他の候補から選ぶ`);pick?.setAttribute('aria-haspopup','dialog');
+ // 固定中でも使える：固定は自動抽選から守るためのもので、作者が明示的に選び直すことは妨げない。
+ const pick=optional?null:button('素材から選ぶ',()=>openPick(key,label,{getState:()=>state,data:EXTRA_DATA,recent,from:pick}),'pick-btn');pick?.setAttribute('aria-label',`${label}を素材から選ぶ`);pick?.setAttribute('aria-haspopup','dialog');
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
  const contextInputs=[];
@@ -183,7 +185,7 @@ function render(){
  const world=state.items.world;
  const mismatch=state.locks.world&&state.settings.stage!=='all'&&(world?.source==='custom'||!world?.stageTags.includes(state.settings.stage));
  $('worldNotice').hidden=!mismatch;$('worldNotice').textContent='世界観は固定中。舞台設定は世界観を引き直すと反映します。';
- for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key],core=coreForField(item,key);if(c.exampleBody.textContent!==item?.text)c.example.open=false;c.value.textContent=core||item?.text||'未設定';c.example.hidden=!core;c.exampleBody.textContent=core?item.text:'';c.value.classList.toggle('seed-value',Boolean(core));c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;if(c.pick)c.pick.disabled=locked;
+ for(const [key,c] of cards){const item=state.items[key],locked=state.locks[key],core=coreForField(item,key);if(c.exampleBody.textContent!==item?.text)c.example.open=false;c.value.textContent=core||item?.text||'未設定';c.example.hidden=!core;c.exampleBody.textContent=core?item.text:'';c.value.classList.toggle('seed-value',Boolean(core));c.value.classList.toggle('empty',!item);c.source.hidden=!item||item.source!=='custom';c.source.textContent='自分で入力';c.card.dataset.locked=String(locked);c.lock.textContent=locked?'固定中 ✓':'固定';c.lock.setAttribute('aria-pressed',String(locked));c.roll.disabled=locked;
   const badges=[];
   const badge=BASIC.some(([k])=>k===key)?mixBadge(item,state.settings,worldContext(state)):'';if(badge)badges.push(node('span','mix-tag',badge));
   if(item?.source==='generated')for(const [id,label] of PACKS)if(item.themeTags.includes(id))badges.push(node('span','material-tag',label));
@@ -345,7 +347,29 @@ document.addEventListener('focusout',()=>{setTimeout(()=>{if(!document.activeEle
 function keepInputVisible(){const input=document.activeElement;if(input?.matches('textarea,input:not([type="checkbox"])'))requestAnimationFrame(()=>input.scrollIntoView({block:'center',behavior:'instant'}));}
 window.addEventListener('resize',keepInputVisible);window.visualViewport?.addEventListener('resize',keepInputVisible);
 initShell();
-initPickSheet((key,candidate)=>guard(()=>{const result=commit(draft=>{draft.items[key]=clone(candidate);},{output:true,randomize:true});recent[key]=[...(recent[key]||[]),candidate.candidateId].slice(-10);if(key==='world'&&result!==false)showToast('世界観を変えました。他の項目も合わせたいときは「固定以外を引く」を使えます。');}));
+// 素材から選ぶ：採用時だけ作品を変える。編集中の本文は黙って捨てない（確認してから差し替える）。
+initPickSheet(async(key,item,{lock,fits})=>{
+ if(composing){$('actionWarning').textContent='日本語の変換を確定してから操作してください。';$('actionWarning').hidden=false;return false;}
+ const c=cards.get(key),label=FIELDS.find(([k])=>k===key)[1];
+ if(c.isDirty()){
+  const choice=await decide('編集中の本文があります',`${label}の編集欄に、まだ反映していない本文があります。素材を使うと、この編集中の本文は破棄されます。`,[['use','編集中の本文を破棄して素材を使う'],['cancel','キャンセル']]);
+  if(choice!=='use')return false;
+ }
+ c.editor.hidden=true;c.edit.setAttribute('aria-expanded','false');
+ let done=false;
+ await guard(()=>{
+  const notes=[];
+  const result=commit(draft=>{draft.items[key]=clone(item);draft.locks[key]=lock;},{output:true,randomize:true});
+  done=true;recent[key]=[...(recent[key]||[]),item.candidateId].slice(-10);
+  if(key==='world'){
+   const mismatches=contextMismatches(state,state.items.world);
+   notes.push(mismatches.length?`世界観を変えました。新しい背景と合わない項目があります：${mismatches.map(m=>`${m.label}（必要な背景：${m.missing.join('・')}）`).join('、')}。引き直すか編集で合わせられます。`:'世界観を変えました。他の項目も合わせたいときは「固定以外を引く」を使えます。');
+  }else notes.push(`${label}を差し替えました。${lock?'固定しています。':''}`);
+  if(!fits)notes.push('条件外の素材です。舞台・トーン・世界の背景は変えていないので、必要なら設定や他の項目を合わせてください。');
+  if(result!==false)showToast(notes.join('\n'));
+ });
+ return done;
+});
 render();renderSaved();
 $('exportRaw').hidden=!repository.rawBackup;
 if(initial.warnings.length)storageWarning(initial.warnings.join('\n'));

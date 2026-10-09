@@ -59,15 +59,15 @@ module.exports=async({browser,base,out,check})=>{
   await p.locator('#workNotes').focus();assert.equal(await p.locator('.action-bar').evaluate(x=>getComputedStyle(x).position),'static');
   await p.locator('#workNotes').blur();await p.waitForTimeout(20);assert.equal(await p.locator('.action-bar').evaluate(x=>getComputedStyle(x).position),'sticky');
  }));
- await check('ui v2 cards offer only lock, redraw, pick and edit; lock disables redraw and pick',()=>fresh(async(p,read)=>{
+ await check('ui v2 cards offer only lock, redraw, pick and edit; lock disables redraw but keeps pick and edit',()=>fresh(async(p,read)=>{
   for(const key of ['world','genre','relation','incident','conflict','gimmick','twist']){
    const card=p.locator(`#basicFields [data-key="${key}"]`);
    const labels=await card.locator('button').evaluateAll(xs=>xs.filter(x=>x.checkVisibility()).map(x=>x.textContent.trim()));
-   assert.deepEqual(labels,['固定','引き直す','他から選ぶ','編集'],key);
+   assert.deepEqual(labels,['固定','引き直す','素材から選ぶ','編集'],key);
    assert.ok((await card.locator('.lock-toggle').boundingBox()).height>=44);
   }
   const card=p.locator('#basicFields [data-key="conflict"]'),roll=card.getByRole('button',{name:'葛藤を引き直す',exact:true}),lock=card.locator('.lock-toggle');
-  await lock.click();assert.equal(await lock.textContent(),'固定中 ✓');assert.equal(await lock.getAttribute('aria-pressed'),'true');assert.equal(await roll.isDisabled(),true);assert.equal(await card.locator('.pick-btn').isDisabled(),true);assert.equal((await read()).current.locks.conflict,true);
+  await lock.click();assert.equal(await lock.textContent(),'固定中 ✓');assert.equal(await lock.getAttribute('aria-pressed'),'true');assert.equal(await roll.isDisabled(),true);assert.equal(await card.locator('.pick-btn').isDisabled(),false);assert.equal(await card.locator('.edit-btn').isDisabled(),false);assert.equal((await read()).current.locks.conflict,true);
   const locked=(await read()).current.items.conflict;await p.locator('#rollAll').click();assert.deepEqual((await read()).current.items.conflict,locked);
   await lock.click();assert.equal(await lock.textContent(),'固定');assert.equal(await roll.isDisabled(),false);assert.equal(await card.locator('.pick-btn').isDisabled(),false);
   await roll.click();assert.notDeepEqual((await read()).current.items.conflict,locked);
@@ -96,32 +96,34 @@ module.exports=async({browser,base,out,check})=>{
   const before=(await read()).current,card=p.locator('#basicFields [data-key="conflict"]');
   for(const key of ['world','genre','relation','incident','conflict','gimmick','twist'])assert.equal(await p.locator(`#basicFields [data-key="${key}"] .pick-btn`).count(),1,key);
   assert.equal(await p.locator('#characterFields .pick-btn, #progressionFields .pick-btn, #sceneFields .pick-btn').count(),0,'optional fields have no pick button');
-  await card.locator('.pick-btn').click();
+  await card.locator('.pick-btn').click();await p.locator('#pickSheet[open]').waitFor();
   assert.equal(await p.evaluate(()=>document.getElementById('pickSheet').open),true);
-  assert.equal(await p.textContent('#pickTitle'),'葛藤を10連で選ぶ');
+  assert.equal(await p.textContent('#pickTitle'),'葛藤の素材を選ぶ');
+  assert.equal(await p.getAttribute('#pickModeBrowse','aria-pressed'),'true','browse mode is the default');
+  await p.locator('#pickModeTen').click();assert.equal(await p.locator('#tenPanel').isVisible(),true);
   const rows=p.locator('#pickList .pick-row');assert.equal(await rows.count(),10);
   const labels=await p.locator('#pickList .pick-text').allTextContents();assert.equal(new Set(labels).size,10);
   assert.ok(!labels.includes(await card.locator('.field-value').textContent()),'current value is listed');
-  assert.equal(await p.locator('#pickUse').isDisabled(),true);assert.equal(await p.textContent('#pickUse'),'1つ選んでください');
+  assert.equal(await p.locator('#pickUse').isDisabled(),true);assert.equal(await p.textContent('#pickUse'),'素材を選んでください');
   await p.screenshot({path:path.join(out,'ui-v2-pick-390.png')});
-  await rows.nth(3).click();assert.equal(await rows.nth(3).getAttribute('aria-pressed'),'true');assert.equal(await p.textContent('#pickUse'),'これを使う');
+  await rows.nth(3).click();assert.equal(await rows.nth(3).getAttribute('aria-pressed'),'true');assert.equal(await p.textContent('#pickUse'),'この素材を使う');
   await rows.nth(5).click();assert.equal(await rows.nth(3).getAttribute('aria-pressed'),'false');assert.equal(await rows.nth(5).getAttribute('aria-pressed'),'true');
   const chosen=labels[5];
   await p.locator('#pickUse').click();assert.equal(await p.evaluate(()=>document.getElementById('pickSheet').open),false);
   assert.equal(await card.locator('.field-value').textContent(),chosen);
   const after=(await read()).current;assert.notDeepEqual(after.items.conflict,before.items.conflict);assert.deepEqual({...after.items,conflict:null},{...before.items,conflict:null},'other fields changed');
-  assert.equal(after.locks.conflict,false);
+  assert.equal(after.locks.conflict,true,'the lock checkbox starts on');
   const {coreForField}=await import('../js/seed-core.js');const core=coreForField(after.items.conflict,'conflict');
   if(core){assert.equal(core,chosen);assert.equal(await card.locator('.seed-example').isHidden(),false);assert.equal(await card.locator('.example-body').textContent(),after.items.conflict.text);}
   else assert.equal(after.items.conflict.text,chosen);
   assert.notEqual(after.texts.summary,before.texts.summary,'summary is refreshed');
-  assert.equal(await p.evaluate(()=>document.activeElement.getAttribute('aria-label')),'葛藤を他の候補から選ぶ');
+  assert.equal(await p.evaluate(()=>document.activeElement.getAttribute('aria-label')),'葛藤を素材から選ぶ');
   await p.locator('#undo').click();assert.deepEqual((await read()).current,before);
   await p.locator('#redo').click();assert.deepEqual((await read()).current.items.conflict,after.items.conflict);
  }));
  await check('ui v2 pick ten: more replaces the list, closing without choosing changes nothing, world pick explains',()=>fresh(async(p,read)=>{
   const before=(await read()).current;
-  await p.locator('#basicFields [data-key="twist"] .pick-btn').click();
+  await p.locator('#basicFields [data-key="twist"] .pick-btn').click();await p.locator('#pickModeTen').click();
   const first=await p.locator('#pickList .pick-text').allTextContents();
   await p.locator('#pickList .pick-row').first().click();
   await p.locator('#pickMore').click();
@@ -131,8 +133,8 @@ module.exports=async({browser,base,out,check})=>{
   await p.keyboard.press('Escape');assert.deepEqual((await read()).current,before);
   await p.locator('#basicFields [data-key="twist"] .pick-btn').click();await p.locator('#closePick').click();
   assert.deepEqual((await read()).current,before);assert.equal(await p.locator('#undo').isDisabled(),true,'history gained a step');
-  await p.locator('#basicFields [data-key="world"] .pick-btn').click();await p.locator('#pickList .pick-row').nth(1).click();await p.locator('#pickUse').click();
-  assert.match(await p.textContent('#toast'),/世界観を変えました。.*「固定以外を引く」/);assert.equal(await p.evaluate(()=>document.getElementById('toast').checkVisibility()),true);
+  await p.locator('#basicFields [data-key="world"] .pick-btn').click();await p.locator('#pickModeTen').click();await p.locator('#pickList .pick-row').nth(1).click();await p.locator('#pickUse').click();
+  assert.match(await p.textContent('#toast'),/世界観を変えました。/);assert.equal(await p.evaluate(()=>document.getElementById('toast').checkVisibility()),true);
   assert.notDeepEqual((await read()).current.items.world,before.items.world);
   for(const width of [360,390,430]){await p.setViewportSize({width,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`overflow at ${width}`);
    for(const b of await p.locator('#basicFields [data-key="world"] .field-actions button').all()){const box=await b.boundingBox();assert.ok(box.height>=44&&box.width>=44,`small control at ${width}`);}}

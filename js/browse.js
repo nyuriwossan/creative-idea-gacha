@@ -10,6 +10,14 @@ import {BASIC,TONES,THEMES} from './data.js';
 import {coreForField} from './seed-core.js';
 
 export const PAGE_SIZE=20;
+const CHARACTER=/^(protagonist|counterpart)\./;
+// 分類表の引き当て：基本7項目はそのまま、補助項目は共通の表（主人公・相手役は役割・目的・秘密を共有）。
+export const browseGroup=key=>key.replace(CHARACTER,'');
+export function browseTable(key,{basicTaxonomy,basicMap,extraTaxonomy,extraMap}){
+ if(basicTaxonomy[key])return {taxonomy:basicTaxonomy[key],map:basicMap[key]};
+ const group=browseGroup(key),shared=extraMap[group]||{},person=CHARACTER.exec(key)?.[1];
+ return {taxonomy:extraTaxonomy[group]||[],map:person?Object.fromEntries(Object.entries(shared).map(([id,paths])=>[`${person}-${id}`,paths])):shared};
+}
 // 抽選時に state へ写さない、集計・出典用の内部属性（core.js / stage-mix.js の pick と同じ並び）。
 const INTERNAL_FIELDS=['id','origin','key','primaryPack','storyGroup','round4Group','primaryStage','stageFillBatch','modernProCategory','modernProBatch'];
 const copy=value=>JSON.parse(JSON.stringify(value));

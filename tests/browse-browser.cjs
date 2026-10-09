@@ -170,4 +170,28 @@ module.exports=async({browser,base,out,check})=>{
   await p.locator('#pickUse').focus();await p.keyboard.press('Enter');assert.equal(await sheetOpen(p),false);
   assert.equal(await p.evaluate(()=>document.activeElement.getAttribute('aria-label')),'葛藤を素材から選ぶ');
  }));
+
+ await check('browse: the 14 optional fields offer the same entry; an unset counterpart secret is chosen by branch and undoable',()=>fresh(async(p,read)=>{
+  await p.locator('#charactersDetails>summary').click();await p.locator('#progressionDetails>summary').click();await p.locator('#sceneDetails>summary').click();
+  for(const container of ['#characterFields','#progressionFields','#sceneFields'])for(const card of await p.locator(`${container} .field-card`).all()){
+   const labels=await card.locator('button').evaluateAll(xs=>xs.filter(x=>x.checkVisibility()).map(x=>x.textContent.trim()));
+   assert.deepEqual(labels,['固定','引き直す','素材から選ぶ','編集'],await card.getAttribute('data-key'));
+  }
+  const before=await read();assert.equal(before.items['counterpart.secret'],null);
+  await p.locator('[data-key="counterpart.secret"] .pick-btn').click();await p.locator('#pickSheet[open]').waitFor();await p.locator('#browseList .browse-row').first().waitFor();
+  assert.equal(await p.textContent('#pickTitle'),'相手役の秘密の素材を選ぶ');assert.equal(await p.textContent('#pickCurrent'),'未設定');
+  const majors=await p.locator('#browseMajor option').allTextContents();assert.ok(majors.some(t=>t.startsWith('記録・証拠（')),majors.join());
+  await p.selectOption('#browseMajor','record');await p.selectOption('#browseMinor','doc');
+  await p.locator('#browseList .browse-row').first().click();const id=await chosenId(p);assert.match(id,/^counterpart-secret-/);
+  assert.ok((await p.evaluate(async id=>{const m=await import('./js/browse-map-extra.js');return m.BROWSE_MAP_EXTRA.secret[id.replace('counterpart-','')];},id)).split('|').includes('record.doc'));
+  await p.click('#pickUse');const after=await read();
+  assert.equal(after.items['counterpart.secret'].candidateId,id);assert.equal(after.locks['counterpart.secret'],true);
+  assert.deepEqual({...after.items,'counterpart.secret':null},{...before.items,'counterpart.secret':null});
+  await p.click('#undo');assert.equal((await read()).items['counterpart.secret'],null);assert.equal((await read()).locks['counterpart.secret'],false);
+  // 入口の項目もお任せ10候補で選べる。
+  await p.locator('[data-key="scene.goal"] .pick-btn').click();await p.locator('#pickSheet[open]').waitFor();await p.locator('#pickModeTen').click();
+  assert.ok(await p.locator('#pickList .pick-row').count()>=1);await p.locator('#pickList .pick-row').first().click();await p.click('#pickUse');
+  assert.ok((await read()).items['scene.goal']);
+  await p.screenshot({path:path.join(out,'browse-optional-390.png')});
+ }));
 };

@@ -1,17 +1,18 @@
 // 「素材から選ぶ」シートの画面部分。分類と絞り込みの計算は browse.js、10候補は pick.js、
 // 採用（編集の保護・保存・履歴）は app.js に任せる。ここでの操作は採用するまで作品を変えない。
 import {candidatesFor,candidateLabel,PICK_COUNT} from './pick.js';
-import {PAGE_SIZE,catalog,fittingIds,filterRows,branchCounts,drawFrom,misfitReasons,rowTags,rowLabel,toStateItem,normalize} from './browse.js';
+import {PAGE_SIZE,browseTable,catalog,fittingIds,filterRows,branchCounts,drawFrom,misfitReasons,rowTags,rowLabel,toStateItem,normalize} from './browse.js';
 import {openSheet,closeSheet} from './ui-shell.js';
 
 const $=id=>document.getElementById(id);
 const el=(tag,className='',text='')=>{const node=document.createElement(tag);if(className)node.className=className;if(text)node.textContent=text;return node;};
-let session=null,adopt=null,taxonomyModule=null,mapModule=null;
+let session=null,adopt=null,tables=null;
 
 // 分類表は大きいので、初めてシートを開くときに読み込む。
 async function loadBrowse(){
- if(!taxonomyModule)[taxonomyModule,mapModule]=await Promise.all([import('./browse-taxonomy.js'),import('./browse-map-basic.js')]);
- return {taxonomy:taxonomyModule.BROWSE_TAXONOMY_BASIC,map:mapModule.BROWSE_MAP_BASIC};
+ if(!tables){const [a,b,c,d]=await Promise.all([import('./browse-taxonomy.js'),import('./browse-map-basic.js'),import('./browse-taxonomy-extra.js'),import('./browse-map-extra.js')]);
+  tables={basicTaxonomy:a.BROWSE_TAXONOMY_BASIC,basicMap:b.BROWSE_MAP_BASIC,extraTaxonomy:c.BROWSE_TAXONOMY_EXTRA,extraMap:d.BROWSE_MAP_EXTRA};}
+ return tables;
 }
 
 const fitSet=()=>session.scope==='fit'?session.fit:null;
@@ -145,9 +146,9 @@ function setMode(mode){
 }
 
 export async function openPick(key,label,{getState,data,recent,from}){
- const {taxonomy,map}=await loadBrowse();
+ const {taxonomy,map}=browseTable(key,await loadBrowse());
  const state=getState(),current=state.items[key];
- session={key,label,getState,data,recent,state,taxonomy:taxonomy[key],map:map[key],rows:catalog(key,state.settings,data),fit:fittingIds(state,key,data),
+ session={key,label,getState,data,recent,state,taxonomy,map,rows:catalog(key,state.settings,data),fit:fittingIds(state,key,data),
   currentId:current?.source==='generated'?current.candidateId:null,mode:'browse',scope:'fit',major:'all',minor:'all',query:'',shown:PAGE_SIZE,list:[],ten:null,chosen:null,notice:''};
  $('pickTitle').textContent=`${label}の素材を選ぶ`;
  $('pickCurrent').textContent=current?candidateLabel(current,key):'未設定';$('pickCurrent').classList.toggle('empty',!current);

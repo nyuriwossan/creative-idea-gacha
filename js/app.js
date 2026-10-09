@@ -60,7 +60,7 @@ function makeField(key,label,container,optional){
   if(key==='world'&&result?.changed&&!result.notices.length)showToast('世界観を引き直しました。他の項目も合わせたいときは「固定以外を引く」を使えます。');
  });roll.setAttribute('aria-label',`${label}を引き直す`);
  // 固定中でも使える：固定は自動抽選から守るためのもので、作者が明示的に選び直すことは妨げない。
- const pick=optional?null:button('素材から選ぶ',()=>openPick(key,label,{getState:()=>state,data:EXTRA_DATA,recent,from:pick}),'pick-btn');pick?.setAttribute('aria-label',`${label}を素材から選ぶ`);pick?.setAttribute('aria-haspopup','dialog');
+ const pick=button('素材から選ぶ',()=>openPick(key,label,{getState:()=>state,data:EXTRA_DATA,recent,from:pick}),'pick-btn');pick.setAttribute('aria-label',`${label}を素材から選ぶ`);pick.setAttribute('aria-haspopup','dialog');
  const lock=button('固定',()=>commit(draft=>{draft.locks[key]=!draft.locks[key];}));lock.setAttribute('aria-label',`${label}の固定を切り替える`);
  const editor=node('div','editor');editor.id=`editor-${safeKey}`;editor.hidden=true;
  const contextInputs=[];

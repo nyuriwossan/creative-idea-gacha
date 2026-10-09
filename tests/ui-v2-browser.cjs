@@ -95,7 +95,7 @@ module.exports=async({browser,base,out,check})=>{
  await check('ui v2 pick ten: choose a conflict, use it, the core and example follow, and undo restores',()=>fresh(async(p,read)=>{
   const before=(await read()).current,card=p.locator('#basicFields [data-key="conflict"]');
   for(const key of ['world','genre','relation','incident','conflict','gimmick','twist'])assert.equal(await p.locator(`#basicFields [data-key="${key}"] .pick-btn`).count(),1,key);
-  assert.equal(await p.locator('#characterFields .pick-btn, #progressionFields .pick-btn, #sceneFields .pick-btn').count(),0,'optional fields have no pick button');
+  assert.equal(await p.locator('#characterFields .pick-btn, #progressionFields .pick-btn, #sceneFields .pick-btn').count(),14,'every optional field offers 素材から選ぶ');
   await card.locator('.pick-btn').click();await p.locator('#pickSheet[open]').waitFor();
   assert.equal(await p.evaluate(()=>document.getElementById('pickSheet').open),true);
   assert.equal(await p.textContent('#pickTitle'),'葛藤の素材を選ぶ');
